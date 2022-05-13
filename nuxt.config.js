@@ -14,16 +14,19 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: ['~/assets/css/main.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['~/plugins/mixin'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [],
+  buildModules: [
+    '@nuxtjs/fontawesome',
+    '@nuxtjs/google-fonts'
+  ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -33,7 +36,8 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
-    '@nuxtjs/auth-next'
+    '@nuxtjs/auth-next',
+    "vue-toastification/nuxt",
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -78,6 +82,43 @@ export default {
           logout: {url: '/auth/token/revoke', method: 'post'}
         }
       }
+    },
+    redirect: {
+      login: '/auth',
+      logout: '/',
+      callback: '/auth',
+      home: '/'
     }
+  },
+  fontawesome: {
+    component:'fa',
+    icons: {
+      solid: true,
+      regular: true,
+      brands: true
+    }
+  },
+  googleFonts: {
+    families: {
+      Montserrat: true
+    }
+  },
+  router: {
+    middleware: ['auth']
+  },
+  toast: {
+    position: "bottom-right",
+    timeout: 5000,
+    closeOnClick: false,
+    pauseOnFocusLoss: true,
+    pauseOnHover: true,
+    draggable: false,
+    draggablePercent: 0.6,
+    showCloseButtonOnHover: false,
+    hideProgressBar: false,
+    closeButton: "button",
+    icon: true,
+    rtl: false,
+    transition: "Vue-Toastification__fade"
   }
 }
