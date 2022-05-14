@@ -104,7 +104,7 @@ export default {
     }
   },
   router: {
-    middleware: ['auth']
+    middleware: ['auth','authenticated']
   },
   toast: {
     position: "bottom-right",
