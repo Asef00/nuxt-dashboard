@@ -7,6 +7,9 @@
             Forget Password
           </div>
           <form class="p-4" @submit.prevent="forgetPassword">
+            <div class="text-normal mb-2">
+              Enter your Email below and we will send a message to reset your password
+            </div>
             <div :class="[hasError('email') ? 'invalid-input': '','form-field' ,'d-flex ','align-items-center']">
               <span class="icon"><fa :icon="['far', 'envelope']"/></span>
               <input @keyup="validate('email')" @blur="validate('email')" v-model="payload.email" type="email"
@@ -16,7 +19,7 @@
             <div class="invalid-message" v-if="hasError('email')">{{ errorMessage('email') }}</div>
             <button :disabled="loading" type="submit" class="btn mt-3 btn-login">
               <span v-if="loading"><b-spinner small></b-spinner></span>
-              <span v-else>SEND</span>
+              <span v-else>RESET MY PASSWORD</span>
             </button>
           </form>
         </div>
@@ -25,6 +28,10 @@
             Change Password
           </div>
           <form class="p-4" @submit.prevent="confirmForgetPassword">
+            <div class="text-normal mb-2">
+              We have sent a password reset code by email to <strong>{{ payload.email }}</strong>. Enter it below to
+              reset your password.
+            </div>
             <div :class="[hasError('code') ? 'invalid-input': '','form-field' ,'d-flex ','align-items-center']">
               <span class="icon"><fa :icon="['fas', 'lock']"/></span>
               <input @keyup="validate('code')" @blur="validate('code')"
@@ -33,9 +40,6 @@
                      placeholder="Code">
             </div>
             <div class="invalid-message" v-if="hasError('code')">{{ errorMessage('code') }}</div>
-            <div class="text-right fs-6">
-              <a href="!#" role="button" @click.prevent="resendForgetPassword">Resend code</a>
-            </div>
             <div :class="[hasError('password') ? 'invalid-input': '','form-field' ,'d-flex ','align-items-center']">
               <span class="icon"><fa :icon="['fas', 'unlock-keyhole']"/></span>
               <input @keyup="validate('password')" @blur="validate('password')"
@@ -59,8 +63,12 @@
 
             <button :disabled="loading" type="submit" class="btn mt-3 btn-login">
               <span v-if="loading"><b-spinner small></b-spinner></span>
-              <span v-else>SEND</span>
+              <span v-else>CHANGE PASSWORD</span>
             </button>
+            <div class="text-center pt-4 fs-6">
+              <span class="text-normal">Didn't receive a code?</span>
+              <a href="!#" role="button" @click.prevent="resendForgetPassword"> Resend it</a>
+            </div>
           </form>
         </div>
       </div>
@@ -106,7 +114,7 @@ export default {
             this.stopLoading()
           }
           if (res) {
-            this.$toast.success(`Send code to ${res.destination}`)
+            this.$toast.success(`Sending code to ${res.destination}`)
             this.stopLoading()
             this.resetResponse()
             this.show.forgetPassword = false;
@@ -131,7 +139,7 @@ export default {
         this.stopLoading()
       }
       if (res) {
-        this.$toast.success(`Send again code to ${res.destination}`)
+        this.$toast.success(`Sending again code to ${res.destination}`)
         this.stopLoading()
         this.resetResponse()
       }
@@ -196,7 +204,7 @@ export default {
     }
   },
   created() {
-    console.log(this.$router.currentRoute.fullPath)
+    this.resetError()
   }
 }
 </script>
