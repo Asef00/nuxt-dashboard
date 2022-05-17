@@ -27,5 +27,9 @@
     "vue-toastification": "^1.7.14",
     "webpack": "^4.46.0",
     "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "sass": "^1.51.0",
+    "sass-loader": "^10.2.1"
   }
 }

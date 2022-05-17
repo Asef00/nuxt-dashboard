@@ -209,6 +209,6 @@ export default {
 }
 </script>
 
-<style scoped src="~/assets/css/auth.css">
+<style scoped lang="scss" src="~/assets/scss/auth.scss">
 
 </style>
