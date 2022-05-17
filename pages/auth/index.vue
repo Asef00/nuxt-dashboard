@@ -30,10 +30,10 @@
             </button>
           </form>
           <div class="p-3">
-            <div class="text-center fs-6 mb-3">
+            <div v-if="false" class="text-center fs-6 mb-3">
               Not a member?<a href="#"> Sign UP now</a>
             </div>
-            <div class="mt-4 btn-social">
+            <div class="mt-4 btn-social" @click="continueWithGoogle">
               <a class="mb-3" href="#!" role="button">
                 <i class="g-plus">
                   <fa :icon="['fab', 'google-plus-g']"/>
@@ -87,6 +87,35 @@
             </button>
           </form>
         </div>
+        <div v-if="show.verificationCode" class="wrapper pb-3 pr-2 pl-2">
+          <div class="text-center member-login">
+            Verify Code
+          </div>
+
+          <form class="p-4" @submit.prevent="verificationCode">
+            <div class="text-normal mb-2">
+              We have sent a code by email to <strong>{{ payload.email }}</strong>. Enter it below to confirm your
+              account.
+            </div>
+            <div :class="[hasError('code') ? 'invalid-input': '','form-field' ,'d-flex ','align-items-center']">
+              <span class="icon"><fa :icon="['fas', 'lock']"/></span>
+              <input @keyup="validate('code')" @blur="validate('code')"
+                     v-model="payload.code"
+                     type="text" name="code"
+                     placeholder="Code">
+            </div>
+            <div class="invalid-message" v-if="hasError('code')">{{ errorMessage('code') }}</div>
+            <button :disabled="loading" type="submit" class="btn mt-3 btn-login">
+              <span v-if="loading"><b-spinner small></b-spinner></span>
+              <span v-else>CONFIRM ACCOUNT</span>
+            </button>
+
+            <div class="text-center pt-4 fs-6">
+              <span class="text-normal">Didn't receive a code?</span>
+              <a href="!#" role="button" @click.prevent="resendVerificationCode"> Resend it</a>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -102,7 +131,8 @@ export default {
     return {
       show: {
         singIn: true,
-        changePassword: false
+        changePassword: false,
+        verificationCode: false
       },
       payload: {
         email: '',
@@ -112,11 +142,7 @@ export default {
         grant_type: 'username',
         session: '',
         challenge_name: '',
-      },
-      errors: {
-        email: '',
-        password: '',
-        password_confirmation: '',
+        code: '',
       },
     }
   },
@@ -148,12 +174,53 @@ export default {
             this.$toast.error(this.getErrorMessage(err));
             this.payload.password = ''
             this.stopLoading()
+            if (err.response.data.error === 'UserNotConfirmedException') {
+              this.resendVerificationCode()
+              this.show.singIn = false
+              this.show.verificationCode = true
+            }
           })
         })
         .catch(err => {
           this.setAllErrorValidation(err)
           this.stopLoading()
         });
+    },
+    tokenWithCode() {
+      let code = this.$route.query.code
+      if (code) {
+        this.validation({code: Yup.string().uuid()}).validate({code: code}, {abortEarly: false})
+          .then(() => {
+            this.resetError()
+            this.startLoading()
+            let payload = {
+              code: `${code}`,
+              grant_type: 'code'
+            }
+            setTimeout(() => {
+              this.$auth.loginWith('local', {
+                data: payload
+              }).then(res => {
+                this.stopLoading()
+              }).catch(err => {
+                if (err.response.data.error) {
+                  this.$toast.error(this.getErrorMessage(err))
+                } else {
+                  this.$toast.error('An error occurred.Please try again');
+                }
+                this.stopLoading()
+              })
+            }, 1000)
+          })
+          .catch(err => {
+            this.stopLoading()
+          });
+      }
+    },
+    continueWithGoogle() {
+      this.startLoading()
+      let url = "https://realtyna.auth.us-east-1.amazoncognito.com/oauth2/authorize?identity_provider=Google&redirect_uri=http://localhost:3000/&response_type=CODE&client_id=1397vrlg8fap3him44fsafk5pd&scope=aws.cognito.signin.user.admin email openid phone profile"
+      window.location.replace(url)
     },
     challengePassword() {
       this.startLoading()
@@ -176,7 +243,47 @@ export default {
           this.stopLoading()
         });
     },
-    validation() {
+    verificationCode() {
+      this.startLoading()
+      this.validation().validate(this.payload, {abortEarly: false})
+        .then(async () => {
+          this.resetError()
+          await this.$store.dispatch('me/confirmSingUp', {
+            username: this.payload.email,
+            code: this.payload.code
+          })
+          let err = this.$store.state.me.error
+          if (err) {
+            this.payload.code = ''
+            this.$toast.error(this.getErrorMessage(err))
+          } else {
+            this.show.verificationCode = false
+            this.show.singIn = true
+          }
+          this.stopLoading()
+        })
+        .catch(err => {
+          this.setAllErrorValidation(err)
+          this.stopLoading()
+        });
+    },
+    async resendVerificationCode() {
+      this.startLoading()
+      this.resetError()
+      await this.$store.dispatch('me/resendConfirmationCode', {username: this.payload.email})
+      let err = this.$store.state.me.error
+      let res = this.$store.state.me.response
+      if (err) {
+        this.$toast.error(this.getErrorMessage(err))
+        this.stopLoading()
+      }
+      if (res) {
+        this.$toast.success(`Sending code to ${res.destination}`)
+        this.stopLoading()
+        this.resetResponse()
+      }
+    },
+    validation(roles = {}) {
       let changePasswordRoles = {
         password: Yup.string().required(),
         password_confirmation: Yup.string().oneOf([Yup.ref('password'), null], 'password must match').required('password confirmation is a required field')
@@ -185,21 +292,37 @@ export default {
         email: Yup.string().required().email(),
         password: Yup.string().required()
       }
-      if (this.show.singIn) {
-        return Yup.object(signInRoles);
+      let verificationCodeRoles = {
+        code: Yup.string().required(),
       }
-      if (this.show.changePassword) {
+      if (Object.keys(roles).length !== 0) {
+        return Yup.object(roles);
+      } else if (this.show.singIn) {
+        return Yup.object(signInRoles);
+      } else if (this.show.changePassword) {
         return Yup.object(changePasswordRoles);
+      } else if (this.show.verificationCode) {
+        return Yup.object(verificationCodeRoles);
+      } else {
+        return Yup.object(roles)
       }
     },
     resetError() {
       this.$store.commit('me/RESET_ERROR')
       this.errors = {
         email: '',
+        code: '',
         password: '',
         password_confirmation: '',
       }
+    },
+    resetResponse() {
+      this.$store.commit('me/RESET_RESPONSE')
     }
+  },
+  created() {
+    this.resetError()
+    this.tokenWithCode()
   }
 }
 </script>

@@ -53,6 +53,11 @@ body {
   border-radius: 3px;
 }
 
+
+.wrapper .btn-social:hover {
+  cursor: pointer;
+}
+
 .wrapper .btn-social i {
   float: left;
   border-right: 1px solid #e3e3e3;
@@ -111,4 +116,7 @@ body {
 
 .alert {
   font-size: 13px !important;
+}
+.text-normal{
+  font-size: 13px;
 }

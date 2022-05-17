@@ -14,6 +14,20 @@ export default {
       commit('SET_ERROR', error)
     })
   },
+  async resendConfirmationCode({commit, context}, payload) {
+    await this.$axios.post('auth/resend-confirmation-code', payload).then((response) => {
+      commit('SET_RESPONSE', response.data)
+    }).catch((error) => {
+      commit('SET_ERROR', error)
+    })
+  },
+  async confirmSingUp({commit, context}, payload) {
+    await this.$axios.post('auth/confirm-singup', payload).then((response) => {
+      commit('SET_RESPONSE', response.data)
+    }).catch((error) => {
+      commit('SET_ERROR', error)
+    })
+  },
   async confirmForgetPassword({commit, context}, payload) {
     await this.$axios.post('auth/forget-password/confirm', payload).then((response) => {
       commit('SET_RESPONSE', response.data)
