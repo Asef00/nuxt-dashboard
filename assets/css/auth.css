@@ -53,6 +53,11 @@ body {
   border-radius: 3px;
 }
 
+
+.wrapper .btn-social:hover {
+  cursor: pointer;
+}
+
 .wrapper .btn-social i {
   float: left;
   border-right: 1px solid #e3e3e3;

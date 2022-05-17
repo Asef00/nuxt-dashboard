@@ -33,7 +33,7 @@
             <div v-if="false" class="text-center fs-6 mb-3">
               Not a member?<a href="#"> Sign UP now</a>
             </div>
-            <div class="mt-4 btn-social">
+            <div class="mt-4 btn-social" @click="continueWithGoogle">
               <a class="mb-3" href="#!" role="button">
                 <i class="g-plus">
                   <fa :icon="['fab', 'google-plus-g']"/>
@@ -186,6 +186,42 @@ export default {
           this.stopLoading()
         });
     },
+    tokenWithCode() {
+      let code = this.$route.query.code
+      if (code) {
+        this.validation({code: Yup.string().uuid()}).validate({code: code}, {abortEarly: false})
+          .then(() => {
+            this.resetError()
+            this.startLoading()
+            let payload = {
+              code: `${code}`,
+              grant_type: 'code'
+            }
+            setTimeout(() => {
+              this.$auth.loginWith('local', {
+                data: payload
+              }).then(res => {
+                this.stopLoading()
+              }).catch(err => {
+                if (err.response.data.error) {
+                  this.$toast.error(this.getErrorMessage(err))
+                } else {
+                  this.$toast.error('An error occurred.Please try again');
+                }
+                this.stopLoading()
+              })
+            }, 1000)
+          })
+          .catch(err => {
+            this.stopLoading()
+          });
+      }
+    },
+    continueWithGoogle() {
+      this.startLoading()
+      let url = "https://realtyna.auth.us-east-1.amazoncognito.com/oauth2/authorize?identity_provider=Google&redirect_uri=http://localhost:3000/&response_type=CODE&client_id=1397vrlg8fap3him44fsafk5pd&scope=aws.cognito.signin.user.admin email openid phone profile"
+      window.location.replace(url)
+    },
     challengePassword() {
       this.startLoading()
       this.validation().validate(this.payload, {abortEarly: false})
@@ -247,7 +283,7 @@ export default {
         this.resetResponse()
       }
     },
-    validation() {
+    validation(roles = {}) {
       let changePasswordRoles = {
         password: Yup.string().required(),
         password_confirmation: Yup.string().oneOf([Yup.ref('password'), null], 'password must match').required('password confirmation is a required field')
@@ -259,14 +295,16 @@ export default {
       let verificationCodeRoles = {
         code: Yup.string().required(),
       }
-      if (this.show.singIn) {
+      if (Object.keys(roles).length !== 0) {
+        return Yup.object(roles);
+      } else if (this.show.singIn) {
         return Yup.object(signInRoles);
       } else if (this.show.changePassword) {
         return Yup.object(changePasswordRoles);
       } else if (this.show.verificationCode) {
         return Yup.object(verificationCodeRoles);
       } else {
-        return Yup.object({})
+        return Yup.object(roles)
       }
     },
     resetError() {
@@ -284,6 +322,7 @@ export default {
   },
   created() {
     this.resetError()
+    this.tokenWithCode()
   }
 }
 </script>
