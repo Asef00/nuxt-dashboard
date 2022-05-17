@@ -197,20 +197,18 @@ export default {
               code: `${code}`,
               grant_type: 'code'
             }
-            setTimeout(() => {
-              this.$auth.loginWith('local', {
-                data: payload
-              }).then(res => {
-                this.stopLoading()
-              }).catch(err => {
-                if (err.response.data.error) {
-                  this.$toast.error(this.getErrorMessage(err))
-                } else {
-                  this.$toast.error('An error occurred.Please try again');
-                }
-                this.stopLoading()
-              })
-            }, 1000)
+            this.$auth.loginWith('local', {
+              data: payload
+            }).then(res => {
+              this.stopLoading()
+            }).catch(err => {
+              if (err.response.data.error) {
+                this.$toast.error(this.getErrorMessage(err))
+              } else {
+                this.$toast.error('An error occurred.Please try again');
+              }
+              this.stopLoading()
+            })
           })
           .catch(err => {
             this.stopLoading()
@@ -322,6 +320,8 @@ export default {
   },
   created() {
     this.resetError()
+  },
+  mounted() {
     this.tokenWithCode()
   }
 }
