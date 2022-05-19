@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import FooterPartial from '../components/partials/FooterPartial.vue';
+import FooterPartial from "../components/partials/FooterPartial.vue";
 import HeaderPartial from "../components/partials/HeaderPartial.vue";
 import SidenavPartial from "../components/partials/SidenavPartial.vue";
 export default {
@@ -23,6 +23,9 @@ export default {
     HeaderPartial,
     SidenavPartial,
     FooterPartial,
+  },
+  head: {
+    script: [{ src: "/main.js" }],
   },
 };
 </script>
