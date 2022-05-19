@@ -1,11 +1,12 @@
 <template>
-  <HeaderPartial />
+  <div></div>
 </template>
 
 <script>
-import HeaderPartial from "../components/partials/HeaderPartial.vue";
+// import HeaderPartial from "../components/partials/HeaderPartial.vue";
 export default {
-  components: { HeaderPartial },
+  // components: { HeaderPartial },
+  layout: "default"
 };
 </script>
 
