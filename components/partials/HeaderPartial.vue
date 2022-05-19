@@ -76,7 +76,7 @@
         </svg>
 
         <div class="c-navbar__avatar">
-          <img src="images/top.jpg" width="34" height="34" alt="avatar" />
+          <img src="~/assets/images/top.jpg" width="34" height="34" alt="avatar" />
         </div>
       </div>
     </div>
@@ -105,4 +105,6 @@ export default {
 
 <style scoped lang="scss">
 @import "~/assets/scss/partials/_header.scss";
+@import "~/assets/scss/components/_navbar.scss";
+@import "~/assets/scss/components/_breadcrumb.scss";
 </style>
