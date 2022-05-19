@@ -1,0 +1,29 @@
+.c-navbar {
+  display: flex;
+  align-items: center;
+  gap: 1.56em;
+}
+
+.c-navbar__search {
+  display: none;
+  
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  @include mq(lg) {
+    background: rgba(0, 0, 0, 0.2);
+    border: solid 1px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    color: #fff;
+    padding: 7px 20px;
+    @include font-size(14px);
+    margin-right: 1.78em;
+    width: 30em;
+  }
+}
+
+.c-navbar__avatar {
+  border-radius: 100%;
+  overflow: hidden;
+}

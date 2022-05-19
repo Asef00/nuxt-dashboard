@@ -1,0 +1,9 @@
+.c-logo {
+    @include flex-center;
+    @include font-size(32px);
+    padding: 0.4em 0;
+
+    span:first-child {
+        color: $primary-color;
+    }
+}
