@@ -1,12 +1,13 @@
 <template>
-  <div></div>
+  <CardComponent />
 </template>
 
 <script>
-// import HeaderPartial from "../components/partials/HeaderPartial.vue";
+import CardComponent from "../components/CardComponent.vue";
+
 export default {
-  // components: { HeaderPartial },
-  layout: "default"
+  layout: "default",
+  CardComponent,
 };
 </script>
 
