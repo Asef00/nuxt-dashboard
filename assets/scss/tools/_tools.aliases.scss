@@ -37,7 +37,7 @@ $global-line-height: 24px;
   @if ($important == true) {
     $important: !important;
   }
-  @elseif ($important == false) {
+  @else if ($important == false) {
     $important: null;
   } @else {
     @error "`#{$important}` needs to be `true` or `false`.";
@@ -63,7 +63,7 @@ $global-line-height: 24px;
       line-height: $line-height $important;
     }
 
-    @elseif ($line-height != 'none' and $line-height != false) {
+    @else if ($line-height != 'none' and $line-height != false) {
       @error "D’oh! `#{$line-height}` is not a valid value for `$line-height`.";
     }
   }
