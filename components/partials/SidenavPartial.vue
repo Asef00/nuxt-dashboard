@@ -5,9 +5,9 @@
         <span>ID</span>
         <span>X</span>
       </div>
-      <span class="c-sidenav__close js-menu-close"
-        ><i class="fa-solid fa-xmark"></i
-      ></span>
+      <span class="c-sidenav__close js-menu-close">
+        <fa icon="xmark" />
+      </span>
     </li>
     <li class="c-sidenav__item">
       <input type="text" class="c-sidenav__search" placeholder="Search ..." />
