@@ -143,6 +143,4 @@ export default {
 
 <style scoped lang="scss">
 @import "~/assets/scss/partials/_sidenav.scss";
-// @import "~/assets/scss/components/_navbar.scss";
-// @import "~/assets/scss/components/_breadcrumb.scss";
 </style>
