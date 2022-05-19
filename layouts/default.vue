@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid p-0">
-    <div class="row g-0">
+    <div class="row no-gutters">
       <aside class="col-auto">
         <SidenavPartial />
       </aside>
