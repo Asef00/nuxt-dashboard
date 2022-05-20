@@ -1,0 +1,29 @@
+@use 'sass:math';
+
+// SETTINGS
+@import "settings/_settings.config";
+@import "../../node_modules/inuitcss/settings/settings.core";
+@import "settings/settings.global";
+@import "settings/mq";
+@import "settings/fonts";
+
+// TOOLS
+@import "../../node_modules/inuitcss/tools/tools.font-size";
+@import "../../node_modules/inuitcss/tools/tools.clearfix";
+@import "../../node_modules/sass-mq/mq";
+@import "tools/tools.aliases";
+
+// GENERIC
+@import "../../node_modules/inuitcss/generic/generic.box-sizing";
+@import "../../node_modules/inuitcss/generic/generic.normalize";
+@import "../../node_modules/inuitcss/generic/generic.shared";
+@import "../../node_modules/inuitcss/generic/generic.shared";
+
+// ELEMENTS
+@import "../../node_modules/inuitcss/elements/elements.page";
+@import "../../node_modules/inuitcss/elements/elements.headings";
+@import "../../node_modules/inuitcss/elements/elements.images";
+@import "../../node_modules/inuitcss/elements/elements.tables";
+
+@import "elements/ie";
+@import "elements/defaults";

@@ -1,0 +1,70 @@
+@use "sass:math";
+
+$global-font-size: 16px;
+$global-line-height: 24px;
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-start {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+@mixin box-shadow {
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+}
+
+@mixin font-size($font-size, $line-height: auto, $important: false) {
+  @if (type-of($font-size) == number) {
+    @if (unit($font-size) != "px") {
+      @error "`#{$font-size}` needs to be a pixel value.";
+    }
+  } @else {
+    @error "`#{$font-size}` needs to be a number.";
+  }
+
+  @if ($important == true) {
+    $important: !important;
+  }
+  @else if ($important == false) {
+    $important: null;
+  } @else {
+    @error "`#{$important}` needs to be `true` or `false`.";
+  }
+
+  // We provide a `px` fallback for old IEs not supporting `rem` values.
+  font-size: $font-size $important;
+  font-size: math.div($font-size, $global-font-size) * 1rem $important;
+
+  @if ($line-height == "auto") {
+    line-height: ceil(math.div($font-size, $global-line-height)) *
+      math.div($global-line-height, $font-size)
+      $important;
+  } @else {
+    @if (
+      type-of($line-height) ==
+        number or
+        $line-height ==
+        "inherit" or
+        $line-height ==
+        "normal"
+    ) {
+      line-height: $line-height $important;
+    }
+
+    @else if ($line-height != 'none' and $line-height != false) {
+      @error "D’oh! `#{$line-height}` is not a valid value for `$line-height`.";
+    }
+  }
+}
