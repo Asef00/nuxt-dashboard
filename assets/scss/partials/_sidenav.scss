@@ -18,6 +18,7 @@
   }
 
   @include mq(lg) {
+    box-shadow: 0 0 2rem 0 rgba(136, 152, 170, 0.15);
     width: 130px;
     left: 0;
   }
@@ -52,10 +53,10 @@
   border-top: 1px solid #f0f1f4;
   color: $text-color;
   @include font-size(14px);
-  transition: .2s;
+  transition: 0.2s;
 
   &:hover {
-    transition: .2s;
+    transition: 0.2s;
     background-color: #0001;
   }
 

@@ -1,13 +1,20 @@
 <template>
   <div class="o-wrapper">
+    
     <nav class="o-wrapper__side">
       <SidenavPartial />
     </nav>
+
     <div class="o-wrapper__center">
       <HeaderPartial />
-      <Nuxt />
+
+      <main class="o-wrapper__main">
+        <Nuxt />
+      </main>
+
       <FooterPartial />
     </div>
+
   </div>
 </template>
 
