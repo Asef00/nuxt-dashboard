@@ -7,15 +7,14 @@
             Member Login
           </div>
           <form class="p-4" @submit.prevent="signIn">
-            <VInput v-model="payload.email" key-validation="email" label="Email" type="email" :icon="['far', 'envelope']"></VInput>
-            <VInput v-model="payload.password" key-validation="password" type="password" label="Password" :icon="['fas', 'unlock-keyhole']"></VInput>
+            <VInput v-model="payload.email" key-validation="email" label="Email" type="email"
+                    :icon="['far', 'envelope']"/>
+            <VInput v-model="payload.password" key-validation="password" type="password" label="Password"
+                    :icon="['fas', 'unlock-keyhole']"/>
             <div class="text-right fs-6">
               <NuxtLink to="/auth/forget-password">Forget password?</NuxtLink>
             </div>
-            <button :disabled="loading" type="submit" class="btn mt-3 btn-login">
-              <span v-if="loading"><b-spinner small></b-spinner></span>
-              <span v-else>LOGIN</span>
-            </button>
+            <VButton label="LOGIN"/>
           </form>
           <div class="p-3">
             <div v-if="false" class="text-center fs-6 mb-3">
@@ -48,12 +47,11 @@
             Change Password
           </div>
           <form class="p-4" @submit.prevent="challengePassword">
-            <VInput v-model="payload.password" key-validation="password" label="Password" type="password" :icon="['fas', 'unlock-keyhole']"></VInput>
-            <VInput v-model="payload.password_confirmation" key-validation="password_confirmation" label="Password Confirmation" type="password" :icon="['fas', 'unlock-keyhole']"></VInput>
-            <button :disabled="loading" type="submit" class="btn mt-3 btn-login">
-              <span v-if="loading"><b-spinner small></b-spinner></span>
-              <span v-else>SEND</span>
-            </button>
+            <VInput v-model="payload.password" key-validation="password" label="Password" type="password"
+                    :icon="['fas', 'unlock-keyhole']"></VInput>
+            <VInput v-model="payload.password_confirmation" key-validation="password_confirmation"
+                    label="Password Confirmation" type="password" :icon="['fas', 'unlock-keyhole']"></VInput>
+            <VButton label="SEND"/>
           </form>
         </div>
         <div v-if="show.verificationCode" class="wrapper pb-3 pr-2 pl-2">
@@ -67,10 +65,7 @@
               account.
             </div>
             <VInput v-model="payload.code" key-validation="code" label="Code" :icon="['fas', 'lock']"></VInput>
-            <button :disabled="loading" type="submit" class="btn mt-3 btn-login">
-              <span v-if="loading"><b-spinner small></b-spinner></span>
-              <span v-else>CONFIRM ACCOUNT</span>
-            </button>
+            <VButton label="CONFIRM ACCOUNT"/>
             <div class="text-center pt-4 fs-6">
               <span class="text-normal">Didn't receive a code?</span>
               <a href="!#" role="button" @click.prevent="resendVerificationCode"> Resend it</a>
@@ -85,10 +80,11 @@
 <script>
 import * as Yup from "yup";
 import VInput from "@/components/auth/VInput";
+import VButton from "@/components/auth/VButton";
 
 export default {
   name: "AuthIndex",
-  components: {VInput},
+  components: {VInput, VButton},
   layout: "auth",
   data() {
     return {
