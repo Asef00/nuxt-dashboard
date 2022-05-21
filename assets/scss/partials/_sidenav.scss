@@ -18,7 +18,7 @@
   }
 
   @include mq(lg) {
-    box-shadow: 0 0 2rem 0 rgba(136, 152, 170, 0.15);
+    box-shadow: 0 0 2rem 0 rgba(136, 152, 170, 0.15) !important; //to overcome is-open
     width: 130px;
     left: 0;
   }
@@ -54,6 +54,8 @@
   color: $text-color;
   @include font-size(14px);
   transition: 0.2s;
+  position: relative;
+  z-index: 1;
 
   &:hover {
     transition: 0.2s;

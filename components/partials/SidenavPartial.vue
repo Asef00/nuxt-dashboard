@@ -1,5 +1,5 @@
 <template>
-  <ul class="c-sidenav js-sidenav">
+  <ul class="c-sidenav js-sidenav" role="presentation">
     <li class="c-sidenav__header">
       <div class="c-logo">
         <span>ID</span>
@@ -12,7 +12,7 @@
     <li class="c-sidenav__item">
       <input type="text" class="c-sidenav__search" placeholder="Search ..." />
     </li>
-    <li class="c-sidenav__item">
+    <li class="c-sidenav__item c-dropdown js-dropdown">
       <a href="#" class="c-sidenav__link">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -41,8 +41,13 @@
 
         <span>Dashboard</span>
       </a>
+      <div class="c-dropdown__menu">
+        <a class="c-dropdown__item">Overview</a>
+        <a class="c-dropdown__item">Tools</a>
+        <a class="c-dropdown__item">Staff</a>
+      </div>
     </li>
-    <li class="c-sidenav__item">
+    <li class="c-sidenav__item c-dropdown js-dropdown">
       <a href="#" class="c-sidenav__link">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -59,8 +64,13 @@
 
         <span>Alerts</span>
       </a>
+      <div class="c-dropdown__menu">
+        <a class="c-dropdown__item">Overview</a>
+        <a class="c-dropdown__item">Tools</a>
+        <a class="c-dropdown__item">Staff</a>
+      </div>
     </li>
-    <li class="c-sidenav__item">
+    <li class="c-sidenav__item c-dropdown js-dropdown">
       <a href="#" class="c-sidenav__link">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -77,8 +87,13 @@
 
         <span>Active Requests</span>
       </a>
+      <div class="c-dropdown__menu">
+        <a class="c-dropdown__item">Overview</a>
+        <a class="c-dropdown__item">Tools</a>
+        <a class="c-dropdown__item">Staff</a>
+      </div>
     </li>
-    <li class="c-sidenav__item">
+    <li class="c-sidenav__item c-dropdown js-dropdown">
       <a href="#" class="c-sidenav__link">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -95,8 +110,13 @@
 
         <span>Clients</span>
       </a>
+      <div class="c-dropdown__menu">
+        <a class="c-dropdown__item">Overview</a>
+        <a class="c-dropdown__item">Tools</a>
+        <a class="c-dropdown__item">Staff</a>
+      </div>
     </li>
-    <li class="c-sidenav__item">
+    <li class="c-sidenav__item c-dropdown js-dropdown">
       <a href="#" class="c-sidenav__link">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -113,8 +133,13 @@
 
         <span>Logs</span>
       </a>
+      <div class="c-dropdown__menu">
+        <a class="c-dropdown__item">Overview</a>
+        <a class="c-dropdown__item">Tools</a>
+        <a class="c-dropdown__item">Staff</a>
+      </div>
     </li>
-    <li class="c-sidenav__item">
+    <li class="c-sidenav__item c-dropdown js-dropdown">
       <a href="#" class="c-sidenav__link">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -131,6 +156,11 @@
 
         <span>Settings</span>
       </a>
+      <div class="c-dropdown__menu">
+        <a class="c-dropdown__item">Overview</a>
+        <a class="c-dropdown__item">Tools</a>
+        <a class="c-dropdown__item">Staff</a>
+      </div>
     </li>
   </ul>
 </template>
@@ -142,6 +172,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "~/assets/scss/partials/_sidenav.scss";
-@import "~/assets/scss/components/_logo.scss";
+@import "~/assets/scss/partials/sidenav";
+@import "~/assets/scss/components/logo";
+@import "~/assets/scss/components/dropdown";
 </style>
