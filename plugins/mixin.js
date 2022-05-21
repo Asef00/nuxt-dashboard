@@ -17,6 +17,9 @@ var mixin = {
       this.loading = false
     },
     validate(field) {
+      if (!field){
+        return false;
+      }
       this.validation().validateAt(field, this.payload)
         .then(() => {
           this.errors[field] = "";
@@ -32,6 +35,9 @@ var mixin = {
       }
     },
     hasError(field) {
+      if (!field){
+        return false;
+      }
       if (field in this.errors) {
         return this.errors[field] !== '';
       }

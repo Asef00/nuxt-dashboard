@@ -42,6 +42,7 @@ body {
 
 .wrapper .btn-login {
   background-color: #564ec1;
+  border: 1px solid #564ec1;
   border-radius: 3px;
   font-size: 14px;
 }
@@ -101,6 +102,7 @@ body {
   font-weight: 600;
   color: #2e2e33;
   padding-top: 34px;
+  text-align: center !important;
 }
 
 .invalid-input {
