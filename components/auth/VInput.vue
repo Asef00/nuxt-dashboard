@@ -26,7 +26,7 @@ export default {
     },
     keyValidation: String,
     icon: {
-      type: Object,
+      type: [Object,Array],
       required: true
     },
     label: {

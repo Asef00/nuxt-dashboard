@@ -3,24 +3,12 @@
     <div class="row justify-content-center">
       <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
         <div v-if="show.singIn" class="wrapper pb-3 pr-2 pl-2">
-          <div class="text-center member-login">
+          <div class="member-login">
             Member Login
           </div>
           <form class="p-4" @submit.prevent="signIn">
-            <div :class="[hasError('email') ? 'invalid-input': '','form-field' ,'d-flex ','align-items-center']">
-              <span class="icon"><fa :icon="['far', 'envelope']"/></span>
-              <input @keyup="validate('email')" @blur="validate('email')" v-model="payload.email" type="email"
-                     name="email"
-                     placeholder="Email">
-            </div>
-            <div class="invalid-message" v-if="hasError('email')">{{ errorMessage('email') }}</div>
-            <div :class="[hasError('password') ? 'invalid-input': '','form-field' ,'d-flex ','align-items-center']">
-              <span class="icon"><fa :icon="['fas', 'unlock-keyhole']"/></span>
-              <input @keyup="validate('password')" @blur="validate('password')" v-model="payload.password"
-                     type="password" name="password"
-                     placeholder="Password">
-            </div>
-            <div class="invalid-message" v-if="hasError('password')">{{ errorMessage('password') }}</div>
+            <VInput v-model="payload.email" key-validation="email" label="Email" type="email" :icon="['far', 'envelope']"></VInput>
+            <VInput v-model="payload.password" key-validation="password" type="password" label="Password" :icon="['fas', 'unlock-keyhole']"></VInput>
             <div class="text-right fs-6">
               <NuxtLink to="/auth/forget-password">Forget password?</NuxtLink>
             </div>
@@ -56,31 +44,12 @@
           </div>
         </div>
         <div v-if="show.changePassword" class="wrapper pb-3 pr-2 pl-2">
-          <div class="text-center member-login">
+          <div class="member-login">
             Change Password
           </div>
           <form class="p-4" @submit.prevent="challengePassword">
-            <div :class="[hasError('password') ? 'invalid-input': '','form-field' ,'d-flex ','align-items-center']">
-              <span class="icon"><fa :icon="['fas', 'unlock-keyhole']"/></span>
-              <input @keyup="validate('password')" @blur="validate('password')"
-                     v-model="payload.password"
-                     type="password" name="password"
-                     placeholder="Password">
-            </div>
-            <div class="invalid-message" v-if="hasError('password')">{{ errorMessage('password') }}</div>
-
-            <div
-              :class="[hasError('password_confirmation') ? 'invalid-input': '','form-field' ,'d-flex ','align-items-center']">
-              <span class="icon"><fa :icon="['fas', 'unlock-keyhole']"/></span>
-              <input @keyup="validate('password_confirmation')" @blur="validate('password_confirmation')"
-                     v-model="payload.password_confirmation"
-                     type="password" name="password_confirmation"
-                     placeholder="Password Confirmation">
-            </div>
-            <div class="invalid-message" v-if="hasError('password_confirmation')">
-              {{ errorMessage('password_confirmation') }}
-            </div>
-
+            <VInput v-model="payload.password" key-validation="password" label="Password" type="password" :icon="['fas', 'unlock-keyhole']"></VInput>
+            <VInput v-model="payload.password_confirmation" key-validation="password_confirmation" label="Password Confirmation" type="password" :icon="['fas', 'unlock-keyhole']"></VInput>
             <button :disabled="loading" type="submit" class="btn mt-3 btn-login">
               <span v-if="loading"><b-spinner small></b-spinner></span>
               <span v-else>SEND</span>
@@ -88,7 +57,7 @@
           </form>
         </div>
         <div v-if="show.verificationCode" class="wrapper pb-3 pr-2 pl-2">
-          <div class="text-center member-login">
+          <div class="member-login">
             Verify Code
           </div>
 
@@ -97,19 +66,11 @@
               We have sent a code by email to <strong>{{ payload.email }}</strong>. Enter it below to confirm your
               account.
             </div>
-            <div :class="[hasError('code') ? 'invalid-input': '','form-field' ,'d-flex ','align-items-center']">
-              <span class="icon"><fa :icon="['fas', 'lock']"/></span>
-              <input @keyup="validate('code')" @blur="validate('code')"
-                     v-model="payload.code"
-                     type="text" name="code"
-                     placeholder="Code">
-            </div>
-            <div class="invalid-message" v-if="hasError('code')">{{ errorMessage('code') }}</div>
+            <VInput v-model="payload.code" key-validation="code" label="Code" :icon="['fas', 'lock']"></VInput>
             <button :disabled="loading" type="submit" class="btn mt-3 btn-login">
               <span v-if="loading"><b-spinner small></b-spinner></span>
               <span v-else>CONFIRM ACCOUNT</span>
             </button>
-
             <div class="text-center pt-4 fs-6">
               <span class="text-normal">Didn't receive a code?</span>
               <a href="!#" role="button" @click.prevent="resendVerificationCode"> Resend it</a>
@@ -123,9 +84,11 @@
 
 <script>
 import * as Yup from "yup";
+import VInput from "@/components/auth/VInput";
 
 export default {
   name: "AuthIndex",
+  components: {VInput},
   layout: "auth",
   data() {
     return {
