@@ -1,15 +1,13 @@
 <template>
-  <div class="container-fluid p-0">
-    <div class="row no-gutters">
-      <aside class="col-auto">
-        <SidenavPartial />
-      </aside>
-      <div class="col">
-        <HeaderPartial />
-        <Nuxt />
-      </div>
+  <div class="o-wrapper">
+    <nav class="o-wrapper__side">
+      <SidenavPartial />
+    </nav>
+    <div class="o-wrapper__center">
+      <HeaderPartial />
+      <Nuxt />
+      <FooterPartial />
     </div>
-    <FooterPartial />
   </div>
 </template>
 

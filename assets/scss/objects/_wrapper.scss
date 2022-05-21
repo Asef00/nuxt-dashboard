@@ -1,0 +1,12 @@
+.o-wrapper {
+  //   display: flex;
+}
+
+.o-wrapper__side {
+}
+
+.o-wrapper__center {
+  @include mq(lg) {
+    margin-left: 130px;
+  }
+}
