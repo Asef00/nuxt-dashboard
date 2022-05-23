@@ -35,20 +35,6 @@
 
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="18.001"
-          height="17.998"
-          viewBox="0 0 18.001 17.998"
-        >
-          <path
-            data-name="Union 2"
-            d="M-9292 329v-6.665h1.667v3.831l5.25-5.249 1.25 1.166-5.25 5.252h3.75V329zm10-11.082 5.251-5.252h-3.918V311h6.667v6.667h-1.668v-3.752l-5.168 5.168z"
-            transform="translate(9292 -311)"
-            style="fill: #fff"
-          />
-        </svg>
-
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
           width="16.084"
           height="20"
           viewBox="0 0 16.084 20"
