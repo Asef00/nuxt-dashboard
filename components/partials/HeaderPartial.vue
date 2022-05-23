@@ -75,8 +75,25 @@
           />
         </svg>
 
-        <div class="c-navbar__avatar">
-          <img src="~/assets/images/top.jpg" width="34" height="34" alt="avatar" />
+        <div class="c-dropdown" data-dropdown>
+          <button class="c-navbar__avatar c-dropdown__btn" data-dropdown-btn>
+            <img
+              src="~/assets/images/top.jpg"
+              width="34"
+              height="34"
+              alt="avatar"
+            />
+          </button>
+          <div class="c-dropdown__menu c-dropdown__menu--bl">
+            <header class="c-dropdown__header">Welcome!</header>
+
+            <a href="#" class="c-dropdown__item">My Profile</a>
+            <a href="#" class="c-dropdown__item">Settings</a>
+            <a href="#" class="c-dropdown__item">Activity</a>
+            <a href="#" class="c-dropdown__item">Support</a>
+            <span class="c-dropdown__divider"></span>
+            <a href="#" class="c-dropdown__item">Logout</a>
+          </div>
         </div>
       </div>
     </div>
@@ -104,7 +121,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "~/assets/scss/partials/_header.scss";
-@import "~/assets/scss/components/_navbar.scss";
-@import "~/assets/scss/components/_breadcrumb.scss";
+@import "~/assets/scss/partials/header";
+@import "~/assets/scss/components/navbar";
+@import "~/assets/scss/components/breadcrumb";
+@import "~/assets/scss/components/dropdown";
 </style>

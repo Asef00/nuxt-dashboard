@@ -12,8 +12,8 @@
     <li class="c-sidenav__item">
       <input type="text" class="c-sidenav__search" placeholder="Search ..." />
     </li>
-    <li class="c-sidenav__item c-dropdown js-dropdown">
-      <a href="#" class="c-sidenav__link">
+    <li class="c-sidenav__item c-dropdown" data-dropdown>
+      <button class="c-sidenav__link c-dropdown__btn" data-dropdown-btn>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="20"
@@ -40,15 +40,16 @@
         </svg>
 
         <span>Dashboard</span>
-      </a>
-      <div class="c-dropdown__menu">
+      </button>
+      <div class="c-dropdown__menu c-dropdown__menu--right">
         <a class="c-dropdown__item">Overview</a>
         <a class="c-dropdown__item">Tools</a>
         <a class="c-dropdown__item">Staff</a>
+        <div id="arrow" data-popper-arrow></div>
       </div>
     </li>
-    <li class="c-sidenav__item c-dropdown js-dropdown">
-      <a href="#" class="c-sidenav__link">
+    <li class="c-sidenav__item c-dropdown" data-dropdown>
+      <button class="c-sidenav__link c-dropdown__btn" data-dropdown-btn>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="22"
@@ -63,15 +64,16 @@
         </svg>
 
         <span>Alerts</span>
-      </a>
-      <div class="c-dropdown__menu">
+      </button>
+      <div class="c-dropdown__menu c-dropdown__menu--right">
         <a class="c-dropdown__item">Overview</a>
         <a class="c-dropdown__item">Tools</a>
         <a class="c-dropdown__item">Staff</a>
+        <div id="arrow" data-popper-arrow></div>
       </div>
     </li>
-    <li class="c-sidenav__item c-dropdown js-dropdown">
-      <a href="#" class="c-sidenav__link">
+    <li class="c-sidenav__item c-dropdown" data-dropdown>
+      <button class="c-sidenav__link c-dropdown__btn" data-dropdown-btn>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="18"
@@ -86,15 +88,16 @@
         </svg>
 
         <span>Active Requests</span>
-      </a>
-      <div class="c-dropdown__menu">
+      </button>
+      <div class="c-dropdown__menu c-dropdown__menu--right">
         <a class="c-dropdown__item">Overview</a>
         <a class="c-dropdown__item">Tools</a>
         <a class="c-dropdown__item">Staff</a>
+        <div id="arrow" data-popper-arrow></div>
       </div>
     </li>
-    <li class="c-sidenav__item c-dropdown js-dropdown">
-      <a href="#" class="c-sidenav__link">
+    <li class="c-sidenav__item c-dropdown" data-dropdown>
+      <button class="c-sidenav__link c-dropdown__btn" data-dropdown-btn>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -109,15 +112,16 @@
         </svg>
 
         <span>Clients</span>
-      </a>
-      <div class="c-dropdown__menu">
+      </button>
+      <div class="c-dropdown__menu c-dropdown__menu--right">
         <a class="c-dropdown__item">Overview</a>
         <a class="c-dropdown__item">Tools</a>
         <a class="c-dropdown__item">Staff</a>
+        <div id="arrow" data-popper-arrow></div>
       </div>
     </li>
-    <li class="c-sidenav__item c-dropdown js-dropdown">
-      <a href="#" class="c-sidenav__link">
+    <li class="c-sidenav__item c-dropdown" data-dropdown>
+      <button class="c-sidenav__link c-dropdown__btn" data-dropdown-btn>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="22"
@@ -132,15 +136,16 @@
         </svg>
 
         <span>Logs</span>
-      </a>
-      <div class="c-dropdown__menu">
+      </button>
+      <div class="c-dropdown__menu c-dropdown__menu--right">
         <a class="c-dropdown__item">Overview</a>
         <a class="c-dropdown__item">Tools</a>
         <a class="c-dropdown__item">Staff</a>
+        <div id="arrow" data-popper-arrow></div>
       </div>
     </li>
-    <li class="c-sidenav__item c-dropdown js-dropdown">
-      <a href="#" class="c-sidenav__link">
+    <li class="c-sidenav__item c-dropdown" data-dropdown>
+      <button class="c-sidenav__link c-dropdown__btn" data-dropdown-btn>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="22"
@@ -155,11 +160,12 @@
         </svg>
 
         <span>Settings</span>
-      </a>
-      <div class="c-dropdown__menu">
+      </button>
+      <div class="c-dropdown__menu c-dropdown__menu--right">
         <a class="c-dropdown__item">Overview</a>
         <a class="c-dropdown__item">Tools</a>
         <a class="c-dropdown__item">Staff</a>
+        <div id="arrow" data-popper-arrow></div>
       </div>
     </li>
   </ul>

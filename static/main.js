@@ -15,14 +15,5 @@
       sidenav.classList.remove("is-open");
     };
 
-    // handle dropdown on mobile
-    let dropdowns = document.getElementsByClassName("js-dropdown");
-    for (var i = 0; i < dropdowns.length; i++) {
-      dropdowns[i].addEventListener("click", function () {
-        this.classList.toggle("is-open");
-        // if (this.style.height != "0px") this.style.height = "0";
-        // else this.style.height = "";
-      });
-    }
   });
 })();

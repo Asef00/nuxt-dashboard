@@ -1,6 +1,5 @@
 <template>
   <div class="o-wrapper">
-    
     <nav class="o-wrapper__side">
       <SidenavPartial />
     </nav>
@@ -14,7 +13,6 @@
 
       <FooterPartial />
     </div>
-
   </div>
 </template>
 
@@ -30,7 +28,10 @@ export default {
     FooterPartial,
   },
   head: {
-    script: [{ src: "/main.js" }],
+    script: [
+      { src: "/main.js" },
+      { src: "/dropdown.js" },
+    ],
   },
 };
 </script>
