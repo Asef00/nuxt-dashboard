@@ -1,9 +1,13 @@
 .c-footer {
-  @include box-shadow;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 4em;   //relative to main content
+
+  // @include box-shadow;
   background-color: #fff;
   padding: 1.15em 0;
   @include flex-center;
-  position: relative; //to overlay footer and visible box-shadow
 }
 
 .c-footer__copyright {

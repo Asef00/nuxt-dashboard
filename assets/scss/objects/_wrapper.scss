@@ -1,0 +1,18 @@
+.o-wrapper {
+}
+
+.o-wrapper__side {
+}
+
+.o-wrapper__center {
+  position: relative;
+  min-height: 100vh;
+
+  @include mq(lg) {
+    margin-left: 130px;
+  }
+}
+
+.o-wrapper__main {
+    padding-bottom: 4em;    /* Footer height */
+}

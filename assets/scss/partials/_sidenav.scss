@@ -1,6 +1,6 @@
 .c-sidenav {
-  width: 100%;
-  height: 100%;
+  width: 65%;
+  height: 100vh;
   padding: 0;
   margin: 0;
   background-color: #fff;
@@ -14,11 +14,24 @@
     right: unset;
     left: 0;
     transition: 0.4s;
-    // box-shadow: 0 0 0 60em #0005;
+    box-shadow: 0 0 0 60em #0005;
   }
 
   @include mq(lg) {
+    box-shadow: 0 0 2rem 0 rgba(136, 152, 170, 0.15) !important; //to overcome is-open
+    width: 130px;
+    left: 0;
+  }
+
+  .c-dropdown__menu {
+    max-height: 0;
+    transition: 0.3s;
     position: static;
+
+    @include mq(lg) {
+      position: absolute;
+      max-height: unset;
+    }
   }
 }
 
@@ -51,10 +64,12 @@
   border-top: 1px solid #f0f1f4;
   color: $text-color;
   @include font-size(14px);
-  transition: .2s;
+  transition: 0.2s;
+  position: relative;
+  z-index: 1;
 
-  &:hover {
-    transition: .2s;
+  &:hover,
+  &:focus {
     background-color: #0001;
   }
 
