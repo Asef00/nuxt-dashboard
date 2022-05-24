@@ -24,6 +24,7 @@
   padding: 0.5em 1em;
   @include font-size(14px);
   color: $text-color;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
   &--area {
     resize: none;
@@ -36,5 +37,13 @@
 
   &::placeholder {
     color: #92969a;
+  }
+
+  &:focus {
+    color: #212529;
+    background-color: #fff;
+    border-color: $primary-color;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(86 78 193 / 25%);
   }
 }
