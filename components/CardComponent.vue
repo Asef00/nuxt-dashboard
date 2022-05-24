@@ -13,6 +13,7 @@
       <form action="" class="c-form">
         <h4 class="c-form__title">Sync Accounts</h4>
         <MultiselectComponent />
+        <TextInputComponent />
       </form>
     </div>
   </div>
@@ -20,11 +21,13 @@
 
 <script>
 import MultiselectComponent from "./form/MultiselectComponent.vue";
+import TextInputComponent from './form/TextInputComponent.vue';
 
 export default {
-  components: { MultiselectComponent },
+  components: { MultiselectComponent, TextInputComponent },
   name: "FooterPartial",
 };
+
 </script>
 
 <style scoped lang="scss">
@@ -38,11 +41,24 @@ export default {
   font-weight: 600;
 }
 
+.c-form__control {
+  margin-bottom: 1em;
+}
+
 .c-form__label {
   @include font-size(14px);
   font-weight: 500;
   color: $text-color;
   margin-bottom: 0.5em;
   display: block;
+}
+
+.c-form__input {
+    height: 40px;
+    border: solid 1px #e1e0ea;
+    border-radius: 3px;
+    padding: 0 1em;
+    @include font-size(14px);
+    color: $text-color;
 }
 </style>
