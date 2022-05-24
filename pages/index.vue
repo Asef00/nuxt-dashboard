@@ -8,25 +8,34 @@
         <multiselect
           v-model="value"
           :options="options"
+          :select-label="'Selected'"
+          :deselect-label="'Hit to remove'"
           placeholder="Select Option"
         >
         </multiselect>
       </div>
 
       <div class="row">
-        <div class="col">
+        <div class="col-md-6">
           <div class="c-form__control">
             <label class="c-form__label">Sample Label</label>
             <input class="c-form__input" type="text" placeholder="Enter..."/>
           </div>
         </div>
-        <div class="col">
+        <div class="col-md-6">
           <div class="c-form__control">
             <label class="c-form__label">Sample Label</label>
             <input class="c-form__input" type="text" placeholder="Disabled" disabled/>
           </div>
         </div>
-        <div class="col-12">
+        <div class="col-md-6">
+          <div class="c-form__control">
+            <label class="c-form__label">Sample Label</label>
+            <input class="c-form__input is-invalid" type="text" placeholder="Enter..." value="jaguar@bla.com" />
+            <span class="c-form__error">Please provide a valid Email</span>
+          </div>
+        </div>
+        <div class="col-md-6">
           <div class="c-form__control">
             <label class="c-form__label">Sample Label</label>
             <textarea class="c-form__input c-form__input--area" placeholder="Please Add Note..." rows="3"></textarea>
@@ -61,7 +70,7 @@ export default {
   data() {
     return {
       value: null,
-      options: ["list", "of", "options"],
+      options: ["list", "of", "options", "bla"],
     };
   },
   created() {
@@ -75,7 +84,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-@import "~/assets/scss/components/form";
-</style>

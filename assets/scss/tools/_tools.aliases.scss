@@ -3,6 +3,8 @@
 $global-font-size: 16px;
 $global-line-height: 24px;
 
+
+// Flex
 @mixin flex-center {
   display: flex;
   align-items: center;
@@ -21,8 +23,18 @@ $global-line-height: 24px;
   justify-content: flex-start;
 }
 
+
+// Utility
 @mixin box-shadow {
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+}
+
+@mixin input-focus {
+  color: #212529;
+  background-color: #fff;
+  border-color: $primary-color;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgb(86 78 193 / 25%);
 }
 
 @mixin font-size($font-size, $line-height: auto, $important: false) {
