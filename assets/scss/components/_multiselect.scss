@@ -7,6 +7,15 @@ $text-color: #212529;
   .multiselect--active > & {
     @include input-focus;
   }
+
+  .multiselect.is-invalid & {
+    border-color: $danger-color;
+  }
+  
+  .multiselect--active > & {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+  }
 }
 
 .multiselect__input,
