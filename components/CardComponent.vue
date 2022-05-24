@@ -1,9 +1,10 @@
 <template>
   <div class="c-card">
     <div class="c-card__header">
-      <h2 class="c-card__title">Add Client Form</h2>
+      <h2 class="c-card__title">{{ title }}</h2>
     </div>
     <div class="c-card__body">
+      <slot/>
       <p>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste incidunt
         quae delectus necessitatibus? Dolorem similique dolore laborum sint a
@@ -58,6 +59,7 @@
 
         <button class="c-btn c-btn--block">Add Note</button>
       </form>
+      >>>>>>> develop
     </div>
   </div>
 </template>
@@ -68,16 +70,21 @@ import Multiselect from "vue-multiselect";
 export default {
   components: { Multiselect },
   name: "FooterPartial",
+  props: {
+  title: String
+},
+  methods: {},
   data() {
-    return {
-      value: null,
-      options: ["list", "of", "options"],
-    };
-  },
+  return {
+    value: null,
+    options: ["list", "of", "options"],
+  };
+},
 };
 </script>
 
 <style scoped lang="scss">
+
 @import "~/assets/scss/components/card";
 @import "~/assets/scss/components/form";
 </style>
