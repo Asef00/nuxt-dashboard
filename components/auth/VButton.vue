@@ -1,7 +1,7 @@
 <template>
   <div>
-    <button @click="$emit('actionClick')" :disabled="$parent.loading" :type="type" class="btn mt-3 btn-login">
-      <span v-if="$parent.loading"><LoaderDots></LoaderDots></span>
+    <button @click="$emit('actionClick')" :disabled="$parent.loaderRequest" :type="type" class="btn mt-3 btn-login">
+      <span v-if="$parent.loaderRequest"><LoaderDots></LoaderDots></span>
       <span v-else>{{ label }}</span>
     </button>
   </div>
