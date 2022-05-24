@@ -17,7 +17,7 @@ var mixin = {
       this.loading = false
     },
     validate(field) {
-      if (!field){
+      if (!field) {
         return false;
       }
       this.validation().validateAt(field, this.payload)
@@ -35,7 +35,7 @@ var mixin = {
       }
     },
     hasError(field) {
-      if (!field){
+      if (!field) {
         return false;
       }
       if (field in this.errors) {
@@ -50,6 +50,19 @@ var mixin = {
     },
     getErrorMessage(error) {
       return error.response.data.message
+    },
+    setTitle(name) {
+      this.$store.commit('SET_PAGE_HEADER_TITLE', name)
+    },
+    setBreadcrumb(links) {
+      this.$store.commit('SET_PAGE_HEADER_BREADCRUMB', links)
+    },
+    can(name){
+      if (this.$auth.loggedIn){
+        let permissions = this.$auth.user.permission_names;
+        return permissions.includes(name)
+      }
+      return false;
     }
   }
 }
