@@ -1,0 +1,26 @@
+.c-form__title {
+  font-size: 14px;
+  color: $primary-color;
+  font-weight: 600;
+}
+
+.c-form__control {
+  margin-bottom: 1em;
+}
+
+.c-form__label {
+  @include font-size(14px);
+  font-weight: 500;
+  color: $text-color;
+  margin-bottom: 0.5em;
+  display: block;
+}
+
+.c-form__input {
+  height: 40px;
+  border: solid 1px #e1e0ea;
+  border-radius: 3px;
+  padding: 0 1em;
+  @include font-size(14px);
+  color: $text-color;
+}

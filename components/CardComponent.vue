@@ -12,53 +12,54 @@
       </p>
       <form action="" class="c-form">
         <h4 class="c-form__title">Sync Accounts</h4>
-        <MultiselectComponent />
-        <TextInputComponent />
+        <div class="c-form__control">
+          <label class="c-form__label">Single select</label>
+          <multiselect
+            v-model="value"
+            :options="options"
+            placeholder="Select Option"
+          >
+          </multiselect>
+        </div>
+
+        <div class="c-form__control">
+          <label class="c-form__label">Sample Label</label>
+          <input class="c-form__input" type="text" placeholder="Enter..." />
+        </div>
+
+        <button class="c-btn">Save</button>
+        <button class="c-btn c-btn--primary">
+          <fa icon="plus" />
+          Add Client
+        </button>
+        <button class="c-btn c-btn--outline">
+          <fa icon="chevron-left" />
+          Prev Step
+        </button>
+        <button class="c-btn c-btn--block">
+          Add Note
+        </button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
-import MultiselectComponent from "./form/MultiselectComponent.vue";
-import TextInputComponent from './form/TextInputComponent.vue';
+import Multiselect from "vue-multiselect";
 
 export default {
-  components: { MultiselectComponent, TextInputComponent },
+  components: { Multiselect },
   name: "FooterPartial",
+  data() {
+    return {
+      value: null,
+      options: ["list", "of", "options"],
+    };
+  },
 };
-
 </script>
 
 <style scoped lang="scss">
-@import "~/assets/scss/components/_card.scss";
-</style>
-
-<style lang="scss">
-.c-form__title {
-  font-size: 14px;
-  color: $primary-color;
-  font-weight: 600;
-}
-
-.c-form__control {
-  margin-bottom: 1em;
-}
-
-.c-form__label {
-  @include font-size(14px);
-  font-weight: 500;
-  color: $text-color;
-  margin-bottom: 0.5em;
-  display: block;
-}
-
-.c-form__input {
-    height: 40px;
-    border: solid 1px #e1e0ea;
-    border-radius: 3px;
-    padding: 0 1em;
-    @include font-size(14px);
-    color: $text-color;
-}
+@import "~/assets/scss/components/card";
+@import "~/assets/scss/components/form";
 </style>
