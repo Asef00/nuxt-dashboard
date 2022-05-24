@@ -1,0 +1,39 @@
+$text-color: #212529;
+
+.multiselect__tags {
+  border: $input-border;
+  padding-top: 5px;
+
+  .multiselect--active > & {
+    @include input-focus;
+  }
+}
+
+.multiselect__input,
+.multiselect__single {
+  @include font-size(14px);
+  padding: 0;
+}
+
+.multiselect__option {
+  &::after {
+    display: none;
+  }
+
+  &.multiselect__option--selected::after {
+    display: inline;
+    background-color: transparent;
+    color: $placeholder-color;
+    font-style: italic;
+  }
+}
+
+.multiselect__option--highlight {
+  background-color: #9991;
+  color: $text-color;
+
+  &.multiselect__option--selected {
+    background: darken($hover-color, 100%);
+    color: $text-color;
+  }
+}

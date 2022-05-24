@@ -8,6 +8,8 @@
         <multiselect
           v-model="value"
           :options="options"
+          :select-label="'Selected'"
+          :deselect-label="'Hit to remove'"
           placeholder="Select Option"
         >
         </multiselect>
@@ -68,7 +70,7 @@ export default {
   data() {
     return {
       value: null,
-      options: ["list", "of", "options"],
+      options: ["list", "of", "options", "bla"],
     };
   },
   created() {
@@ -82,7 +84,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-@import "~/assets/scss/components/form";
-</style>

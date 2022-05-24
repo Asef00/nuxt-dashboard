@@ -19,7 +19,7 @@
 .c-form__input {
   width: 100%;
   height: 40px;
-  border: solid 1px #e1e0ea;
+  border: $input-border;
   border-radius: 3px;
   padding: 0.5em 1em;
   @include font-size(14px);
@@ -44,15 +44,11 @@
   }
 
   &::placeholder {
-    color: #92969a;
+    color: $placeholder-color;
   }
 
   &:focus {
-    color: #212529;
-    background-color: #fff;
-    border-color: $primary-color;
-    outline: 0;
-    box-shadow: 0 0 0 0.25rem rgb(86 78 193 / 25%);
+    @include input-focus;
   }
 }
 
