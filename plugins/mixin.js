@@ -6,15 +6,15 @@ var mixin = {
       payload: [],
       errors: [],
       message: '',
-      loading: false,
+      loaderRequest: false,
     }
   },
   methods: {
     startLoading() {
-      this.loading = true
+      this.loaderRequest = true
     },
     stopLoading() {
-      this.loading = false
+      this.loaderRequest = false
     },
     validate(field) {
       if (!field) {
@@ -57,8 +57,8 @@ var mixin = {
     setBreadcrumb(links) {
       this.$store.commit('SET_PAGE_HEADER_BREADCRUMB', links)
     },
-    can(name){
-      if (this.$auth.loggedIn){
+    can(name) {
+      if (this.$auth.loggedIn) {
         let permissions = this.$auth.user.permission_names;
         return permissions.includes(name)
       }
