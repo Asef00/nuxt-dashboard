@@ -13,7 +13,10 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   // css: ["~assets/scss/main.scss"],
-  css: ['./node_modules/bootstrap/scss/bootstrap-grid.scss'],
+  css: [
+    "bootstrap/scss/bootstrap-grid.scss",
+    "vue-multiselect/dist/vue-multiselect.min.css",
+  ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ["~/plugins/mixin"],
@@ -42,8 +45,7 @@ export default {
 
   styleResources: {
     scss: [
-      './assets/scss/app.scss',
-      // './node_modules/bootstrap/scss/bootstrap-grid.scss',
+      "./assets/scss/app.scss",
     ],
     hoistUseStatements: true,
   },

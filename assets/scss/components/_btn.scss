@@ -1,0 +1,30 @@
+.c-btn {
+  min-width: 9em;
+  height: 40px;
+  border: 0;
+  border-radius: 5px;
+  transition: box-shadow 0.2s;
+  @include font-size(14px);
+  margin-right: 1em;
+  margin-bottom: 1em;
+
+  // &:hover {
+  //   @include box-shadow;
+  // }
+
+  &--primary {
+    background-color: $primary-color;
+    color: #fff;
+  }
+
+  &--outline {
+    background-color: #fff;
+    color: $primary-color;
+    outline: 1px solid $primary-color;
+  }
+
+  &--block {
+    display: block;
+    width: 100%;
+  }
+}
