@@ -6,10 +6,11 @@
     <div class="c-card__body">
       <form action="" class="c-form">
         <h4 class="c-form__title">Sync Accounts</h4>
-        <VSelect :multiple="true" placeholder="Please select tag"  v-model="payload.tag" :list="options" key-validation="tag" label="Tags"/>
+        <VSelect :multiple="false" placeholder="Please select tag" v-model="payload.tag" :list="options"
+                 key-validation="tag" label="Tags"/>
         <div class="row">
           <div class="col-md-6">
-            <VInput  label="Name" v-model="payload.name" keyValidation="name" placeholder="Name enter"/>
+            <VInput label="Name" v-model="payload.name" keyValidation="name" placeholder="Name enter"/>
           </div>
           <div class="col-md-6">
             <div class="c-form__control">
@@ -25,19 +26,18 @@
           </div>
         </div>
 
-        <button class="c-btn">Save</button>
-
-        <button class="c-btn c-btn--primary">
+        <VBtn @action="startLoading" btn="simple" type="button">SAVE</VBtn>
+        <VBtn @action="startLoading" type="button">
           <fa icon="plus"/>
           Add Client
-        </button>
-
-        <button class="c-btn c-btn--outline">
+        </VBtn>
+        <VBtn @action="startLoading" btn="outline" type="button">
           <fa icon="chevron-left"/>
           Prev Step
-        </button>
-
-        <button type="button" @click="validation" class="c-btn c-btn--block">Add Note</button>
+        </VBtn>
+        <VBtn @action="startLoading" btn="block" type="button">
+          Add Note
+        </VBtn>
       </form>
     </div>
   </div>
@@ -45,6 +45,7 @@
 
 <script>
 import * as Yup from "yup";
+
 export default {
   data() {
     return {
