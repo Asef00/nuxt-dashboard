@@ -46,17 +46,30 @@
           </div>
         </div>
 
-        <button class="c-btn">Save</button>
-
-        <button class="c-btn c-btn--primary">
-          <fa icon="plus" />
-          Add Client
-        </button>
-
-        <button class="c-btn c-btn--outline">
-          <fa icon="chevron-left" />
-          Prev Step
-        </button>
+        <div class="row">
+          <div class="col-12">
+            <button class="c-btn" disabled>Save</button>
+            <button class="c-btn c-btn--primary" disabled>
+              <fa icon="plus" />
+              Add Client
+            </button>
+            <button class="c-btn c-btn--outline" disabled>
+              <fa icon="chevron-left" />
+              Prev Step
+            </button>
+          </div>
+          <div class="col-12">
+            <button class="c-btn">Save</button>
+            <button class="c-btn c-btn--primary">
+              <fa icon="plus" />
+              Add Client
+            </button>
+            <button class="c-btn c-btn--outline">
+              <fa icon="chevron-left" />
+              Prev Step
+            </button>
+          </div>
+        </div>
 
         <button type="button" @click="validation" class="c-btn c-btn--block">
           Add Note
