@@ -2,6 +2,7 @@
   <div>
     <label class="c-form__label">{{ label }}</label>
     <multiselect
+      class="c-form__select"
       v-model="internalValue"
       :options="list"
       :multiple="multiple"
