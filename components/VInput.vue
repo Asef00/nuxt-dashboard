@@ -1,5 +1,4 @@
 <template>
-  <div>
     <div class="c-form__control">
       <label class="c-form__label">{{ label }}</label>
       <input @keyup="parent.validate(keyValidation)" @blur="parent.validate(keyValidation)"
@@ -11,12 +10,12 @@
              :name="keyValidation"
              :placeholder="placeholder"
              :class="[parent.hasError(keyValidation) ? 'is-invalid': '','c-form__input']"
+             :disabled="disabled"
       />
       <span v-if="parent.hasError(keyValidation)" class="c-form__error">{{
           parent.errorMessage(keyValidation)
         }}</span>
     </div>
-  </div>
 </template>
 
 <script>
@@ -36,6 +35,10 @@ export default {
       type: String
     },
     keyValidation: String,
+    disabled: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
