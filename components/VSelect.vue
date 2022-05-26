@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="c-form__control">
     <label class="c-form__label">{{ label }}</label>
     <multiselect
       class="c-form__select"

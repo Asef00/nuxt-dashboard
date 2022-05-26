@@ -61,6 +61,6 @@
 .c-form__error {
   color: $danger-color;
   @include font-size(14px);
-  margin-top: 0.2em;
+  margin: 0.2em 0 1em;
   display: block;
 }
