@@ -6,26 +6,18 @@
     <div class="c-card__body">
       <form action="" class="c-form">
         <h4 class="c-form__title">Sync Accounts</h4>
-        <VSelect :multiple="false" placeholder="Please select tag" v-model="payload.tag" :list="options"
+        <VSelect :multiple="true" placeholder="Please select tag" v-model="payload.tag" :list="options"
                  key-validation="tag" label="Tags"/>
         <div class="row">
           <div class="col-md-6">
-            <VInput label="Name" v-model="payload.name" keyValidation="name" placeholder="Name enter"/>
+            <VInput label="Name" v-model="payload.name" keyValidation="name"
+                    placeholder="Please enter name"/>
           </div>
           <div class="col-md-6">
-            <div class="c-form__control">
-              <label class="c-form__label">Sample Label</label>
-              <input class="c-form__input" type="text" placeholder="Disabled" disabled/>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="c-form__control">
-              <label class="c-form__label">Sample Label</label>
-              <textarea class="c-form__input c-form__input--area" placeholder="Please Add Note..." rows="3"></textarea>
-            </div>
+            <VTextarea v-model="payload.summary" label="Summary" key-validation="summary"
+                       placeholder="Please enter summary"/>
           </div>
         </div>
-
         <VBtn @action="startLoading" btn="simple" type="button">SAVE</VBtn>
         <VBtn @action="startLoading" type="button">
           <fa icon="plus"/>
@@ -52,6 +44,7 @@ export default {
       payload: {
         name: '',
         tag: '',
+        summary: '',
       },
       options: ["list", "of", "options", "bla"],
     };
@@ -60,6 +53,7 @@ export default {
     validation() {
       return Yup.object({
         name: Yup.string().required(),
+        summary: Yup.string().required(),
         tag: Yup.array().min(1),
       });
     },
@@ -68,6 +62,7 @@ export default {
       this.errors = {
         name: '',
         tag: '',
+        summary: '',
       }
     },
   },
