@@ -42,7 +42,7 @@ export default {
     keyValidation: String,
     disabled: {
       type: Boolean,
-      default: false
+      default: true
     },
     multiple: {
       type: Boolean,

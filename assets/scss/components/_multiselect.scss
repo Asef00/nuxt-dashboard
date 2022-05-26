@@ -1,5 +1,5 @@
 $text-color: #212529;
-
+// changing spacing was not a good idea
 .c-form__select {
   &.multiselect--active {
     &.is-invalid .multiselect__tags {
@@ -36,7 +36,7 @@ $text-color: #212529;
   .multiselect__input,
   .multiselect__single {
     @include font-size(14px);
-    padding: 0;
+    // padding: 0;
   }
 
   .multiselect__option {
@@ -60,5 +60,13 @@ $text-color: #212529;
       background: darken($hover-color, 100%);
       color: $text-color;
     }
+  }
+
+  .multiselect__placeholder {
+    padding-top: 0;
+  }
+
+  .multiselect__select {
+    height: 39px;
   }
 }
