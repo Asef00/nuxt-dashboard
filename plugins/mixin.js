@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-var mixin = {
+const mixin = {
   data() {
     return {
       payload: [],
@@ -16,6 +16,7 @@ var mixin = {
     stopLoading() {
       this.loaderRequest = false
     },
+
     validate(field) {
       if (!field) {
         return false;

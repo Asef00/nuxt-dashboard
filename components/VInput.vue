@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: "DInput",
+  name: "VInput",
   props: {
     value: [String, Number],
     label: {
@@ -43,7 +43,7 @@ export default {
     };
   },
   created() {
-    this.parent = this.$parent.$parent;
+    this.parent = this.$parent;
   }
 }
 </script>
