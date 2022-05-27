@@ -8,7 +8,9 @@
             v-for="col in columns"
             v-on:click="sortTable(col)"
             :key="col.id"
+            v-bind:class="col == sortColumn ? 'is-active' : ''"
           >
+            <img v-bind:src="col == sortColumn ? '/img/filter.is-active.svg' : '/img/filter.svg'" alt="filter icon">
             {{ col }}
           </th>
         </tr>
