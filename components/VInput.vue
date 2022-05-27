@@ -1,21 +1,19 @@
 <template>
-    <div class="c-form__control">
-      <label class="c-form__label">{{ label }}</label>
-      <input @keyup="parent.validate(keyValidation)" @blur="parent.validate(keyValidation)"
-             @keydown="parent.validate(keyValidation)"
-             v-bind="$attrs"
-             v-bind:value="value"
-             v-on:input="$emit('input', $event.target.value)"
-             :type="type"
-             :name="keyValidation"
-             :placeholder="placeholder"
-             :class="[parent.hasError(keyValidation) ? 'is-invalid': '','c-form__input']"
-             :disabled="disabled"
-      />
-      <span v-if="parent.hasError(keyValidation)" class="c-form__error">{{
-          parent.errorMessage(keyValidation)
-        }}</span>
-    </div>
+  <div class="c-form__control">
+    <label class="c-form__label">{{ label }}</label>
+    <input @keyup="$emit('validation')"
+           @blur="$emit('validation')"
+           @keydown="$emit('validation')"
+           v-bind="$attrs"
+           v-bind:value="value"
+           v-on:input="$emit('input', $event.target.value)"
+           :type="type"
+           :placeholder="placeholder"
+           :class="[hasError() ? 'is-invalid': '','c-form__input']"
+           :disabled="disabled"
+    />
+    <span v-if="hasError()" class="c-form__error">{{ error }}</span>
+  </div>
 </template>
 
 <script>
@@ -34,19 +32,24 @@ export default {
     placeholder: {
       type: String
     },
-    keyValidation: String,
+    error: {
+      type: String,
+      default: ''
+    },
     disabled: {
       type: Boolean,
       default: false
     }
   },
   data() {
-    return {
-      parent: ''
-    };
+    return {};
   },
   created() {
-    this.parent = this.$parent;
+  },
+  methods: {
+    hasError() {
+      return this.error !== '';
+    }
   }
 }
 </script>

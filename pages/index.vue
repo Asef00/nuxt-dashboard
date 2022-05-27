@@ -1,38 +1,32 @@
 <template>
-  <div class="c-card">
-    <div class="c-card__header">
-      <h2 class="c-card__title">Dashboard</h2>
-    </div>
-    <div class="c-card__body">
-      <form action="" class="c-form">
-        <h4 class="c-form__title">Sync Accounts</h4>
-        <VSelect :multiple="true" placeholder="Please select tag" v-model="payload.tag" :list="options"
-                 key-validation="tag" label="Tags"/>
-        <div class="row">
-          <div class="col-md-6">
-            <VInput label="Name" v-model="payload.name" keyValidation="name"
-                    placeholder="Please enter name"/>
-          </div>
-          <div class="col-md-6">
-            <VTextarea v-model="payload.summary" label="Summary" key-validation="summary"
-                       placeholder="Please enter summary"/>
-          </div>
+  <VCard title="Dashboard">
+    <form action="" class="c-form">
+      <h4 class="c-form__title">Sync Accounts</h4>
+      <VSelect @validation="validate('tag')" :error="errorMessage('tag')" :multiple="true" placeholder="Please select tag" v-model="payload.tag" :list="options" label="Tags"/>
+      <div class="row">
+        <div class="col-md-6">
+          <VInput @validation="validate('name')" :error="errorMessage('name')" label="Name" v-model="payload.name"
+                  placeholder="Please enter name"/>
         </div>
-        <VBtn @action="startLoading" btn="simple" type="button">SAVE</VBtn>
-        <VBtn @action="startLoading" type="button">
-          <fa icon="plus"/>
-          Add Client
-        </VBtn>
-        <VBtn @action="startLoading" btn="outline" type="button">
-          <fa icon="chevron-left"/>
-          Prev Step
-        </VBtn>
-        <VBtn @action="startLoading" btn="block" type="button">
-          Add Note
-        </VBtn>
-      </form>
-    </div>
-  </div>
+        <div class="col-md-6">
+          <VTextarea @validation="validate('summary')" :error="errorMessage('summary')" v-model="payload.summary" label="Summary"
+                     placeholder="Please enter summary"/>
+        </div>
+      </div>
+      <VBtn @action="startLoading" :loader="loaderRequest" btn="simple" type="button">SAVE</VBtn>
+      <VBtn @action="startLoading" type="button" :loader="loaderRequest">
+        <fa icon="plus"/>
+        Add Client
+      </VBtn>
+      <VBtn @action="stopLoading" btn="outline" type="button">
+        <fa icon="chevron-left"/>
+        Prev Step
+      </VBtn>
+      <VBtn @action="startLoading" btn="block" type="button" :loader="loaderRequest">
+        Add Note
+      </VBtn>
+    </form>
+  </VCard>
 </template>
 
 <script>
