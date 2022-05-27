@@ -1,8 +1,8 @@
 <template>
   <div>
-    <button @click="$emit('action')" :disabled="$parent.loaderRequest" :type="type"
+    <button @click="$emit('action')" :disabled="disabled" :type="type"
             :class="['c-btn',classBtn]">
-      <span v-if="$parent.loaderRequest"><LoaderDots :color="colorLoader"></LoaderDots></span>
+      <span v-if="loader"><LoaderDots :color="colorLoader"></LoaderDots></span>
       <slot v-else/>
     </button>
   </div>
@@ -19,6 +19,14 @@ export default {
     btn: {
       type: String,
       default: 'primary'
+    },
+    loader: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -44,6 +52,11 @@ export default {
         this.colorLoader = '#444'
         return '';
       }
+    }
+  },
+  watch: {
+    loader(value) {
+      this.disabled = value
     }
   }
 }

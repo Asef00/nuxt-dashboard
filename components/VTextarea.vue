@@ -1,20 +1,18 @@
 <template>
   <div class="c-form__control">
     <label class="c-form__label">{{ label }}</label>
-    <textarea :class="[parent.hasError(keyValidation) ? 'is-invalid': '','c-form__input c-form__input--area']"
+    <textarea @keyup="$emit('validation')"
+              @blur="$emit('validation')"
+              @keydown="$emit('validation')"
+              :class="[hasError() ? 'is-invalid': '','c-form__input c-form__input--area']"
               :placeholder="placeholder"
               v-bind="$attrs"
               v-bind:value="value"
               v-on:input="$emit('input', $event.target.value)"
               :rows="rows"
-              @keyup="parent.validate(keyValidation)"
-              @blur="parent.validate(keyValidation)"
-              @keydown="parent.validate(keyValidation)"
               :disabled="disabled"
     ></textarea>
-    <span v-if="parent.hasError(keyValidation)" class="c-form__error">{{
-        parent.errorMessage(keyValidation)
-      }}</span>
+    <span v-if="hasError()" class="c-form__error">{{ error }}</span>
   </div>
 </template>
 
@@ -38,7 +36,10 @@ export default {
     placeholder: {
       type: String
     },
-    keyValidation: String,
+    error: {
+      type: String,
+      default: ''
+    },
     disabled: {
       type: Boolean,
       default: false
@@ -49,13 +50,12 @@ export default {
       parent: ''
     };
   },
-  watch: {
-    value() {
-      this.parent.validate(this.keyValidation)
-    }
-  },
   created() {
-    this.parent = this.$parent;
+  },
+  methods: {
+    hasError() {
+      return this.error !== '';
+    }
   }
 }
 </script>
