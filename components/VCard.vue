@@ -2,6 +2,9 @@
   <div class="c-card">
     <div class="c-card__header">
       <h2 class="c-card__title">{{ title }}</h2>
+      <div class="">
+        <slot name="header" />
+      </div>
     </div>
     <div class="c-card__body">
       <slot/>
