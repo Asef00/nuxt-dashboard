@@ -1,0 +1,45 @@
+$right-spacing: 13px;
+$left-spacing: 1.5em;
+
+.c-table {
+  @include font-size(13px);
+  width: 100%;
+  border-collapse: collapse;
+  color: #92969a;
+}
+
+.c-table__th {
+  text-transform: capitalize;
+  font-weight: 600;
+  text-align: left;
+  background: #f2f2f2;
+  color: $text-color;
+  cursor: pointer;
+  padding: 8px;
+  transition: 0.2s;
+
+  &:first-child {
+    padding-left: $left-spacing;
+  }
+  &:last-child {
+    padding-right: $right-spacing;
+  }
+
+  &:hover {
+    background: darken($color: #f2f2f2, $amount: 10%);
+  }
+}
+
+.c-table__cell {
+  text-align: left;
+  padding: 8px;
+
+  &:first-child {
+    @include font-size(14px);
+    padding-left: $left-spacing;
+    color: $text-color;
+  }
+  &:last-child {
+    padding-left: $right-spacing;
+  }
+}

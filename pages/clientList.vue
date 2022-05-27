@@ -1,10 +1,25 @@
 <template>
-  <card-component title="Client List">
-    <table>
-      <thead>
-        <th>#</th>
-
+  <card-component title="Client List" class="c-card--fluid">
+    <table class="c-table">
+      <thead class="c-table__header">
+        <tr class="c-table__row">
+          <th
+            class="c-table__th"
+            v-for="col in columns"
+            v-on:click="sortTable(col)"
+            :key="col.id"
+          >
+            {{ col }}
+          </th>
+        </tr>
       </thead>
+      <tbody class="c-table__body">
+        <tr class="c-table__row" v-for="row in rows" :key="row.id">
+          <td class="c-table__cell" v-for="col in columns" :key="col.id">
+            {{ row[col] }}
+          </td>
+        </tr>
+      </tbody>
     </table>
   </card-component>
 </template>
@@ -15,6 +30,93 @@ import CardComponent from "../components/CardComponent.vue";
 export default {
   layout: "default",
   components: { CardComponent },
+
+  data() {
+    return {
+      ascending: false,
+      sortColumn: "",
+      rows: [
+        {
+          id: 1,
+          name: "Chandler Bing",
+          phone: "305-917-1301",
+          profession: "IT Manager",
+          email: "Chandler@gmail.com",
+          source: "Realtyna.com",
+        },
+        {
+          id: 2,
+          name: "Ross Geller",
+          phone: "210-684-8953",
+          profession: "Paleontologist",
+          email: "Ross@gmail.com",
+          source: "Realtyna.com",
+        },
+        {
+          id: 3,
+          name: "Rachel Green",
+          phone: "765-338-0312",
+          profession: "Waitress",
+          email: "Rachel@gmail.com",
+          source: "Houzes",
+        },
+        {
+          id: 4,
+          name: "Monica Geller",
+          phone: "714-541-3336",
+          profession: "Head Chef",
+          email: "Monica@gmail.com",
+          source: "Realtyna.com",
+        },
+        {
+          id: 5,
+          name: "Joey Tribbiani",
+          phone: "972-297-6037",
+          profession: "Actor",
+          email: "Joey@gmail.com",
+          source: "Realtyna.com",
+        },
+        {
+          id: 6,
+          name: "Phoebe Buffay",
+          phone: "760-318-8376",
+          profession: "Masseuse",
+          email: "Phoebe@gmail.com",
+          source: "Realtyna.com",
+        },
+      ],
+    };
+  },
+  methods: {
+    sortTable: function sortTable(col) {
+      if (this.sortColumn === col) {
+        this.ascending = !this.ascending;
+      } else {
+        this.ascending = true;
+        this.sortColumn = col;
+      }
+
+      var ascending = this.ascending;
+
+      this.rows.sort(function (a, b) {
+        if (a[col] > b[col]) {
+          return ascending ? 1 : -1;
+        } else if (a[col] < b[col]) {
+          return ascending ? -1 : 1;
+        }
+        return 0;
+      });
+    },
+  },
+  computed: {
+    columns: function columns() {
+      if (this.rows.length == 0) {
+        return [];
+      }
+      return Object.keys(this.rows[0]);
+    },
+  },
+
   created() {
     this.setTitle("Clients");
     this.setBreadcrumb([
@@ -27,17 +129,6 @@ export default {
         name: "Clients",
       },
     ]);
-  },
-  data() {
-    return {
-      items: [
-        { full_name: "Cameron Phillips", source: "Realtyna.com", email: "gregh@yahoo.ca" },
-        { full_name: "Wade Joseph", source: "Realtyna.com", email: "stewwy@optonline.net" },
-        { full_name: "Jordan Aguilar", source: "Realtyna.com", email: "vsprintf@sbcglobal.net" },
-        { full_name: "Holly Gonzales", source: "Realtyna.com", email: "bader@verizon.net" },
-        { full_name: "Fredrick Evans", source: "Realtyna.com", email: "joglo@gmail.com" },
-      ],
-    };
   },
 };
 </script>
