@@ -1,5 +1,8 @@
 <template>
   <VCard title="Dashboard">
+    <template #header>
+
+    </template>
     <form action="" class="c-form">
       <h4 class="c-form__title">Sync Accounts</h4>
       <VSelect @validation="validate('tag')" :error="errorMessage('tag')" :multiple="true" placeholder="Please select tag" v-model="payload.tag" :list="options" label="Tags"/>
