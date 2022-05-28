@@ -11,12 +11,10 @@
       :placeholder="placeholder"
       :disabled="disabled"
       :track-by="trackBy"
-      :class="[parent.hasError(keyValidation) ? 'is-invalid': '']"
+      :class="[hasError() ? 'is-invalid': '']"
     >
     </multiselect>
-    <span v-if="parent.hasError(keyValidation)" class="c-form__error">{{
-        parent.errorMessage(keyValidation)
-      }}</span>
+    <span v-if="hasError()" class="c-form__error">{{ error }}</span>
   </div>
 </template>
 
@@ -39,7 +37,10 @@ export default {
     placeholder: {
       type: String
     },
-    keyValidation: String,
+    error: {
+      type: String,
+      default: ''
+    },
     disabled: {
       type: Boolean,
       default: false
@@ -55,18 +56,20 @@ export default {
   data() {
     return {
       internalValue: this.value,
-      parent: ''
     }
   },
   watch: {
     internalValue(v) {
       this.$emit('input', v);
-      this.parent.validate(this.keyValidation)
+      this.$emit('validation')
     }
   },
-  created() {
-    this.parent = this.$parent;
+  methods: {
+    hasError() {
+      return this.error !== '';
+    }
   }
+
 }
 </script>
 

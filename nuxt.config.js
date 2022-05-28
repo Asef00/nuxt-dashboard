@@ -20,7 +20,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    "~/plugins/mixin"
+    "~/plugins/mixin",
+    { src: '~/plugins/vue-tags-input', ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
