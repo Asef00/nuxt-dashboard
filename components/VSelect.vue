@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div class="c-form__control">
     <label class="c-form__label">{{ label }}</label>
     <multiselect
+      class="c-form__select"
       v-model="internalValue"
       :options="list"
       :multiple="multiple"
@@ -10,8 +11,11 @@
       :placeholder="placeholder"
       :disabled="disabled"
       :track-by="trackBy"
-      :class="[hasError() ? 'is-invalid': '']"
+      :class="[hasError() ? 'is-invalid' : '']"
     >
+      <template slot="caret">
+        <div class="multiselect__select c-chevron c-chevron--bottom"></div>
+      </template>
     </multiselect>
     <span v-if="hasError()" class="c-form__error">{{ error }}</span>
   </div>
@@ -22,56 +26,54 @@ import Multiselect from "vue-multiselect";
 
 export default {
   name: "VSelect",
-  components: {Multiselect},
+  components: { Multiselect },
   props: {
     value: [String, Number, Array, Object],
     label: {
       type: [String, Number],
-      required: true
+      required: true,
     },
     list: {
       type: [Object, Array],
-      required: false
+      required: false,
     },
     placeholder: {
-      type: String
+      type: String,
     },
     error: {
       type: String,
-      default: ''
+      default: "",
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     multiple: {
       type: Boolean,
-      default: false
+      default: false,
     },
     trackBy: {
-      type: String
-    }
+      type: String,
+    },
   },
   data() {
     return {
       internalValue: this.value,
-    }
+    };
   },
   watch: {
     internalValue(v) {
-      this.$emit('input', v);
-      this.$emit('validation')
-    }
+      this.$emit("input", v);
+      this.$emit("validation");
+    },
   },
   methods: {
     hasError() {
-      return this.error !== '';
-    }
-  }
-
-}
+      return this.error !== "";
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 </style>
