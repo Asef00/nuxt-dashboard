@@ -41,7 +41,7 @@
   }
 
   &:disabled {
-    background-color: #f4f3f9;
+    background-color: $input-disable;
   }
 
   &::placeholder {

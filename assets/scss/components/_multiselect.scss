@@ -1,13 +1,23 @@
 $text-color: #212529;
 // changing spacing was not a good idea
 .c-form__select {
-  &.multiselect--active {
-    &.is-invalid .multiselect__tags {
-      border-color: #dc3545;
-      box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+  &.multiselect {
+    &--disabled {
+      background-color: $input-disable;
+      opacity: 1;
+
+      .multiselect__select {
+        background-color: transparent;
+      }
     }
-    .multiselect__tags {
-      @include input-focus;
+    &--active {
+      &.is-invalid .multiselect__tags {
+        border-color: #dc3545;
+        box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+      }
+      .multiselect__tags {
+        @include input-focus;
+      }
     }
   }
 
@@ -18,6 +28,7 @@ $text-color: #212529;
   .multiselect__tags {
     border: $input-border;
     padding-left: 1em;
+    background-color: transparent;
 
     .multiselect__tag {
       background-color: $primary-color;
@@ -64,9 +75,6 @@ $text-color: #212529;
 
   .multiselect__placeholder {
     padding-top: 0;
-  }
-
-  .multiselect__select {
-    height: 39px;
+    color: $placeholder-color;
   }
 }
