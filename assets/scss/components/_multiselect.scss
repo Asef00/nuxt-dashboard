@@ -12,8 +12,7 @@ $text-color: #212529;
     }
     &--active {
       &.is-invalid .multiselect__tags {
-        border-color: #dc3545;
-        box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+        @include input-focus--invalid;
       }
       .multiselect__tags {
         @include input-focus;
@@ -22,11 +21,11 @@ $text-color: #212529;
   }
 
   &.is-invalid .multiselect__tags {
-    border-color: $danger-color;
+    @include input-invalid;
   }
 
   .multiselect__tags {
-    border: $input-border;
+    @include input-border;
     padding-left: 1em;
     background-color: transparent;
 

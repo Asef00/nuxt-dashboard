@@ -1,0 +1,19 @@
+.vue-tags-input.vue-tags-input {
+    .ti-input {
+      @include input-border;
+      transition: $input-transition;
+    }
+
+    &.ti-focus {
+      .ti-input {
+        @include input-focus;
+      }
+      &.is-invalid .ti-input {
+        @include input-focus--invalid;
+      }
+    }
+
+    &.is-invalid .ti-input {
+      @include input-invalid;
+    }
+}
