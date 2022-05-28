@@ -29,6 +29,37 @@ const mixin = {
           this.errors[field] = err.message;
         });
     },
+    handleError(error) {
+      if (!error) {
+        return false;
+      }
+      if (!error.response) {
+        // network error
+        this.$toast.error('Network Error!')
+        return false;
+      }
+      if (error.response.status === 500) {
+        // server error
+        this.$toast.error('Server Error!')
+        return false;
+      }
+      if (error.response.status === 401) {
+        this.$toast.error('Unauthenticated!')
+        this.$router.push('/auth')
+        return false;
+      }
+      if (error.response.status === 422) {
+        let data = error.response.data
+        if (data.errors) {
+          for (let err in data.errors) {
+            this.errors[err] = data.errors[err][0]
+          }
+        }
+      }
+      if (error.response.data.message) {
+        this.$toast.error(error.response.data.message)
+      }
+    },
     errorMessage(filed) {
       if (this.hasError(filed)) {
         let string = this.errors[filed]

@@ -1,6 +1,6 @@
 <template>
   <VCard title="Create New Model">
-    <form @submit.prevent="" class="c-form">
+    <form @submit.prevent="create" class="c-form">
       <div class="row">
         <div class="col-md-6">
           <VInput @validation="validate('name')" :error="errorMessage('name')"
@@ -8,12 +8,13 @@
                   placeholder="Please enter name"/>
         </div>
         <div class="col-md-6">
-          <v-tag-input @list="pushListFiled($event)" @validation="validate('fields')" :error="errorMessage('fields')" v-model="payload.field"
+          <v-tag-input @list="pushListFiled($event)" @validation="validate('fields')" :error="errorMessage('fields')"
+                       v-model="payload.field"
                        label="Fields"/>
         </div>
       </div>
       <VBtn :loader="loaderRequest">
-        Add Model
+        Create Model
       </VBtn>
     </form>
   </VCard>
@@ -34,6 +35,24 @@ export default {
     };
   },
   methods: {
+    create() {
+      this.startLoading()
+      this.validation().validate(this.payload, {abortEarly: false})
+        .then(async () => {
+          this.resetError()
+          await this.$store.dispatch('model/create', this.payload)
+          this.stopLoading()
+          this.handleError(this.$store.state.model.error)
+          if (this.$store.state.model.item){
+            this.$toast.success('Model successfully created.')
+            this.$router.push('/model')
+          }
+        })
+        .catch(err => {
+          this.setAllErrorValidation(err)
+          this.stopLoading()
+        });
+    },
     validation() {
       return Yup.object({
         name: Yup.string().required(),
@@ -58,8 +77,16 @@ export default {
     this.setTitle('Model')
     this.setBreadcrumb([
       {
-        to: "dashboard",
+        to: "/dashboard",
         name: "Dashboard"
+      },
+      {
+        to: "/model",
+        name: "Model"
+      },
+      {
+        to: "/model/create",
+        name: "Create"
       },
     ])
     this.resetError()
