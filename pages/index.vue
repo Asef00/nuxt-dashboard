@@ -6,6 +6,7 @@
     <form action="" class="c-form">
       <h4 class="c-form__title">Sync Accounts</h4>
       <VSelect @validation="validate('tag')" :error="errorMessage('tag')" :multiple="true" placeholder="Please select tag" v-model="payload.tag" :list="options" label="Tags"/>
+      <VSelect :disabled=true @validation="validate('tag')" :error="errorMessage('tag')" :multiple="true" placeholder="Please select tag" v-model="payload.tag" :list="options" label="Tags"/>
       <div class="row">
         <div class="col-md-6">
           <VInput @validation="validate('name')" :error="errorMessage('name')" label="Name" v-model="payload.name"
