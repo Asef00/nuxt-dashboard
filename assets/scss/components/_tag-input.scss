@@ -1,19 +1,26 @@
 .vue-tags-input.vue-tags-input {
+  max-width: unset;
+
+  .ti-input {
+    @include input-border;
+    transition: $input-transition;
+  }
+
+  &.ti-focus {
     .ti-input {
-      @include input-border;
-      transition: $input-transition;
+      @include input-focus;
     }
-
-    &.ti-focus {
-      .ti-input {
-        @include input-focus;
-      }
-      &.is-invalid .ti-input {
-        @include input-focus--invalid;
-      }
-    }
-
     &.is-invalid .ti-input {
-      @include input-invalid;
+      @include input-focus--invalid;
     }
+  }
+
+  &.is-invalid .ti-input {
+    @include input-invalid;
+  }
+
+  .ti-tag {
+    background-color: $primary-color;
+    border-radius: 3px;
+  }
 }
