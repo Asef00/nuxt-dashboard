@@ -13,15 +13,16 @@
         </div>
         <div class="col-md-6">
           <v-tag-input
-            @list="pushListFiled($event)"
+            @list="payload.fields = $event"
             @validation="validate('fields')"
             :error="errorMessage('fields')"
             v-model="payload.field"
             label="Fields"
+            placeholder="Please add field"
           />
         </div>
       </div>
-      <VBtn :loader="loaderRequest"> Create Model </VBtn>
+      <VBtn :loader="loaderRequest">SAVE</VBtn>
     </form>
   </VCard>
 </template>
@@ -44,13 +45,13 @@ export default {
     create() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, { abortEarly: false })
+        .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("model/create", this.payload);
           this.stopLoading();
-          this.handleError(this.$store.state.model.error);
-          if (this.$store.state.model.item) {
+          const err = this.handleError(this.$store.state.model.error);
+          if (!err) {
             this.$toast.success("Model successfully created.");
             this.$router.push("/model");
           }
@@ -71,14 +72,7 @@ export default {
         name: "",
         fields: "",
       };
-    },
-    pushListFiled(fields) {
-      let arr = [];
-      for (let value of fields) {
-        arr.push(value.text);
-      }
-      this.payload.fields = arr;
-    },
+    }
   },
   created() {
     this.setTitle("Model");
