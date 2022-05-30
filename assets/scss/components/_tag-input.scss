@@ -1,5 +1,5 @@
 .vue-tags-input.vue-tags-input {
-  max-width: unset;
+  max-width: 100% !important;
 
   .ti-input {
     @include input-border;
@@ -10,6 +10,7 @@
     .ti-input {
       @include input-focus;
     }
+
     &.is-invalid .ti-input {
       @include input-focus--invalid;
     }
@@ -22,5 +23,9 @@
   .ti-tag {
     background-color: $primary-color;
     border-radius: 3px;
+  }
+
+  ul {
+    margin: 2px !important;
   }
 }
