@@ -1,35 +1,54 @@
 <template>
   <VCard title="Client List" class="c-card--fluid">
-    <table class="c-table">
-      <thead class="c-table__header">
-        <tr class="c-table__row">
-          <th
-            class="c-table__th"
-            v-for="col in columns"
-            v-on:click="sortTable(col)"
-            :key="col.id"
-            v-bind:class="col == sortColumn ? 'is-active' : ''"
-          >
-            <img v-bind:src="col == sortColumn ? '/img/filter.is-active.svg' : '/img/filter.svg'" alt="filter icon">
-            {{ col }}
-          </th>
-        </tr>
-      </thead>
-      <tbody class="c-table__body">
-        <tr class="c-table__row" v-for="row in rows" :key="row.id">
-          <td class="c-table__cell" v-for="col in columns" :key="col.id">
-            {{ row[col] }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="c-datatable">
+      <div class="c-datatable__toolbar">
+        <div>
+          <pagination-component />
+        </div>
+        <div>
+          <input type="text" />
+        </div>
+      </div>
+      <table class="c-table">
+        <thead class="c-table__header">
+          <tr class="c-table__row">
+            <th
+              class="c-table__th"
+              v-for="col in columns"
+              v-on:click="sortTable(col)"
+              :key="col.id"
+              v-bind:class="col == sortColumn ? 'is-active' : ''"
+            >
+              <img
+                v-bind:src="
+                  col == sortColumn
+                    ? '/img/filter.is-active.svg'
+                    : '/img/filter.svg'
+                "
+                alt="filter icon"
+              />
+              {{ col }}
+            </th>
+          </tr>
+        </thead>
+        <tbody class="c-table__body">
+          <tr class="c-table__row" v-for="row in rows" :key="row.id">
+            <td class="c-table__cell" v-for="col in columns" :key="col.id">
+              {{ row[col] }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </VCard>
 </template>
 
 <script>
+import PaginationComponent from "../components/PaginationComponent.vue";
 
 export default {
   layout: "default",
+  components: { PaginationComponent },
 
   data() {
     return {
