@@ -1,0 +1,17 @@
+.c-pagination {
+  @include font-size(14px);
+}
+
+.c-pagination__input {
+  width: 30px;
+  height: 22px;
+  text-align: center;
+  border-radius: 3px;
+  color: #92969a;
+  @include font-size(13px);
+  border: solid 1px #e5e5e5;
+
+  &:focus {
+    @include input-focus;
+  }
+}

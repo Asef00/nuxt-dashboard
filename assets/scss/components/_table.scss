@@ -35,6 +35,15 @@ $left-spacing: 1.5em;
   }
 }
 
+.c-table__row {
+  border-bottom: 1px solid $border-color;
+
+  &.has-note {
+    background: #ffebeb;
+    border-color: #f5334f;
+  }
+}
+
 .c-table__cell {
   text-align: left;
   padding: 8px;

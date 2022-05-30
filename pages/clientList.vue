@@ -1,5 +1,5 @@
 <template>
-  <card-component title="Client List" class="c-card--fluid">
+  <VCard title="Client List" class="c-card--fluid">
     <table class="c-table">
       <thead class="c-table__header">
         <tr class="c-table__row">
@@ -23,15 +23,13 @@
         </tr>
       </tbody>
     </table>
-  </card-component>
+  </VCard>
 </template>
 
 <script>
-import CardComponent from "../components/CardComponent.vue";
 
 export default {
   layout: "default",
-  components: { CardComponent },
 
   data() {
     return {
