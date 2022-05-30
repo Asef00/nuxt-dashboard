@@ -28,6 +28,7 @@ $text-color: #212529;
     @include input-border;
     padding-left: 1em;
     background-color: transparent;
+    background-image: none !important;
 
     .multiselect__tag {
       background-color: $primary-color;
