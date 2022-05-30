@@ -1,0 +1,18 @@
+.c-notification {
+  position: relative;
+}
+
+.c-notification__badge {
+  left: 50%;
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  @include flex-inline-center;
+
+  border-radius: 5px 5px 5px 0;
+  text-align: center;
+  color: #fff;
+  background-color: $danger-color;
+  font-weight: 500;
+  @include font-size(11px);
+}

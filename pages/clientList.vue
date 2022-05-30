@@ -34,7 +34,13 @@
         <tbody class="c-table__body">
           <tr class="c-table__row" v-for="row in rows" :key="row.id">
             <td class="c-table__cell" v-for="col in columns" :key="col.id">
-              {{ row[col] }}
+              <a href="#" class="c-notification" v-if="col == 'note' && row[col] > 0">
+                <img src="/img/note.svg" alt="">
+                <span class="c-notification__badge">{{ row[col] }}</span>
+              </a>
+              <template v-else>
+                {{ row[col] }}
+              </template>
             </td>
           </tr>
         </tbody>
@@ -62,6 +68,8 @@ export default {
           profession: "IT Manager",
           email: "Chandler@gmail.com",
           source: "Realtyna.com",
+          //mls: ["Treb","MFR MLS","XMLS"]
+          note: 2,
         },
         {
           id: 2,

@@ -9,6 +9,11 @@ $global-line-height: 24px;
   align-items: center;
   justify-content: center;
 }
+@mixin flex-inline-center {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
 @mixin flex-between {
   display: flex;
   align-items: center;
@@ -58,6 +63,7 @@ $global-line-height: 24px;
   border-radius: 3px;
   border: solid 1px #e1e0ea;
 }
+
 
 // FONT
 @mixin font-size($font-size, $line-height: auto, $important: false) {
