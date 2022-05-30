@@ -6,7 +6,7 @@
           <pagination-component />
         </div>
         <div class="c-search">
-          <input class="c-search__input" type="text" placeholder="Search..."/>
+          <input class="c-search__input" type="text" placeholder="Search..." />
         </div>
       </div>
       <table class="c-table">
@@ -19,23 +19,32 @@
               :key="col.id"
               v-bind:class="col == sortColumn ? 'is-active' : ''"
             >
-              <img
-                v-bind:src="
-                  col == sortColumn
-                    ? '/img/filter.is-active.svg'
-                    : '/img/filter.svg'
-                "
-                alt="filter icon"
-              />
-              {{ col.split('_').join(' ') }}
+              <template v-if="col == 'id'">
+                #
+              </template>
+              <template v-else>
+                <img
+                  v-bind:src="
+                    col == sortColumn
+                      ? '/img/filter.is-active.svg'
+                      : '/img/filter.svg'
+                  "
+                  alt="filter icon"
+                />
+                {{ col.split("_").join(" ") }}
+              </template>
             </th>
           </tr>
         </thead>
         <tbody class="c-table__body">
           <tr class="c-table__row" v-for="item in items" :key="item.id">
             <td class="c-table__cell" v-for="col in columns" :key="col.id">
-              <a href="#" class="c-notification" v-if="col == 'note' && item[col] > 0">
-                <img src="/img/note.svg" alt="">
+              <a
+                href="#"
+                class="c-notification"
+                v-if="col == 'note' && item[col] > 0"
+              >
+                <img src="/img/note.svg" alt="" />
                 <span class="c-notification__badge">{{ item[col] }}</span>
               </a>
               <template v-else>
@@ -68,7 +77,6 @@ export default {
           MLS: [],
           paid_so_far: "$8,400",
           email: "Chandler@gmail.com",
-          //mls: ["Treb","MFR MLS","XMLS"]
           status: "Inactive",
           note: 2,
         },
