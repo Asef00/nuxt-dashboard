@@ -36,17 +36,21 @@ const mixin = {
       if (!error.response) {
         // network error
         this.$toast.error('Network Error!')
-        return false;
+        return true;
       }
       if (error.response.status === 500) {
         // server error
         this.$toast.error('Server Error!')
-        return false;
+        return true;
       }
       if (error.response.status === 401) {
-        this.$toast.error('Unauthenticated!')
+        this.$toast.error('Not authenticated! Please login.')
         this.$router.push('/auth')
-        return false;
+        return true;
+      }
+      if (error.response.status === 404) {
+        this.$router.back()
+        return true;
       }
       if (error.response.status === 422) {
         let data = error.response.data
@@ -55,10 +59,13 @@ const mixin = {
             this.errors[err] = data.errors[err][0]
           }
         }
+        return true;
       }
       if (error.response.data.message) {
         this.$toast.error(error.response.data.message)
+        return true;
       }
+      return false;
     },
     errorMessage(filed) {
       if (this.hasError(filed)) {
