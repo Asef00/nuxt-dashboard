@@ -4,12 +4,13 @@
     <client-only>
       <vue-tags-input
         v-model="internalValue"
+        :placeholder="placeholder"
         :tags="internalList"
         @tags-changed="(newTags) => (this.internalList = newTags)"
         :class="[hasError() ? 'is-invalid' : '']"
       >
-      <template slot="ti-input">
-      </template>
+        <template slot="ti-input">
+        </template>
       </vue-tags-input>
     </client-only>
     <span v-if="hasError()" class="c-form__error">{{ error }}</span>
@@ -21,7 +22,7 @@ export default {
   name: "VTagInput",
   props: {
     value: [String, Number],
-    list: [String, Number, Array, Object],
+    data: [String, Number, Array, Object],
     label: {
       type: [String, Number],
       required: true,
@@ -30,6 +31,10 @@ export default {
       type: String,
       default: "",
     },
+    placeholder: {
+      type: String,
+      default: "Please add",
+    },
     disabled: {
       type: Boolean,
       default: false,
@@ -37,20 +42,38 @@ export default {
   },
   data() {
     return {
-      internalValue: this.value,
-      internalList: this.list,
+      internalValue: '',
+      internalList: [],
+      isWatching: true,
     };
   },
-  created() {},
+  created() {
+  },
   watch: {
     internalValue(v) {
       this.$emit("input", v);
       this.$emit("validation");
     },
     internalList(v) {
-      this.$emit("list", v);
+      let arr = [];
+      for (let value of v) {
+        arr.push(value.text);
+      }
+      this.$emit("list", arr);
       this.$emit("validation");
     },
+    data(v) {
+      if (this.isWatching) {
+        let arr = [];
+        for (let value of v) {
+          arr.push({
+            text: value
+          });
+        }
+        this.isWatching = false;
+        this.internalList = arr
+      }
+    }
   },
   methods: {
     hasError() {
