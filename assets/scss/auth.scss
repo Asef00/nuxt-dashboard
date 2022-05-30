@@ -106,11 +106,11 @@ body {
 }
 
 .invalid-input {
-  border: 1px solid #dc3545;
+  border: 1px solid $danger-color;
 }
 
 .invalid-message {
-  color: #dc3545;
+  color: $danger-color;
   font-size: 13px;
   margin-bottom: 7px;
   margin-top: -4px;

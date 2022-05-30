@@ -2,6 +2,9 @@
   <div class="c-card">
     <div class="c-card__header">
       <h2 class="c-card__title">{{ title }}</h2>
+      <div class="">
+        <slot name="header" />
+      </div>
     </div>
     <div class="c-card__body">
       <slot/>
@@ -11,14 +14,15 @@
 
 <script>
 export default {
-  name: "CardComponent",
+  name: "VCard",
   props: {
     title: String
   },
-  methods: {},
+  methods: {}
 };
 </script>
 
-<style lang="scss">
-@import "~/assets/scss/components/card";
+<style scoped lang="scss">
+
+@import "~/assets/scss/components/_card.scss";
 </style>

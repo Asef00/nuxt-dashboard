@@ -1,48 +1,80 @@
 $text-color: #212529;
+// changing spacing was not a good idea
+.c-form__select {
+  &.multiselect {
+    &--disabled {
+      background-color: $input-disable;
+      opacity: 1;
 
-.multiselect__tags {
-  border: $input-border;
-  padding-top: 5px;
-
-  .multiselect--active > & {
-    @include input-focus;
+      .multiselect__select {
+        background-color: transparent;
+      }
+    }
+    &--active {
+      &.is-invalid .multiselect__tags {
+        @include input-focus--invalid;
+      }
+      .multiselect__tags {
+        @include input-focus;
+      }
+    }
   }
 
-  .multiselect.is-invalid & {
-    border-color: $danger-color;
-  }
-  
-  .multiselect--active > & {
-    border-color: #dc3545;
-    box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
-  }
-}
-
-.multiselect__input,
-.multiselect__single {
-  @include font-size(14px);
-  padding: 0;
-}
-
-.multiselect__option {
-  &::after {
-    display: none;
+  &.is-invalid .multiselect__tags {
+    @include input-invalid;
   }
 
-  &.multiselect__option--selected::after {
-    display: inline;
+  .multiselect__tags {
+    @include input-border;
+    padding-left: 1em;
     background-color: transparent;
-    color: $placeholder-color;
-    font-style: italic;
+    background-image: none !important;
+
+    .multiselect__tag {
+      background-color: $primary-color;
+
+      .multiselect__tag-icon {
+        &:after {
+          color: #fff;
+        }
+        &:hover {
+          background-color: darken($primary-color, 10%);
+        }
+      }
+    }
   }
-}
 
-.multiselect__option--highlight {
-  background-color: #9991;
-  color: $text-color;
+  .multiselect__input,
+  .multiselect__single {
+    @include font-size(14px);
+    // padding: 0;
+  }
 
-  &.multiselect__option--selected {
-    background: darken($hover-color, 100%);
+  .multiselect__option {
+    &::after {
+      display: none;
+    }
+
+    &.multiselect__option--selected::after {
+      display: inline;
+      background-color: transparent;
+      color: $placeholder-color;
+      font-style: italic;
+    }
+  }
+
+  .multiselect__option--highlight {
+    background-color: #9991;
     color: $text-color;
+
+    &.multiselect__option--selected {
+      background: darken($hover-color, 100%);
+      color: $text-color;
+    }
+  }
+
+  .multiselect__placeholder {
+    padding-top: 0;
+    color: $placeholder-color;
   }
 }

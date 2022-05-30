@@ -1,37 +1,37 @@
 export default {
   async list({commit}) {
-    await this.$axios.get('person/product').then((response) => {
+    await this.$axios.get('model').then((response) => {
       commit('SET_LIST', response.data)
     }).catch((error) => {
-      this.$error(error.response)
+      commit('SET_ERROR', error)
     })
   },
-  async show({commit}, {person}) {
-    await this.$axios.get('person/product/'.person._id).then((response) => {
+  async show({commit}, id) {
+    await this.$axios.get(`model/${id}`).then((response) => {
       commit('SET_ITEM', response.data)
     }).catch((error) => {
-      this.$error(error.response)
+      commit('SET_ERROR', error)
     })
   },
   async create({commit}, payload) {
-    await this.$axios.post('person/product', payload).then((response) => {
+    await this.$axios.post('model', payload).then((response) => {
       commit('SET_ITEM', response.data)
     }).catch((error) => {
-      this.$error(error.response)
+      commit('SET_ERROR', error)
     })
   },
-  async update({commit}, {payload, person}) {
-    await this.$axios.put(`person/product/${person._id}`, payload).then((response) => {
+  async update({commit}, payload, id) {
+    await this.$axios.put(`model/${id}`, payload).then((response) => {
       commit('SET_ITEM', response.data)
     }).catch((error) => {
-      this.$error(error.response)
+      commit('SET_ERROR', error)
     })
   },
-  async delete({commit}, {person}) {
-    await this.$axios.delete(`person/product/${person._id}`).then((response) => {
-      commit('SET_ITEM', response.data)
+  async delete({commit}, id) {
+    await this.$axios.delete(`model/${id}`).then((response) => {
+      commit('SET_ITEM', response)
     }).catch((error) => {
-      this.$error(error.response)
+      commit('SET_ERROR', error)
     })
   },
 }
