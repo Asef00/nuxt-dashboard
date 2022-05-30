@@ -2,9 +2,8 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 4em;   //relative to main content
+  height: $footer-height;   //relative to main content
 
-  // @include box-shadow;
   background-color: #fff;
   padding: 1.15em 0;
   @include flex-center;
