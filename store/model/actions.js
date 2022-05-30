@@ -20,7 +20,7 @@ export default {
       commit('SET_ERROR', error)
     })
   },
-  async update({commit}, payload, id) {
+  async update({commit}, {payload, id}) {
     await this.$axios.put(`model/${id}`, payload).then((response) => {
       commit('SET_ITEM', response.data)
     }).catch((error) => {
