@@ -27,19 +27,19 @@
                 "
                 alt="filter icon"
               />
-              {{ col }}
+              {{ col.split('_').join(' ') }}
             </th>
           </tr>
         </thead>
         <tbody class="c-table__body">
-          <tr class="c-table__row" v-for="row in rows" :key="row.id">
+          <tr class="c-table__row" v-for="item in items" :key="item.id">
             <td class="c-table__cell" v-for="col in columns" :key="col.id">
-              <a href="#" class="c-notification" v-if="col == 'note' && row[col] > 0">
+              <a href="#" class="c-notification" v-if="col == 'note' && item[col] > 0">
                 <img src="/img/note.svg" alt="">
-                <span class="c-notification__badge">{{ row[col] }}</span>
+                <span class="c-notification__badge">{{ item[col] }}</span>
               </a>
               <template v-else>
-                {{ row[col] }}
+                {{ item[col] }}
               </template>
             </td>
           </tr>
@@ -60,56 +60,56 @@ export default {
     return {
       ascending: false,
       sortColumn: "",
-      rows: [
+      items: [
         {
           id: 1,
-          name: "Chandler Bing",
+          full_name: "Chandler Bing",
+          source: "Realtyna.com",
           phone: "305-917-1301",
           profession: "IT Manager",
           email: "Chandler@gmail.com",
-          source: "Realtyna.com",
           //mls: ["Treb","MFR MLS","XMLS"]
           note: 2,
         },
         {
           id: 2,
-          name: "Ross Geller",
+          full_name: "Ross Geller",
+          source: "Realtyna.com",
           phone: "210-684-8953",
           profession: "Paleontologist",
           email: "Ross@gmail.com",
-          source: "Realtyna.com",
         },
         {
           id: 3,
-          name: "Rachel Green",
+          full_name: "Rachel Green",
+          source: "Houzes",
           phone: "765-338-0312",
           profession: "Waitress",
           email: "Rachel@gmail.com",
-          source: "Houzes",
         },
         {
           id: 4,
-          name: "Monica Geller",
+          full_name: "Monica Geller",
+          source: "Realtyna.com",
           phone: "714-541-3336",
           profession: "Head Chef",
           email: "Monica@gmail.com",
-          source: "Realtyna.com",
         },
         {
           id: 5,
-          name: "Joey Tribbiani",
+          full_name: "Joey Tribbiani",
+          source: "Realtyna.com",
           phone: "972-297-6037",
           profession: "Actor",
           email: "Joey@gmail.com",
-          source: "Realtyna.com",
         },
         {
           id: 6,
-          name: "Phoebe Buffay",
+          full_name: "Phoebe Buffay",
+          source: "Realtyna.com",
           phone: "760-318-8376",
           profession: "Masseuse",
           email: "Phoebe@gmail.com",
-          source: "Realtyna.com",
         },
       ],
     };
@@ -125,7 +125,7 @@ export default {
 
       var ascending = this.ascending;
 
-      this.rows.sort(function (a, b) {
+      this.items.sort(function (a, b) {
         if (a[col] > b[col]) {
           return ascending ? 1 : -1;
         } else if (a[col] < b[col]) {
@@ -137,10 +137,10 @@ export default {
   },
   computed: {
     columns: function columns() {
-      if (this.rows.length == 0) {
+      if (this.items.length == 0) {
         return [];
       }
-      return Object.keys(this.rows[0]);
+      return Object.keys(this.items[0]);
     },
   },
 
