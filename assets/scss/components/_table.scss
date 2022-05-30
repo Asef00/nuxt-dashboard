@@ -5,7 +5,7 @@ $left-spacing: 1.5em;
   @include font-size(13px);
   width: 100%;
   border-collapse: collapse;
-  color: #92969a;
+  color: $placeholder-color;
 }
 
 .c-table__th {

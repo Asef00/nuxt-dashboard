@@ -5,8 +5,8 @@
         <div>
           <pagination-component />
         </div>
-        <div>
-          <input type="text" />
+        <div class="c-search">
+          <input class="c-search__input" type="text" placeholder="Search..."/>
         </div>
       </div>
       <table class="c-table">
