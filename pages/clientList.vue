@@ -49,12 +49,23 @@
             v-for="item in items"
             :key="item.id"
           >
-            <td class="c-table__cell" v-for="col in columns" :key="col.id">
+            <td
+              v-for="col in columns"
+              :key="col.id"
+              :class="[
+                col == 'paid_so_far' ? 'u-text-end' : '',
+                'c-table__cell',
+              ]"
+            >
+              <!-- NOTE: non column props should start with _ -->
+              <!--Do Nothing-->
+              <template v-if="col.startsWith('_')"></template>
+
               <!-- notifications -->
               <a
                 href="#"
                 class="c-notification"
-                v-if="col == 'note' && item[col] > 0"
+                v-else-if="col == 'note' && item[col] > 0"
               >
                 <img src="/img/note.svg" alt="" />
                 <span class="c-notification__badge">{{ item[col] }}</span>
@@ -68,6 +79,18 @@
               <!-- MLS tags -->
               <template v-else-if="col == 'MLS'">
                 <span v-for="tag in item[col]" class="c-badge">{{ tag }}</span>
+              </template>
+
+              <!-- Paid so far -->
+              <template v-else-if="col == 'paid_so_far'">
+                <template v-if="item['_increment']">
+                  {{ item[col] }}
+                  <img src="/img/increment.svg" alt="" />
+                </template>
+                <template v-else>
+                  {{ item[col] }}
+                  <img src="/img/decrement.svg" alt="" />
+                </template>
               </template>
 
               <!-- Nothing special -->
@@ -104,6 +127,7 @@ export default {
           status: "Inactive",
           note: null,
           _verified: true,
+          _increment: false,
         },
         {
           id: 2,
@@ -115,6 +139,7 @@ export default {
           status: "Active",
           note: null,
           _verified: false,
+          _increment: true,
         },
         {
           id: 3,
@@ -126,6 +151,7 @@ export default {
           status: "Active",
           note: null,
           _verified: false,
+          _increment: true,
         },
         {
           id: 4,
@@ -137,6 +163,7 @@ export default {
           status: "Inactive",
           note: 2,
           _verified: true,
+          _increment: false,
         },
         {
           id: 5,
@@ -148,6 +175,7 @@ export default {
           status: "Active",
           note: null,
           _verified: true,
+          _increment: false,
         },
         {
           id: 6,
@@ -159,6 +187,7 @@ export default {
           status: "Inactive",
           note: null,
           _verified: false,
+          _increment: true,
         },
       ],
     };
