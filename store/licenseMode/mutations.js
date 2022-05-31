@@ -15,6 +15,6 @@ export default {
     state.error = null
   },
   SET_ERROR(state, data) {
-    state.item = data
+    state.error = data
   },
 }
