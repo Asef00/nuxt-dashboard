@@ -22,6 +22,7 @@
               ]"
             >
               <template v-if="col == 'id'"> # </template>
+              <template v-else-if="col.startsWith('_')"></template>   <!--Do Nothing-->
               <template v-else>
                 <img
                   v-bind:src="
@@ -54,6 +55,9 @@
                 <img src="/img/note.svg" alt="" />
                 <span class="c-notification__badge">{{ item[col] }}</span>
               </a>
+              <template v-else-if="col == 'full_name' && item['_verified']">
+                {{ item[col] }} <img src="/img/verify.svg" alt="">
+              </template>
               <template v-else>
                 {{ item[col] }}
               </template>
@@ -86,6 +90,7 @@ export default {
           email: "Chandler@gmail.com",
           status: "Inactive",
           note: null,
+          _verified: true,
         },
         {
           id: 2,
@@ -96,6 +101,7 @@ export default {
           email: "Ross@gmail.com",
           status: "Active",
           note: null,
+          _verified: false,
         },
         {
           id: 3,
@@ -106,6 +112,7 @@ export default {
           email: "Rachel@gmail.com",
           status: "Active",
           note: null,
+          _verified: false,
         },
         {
           id: 4,
@@ -116,6 +123,7 @@ export default {
           email: "Monica@gmail.com",
           status: "Inactive",
           note: 2,
+          _verified: true,
         },
         {
           id: 5,
@@ -126,6 +134,7 @@ export default {
           email: "Joey@gmail.com",
           status: "Active",
           note: null,
+          _verified: true,
         },
         {
           id: 6,
@@ -136,6 +145,7 @@ export default {
           email: "Phoebe@gmail.com",
           status: "Inactive",
           note: null,
+          _verified: false,
         },
       ],
     };
