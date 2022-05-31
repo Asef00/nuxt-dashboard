@@ -19,9 +19,7 @@
               :key="col.id"
               v-bind:class="col == sortColumn ? 'is-active' : ''"
             >
-              <template v-if="col == 'id'">
-                #
-              </template>
+              <template v-if="col == 'id'"> # </template>
               <template v-else>
                 <img
                   v-bind:src="
@@ -37,7 +35,9 @@
           </tr>
         </thead>
         <tbody class="c-table__body">
-          <tr class="c-table__row" v-for="item in items" :key="item.id">
+          <tr class="c-table__row"
+            :class="item.hasOwnProperty('note') ? 'has-note' : ''"
+           v-for="item in items" :key="item.id">
             <td class="c-table__cell" v-for="col in columns" :key="col.id">
               <a
                 href="#"
@@ -78,7 +78,6 @@ export default {
           paid_so_far: "$8,400",
           email: "Chandler@gmail.com",
           status: "Inactive",
-          note: 2,
         },
         {
           id: 2,
@@ -88,6 +87,8 @@ export default {
           paid_so_far: "$8,400",
           email: "Ross@gmail.com",
           status: "Active",
+          note: 2,
+          _rowVariant: "has-note",
         },
         {
           id: 3,
