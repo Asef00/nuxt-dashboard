@@ -49,10 +49,9 @@ export default {
           await this.$store.dispatch("licenseMode/create", this.payload);
           this.stopLoading();
           const err = this.handleError(this.$store.state.licenseMode.error);
-          console.log(err)
           if (!err) {
             this.$toast.success("License Mode successfully created.");
-            // this.$router.push("/license-mode");
+            this.$router.push("/license-mode");
           }
         })
         .catch((err) => {
