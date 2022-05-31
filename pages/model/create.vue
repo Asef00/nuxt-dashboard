@@ -68,6 +68,7 @@ export default {
       });
     },
     resetError() {
+      this.$store.commit('model/RESET_ERROR')
       this.errors = {
         name: "",
         fields: "",

@@ -66,6 +66,7 @@ export default {
       });
     },
     resetError() {
+      this.$store.commit('licenseMode/RESET_ERROR')
       this.errors = {
         name: "",
         label: "",

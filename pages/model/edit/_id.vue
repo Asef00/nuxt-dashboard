@@ -49,9 +49,9 @@ export default {
         .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
-          await this.$store.dispatch("model/update",{
-            payload:this.payload,
-            id:this.$route.params.id
+          await this.$store.dispatch("model/update", {
+            payload: this.payload,
+            id: this.$route.params.id
           });
           this.stopLoading();
           const err = this.handleError(this.$store.state.model.error);
@@ -81,6 +81,7 @@ export default {
       });
     },
     resetError() {
+      this.$store.commit('model/RESET_ERROR')
       this.errors = {
         name: "",
         fields: "",
