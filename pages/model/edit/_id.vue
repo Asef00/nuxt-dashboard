@@ -91,10 +91,6 @@ export default {
     this.setTitle("Model");
     this.setBreadcrumb([
       {
-        to: "/dashboard",
-        name: "Dashboard",
-      },
-      {
         to: "/model",
         name: "Model",
       },

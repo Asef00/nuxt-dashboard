@@ -86,8 +86,11 @@
     <div class="c-header__lower">
       <h1 class="c-header__title">{{ $store.state.pageHeaderTitle }}</h1>
       <ul class="c-breadcrumb">
+        <li class="c-breadcrumb__item">
+          <NuxtLink class="c-breadcrumb__link" to="/">Dashboard</NuxtLink>
+        </li>
         <li class="c-breadcrumb__item" v-for="(breadcrumb,index) in $store.state.pageHeaderBreadcrumb">
-          <NuxtLink class="c-breadcrumb__link" :to="breadcrumb.to"><span v-if="index>0"> / </span>{{ breadcrumb.name }}</NuxtLink>
+          <NuxtLink class="c-breadcrumb__link" :to="breadcrumb.to"> / {{ breadcrumb.name }}</NuxtLink>
         </li>
       </ul>
     </div>
