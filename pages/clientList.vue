@@ -21,8 +21,14 @@
                 'c-table__th',
               ]"
             >
+              <!-- #id column -->
               <template v-if="col == 'id'"> # </template>
-              <template v-else-if="col.startsWith('_')"></template>   <!--Do Nothing-->
+
+              <!-- NOTE: non column props should start with _ -->
+              <!--Do Nothing-->
+              <template v-else-if="col.startsWith('_')"></template>
+
+              <!-- Filter icon -->
               <template v-else>
                 <img
                   v-bind:src="
@@ -39,14 +45,12 @@
         </thead>
         <tbody class="c-table__body">
           <tr
-            :class="[
-              item['note'] > 0 ? 'has-note' : '',
-              'c-table__row',
-            ]"
+            :class="[item['note'] > 0 ? 'has-note' : '', 'c-table__row']"
             v-for="item in items"
             :key="item.id"
           >
             <td class="c-table__cell" v-for="col in columns" :key="col.id">
+              <!-- notifications -->
               <a
                 href="#"
                 class="c-notification"
@@ -55,9 +59,18 @@
                 <img src="/img/note.svg" alt="" />
                 <span class="c-notification__badge">{{ item[col] }}</span>
               </a>
+
+              <!-- Verified icon -->
               <template v-else-if="col == 'full_name' && item['_verified']">
-                {{ item[col] }} <img src="/img/verify.svg" alt="">
+                {{ item[col] }} <img src="/img/verify.svg" alt="" />
               </template>
+
+              <!-- MLS tags -->
+              <template v-else-if="col == 'MLS'">
+                <span v-for="tag in item[col]" class="c-badge">{{ tag }}</span>
+              </template>
+
+              <!-- Nothing special -->
               <template v-else>
                 {{ item[col] }}
               </template>
@@ -85,7 +98,7 @@ export default {
           id: 1,
           full_name: "Chandler Bing",
           source: "Realtyna.com",
-          MLS: [],
+          MLS: ["Treb", "MFR MLS", "XMLS"],
           paid_so_far: "$8,400",
           email: "Chandler@gmail.com",
           status: "Inactive",
@@ -96,7 +109,7 @@ export default {
           id: 2,
           full_name: "Ross Geller",
           source: "Realtyna.com",
-          MLS: [],
+          MLS: ["MFR MLS"],
           paid_so_far: "$3,200",
           email: "Ross@gmail.com",
           status: "Active",
@@ -107,7 +120,7 @@ export default {
           id: 3,
           full_name: "Rachel Green",
           source: "Houzes",
-          MLS: [],
+          MLS: ["Treb", "MFR MLS"],
           paid_so_far: "$1,400",
           email: "Rachel@gmail.com",
           status: "Active",
@@ -118,7 +131,7 @@ export default {
           id: 4,
           full_name: "Monica Geller",
           source: "Realtyna.com",
-          MLS: [],
+          MLS: ["XMLS"],
           paid_so_far: "$12,400",
           email: "Monica@gmail.com",
           status: "Inactive",
@@ -129,7 +142,7 @@ export default {
           id: 5,
           full_name: "Joey Tribbiani",
           source: "Realtyna.com",
-          MLS: [],
+          MLS: ["ITech MLS"],
           paid_so_far: "$9,450",
           email: "Joey@gmail.com",
           status: "Active",
