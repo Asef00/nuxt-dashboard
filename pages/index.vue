@@ -5,15 +5,18 @@
     </template>
     <form action="" class="c-form">
       <h4 class="c-form__title">Sync Accounts</h4>
-      <VSelect @validation="validate('tag')" :error="errorMessage('tag')" :multiple="true" placeholder="Please select tag" v-model="payload.tag" :list="options" label="Tags"/>
-      <VSelect :disabled=true @validation="validate('tag')" :error="errorMessage('tag')" :multiple="true" placeholder="Please select tag" v-model="payload.tag" :list="options" label="Tags"/>
+      <VSelect @validation="validate('tag')" :error="errorMessage('tag')" :multiple="true"
+               placeholder="Please select tag" v-model="payload.tag" :list="options" label="Tags"/>
+      <VSelect :disabled=true @validation="validate('tag')" :error="errorMessage('tag')" :multiple="true"
+               placeholder="Please select tag" v-model="payload.tag" :list="options" label="Tags"/>
       <div class="row">
         <div class="col-md-6">
           <VInput @validation="validate('name')" :error="errorMessage('name')" label="Name" v-model="payload.name"
                   placeholder="Please enter name"/>
         </div>
         <div class="col-md-6">
-          <VTextarea @validation="validate('summary')" :error="errorMessage('summary')" v-model="payload.summary" label="Summary"
+          <VTextarea @validation="validate('summary')" :error="errorMessage('summary')" v-model="payload.summary"
+                     label="Summary"
                      placeholder="Please enter summary"/>
         </div>
       </div>
@@ -66,12 +69,7 @@ export default {
   },
   created() {
     this.setTitle("Dashboard");
-    this.setBreadcrumb([
-      {
-        to: "dashboard",
-        name: "Dashboard",
-      },
-    ]);
+    this.setBreadcrumb([]);
     this.resetError();
   },
 };
