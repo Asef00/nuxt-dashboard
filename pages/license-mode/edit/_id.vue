@@ -47,8 +47,8 @@ export default {
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("licenseMode/update", {
-            payload:this.payload,
-            id:this.$route.params.id
+            payload: this.payload,
+            id: this.$route.params.id
           });
           this.stopLoading();
           const err = this.handleError(this.$store.state.licenseMode.error);
@@ -78,6 +78,7 @@ export default {
       });
     },
     resetError() {
+      this.$store.commit('licenseMode/RESET_ERROR')
       this.errors = {
         name: "",
         label: "",

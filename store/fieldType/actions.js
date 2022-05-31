@@ -3,35 +3,35 @@ export default {
     await this.$axios.get('field-type').then((response) => {
       commit('SET_LIST', response.data)
     }).catch((error) => {
-      this.$error(error.response)
+      commit('SET_ERROR', error)
     })
   },
-  async show({commit}, {fieldType}) {
-    await this.$axios.get(`field-type/${fieldType._id}`).then((response) => {
+  async show({commit}, id) {
+    await this.$axios.get(`field-type/${id}`).then((response) => {
       commit('SET_ITEM', response.data)
     }).catch((error) => {
-      this.$error(error.response)
+      commit('SET_ERROR', error)
     })
   },
   async create({commit}, payload) {
     await this.$axios.post('field-type', payload).then((response) => {
       commit('SET_ITEM', response.data)
     }).catch((error) => {
-      this.$error(error.response)
+      commit('SET_ERROR', error)
     })
   },
-  async update({commit}, {payload, fieldType}) {
-    await this.$axios.put(`field-type/${fieldType._id}`, payload).then((response) => {
+  async update({commit}, {payload, id}) {
+    await this.$axios.put(`field-type/${id}`, payload).then((response) => {
       commit('SET_ITEM', response.data)
     }).catch((error) => {
-      this.$error(error.response)
+      commit('SET_ERROR', error)
     })
   },
-  async delete({commit}, {fieldType}) {
-    await this.$axios.delete(`field-type/${fieldType._id}`).then((response) => {
+  async delete({commit}, id) {
+    await this.$axios.delete(`field-type/${id}`).then((response) => {
       commit('SET_ITEM', response.data)
     }).catch((error) => {
-      this.$error(error.response)
+      commit('SET_ERROR', error)
     })
   },
 }

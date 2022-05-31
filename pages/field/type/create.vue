@@ -1,14 +1,14 @@
 <template>
-  <VCard title="Create New License Mode">
+  <VCard title="Create New Field Type">
     <form @submit.prevent="create" class="c-form">
       <div class="row">
         <div class="col-md-6">
           <VInput
-            @validation="validate('name')"
-            :error="errorMessage('name')"
-            label="Name"
-            v-model="payload.name"
-            placeholder="Please enter name"
+            @validation="validate('type')"
+            :error="errorMessage('type')"
+            label="Type"
+            v-model="payload.type"
+            placeholder="Please enter type"
           />
         </div>
         <div class="col-md-6">
@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       payload: {
-        name: '',
+        type: '',
         label: '',
       }
     };
@@ -46,12 +46,12 @@ export default {
         .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
-          await this.$store.dispatch("licenseMode/create", this.payload);
+          await this.$store.dispatch("fieldType/create", this.payload);
           this.stopLoading();
-          const err = this.handleError(this.$store.state.licenseMode.error);
+          const err = this.handleError(this.$store.state.fieldType.error);
           if (!err) {
-            this.$toast.success("License Mode successfully created.");
-            this.$router.push("/license-mode");
+            this.$toast.success("Field Type successfully created.");
+            this.$router.push("/field/type");
           }
         })
         .catch((err) => {
@@ -61,27 +61,27 @@ export default {
     },
     validation() {
       return Yup.object({
-        name: Yup.string().required(),
+        type: Yup.string().required(),
         label: Yup.string().required(),
       });
     },
     resetError() {
-      this.$store.commit('licenseMode/RESET_ERROR')
+      this.$store.commit('fieldType/RESET_ERROR')
       this.errors = {
-        name: "",
+        type: "",
         label: "",
       };
     }
   },
   created() {
-    this.setTitle('License Mode')
+    this.setTitle('Field Type')
     this.setBreadcrumb([
       {
-        to: '/license-mode',
-        name: 'License Mode'
+        to: '/field/type',
+        name: 'Field Type'
       },
       {
-        to: '/license-mode/create',
+        to: '/field/type/create',
         name: 'Create'
       }
     ])
