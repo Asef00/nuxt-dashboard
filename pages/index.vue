@@ -1,32 +1,68 @@
 <template>
   <VCard title="Dashboard">
-    <template #header>
-
-    </template>
+    <template #header> </template>
     <form action="" class="c-form">
       <h4 class="c-form__title">Sync Accounts</h4>
-      <VSelect @validation="validate('tag')" :error="errorMessage('tag')" :multiple="true" placeholder="Please select tag" v-model="payload.tag" :list="options" label="Tags"/>
-      <VSelect :disabled=true @validation="validate('tag')" :error="errorMessage('tag')" :multiple="true" placeholder="Please select tag" v-model="payload.tag" :list="options" label="Tags"/>
+      <VSelect
+        @validation="validate('tag')"
+        :error="errorMessage('tag')"
+        :multiple="true"
+        placeholder="Please select tag"
+        v-model="payload.tag"
+        :list="options"
+        label="Tags"
+      />
+      <VSelect
+        :disabled="true"
+        @validation="validate('tag')"
+        :error="errorMessage('tag')"
+        :multiple="true"
+        placeholder="Please select tag"
+        v-model="payload.tag"
+        :list="options"
+        label="Tags"
+      />
       <div class="row">
         <div class="col-md-6">
-          <VInput @validation="validate('name')" :error="errorMessage('name')" label="Name" v-model="payload.name"
-                  placeholder="Please enter name"/>
+          <VInput
+            @validation="validate('name')"
+            :error="errorMessage('name')"
+            label="Name"
+            v-model="payload.name"
+            placeholder="Please enter name"
+          />
         </div>
         <div class="col-md-6">
-          <VTextarea @validation="validate('summary')" :error="errorMessage('summary')" v-model="payload.summary" label="Summary"
-                     placeholder="Please enter summary"/>
+          <VTextarea
+            @validation="validate('summary')"
+            :error="errorMessage('summary')"
+            v-model="payload.summary"
+            label="Summary"
+            placeholder="Please enter summary"
+          />
         </div>
       </div>
-      <VBtn @action="startLoading" :loader="loaderRequest" btn="simple" type="button">SAVE</VBtn>
+      <VBtn
+        @action="startLoading"
+        :loader="loaderRequest"
+        btn="simple"
+        type="button"
+        >SAVE</VBtn
+      >
       <VBtn @action="startLoading" type="button" :loader="loaderRequest">
-        <fa icon="plus"/>
+        <fa icon="plus" />
         Add Client
       </VBtn>
       <VBtn @action="stopLoading" btn="outline" type="button">
-        <fa icon="chevron-left"/>
+        <fa icon="chevron-left" />
         Prev Step
       </VBtn>
-      <VBtn @action="startLoading" btn="block" type="button" :loader="loaderRequest">
+      <VBtn
+        @action="startLoading"
+        btn="block"
+        type="button"
+        :loader="loaderRequest"
+      >
         Add Note
       </VBtn>
     </form>
@@ -40,9 +76,9 @@ export default {
   data() {
     return {
       payload: {
-        name: '',
-        tag: '',
-        summary: '',
+        name: "",
+        tag: "",
+        summary: "",
       },
       options: ["list", "of", "options", "bla"],
     };
@@ -58,10 +94,10 @@ export default {
     resetError() {
       this.$store.commit("me/RESET_ERROR");
       this.errors = {
-        name: '',
-        tag: '',
-        summary: '',
-      }
+        name: "",
+        tag: "",
+        summary: "",
+      };
     },
   },
   created() {

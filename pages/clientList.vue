@@ -13,11 +13,13 @@
         <thead class="c-table__header">
           <tr class="c-table__row">
             <th
-              class="c-table__th"
               v-for="col in columns"
               v-on:click="sortTable(col)"
               :key="col.id"
-              v-bind:class="col == sortColumn ? 'is-active' : ''"
+              v-bind:class="[
+                col == sortColumn ? 'is-active' : '',
+                'c-table__th',
+              ]"
             >
               <template v-if="col == 'id'"> # </template>
               <template v-else>
@@ -35,9 +37,14 @@
           </tr>
         </thead>
         <tbody class="c-table__body">
-          <tr class="c-table__row"
-            :class="item.hasOwnProperty('note') ? 'has-note' : ''"
-           v-for="item in items" :key="item.id">
+          <tr
+            :class="[
+              item['note'] > 0 ? 'has-note' : '',
+              'c-table__row',
+            ]"
+            v-for="item in items"
+            :key="item.id"
+          >
             <td class="c-table__cell" v-for="col in columns" :key="col.id">
               <a
                 href="#"
@@ -78,53 +85,57 @@ export default {
           paid_so_far: "$8,400",
           email: "Chandler@gmail.com",
           status: "Inactive",
+          note: null,
         },
         {
           id: 2,
           full_name: "Ross Geller",
           source: "Realtyna.com",
           MLS: [],
-          paid_so_far: "$8,400",
+          paid_so_far: "$3,200",
           email: "Ross@gmail.com",
           status: "Active",
-          note: 2,
-          _rowVariant: "has-note",
+          note: null,
         },
         {
           id: 3,
           full_name: "Rachel Green",
           source: "Houzes",
           MLS: [],
-          paid_so_far: "$8,400",
+          paid_so_far: "$1,400",
           email: "Rachel@gmail.com",
           status: "Active",
+          note: null,
         },
         {
           id: 4,
           full_name: "Monica Geller",
           source: "Realtyna.com",
           MLS: [],
-          paid_so_far: "$8,400",
+          paid_so_far: "$12,400",
           email: "Monica@gmail.com",
           status: "Inactive",
+          note: 2,
         },
         {
           id: 5,
           full_name: "Joey Tribbiani",
           source: "Realtyna.com",
           MLS: [],
-          paid_so_far: "$8,400",
+          paid_so_far: "$9,450",
           email: "Joey@gmail.com",
           status: "Active",
+          note: null,
         },
         {
           id: 6,
           full_name: "Phoebe Buffay",
           source: "Realtyna.com",
           MLS: [],
-          paid_so_far: "$8,400",
+          paid_so_far: "$6,100",
           email: "Phoebe@gmail.com",
           status: "Inactive",
+          note: null,
         },
       ],
     };
