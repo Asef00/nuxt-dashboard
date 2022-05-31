@@ -1,6 +1,6 @@
 <template>
   <VCard title="Create New License Mode">
-    <form @submit.prevent="create" class="c-form">
+    <form @submit.prevent="update" class="c-form">
       <div class="row">
         <div class="col-md-6">
           <VInput
@@ -30,7 +30,7 @@
 import * as Yup from "yup";
 
 export default {
-  name: "create",
+  name: "edit",
   data() {
     return {
       payload: {
@@ -40,17 +40,20 @@ export default {
     };
   },
   methods: {
-    create() {
+    update() {
       this.startLoading();
       this.validation()
         .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
-          await this.$store.dispatch("licenseMode/create", this.payload);
+          await this.$store.dispatch("licenseMode/update", {
+            payload:this.payload,
+            id:this.$route.params.id
+          });
           this.stopLoading();
           const err = this.handleError(this.$store.state.licenseMode.error);
           if (!err) {
-            this.$toast.success("License Mode successfully created.");
+            this.$toast.success("License Mode successfully updated.");
             this.$router.push("/license-mode");
           }
         })
@@ -58,6 +61,15 @@ export default {
           this.setAllErrorValidation(err);
           this.stopLoading();
         });
+    },
+    async show() {
+      this.startLoading()
+      await this.$store.dispatch("licenseMode/show", this.$route.params.id);
+      this.handleError(this.$store.state.licenseMode.error);
+      let data = this.$store.state.licenseMode.item;
+      this.payload.label = data.label
+      this.payload.name = data.name
+      this.stopLoading()
     },
     validation() {
       return Yup.object({
@@ -73,6 +85,7 @@ export default {
     }
   },
   created() {
+    this.show()
     this.setTitle('License Mode')
     this.setBreadcrumb([
       {

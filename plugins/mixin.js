@@ -70,7 +70,12 @@ const mixin = {
     errorMessage(filed) {
       if (this.hasError(filed)) {
         let string = this.errors[filed]
-        return string.charAt(0).toUpperCase() + string.slice(1) + '.';
+        let last = string.charAt(string.length - 1);
+        if (last === '.'){
+          return string;
+        }else {
+          return `The ${string}.`;
+        }
       }
     },
     hasError(field) {
