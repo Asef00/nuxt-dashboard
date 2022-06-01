@@ -12,37 +12,35 @@
       <table class="c-table">
         <thead class="c-table__header">
           <tr class="c-table__row">
-            <th
-              v-for="col in columns"
-              v-on:click="sortTable(col)"
-              :key="col.id"
-              v-bind:class="[
-                col == sortColumn ? 'is-active' : '',
-                'c-table__th',
-              ]"
-            >
-              <!-- #id column -->
-              <template v-if="col == 'id'"> # </template>
-
+            <template v-for="col in columns">
               <!-- NOTE: non column props should start with _ -->
-              <!--Do Nothing-->
-              <template v-else-if="col.startsWith('_')"></template>
+              <th
+                v-if="!col.startsWith('_')"
+                v-on:click="sortTable(col)"
+                v-bind:class="[
+                  col == sortColumn ? 'is-active' : '',
+                  'c-table__th',
+                ]"
+              >
+                <!-- #id column -->
+                <template v-if="col == 'id'"> # </template>
 
-              <!-- Filter icon -->
-              <template v-else>
-                <img
-                  v-bind:src="
-                    col == sortColumn
-                      ? '/img/filter.is-active.svg'
-                      : '/img/filter.svg'
-                  "
-                  alt="filter icon"
-                />
-                {{ col.split("_").join(" ") }}
-              </template>
-            </th>
+                <!-- Filter icon -->
+                <template v-else>
+                  <img
+                    v-bind:src="
+                      col == sortColumn
+                        ? '/img/filter.is-active.svg'
+                        : '/img/filter.svg'
+                    "
+                    alt="filter icon"
+                  />
+                  {{ col.split("_").join(" ") }}
+                </template>
+              </th>
+            </template>
             <th class="c-table__th">
-              <img src="/img/edit.svg" alt="">
+              <img src="/img/edit.svg" alt="" />
             </th>
           </tr>
         </thead>
@@ -52,68 +50,59 @@
             v-for="item in items"
             :key="item.id"
           >
-            <td
-              v-for="col in columns"
-              :key="col.id"
-              :class="[
-                'c-table__cell',
-              ]"
-            >
-              <!-- NOTE: non column props should start with _ -->
-              <!--Do Nothing-->
-              <template v-if="col.startsWith('_')"></template>
+            <template v-for="col in columns">
+              <td v-if="!col.startsWith('_')" :class="['c-table__cell']">
+                <!-- NOTE: non column props should start with _ -->
 
-              <!-- notifications -->
-              <a
-                href="#"
-                class="c-notification"
-                v-else-if="col == 'note' && item[col] > 0"
-              >
-                <img src="/img/note.svg" alt="" />
-                <span class="c-notification__badge">{{ item[col] }}</span>
-              </a>
-
-              <!-- Verified icon -->
-              <template v-else-if="col == 'full_name' && item['_verified']">
-                {{ item[col] }} <img src="/img/verify.svg" alt="" />
-              </template>
-
-              <!-- MLS tags -->
-              <template v-else-if="col == 'MLS'">
-                <span v-for="tag in item[col]" class="c-badge">{{ tag }}</span>
-              </template>
-
-              <!-- Paid so far -->
-              <template v-else-if="col == 'paid_so_far'">
-                <template v-if="item['_increment']">
-                  {{ item[col] }}
-                  <img src="/img/increment.svg" alt="" />
+                <!-- notifications -->
+                <a
+                  href="#"
+                  class="c-notification"
+                  v-if="col == 'note' && item[col] > 0"
+                >
+                  <img src="/img/note.svg" alt="" />
+                  <span class="c-notification__badge">{{ item[col] }}</span>
+                </a>
+                <!-- Verified icon -->
+                <template v-else-if="col == 'full_name' && item['_verified']">
+                  {{ item[col] }} <img src="/img/verify.svg" alt="" />
                 </template>
+                <!-- MLS tags -->
+                <template v-else-if="col == 'MLS'">
+                  <span v-for="tag in item[col]" class="c-badge">{{
+                    tag
+                  }}</span>
+                </template>
+                <!-- Paid so far -->
+                <template v-else-if="col == 'paid_so_far'">
+                  <template v-if="item['_increment']">
+                    {{ item[col] }}
+                    <img src="/img/increment.svg" alt="" />
+                  </template>
+                  <template v-else>
+                    {{ item[col] }}
+                    <img src="/img/decrement.svg" alt="" />
+                  </template>
+                </template>
+                <!-- Status -->
+                <template v-else-if="col == 'status'">
+                  <span
+                    :class="[
+                      item[col] == 'active'
+                        ? 'c-status--active'
+                        : 'c-status--inactive',
+                      'c-status',
+                    ]"
+                  >
+                    {{ item[col] }}
+                  </span>
+                </template>
+                <!-- Nothing special -->
                 <template v-else>
                   {{ item[col] }}
-                  <img src="/img/decrement.svg" alt="" />
                 </template>
-              </template>
-
-              <!-- Status -->
-              <template v-else-if="col == 'status'">
-                <span
-                  :class="[
-                    item[col] == 'active'
-                      ? 'c-status--active'
-                      : 'c-status--inactive',
-                    'c-status',
-                  ]"
-                >
-                  {{ item[col] }}
-                </span>
-              </template>
-
-              <!-- Nothing special -->
-              <template v-else>
-                {{ item[col] }}
-              </template>
-            </td>
+              </td>
+            </template>
             <td class="c-table__cell">
               <a href="#" class="c-table__link">Edit</a>
             </td>
