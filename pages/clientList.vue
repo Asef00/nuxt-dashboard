@@ -41,6 +41,9 @@
                 {{ col.split("_").join(" ") }}
               </template>
             </th>
+            <th class="c-table__th">
+              <img src="/img/edit.svg" alt="">
+            </th>
           </tr>
         </thead>
         <tbody class="c-table__body">
@@ -110,6 +113,9 @@
               <template v-else>
                 {{ item[col] }}
               </template>
+            </td>
+            <td class="c-table__cell">
+              <a href="#" class="c-table__link">Edit</a>
             </td>
           </tr>
         </tbody>

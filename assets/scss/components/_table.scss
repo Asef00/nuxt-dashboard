@@ -58,6 +58,11 @@ $left-spacing: 1.5em;
   }
 }
 
+.c-table__link {
+  color: #006bff;
+}
+
+// Status
 .c-status {
   text-transform: capitalize;
   &::before {
