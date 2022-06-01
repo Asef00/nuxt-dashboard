@@ -20,7 +20,7 @@
 export default {
   name: "VInput",
   props: {
-    value: [String, Number],
+    value: [String, Number, Boolean],
     label: {
       type: [String, Number],
       required: true
