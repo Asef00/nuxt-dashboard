@@ -50,6 +50,7 @@ const mixin = {
       }
       if (error.response.status === 404) {
         this.$router.back()
+        this.$toast.error('Not found!')
         return true;
       }
       if (error.response.status === 422) {
@@ -71,9 +72,9 @@ const mixin = {
       if (this.hasError(filed)) {
         let string = this.errors[filed]
         let last = string.charAt(string.length - 1);
-        if (last === '.'){
+        if (last === '.') {
           return string;
-        }else {
+        } else {
           return `The ${string}.`;
         }
       }
