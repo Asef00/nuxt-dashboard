@@ -19,6 +19,7 @@
                 v-on:click="sortTable(col)"
                 v-bind:class="[
                   col == sortColumn ? 'is-active' : '',
+                  col == 'note' ? 'u-text-center' : '',
                   'c-table__th',
                 ]"
               >
@@ -39,7 +40,7 @@
                 </template>
               </th>
             </template>
-            <th class="c-table__th">
+            <th class="c-table__th u-text-center">
               <img src="/img/edit.svg" alt="" />
             </th>
           </tr>
@@ -103,7 +104,7 @@
                 </template>
               </td>
             </template>
-            <td class="c-table__cell">
+            <td class="c-table__cell u-text-center">
               <a href="#" class="c-table__link">Edit</a>
             </td>
           </tr>
