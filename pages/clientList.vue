@@ -53,7 +53,6 @@
               v-for="col in columns"
               :key="col.id"
               :class="[
-                col == 'paid_so_far' ? 'u-text-end' : '',
                 'c-table__cell',
               ]"
             >
@@ -91,6 +90,20 @@
                   {{ item[col] }}
                   <img src="/img/decrement.svg" alt="" />
                 </template>
+              </template>
+
+              <!-- Status -->
+              <template v-else-if="col == 'status'">
+                <span
+                  :class="[
+                    item[col] == 'active'
+                      ? 'c-status--active'
+                      : 'c-status--inactive',
+                    'c-status',
+                  ]"
+                >
+                  {{ item[col] }}
+                </span>
               </template>
 
               <!-- Nothing special -->
@@ -136,7 +149,7 @@ export default {
           MLS: ["MFR MLS"],
           paid_so_far: "$3,200",
           email: "Ross@gmail.com",
-          status: "Active",
+          status: "active",
           note: null,
           _verified: false,
           _increment: true,
@@ -148,7 +161,7 @@ export default {
           MLS: ["Treb", "MFR MLS"],
           paid_so_far: "$1,400",
           email: "Rachel@gmail.com",
-          status: "Active",
+          status: "active",
           note: null,
           _verified: false,
           _increment: true,
@@ -172,7 +185,7 @@ export default {
           MLS: ["ITech MLS"],
           paid_so_far: "$9,450",
           email: "Joey@gmail.com",
-          status: "Active",
+          status: "active",
           note: null,
           _verified: true,
           _increment: false,

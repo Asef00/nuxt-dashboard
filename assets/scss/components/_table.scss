@@ -57,3 +57,28 @@ $left-spacing: 1.5em;
     padding-left: $right-spacing;
   }
 }
+
+.c-status {
+  text-transform: capitalize;
+  &::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border-radius: 100%;
+  }
+}
+
+.c-status--active {
+  color: $active-color;
+  &::before {
+    background-color: $active-color;
+  }
+}
+
+.c-status--inactive {
+  color: $inactive-color;
+  &::before {
+    background-color: $inactive-color;
+  }
+}
