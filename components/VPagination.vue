@@ -1,14 +1,19 @@
 <template>
   <div class="c-pagination">
     Show
-    <input type="text" class="c-pagination__input" value="15" />
+    <input type="text" class="c-pagination__input" v-bind:value="value" />
     entries
   </div>
 </template>
 
 <script>
 export default {
-  name: "PaginationComponent",
+  props: {
+    value: {
+      type: String,
+      default: 15,
+    },
+  },
 };
 </script>
 
