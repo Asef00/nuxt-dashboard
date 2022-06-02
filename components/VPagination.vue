@@ -11,7 +11,7 @@ export default {
   props: {
     value: {
       type: String,
-      default: 15,
+      default: "15",
     },
   },
 };
