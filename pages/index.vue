@@ -44,11 +44,26 @@
       </div>
 
       <div class="row">
-        <div class="col">
+        <div class="col-12">
           <VSwitch
             :defaultState="true"
             v-on:change="triggerToggleEvent"
             :labelText="'Validate Response'"
+          />
+        </div>
+        <div class="col-12">
+          <VCheckbox
+            label="Validate Response"
+            inputValue="foo"
+            v-model="selectedOptions"
+          />
+        </div>
+        <div class="col-12">
+          <VCheckbox
+            label="Disabled"
+            inputValue="foo"
+            v-model="selectedOptions"
+            :disabled="true"
           />
         </div>
       </div>
@@ -93,6 +108,7 @@ export default {
       },
       options: ["list", "of", "options", "bla"],
       toggleActive: false,
+      selectedOptions: [], //for checkbox
     };
   },
 
