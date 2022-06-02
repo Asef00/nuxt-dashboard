@@ -1,62 +1,68 @@
 <template>
   <div class="c-form__control">
-      <label class="c-switch" :class="{ 'is-active': isActive }">
-        {{ labelText }}
-        <input
-          type="checkbox"
-          role="switch"
-          class="c-switch__input"
-          :disabled="disabled"
-          v-model="checkedValue"
-        />
-        <span class="c-switch__slider"></span>
-      </label>
+    <label class="c-switch" :class="{ 'is-active': isActive }">
+      <span class="c-switch__label" :class="{ 'c-switch__error': hasError() }">{{ label }}</span>
+      <input
+        type="checkbox"
+        role="switch"
+        class="c-switch__input"
+        :disabled="disabled"
+        v-model="checkedValue"
+      />
+      <span class="c-switch__slider"></span>
+    </label>
+    <span v-if="hasError()" class="c-form__error">{{ error }}</span>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    defaultState: {
+    checked: {
       type: Boolean,
       default: false,
     },
 
-    labelText: {
+    label: {
       type: String,
-      default: "off",
     },
 
     disabled: {
       type: Boolean,
       default: false,
     },
+    error: {
+      type: String,
+      default: ''
+    },
   },
 
   data() {
     return {
-      currentState: this.defaultState,
+      currentChecked: this.checked,
     };
   },
 
   watch: {
-    defaultState: function defaultState() {
-      this.currentState = Boolean(this.defaultState);
+    checked() {
+      this.currentChecked = Boolean(this.checked);
+      this.$emit("validation");
     },
   },
 
   computed: {
     isActive() {
-      return this.currentState;
+      return this.currentChecked;
     },
 
     checkedValue: {
       get() {
-        return this.currentState;
+        return this.currentChecked;
       },
-      set(newValue) {
-        this.currentState = newValue;
-        this.$emit("change", newValue);
+      set(v) {
+        this.currentChecked = v;
+        this.$emit("change", v);
+        this.$emit("validation");
       },
     },
   },

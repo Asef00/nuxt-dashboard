@@ -4,13 +4,18 @@
     <multiselect
       class="c-form__select"
       v-model="internalValue"
-      :options="list"
-      :multiple="multiple"
-      :select-label="'Selected'"
-      :deselect-label="'Hit to remove'"
+      :options="taggable ? [] : list"
+      :multiple="(taggable ? true : multiple)"
+      select-label="Selected"
+      deselect-label="Hit to remove"
       :placeholder="placeholder"
       :disabled="disabled"
       :track-by="trackBy"
+      :label="trackLabel"
+      :taggable="taggable"
+      :searchable="(taggable ? true : searchable)"
+      :closeOnSelect="(taggable ? false : closeOnSelect)"
+      @tag="addTag"
       :class="[hasError() ? 'is-invalid' : '']"
     >
       <template slot="caret">
@@ -26,9 +31,11 @@ import Multiselect from "vue-multiselect";
 
 export default {
   name: "VSelect",
-  components: { Multiselect },
+  components: {Multiselect},
   props: {
-    value: [String, Number, Array, Object],
+    value: {
+      type: [Array, Object, String, Number]
+    },
     label: {
       type: [String, Number],
       required: true,
@@ -55,6 +62,22 @@ export default {
     trackBy: {
       type: String,
     },
+    trackLabel: {
+      type: String,
+    },
+    searchable: {
+      type: Boolean,
+      default: true
+    },
+    taggable: {
+      type: Boolean,
+      default: false
+    },
+    closeOnSelect: {
+      type: Boolean,
+      default: true
+    },
+
   },
   data() {
     return {
@@ -71,6 +94,10 @@ export default {
     hasError() {
       return this.error !== "";
     },
+    addTag(newTag) {
+      this.internalValue.push(newTag)
+      this.internalValue = [...new Set(this.internalValue)];
+    }
   },
 };
 </script>
