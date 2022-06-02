@@ -79,7 +79,7 @@
         </div>
       </div>
       <VSwitch
-        @change="payload.required = $event"
+        v-model="payload.required"
         label="Required"
         @validation="validate('required')"
         :error="errorMessage('required')"
