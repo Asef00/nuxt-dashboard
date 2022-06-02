@@ -53,9 +53,16 @@
         </div>
         <div class="col-12">
           <VCheckbox
-            label="Validate Response"
-            inputValue="foo"
-            v-model="selectedOptions"
+            label="Ali"
+            data="Ali"
+            :list="selectedOptions"
+            v-model="selected"
+          />
+          <VCheckbox
+            label="Reza"
+            data="Reza"
+            :list="selectedOptions"
+            v-model="selected"
           />
         </div>
         <div class="col-12">
@@ -108,6 +115,7 @@ export default {
       },
       options: ["list", "of", "options", "bla"],
       toggleActive: false,
+      selected: '', //for checkbox
       selectedOptions: [], //for checkbox
     };
   },
