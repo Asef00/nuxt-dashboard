@@ -12,13 +12,13 @@
           />
         </div>
         <div class="col-md-6">
-          <v-tag-input
-            @list="payload.fields = $event"
+          <VSelect
             @validation="validate('fields')"
             :error="errorMessage('fields')"
-            v-model="payload.field"
+            v-model="payload.fields"
             label="Fields"
             placeholder="Please add field"
+            :taggable="true"
           />
         </div>
       </div>
@@ -37,7 +37,6 @@ export default {
       payload: {
         name: "",
         fields: [],
-        field: "",
       },
     };
   },

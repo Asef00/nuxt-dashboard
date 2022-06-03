@@ -12,14 +12,14 @@
           />
         </div>
         <div class="col-md-6">
-          <v-tag-input
-            @list="payload.fields = $event"
-            :data="payload.fields"
+          <VSelect
             @validation="validate('fields')"
             :error="errorMessage('fields')"
-            v-model="payload.field"
+            v-model="payload.fields"
+            :list="payload.fields"
             label="Fields"
             placeholder="Please add field"
+            :taggable="true"
           />
         </div>
       </div>
@@ -68,10 +68,12 @@ export default {
     async show() {
       this.startLoading()
       await this.$store.dispatch("model/show", this.$route.params.id);
-      this.handleError(this.$store.state.model.error);
-      let data = this.$store.state.model.item;
-      this.payload.fields = data.fields
-      this.payload.name = data.name
+      let err = this.handleError(this.$store.state.model.error);
+      if (!err) {
+        let data = this.$store.state.model.item;
+        this.payload.fields = data.fields
+        this.payload.name = data.name
+      }
       this.stopLoading()
     },
     validation() {
