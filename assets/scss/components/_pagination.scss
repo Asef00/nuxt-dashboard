@@ -10,7 +10,7 @@
   color: $placeholder-color;
   @include font-size(13px);
   border: solid 1px #e5e5e5;
-  transition: $input-transition;
+  @include input-transition;
 
   &:focus {
     @include input-focus;

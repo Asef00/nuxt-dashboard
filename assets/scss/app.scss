@@ -33,7 +33,7 @@
 
 // UTILITIES
 @import "utilities/typography";
-// @import "utilities/color";
+@import "utilities/color";
 
 
 // COMPONENTS
@@ -48,3 +48,5 @@
 @import "components/pagination";
 @import "components/search";
 @import "components/badge";
+@import "components/dropdown";
+@import "components/filter";

@@ -24,6 +24,10 @@ $global-line-height: 24px;
   align-items: center;
   justify-content: flex-start;
 }
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
 
 // UTILITY
 @mixin box-shadow {
@@ -38,7 +42,7 @@ $global-line-height: 24px;
   @include input-border;
   @include font-size(14px);
   color: $text-color;
-  transition: $input-transition;
+  @include input-transition;
 }
 @mixin input-focus {
   color: #212529;
@@ -63,7 +67,9 @@ $global-line-height: 24px;
   border-radius: 3px;
   border: solid 1px #e1e0ea;
 }
-
+@mixin input-transition {
+  transition: $input-transition;
+}
 
 // FONT
 @mixin font-size($font-size, $line-height: auto, $important: false) {

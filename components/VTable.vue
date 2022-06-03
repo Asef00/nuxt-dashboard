@@ -13,19 +13,20 @@
         <tr class="c-table__row">
           <template v-for="col in columns">
             <!-- NOTE: non column props should start with _ -->
+            <!-- #id column -->
+            <th class="c-table__th" v-if="col == 'id'">#</th>
+
             <th
-              v-if="!col.startsWith('_')"
+              data-dropdown="container"
+              v-else-if="!col.startsWith('_')"
               v-bind:class="[
                 col == sortColumn ? 'is-active' : '',
                 col == 'note' ? 'u-text-center' : '',
-                'c-table__th',
+                'c-table__th c-filter',
               ]"
             >
-              <!-- #id column -->
-              <template v-if="col == 'id'"> # </template>
-
               <!-- Filter icon -->
-              <template v-else>
+              <button class="c-filter__btn" data-dropdown="btn">
                 <img
                   v-bind:src="
                     col == sortColumn
@@ -35,7 +36,40 @@
                   alt="filter icon"
                 />
                 {{ col.split("_").join(" ") }}
-              </template>
+              </button>
+              <div
+                class="c-filter__menu c-filter__menu--bottom"
+                data-dropdown="menu"
+              >
+                <header class="c-filter__header">
+                  <input class="c-filter__search" type="text" placeholder="Search..." />
+                  <a href="#" class="c-filter__control">Select All</a>
+                  <a href="#" class="c-filter__control">Clear</a>
+                </header>
+
+                <div class="c-filter__options">
+                  <label href="#" class="c-filter__item">
+                    <input type="checkbox" name="" id="" />
+                    AKMLS
+                  </label>
+                  <label href="#" class="c-filter__item">
+                    <input type="checkbox" name="" id="" />
+                    bridgeMLS
+                  </label>
+                  <label href="#" class="c-filter__item">
+                    <input type="checkbox" name="" id="" />
+                    CLAW
+                  </label>
+                  <label href="#" class="c-filter__item">
+                    <input type="checkbox" name="" id="" />
+                    ITech MLS
+                  </label>
+                  <label href="#" class="c-filter__item">
+                    <input type="checkbox" name="" id="" />
+                    Kern River Lake Isabella Board
+                  </label>
+                </div>
+              </div>
             </th>
           </template>
           <th class="c-table__th u-text-center">
