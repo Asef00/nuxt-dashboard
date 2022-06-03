@@ -82,13 +82,27 @@ export default {
   data() {
     return {
       internalValue: this.value,
+      firstLoad: false,
     };
   },
   watch: {
-    internalValue(v) {
-      this.$emit("input", v);
-      this.$emit("validation");
+    internalValue: {
+      handler(v) {
+        this.$emit("input", v);
+        this.$emit("validation");
+      },
+      deep: true
     },
+    list(v) {
+      if (this.taggable) {
+        if (!this.firstLoad) {
+          for (let i of v) {
+            this.addTag(i)
+          }
+          this.firstLoad = true
+        }
+      }
+    }
   },
   methods: {
     hasError() {
