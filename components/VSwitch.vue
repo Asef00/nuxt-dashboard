@@ -52,6 +52,9 @@ export default {
       this.$emit("input", v);
       this.$emit("validation");
     },
+    checked(v) {
+      this.internalValue = v;
+    }
   },
 };
 </script>
