@@ -2,6 +2,15 @@
 (function () {
   "use strict";
   document.addEventListener("DOMContentLoaded", function () {
+    // handle dropdown close to the edge
+    document
+      .querySelectorAll("[data-dropdown='menu']")
+      .forEach(() => {
+        if (menu.getBoundingClientRect().right + 10 > window.innerWidth) {
+          menu.style.left = "unset";
+          menu.style.right = 0;
+        }
+      });
     document.addEventListener("click", (e) => {
       const isDropdownButton = e.target.matches(
         "[data-dropdown='btn'], [data-dropdown='btn'] > *"
