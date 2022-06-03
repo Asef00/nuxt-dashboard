@@ -18,6 +18,7 @@
         let menu = currentDropdown.querySelector("[data-dropdown='menu']");
         currentDropdown.classList.toggle("is-active");
 
+        // dealing with max-height property to have animation/transition on mobile accordion menu
         if (menu.style.maxHeight) menu.style.maxHeight = null;
         else menu.style.maxHeight = currentDropdown.scrollHeight + "px";
       }

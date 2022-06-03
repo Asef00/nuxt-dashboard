@@ -12,6 +12,7 @@
   height: 100%;
   border: 0;
 
+  color: inherit;
   background-color: inherit;
   font-weight: inherit;
   text-transform: inherit;
@@ -32,6 +33,7 @@
   gap: 10px;
 
   background-color: #fff;
+  font-weight: 400;
   @include font-size(13px);
   transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
 
@@ -60,7 +62,7 @@
 
   .c-filter.is-active & {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(-7px);
     pointer-events: auto;
     z-index: 1;
   }
@@ -71,7 +73,7 @@
 }
 
 .c-filter__header {
-  display: flex;
+  @include flex-between;
   gap: 12px;
 }
 
@@ -81,15 +83,31 @@
   width: fit-content;
   cursor: pointer;
   gap: 8px;
+  color: $placeholder-color;
+
+  input[type="checkbox"] {
+    accent-color: $primary-color;
+  }
 }
 
 .c-filter__control {
-  color: #006bff;
+  color: $link-color;
+  font-weight: 400;
+  transition: 0.2s;
+
+  &:hover {
+    color: $primary-color;
+  }
 }
 
 .c-filter__search {
-  @include input-border;
+  height: 28px;
+  padding: 0 8px;
+  border: none;
+  border-radius: 3px;
+  @include input-search-bg;
   @include input-transition;
+  background-color: $filled-color;
 
   &:focus {
     @include input-focus;

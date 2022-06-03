@@ -70,6 +70,11 @@ $global-line-height: 24px;
 @mixin input-transition {
   transition: $input-transition;
 }
+@mixin input-search-bg {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAABmJLR0QA/wD/AP+gvaeTAAABWUlEQVQokZXRu0oDURAG4H/O5oJdBAMWFiLmCSxFfAsrLcwmWWJWEkHQTjsjCDEbcvaGsYhV3sAHsBO0Fq2NoCJsECS6Y+NK4u6K/uWc+WYGDhARwzDSUsrJqLfR0BiSzjKAPBMGAAZgzhKLZ8FvB7quP8XilnTXQf5MSqCuadowqDdMc1bxlcOPBNe2NO0+tL5pWTlD2o24845se8owndOfdQEA5FPRT4p6HN7WtEcw7pqWlQthEGVqxeJDHAYAZr4Ai4Uw/mME81i/+Br70m63p3+DRLRIPl2GsMKK8y6Su3HQMDpZAs3reukmhCuVwi2Yr1qmu2fbdnK0oSE7c0gMzxm4Dl0ztkG6SwSoDLwysSeYMwzqg7gPpmMCqZsbxbNIHGS/10tNeF56R1W9oNaS7iqDT0YHROK4NE1nhRhdJhSq5VL3X19VLZd6IOThY42Z/7X4OwH8BN18hSADYYGuAAAAAElFTkSuQmCC");
+  background-repeat: no-repeat;
+  background-position: 97% center;
+}
 
 // FONT
 @mixin font-size($font-size, $line-height: auto, $important: false) {
