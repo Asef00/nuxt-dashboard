@@ -102,6 +102,12 @@ export default {
           this.firstLoad = true
         }
       }
+    },
+    value(v){
+      if (!this.firstLoad){
+        this.internalValue = v
+        this.firstLoad = true;
+      }
     }
   },
   methods: {
