@@ -11,69 +11,63 @@
     <table class="c-table">
       <thead class="c-table__header">
         <tr class="c-table__row">
-          <template v-for="col in columns">
-            <!-- NOTE: non column props should start with _ -->
-            <!-- #id column -->
-            <th class="c-table__th" v-if="col == 'id'">#</th>
-
-            <th
-              data-dropdown="container"
-              v-else-if="!col.startsWith('_')"
-              v-bind:class="[
-                col == sortColumn ? 'is-active' : '',
-                col == 'note' ? 'u-text-center' : '',
-                'c-table__th c-filter',
-              ]"
-            >
+          <th
+            v-for="(col, index) in columns"
+            :key="index"
+            class="c-table__th c-filter"
+            data-dropdown="container"
+          >
+            <button class="c-filter__btn" data-dropdown="btn">
               <!-- Filter icon -->
-              <button class="c-filter__btn" data-dropdown="btn">
-                <img
-                  v-bind:src="
-                    col == sortColumn
-                      ? '/img/filter.is-active.svg'
-                      : '/img/filter.svg'
-                  "
-                  alt="filter icon"
+              <img
+                v-if="col.sortable"
+                :src="
+                  col == sortColumn
+                    ? '/img/filter.is-active.svg'
+                    : '/img/filter.svg'
+                "
+                alt="filter icon"
+              />
+              <span v-html="col.label"></span>
+              <!-- {{ col.split("_").join(" ") }} -->
+            </button>
+            <div
+              class="c-filter__menu c-filter__menu--bottom"
+              data-dropdown="menu"
+            >
+              <header class="c-filter__header">
+                <input
+                  class="c-filter__search"
+                  type="text"
+                  placeholder="Search..."
                 />
-                {{ col.split("_").join(" ") }}
-              </button>
-              <div
-                class="c-filter__menu c-filter__menu--bottom"
-                data-dropdown="menu"
-              >
-                <header class="c-filter__header">
-                  <input class="c-filter__search" type="text" placeholder="Search..." />
-                  <a href="#" class="c-filter__control">Select All</a>
-                  <a href="#" class="c-filter__control">Clear</a>
-                </header>
+                <a href="#" class="c-filter__control">Select All</a>
+                <a href="#" class="c-filter__control">Clear</a>
+              </header>
 
-                <div class="c-filter__options">
-                  <label href="#" class="c-filter__item">
-                    <input type="checkbox" name="" id="" />
-                    AKMLS
-                  </label>
-                  <label href="#" class="c-filter__item">
-                    <input type="checkbox" name="" id="" />
-                    bridgeMLS
-                  </label>
-                  <label href="#" class="c-filter__item">
-                    <input type="checkbox" name="" id="" />
-                    CLAW
-                  </label>
-                  <label href="#" class="c-filter__item">
-                    <input type="checkbox" name="" id="" />
-                    ITech MLS
-                  </label>
-                  <label href="#" class="c-filter__item">
-                    <input type="checkbox" name="" id="" />
-                    Kern River Lake Isabella Board
-                  </label>
-                </div>
+              <div class="c-filter__options">
+                <label href="#" class="c-filter__item">
+                  <input type="checkbox" name="" id="" />
+                  AKMLS
+                </label>
+                <label href="#" class="c-filter__item">
+                  <input type="checkbox" name="" id="" />
+                  bridgeMLS
+                </label>
+                <label href="#" class="c-filter__item">
+                  <input type="checkbox" name="" id="" />
+                  CLAW
+                </label>
+                <label href="#" class="c-filter__item">
+                  <input type="checkbox" name="" id="" />
+                  ITech MLS
+                </label>
+                <label href="#" class="c-filter__item">
+                  <input type="checkbox" name="" id="" />
+                  Kern River Lake Isabella Board
+                </label>
               </div>
-            </th>
-          </template>
-          <th class="c-table__th u-text-center">
-            <img src="/img/edit.svg" alt="" />
+            </div>
           </th>
         </tr>
       </thead>
@@ -83,8 +77,8 @@
           v-for="item in items"
           :key="item.id"
         >
-          <template v-for="col in columns">
-            <td v-if="!col.startsWith('_')" :class="['c-table__cell']">
+          <template v-for="(col, index) in columns">
+            <td :class="['c-table__cell']" :key="index">
               <!-- NOTE: non column props should start with _ -->
 
               <!-- notifications -->
@@ -102,7 +96,12 @@
               </template>
               <!-- MLS tags -->
               <template v-else-if="col == 'MLS'">
-                <span v-for="tag in item[col]" class="c-badge">{{ tag }}</span>
+                <span
+                  v-for="(tag, index) in item[col]"
+                  :key="index"
+                  class="c-badge"
+                  >{{ tag }}</span
+                >
               </template>
               <!-- Paid so far -->
               <template v-else-if="col == 'paid_so_far'">
@@ -145,9 +144,14 @@
 
 <script>
 export default {
+  props: {
+    columns: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
-      ascending: false,
       sortColumn: "",
       items: [
         {
@@ -224,15 +228,6 @@ export default {
         },
       ],
     };
-  },
-
-  computed: {
-    columns: function columns() {
-      if (this.items.length == 0) {
-        return [];
-      }
-      return Object.keys(this.items[0]);
-    },
   },
 };
 </script>
