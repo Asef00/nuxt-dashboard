@@ -42,6 +42,39 @@
           />
         </div>
       </div>
+
+      <div class="row">
+        <div class="col-12">
+          <VSwitch
+            :defaultState="true"
+            v-on:change="triggerToggleEvent"
+            :labelText="'Validate Response'"
+          />
+        </div>
+        <div class="col-12">
+          <VCheckbox
+            label="Ali"
+            data="Ali"
+            :list="selectedOptions"
+            v-model="selected"
+          />
+          <VCheckbox
+            label="Reza"
+            data="Reza"
+            :list="selectedOptions"
+            v-model="selected"
+          />
+        </div>
+        <div class="col-12">
+          <VCheckbox
+            label="Disabled"
+            inputValue="foo"
+            v-model="selectedOptions"
+            :disabled="true"
+          />
+        </div>
+      </div>
+
       <VBtn
         @action="startLoading"
         :loader="loaderRequest"
@@ -81,8 +114,12 @@ export default {
         summary: "",
       },
       options: ["list", "of", "options", "bla"],
+      toggleActive: false,
+      selected: '', //for checkbox
+      selectedOptions: [], //for checkbox
     };
   },
+
   methods: {
     validation() {
       return Yup.object({
@@ -91,6 +128,7 @@ export default {
         tag: Yup.array().min(1),
       });
     },
+
     resetError() {
       this.$store.commit("me/RESET_ERROR");
       this.errors = {
@@ -99,15 +137,15 @@ export default {
         summary: "",
       };
     },
+
+    triggerToggleEvent(value) {
+      this.toggleActive = value;
+    },
   },
+
   created() {
     this.setTitle("Dashboard");
-    this.setBreadcrumb([
-      {
-        to: "dashboard",
-        name: "Dashboard",
-      },
-    ]);
+    this.setBreadcrumb([]);
     this.resetError();
   },
 };

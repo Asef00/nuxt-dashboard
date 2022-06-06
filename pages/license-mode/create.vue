@@ -1,5 +1,5 @@
 <template>
-  <VCard title="Create New Model">
+  <VCard title="Create New License Mode">
     <form @submit.prevent="create" class="c-form">
       <div class="row">
         <div class="col-md-6">
@@ -12,13 +12,12 @@
           />
         </div>
         <div class="col-md-6">
-          <VSelect
-            @validation="validate('fields')"
-            :error="errorMessage('fields')"
-            v-model="payload.fields"
-            label="Fields"
-            placeholder="Please add field"
-            :taggable="true"
+          <VInput
+            @validation="validate('label')"
+            :error="errorMessage('label')"
+            label="Label"
+            v-model="payload.label"
+            placeholder="Please enter label"
           />
         </div>
       </div>
@@ -31,13 +30,13 @@
 import * as Yup from "yup";
 
 export default {
-  name: "ModelCreate",
+  name: "create",
   data() {
     return {
       payload: {
-        name: "",
-        fields: [],
-      },
+        name: '',
+        label: '',
+      }
     };
   },
   methods: {
@@ -47,12 +46,12 @@ export default {
         .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
-          await this.$store.dispatch("model/create", this.payload);
+          await this.$store.dispatch("licenseMode/create", this.payload);
           this.stopLoading();
-          const err = this.handleError(this.$store.state.model.error);
+          const err = this.handleError(this.$store.state.licenseMode.error);
           if (!err) {
-            this.$toast.success("Model successfully created.");
-            this.$router.push("/model");
+            this.$toast.success("License Mode successfully created.");
+            this.$router.push("/license-mode");
           }
         })
         .catch((err) => {
@@ -63,30 +62,34 @@ export default {
     validation() {
       return Yup.object({
         name: Yup.string().required(),
-        fields: Yup.array().min(1),
+        label: Yup.string().required(),
       });
     },
     resetError() {
-      this.$store.commit('model/RESET_ERROR')
+      this.$store.commit('licenseMode/RESET_ERROR')
       this.errors = {
         name: "",
-        fields: "",
+        label: "",
       };
     }
   },
   created() {
-    this.setTitle("Model");
+    this.setTitle('License Mode')
     this.setBreadcrumb([
       {
-        to: "/model",
-        name: "Model",
+        to: '/license-mode',
+        name: 'License Mode'
       },
       {
-        to: "/model/create",
-        name: "Create",
-      },
-    ]);
-    this.resetError();
-  },
-};
+        to: '/license-mode/create',
+        name: 'Create'
+      }
+    ])
+    this.resetError()
+  }
+}
 </script>
+
+<style scoped>
+
+</style>

@@ -1,0 +1,60 @@
+$checkbox-size: 16.3px;
+
+.c-checkbox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding-left: $checkbox-size + 5;
+  margin-bottom: 12px;
+
+  cursor: pointer;
+  user-select: none;
+  @include font-size(14px);
+}
+
+.c-checkbox__input {
+  position: absolute;
+  height: 0;
+  width: 0;
+
+  opacity: 0;
+  cursor: pointer;
+}
+
+.c-checkbox__icon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  height: $checkbox-size;
+  width: $checkbox-size;
+
+  @include input-border;
+  background-color: rgba(146, 150, 154, 0.1);
+
+  .c-checkbox__input:disabled + & {
+    background: $input-disable;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 5px;
+    top: 1px;
+    width: 5.3px;
+    height: 9.3px;
+    border: solid white;
+    border-width: 0 2.3px 2.3px 0;
+    transform: rotate(45deg);
+  }
+
+  .is-active > & {
+    background: $primary-color;
+
+    &::after {
+      display: block;
+    }
+  }
+}

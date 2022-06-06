@@ -3,12 +3,12 @@ export default {
   head: {
     title: "Dashboard",
     meta: [
-      { charset: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { hid: "description", name: "description", content: "" },
-      { name: "format-detection", content: "telephone=no" },
+      {charset: "utf-8"},
+      {name: "viewport", content: "width=device-width, initial-scale=1"},
+      {hid: "description", name: "description", content: ""},
+      {name: "format-detection", content: "telephone=no"},
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    link: [{rel: "icon", type: "image/x-icon", href: "/favicon.ico"}],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -20,9 +20,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    "~/plugins/mixin",
-    // "~/plugins/constants",
-    { src: '~/plugins/vue-tags-input', ssr: false }
+    "~/plugins/mixin"
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -90,10 +88,10 @@ export default {
           maxAge: 60 * 60 * 24 * 30,
         },
         endpoints: {
-          login: { url: "/auth/token", method: "post" },
-          refresh: { url: "/auth/token", method: "post" },
-          user: { url: "/auth/person", method: "get" },
-          logout: { url: "/auth/token/revoke", method: "post" },
+          login: {url: "/auth/token", method: "post"},
+          refresh: {url: "/auth/token", method: "post"},
+          user: {url: "/auth/person", method: "get"},
+          logout: {url: "/auth/token/revoke", method: "post"},
         },
       },
     },

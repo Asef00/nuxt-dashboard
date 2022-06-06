@@ -6,11 +6,11 @@
 export default {
   name: "index",
   created() {
-    this.setTitle('Model')
+    this.setTitle('Field Name')
     this.setBreadcrumb([
       {
-        to: "/model",
-        name: "Model"
+        to: '/field/name',
+        name: 'Field Name'
       }
     ])
   }

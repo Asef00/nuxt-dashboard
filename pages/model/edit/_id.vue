@@ -1,6 +1,6 @@
 <template>
-  <VCard title="Create New Model">
-    <form @submit.prevent="create" class="c-form">
+  <VCard title="Edit a Model">
+    <form @submit.prevent="update" class="c-form">
       <div class="row">
         <div class="col-md-6">
           <VInput
@@ -16,6 +16,7 @@
             @validation="validate('fields')"
             :error="errorMessage('fields')"
             v-model="payload.fields"
+            :list="payload.fields"
             label="Fields"
             placeholder="Please add field"
             :taggable="true"
@@ -31,27 +32,31 @@
 import * as Yup from "yup";
 
 export default {
-  name: "ModelCreate",
+  name: "ModelEdit",
   data() {
     return {
       payload: {
         name: "",
         fields: [],
+        field: "",
       },
     };
   },
   methods: {
-    create() {
+    update() {
       this.startLoading();
       this.validation()
         .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
-          await this.$store.dispatch("model/create", this.payload);
+          await this.$store.dispatch("model/update", {
+            payload: this.payload,
+            id: this.$route.params.id
+          });
           this.stopLoading();
           const err = this.handleError(this.$store.state.model.error);
           if (!err) {
-            this.$toast.success("Model successfully created.");
+            this.$toast.success("Model successfully updated.");
             this.$router.push("/model");
           }
         })
@@ -59,6 +64,17 @@ export default {
           this.setAllErrorValidation(err);
           this.stopLoading();
         });
+    },
+    async show() {
+      this.startLoading()
+      await this.$store.dispatch("model/show", this.$route.params.id);
+      let err = this.handleError(this.$store.state.model.error);
+      if (!err) {
+        let data = this.$store.state.model.item;
+        this.payload.fields = data.fields
+        this.payload.name = data.name
+      }
+      this.stopLoading()
     },
     validation() {
       return Yup.object({
@@ -83,10 +99,11 @@ export default {
       },
       {
         to: "/model/create",
-        name: "Create",
+        name: "Edit",
       },
     ]);
     this.resetError();
+    this.show()
   },
 };
 </script>

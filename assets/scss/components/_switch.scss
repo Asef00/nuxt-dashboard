@@ -1,0 +1,71 @@
+$switch-height: 19px;
+$switch-width: 36px;
+
+.c-switch {
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+
+}
+
+.c-switch__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.c-switch__error {
+  color: #dc3545;
+  font-size: 0.875rem;
+  line-height: 1.7142857143;
+  display: block;
+  @include font-size(14px);
+}
+
+.c-switch__label {
+  font-size: 0.875rem;
+  line-height: 1.7142857143;
+  font-weight: 500;
+  color: #2e2e33;
+  display: block;
+  @include font-size(14px);
+}
+
+.c-switch__slider {
+  position: relative;
+  width: $switch-width;
+  height: $switch-height;
+  display: inline-block;
+  margin-left: 10px;
+
+  border-radius: 34px;
+  background: #bebebf;
+  transition: all 0.25s;
+
+  &:after {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 2px;
+
+    height: 16px;
+    width: 16px;
+    display: block;
+    transform: translateX(0);
+
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+    transition: all 0.25s cubic-bezier(0.5, -0.6, 0.5, 1.6);
+  }
+
+  .is-active > & {
+    background: $primary-color;
+
+    &::after {
+      left: 18px;
+    }
+  }
+}

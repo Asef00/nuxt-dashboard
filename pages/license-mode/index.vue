@@ -6,11 +6,11 @@
 export default {
   name: "index",
   created() {
-    this.setTitle('Model')
+    this.setTitle('License Mode')
     this.setBreadcrumb([
       {
-        to: "/model",
-        name: "Model"
+        to: '/license-mode',
+        name: 'License Mode'
       }
     ])
   }
