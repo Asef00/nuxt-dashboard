@@ -75,6 +75,7 @@
         <tr v-if="!table.items || !table.items.length">
           <td colspan="100%" class="u-text-center">No Data</td>
         </tr>
+        
         <tr
           class="c-table__row"
           v-else

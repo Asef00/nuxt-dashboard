@@ -58,7 +58,7 @@ export default {
       }
     },
     notification(count) {
-      return `
+      if (count) return `
         <a href="#" class="c-notification">
           <img src="/img/note.svg" alt="" />
           <span class="c-notification__badge">${count}</span>
@@ -77,7 +77,7 @@ export default {
           paid: this.paid(item.paid),
           email: item.email,
           status: this.status(item.is_active),
-          notification: item.notification,
+          notification: this.notification(item.notification),
           edit: this.edit(),
         });
       }

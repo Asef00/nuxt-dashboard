@@ -10,12 +10,12 @@
             "MLS PRO"
         ],
         "paid": 8400,
-        "email": "Chandler@gmail.com",
+        "email": "Ross@gmail.com",
         "is_active": false,
         "notification": null
     },
     {
-        "id": 1,
+        "id": 2,
         "name": "Rachel",
         "family_name": "Green",
         "source": "Houzes",
@@ -24,23 +24,23 @@
             "MLS PRO"
         ],
         "paid": 4300,
-        "email": "Chandler@gmail.com",
-        "is_active": false,
-        "notification": null
+        "email": "Rachel@gmail.com",
+        "is_active": true,
+        "notification": 2
     },
     {
-        "id": 1,
+        "id": 3,
         "name": "Monica",
         "family_name": "Geller",
         "source": "Realtyna.com",
         "mls": [],
         "paid": 9500,
-        "email": "Chandler@gmail.com",
-        "is_active": false,
+        "email": "Monica@gmail.com",
+        "is_active": true,
         "notification": null
     },
     {
-        "id": 1,
+        "id": 4,
         "name": "Chandler",
         "family_name": "Bing",
         "source": "Realtyna.com",
