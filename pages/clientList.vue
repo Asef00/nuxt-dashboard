@@ -1,6 +1,6 @@
 <template>
   <VCard title="Client List" class="c-card--fluid">
-    <VTable :columns="columns" />
+    <VTable :table="table" />
   </VCard>
 </template>
 
@@ -10,92 +10,143 @@ export default {
 
   data() {
     return {
-      columns: [
-        { label: "#" },
-        { label: "Full Name", sortable: true },
-        { label: "Source", sortable: true },
-        { label: "MLS", sortable: true },
-        { label: "Paid so far", sortable: true },
-        { label: "Email", sortable: true },
-        { label: "Status", sortable: true },
-        { label: '<img src="/img/note.svg" alt="">' },
-        { label: '<img src="/img/edit.svg" alt="" />' },
-      ],
-      items: [
+      table: {
+        columns: [
+          { key: "id", label: "#" },
+          { key: "full_name", label: "Full Name", sortable: "true" },
+          { key: "source", label: "Source", sortable: true },
+          { key: "mls", label: "MLS", sortable: true },
+          { key: "paid", label: "Paid so far", sortable: true },
+          { key: "email", label: "Email", sortable: true },
+          { key: "status", label: "Status", sortable: true },
+          { key: "notification", label: '<img src="/img/note.svg" alt="">' },
+          {
+            key: "edit",
+            label: '<img src="/img/edit.svg" alt="" />',
+            // value: '<a href="#" class="c-table__link">Edit</a>',
+          },
+        ],
+        items: [
+          {
+            id: 1,
+            full_name: this.full_name("Chandler", "Bing"),
+            source: "Realtyna.com",
+            mls: this.mls([]),
+            paid: this.paid(8400),
+            email: "Chandler@gmail.com",
+            status: this.status(false),
+            notification: null,
+            edit: this.edit(),
+          },
+          {
+            id: 2,
+            full_name: this.full_name("Ross", "Geller"),
+            source: "Realtyna.com",
+            mls: this.mls(["MFR MLS"]),
+            paid: this.paid(3200),
+            email: "Ross@gmail.com",
+            status: this.status(true),
+            notification: null,
+            edit: this.edit(),
+          },
+          {
+            id: 3,
+            full_name: this.full_name("Rachel", "Green"),
+            source: "Houzes",
+            mls: this.mls(["Treb", "MFR MLS"]),
+            paid: this.paid(1400),
+            email: "Rachel@gmail.com",
+            status: this.status(true),
+            notification: null,
+            edit: this.edit(),
+          },
+          {
+            id: 4,
+            full_name: this.full_name("Monica", "Geller"),
+            source: "Realtyna.com",
+            mls: this.mls(["XMLS"]),
+            paid: this.paid(12400),
+            email: "Monica@gmail.com",
+            status: this.status(false),
+            notification: this.notification(2),
+            edit: this.edit(),
+            rowClass: "has-note",
+          },
+          {
+            id: 5,
+            full_name: this.full_name("Joey", "Tribbiani"),
+            source: "Realtyna.com",
+            mls: this.mls(["ITech MLS"]),
+            paid: this.paid(9500),
+            email: "Joey@gmail.com",
+            status: this.status(true),
+            notification: null,
+            edit: this.edit(),
+          },
+          {
+            id: 6,
+            full_name: this.full_name("Phoebe", "Buffay"),
+            source: "Realtyna.com",
+            mls: this.mls([]),
+            paid: this.paid(6400),
+            email: "Phoebe@gmail.com",
+            status: this.status(false),
+            notification: null,
+            edit: this.edit(),
+            edit: this.edit(),
+          },
+        ],
+      },
+      sample: [
         {
           id: 1,
-          full_name: "Chandler Bing",
+          name: "Chandler",
+          family_name: "Bing",
           source: "Realtyna.com",
-          MLS: ["Treb", "MFR MLS", "XMLS"],
-          paid_so_far: "$8,400",
+          mls: ["XMLS", "Alpha", "MLS PRO"],
+          paid: 8400,
           email: "Chandler@gmail.com",
-          status: "Inactive",
-          note: null,
-          _verified: true,
-          _increment: false,
-        },
-        {
-          id: 2,
-          full_name: "Ross Geller",
-          source: "Realtyna.com",
-          MLS: ["MFR MLS"],
-          paid_so_far: "$3,200",
-          email: "Ross@gmail.com",
-          status: "active",
-          note: null,
-          _verified: false,
-          _increment: true,
-        },
-        {
-          id: 3,
-          full_name: "Rachel Green",
-          source: "Houzes",
-          MLS: ["Treb", "MFR MLS"],
-          paid_so_far: "$1,400",
-          email: "Rachel@gmail.com",
-          status: "active",
-          note: null,
-          _verified: false,
-          _increment: true,
-        },
-        {
-          id: 4,
-          full_name: "Monica Geller",
-          source: "Realtyna.com",
-          MLS: ["XMLS"],
-          paid_so_far: "$12,400",
-          email: "Monica@gmail.com",
-          status: "Inactive",
-          note: 2,
-          _verified: true,
-          _increment: false,
-        },
-        {
-          id: 5,
-          full_name: "Joey Tribbiani",
-          source: "Realtyna.com",
-          MLS: ["ITech MLS"],
-          paid_so_far: "$9,450",
-          email: "Joey@gmail.com",
-          status: "active",
-          note: null,
-          _verified: true,
-          _increment: false,
-        },
-        {
-          id: 6,
-          full_name: "Phoebe Buffay",
-          source: "Realtyna.com",
-          MLS: [],
-          paid_so_far: "$6,100",
-          email: "Phoebe@gmail.com",
-          status: "Inactive",
-          note: null,
-          _verified: false,
-          _increment: true,
+          is_active: false,
+          notification: null,
         },
       ],
     };
+  },
+
+  methods: {
+    mls(arr) {
+      let html = "";
+      for (let item of arr) {
+        html += `<span class="c-badge">${item}</span>`;
+      }
+      return html;
+    },
+    full_name(first, last) {
+      return first + " " + last;
+    },
+    paid(amount) {
+      return `
+      $${amount.toLocaleString()}
+      <img src="/img/increment.svg" alt="" />`;
+    },
+    status(is_active) {
+      if (is_active) {
+        return `<span class="c-status c-status--active">Active</span>`;
+      } else {
+        return `<span class="c-status c-status--inactive">Inactive</span>`;
+
+      }
+    },
+    notification(count) {
+      return `
+        <a href="#" class="c-notification">
+          <img src="/img/note.svg" alt="" />
+          <span class="c-notification__badge">${count}</span>
+        </a>`;
+    },
+    edit() {
+      return `<a href="#" class="c-table__link">Edit</a>`;
+    },
   },
 
   created() {
