@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import json from "~/static/json/sample.json";
+
 export default {
   layout: "default",
 
@@ -26,90 +28,9 @@ export default {
             // value: '<a href="#" class="c-table__link">Edit</a>',
           },
         ],
-        items: [
-          {
-            id: 1,
-            full_name: this.full_name("Chandler", "Bing"),
-            source: "Realtyna.com",
-            mls: this.mls([]),
-            paid: this.paid(8400),
-            email: "Chandler@gmail.com",
-            status: this.status(false),
-            notification: null,
-            edit: this.edit(),
-          },
-          {
-            id: 2,
-            full_name: this.full_name("Ross", "Geller"),
-            source: "Realtyna.com",
-            mls: this.mls(["MFR MLS"]),
-            paid: this.paid(3200),
-            email: "Ross@gmail.com",
-            status: this.status(true),
-            notification: null,
-            edit: this.edit(),
-          },
-          {
-            id: 3,
-            full_name: this.full_name("Rachel", "Green"),
-            source: "Houzes",
-            mls: this.mls(["Treb", "MFR MLS"]),
-            paid: this.paid(1400),
-            email: "Rachel@gmail.com",
-            status: this.status(true),
-            notification: null,
-            edit: this.edit(),
-          },
-          {
-            id: 4,
-            full_name: this.full_name("Monica", "Geller"),
-            source: "Realtyna.com",
-            mls: this.mls(["XMLS"]),
-            paid: this.paid(12400),
-            email: "Monica@gmail.com",
-            status: this.status(false),
-            notification: this.notification(2),
-            edit: this.edit(),
-            rowClass: "has-note",
-          },
-          {
-            id: 5,
-            full_name: this.full_name("Joey", "Tribbiani"),
-            source: "Realtyna.com",
-            mls: this.mls(["ITech MLS"]),
-            paid: this.paid(9500),
-            email: "Joey@gmail.com",
-            status: this.status(true),
-            notification: null,
-            edit: this.edit(),
-          },
-          {
-            id: 6,
-            full_name: this.full_name("Phoebe", "Buffay"),
-            source: "Realtyna.com",
-            mls: this.mls([]),
-            paid: this.paid(6400),
-            email: "Phoebe@gmail.com",
-            status: this.status(false),
-            notification: null,
-            edit: this.edit(),
-            edit: this.edit(),
-          },
-        ],
+        items: [],
       },
-      sample: [
-        {
-          id: 1,
-          name: "Chandler",
-          family_name: "Bing",
-          source: "Realtyna.com",
-          mls: ["XMLS", "Alpha", "MLS PRO"],
-          paid: 8400,
-          email: "Chandler@gmail.com",
-          is_active: false,
-          notification: null,
-        },
-      ],
+      sample: json,
     };
   },
 
@@ -134,7 +55,6 @@ export default {
         return `<span class="c-status c-status--active">Active</span>`;
       } else {
         return `<span class="c-status c-status--inactive">Inactive</span>`;
-
       }
     },
     notification(count) {
@@ -147,6 +67,26 @@ export default {
     edit() {
       return `<a href="#" class="c-table__link">Edit</a>`;
     },
+    getData() {
+      for (let item of json) {
+        this.table.items.push({
+          id: item.id,
+          full_name: this.full_name(item.name, item.family_name),
+          source: item.source,
+          mls: this.mls(item.mls),
+          paid: this.paid(item.paid),
+          email: item.email,
+          status: this.status(item.is_active),
+          notification: item.notification,
+          edit: this.edit(),
+        });
+      }
+      return;
+    },
+  },
+
+  mounted() {
+    this.getData();
   },
 
   created() {

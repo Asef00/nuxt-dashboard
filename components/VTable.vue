@@ -72,7 +72,7 @@
       </thead>
       <tbody class="c-table__body">
         <!-- if no data -->
-        <tr v-if="!table.items">
+        <tr v-if="!table.items || !table.items.length">
           <td colspan="100%" class="u-text-center">No Data</td>
         </tr>
         <tr
