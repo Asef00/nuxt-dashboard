@@ -4,7 +4,7 @@
             "id": 1,
             "name": "Ross",
             "family_name": "Geller",
-            "username": "rossgeller@gmail.com",
+            "username": "Ross@gmail.com",
             "enabled": false,
             "created_at": "2022-05-28",
             "updated_at": "2022-05-28"
@@ -13,7 +13,7 @@
             "id": 2,
             "name": "Rachel",
             "family_name": "Green",
-            "username": "Chandler@gmail.com",
+            "username": "Rachel@gmail.com",
             "enabled": true,
             "created_at": "2022-05-28",
             "updated_at": "2022-05-28"
@@ -22,7 +22,7 @@
             "id": 3,
             "name": "Monica",
             "family_name": "Geller",
-            "username": "Chandler@gmail.com",
+            "username": "Monica@gmail.com",
             "enabled": false,
             "created_at": "2022-05-28",
             "updated_at": "2022-05-28"

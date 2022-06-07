@@ -65,6 +65,10 @@ $left-spacing: 1.5em;
 // Status
 .c-status {
   text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+
   &::before {
     content: "";
     width: 10px;
