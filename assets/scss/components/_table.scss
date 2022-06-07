@@ -1,16 +1,22 @@
 $right-spacing: 13px;
 $left-spacing: 1.5em;
+$min-width: 28px;
 
 .c-table {
   @include font-size(13px);
   width: 100%;
   border-collapse: collapse;
   color: $placeholder-color;
+  // margin-bottom: 0;
+  // overflow: hidden;
 }
 
 .c-table__th {
   height: 38px;
+  min-width: $min-width;
   padding: 0;
+
+  white-space: nowrap;
   text-transform: capitalize;
   font-weight: 600;
   text-align: left;
@@ -45,7 +51,8 @@ $left-spacing: 1.5em;
 }
 
 .c-table__cell {
-  // text-align: left;
+  min-width: $min-width;
+  white-space: nowrap;
   padding: 8px;
 
   &:first-child {
@@ -54,7 +61,7 @@ $left-spacing: 1.5em;
     color: $text-color;
   }
   &:last-child {
-    padding-left: $right-spacing;
+    padding-right: $right-spacing;
   }
 }
 

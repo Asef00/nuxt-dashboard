@@ -15,16 +15,21 @@ export default {
       table: {
         columns: [
           { key: "id", label: "#" },
-          { key: "full_name", label: "Full Name", sortable: "true" },
-          { key: "source", label: "Source", sortable: true },
-          { key: "mls", label: "MLS", sortable: true },
-          { key: "paid", label: "Paid so far", sortable: true },
-          { key: "email", label: "Email", sortable: true },
-          { key: "status", label: "Status", sortable: true },
-          { key: "notification", label: '<img src="/img/note.svg" alt="">' },
+          { key: "full_name", label: "Full Name", filterable: true },
+          { key: "source", label: "Source", filterable: true },
+          { key: "mls", label: "MLS", filterable: true },
+          { key: "paid", label: "Paid so far", filterable: true },
+          { key: "email", label: "Email", filterable: true },
+          { key: "status", label: "Status", filterable: true },
+          {
+            key: "notification",
+            label: '<img src="/img/note.svg" alt="">',
+            class: "u-text-center",
+          },
           {
             key: "edit",
             label: '<img src="/img/edit.svg" alt="" />',
+            class: "u-text-center",
           },
         ],
         items: json,
@@ -55,7 +60,7 @@ export default {
             if (item.notification)
               return `
                 <a href="#" class="c-notification">
-                  <img src="/img/note.svg" alt="" />
+                  <img src="/img/note.svg" alt="" width="12" height="14" />
                   <span class="c-notification__badge">${item.notification}</span>
                 </a>`;
           },
