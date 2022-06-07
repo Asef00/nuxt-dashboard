@@ -1,6 +1,6 @@
 <template>
-  <VCard title="Create new Product">
-    <form @submit.prevent="create" class="c-form">
+  <VCard title="Edit a Product">
+    <form @submit.prevent="update" class="c-form">
       <div class="row">
         <div class="col-md-6">
           <VInput
@@ -51,7 +51,7 @@
 import * as Yup from "yup";
 
 export default {
-  name: "create",
+  name: "edit",
   data() {
     return {
       list: {
@@ -66,22 +66,25 @@ export default {
     };
   },
   methods: {
-    create() {
+    update() {
       this.startLoading();
       this.validation()
         .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
-          await this.$store.dispatch("product/create", {
-            title: this.payload.title,
-            slug: this.payload.slug,
-            description: this.payload.description,
-            license_mode_id: this.payload.license_mode.id,
+          await this.$store.dispatch("product/update", {
+            payload: {
+              title: this.payload.title,
+              slug: this.payload.slug,
+              description: this.payload.description,
+              license_mode_id: this.payload.license_mode.id,
+            },
+            id: this.$route.params.id
           });
           this.stopLoading();
           const err = this.handleError(this.$store.state.fieldName.error);
           if (!err) {
-            this.$toast.success("Product successfully created.");
+            this.$toast.success("Product successfully updated.");
             this.$router.push("/product");
           }
         })
@@ -97,6 +100,19 @@ export default {
         this.list.license_mode = this.$store.state.licenseMode.list
       }
     },
+    async show() {
+      this.startLoading()
+      await this.$store.dispatch("product/show", this.$route.params.id);
+      let err = this.handleError(this.$store.state.product.error);
+      if (!err) {
+        let data = this.$store.state.product.item;
+        this.payload.title = data.title;
+        this.payload.slug = data.slug;
+        this.payload.description = data.description;
+        this.payload.license_mode = data.license_mode;
+      }
+      this.stopLoading()
+    },
     validation() {
       let roles = {
         title: Yup.string().required(),
@@ -108,6 +124,7 @@ export default {
     },
     resetError() {
       this.$store.commit('product/RESET_ERROR')
+      this.$store.commit('licenseMode/RESET_ERROR')
       this.errors = {
         title: '',
         slug: '',
@@ -134,6 +151,7 @@ export default {
         name: 'Product'
       }
     ])
+    this.show()
     this.getLicenseMode()
   },
   watch: {
