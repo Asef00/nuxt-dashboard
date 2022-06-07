@@ -20,7 +20,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    "~/plugins/mixin"
+    "~/plugins/mixin",
+    { src: '~/plugins/jsonEditor', mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
