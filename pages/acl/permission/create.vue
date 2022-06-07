@@ -29,7 +29,7 @@
           />
         </div>
       </div>
-      <div v-if="hasFilter" class="row pb-3">
+      <div v-if="hasFilter" class="row">
         <div class="col-md-6">
           <VSelect
             v-model="payload.permission_model_model"
@@ -50,54 +50,60 @@
             placeholder="Please select fields"
             label="Fields"/>
         </div>
+        <div v-if="checkSelectedModel" class="col-md-12 mb-4">
+          <label class="c-form__label">Conditions</label>
+          <v-jsoneditor v-model="payload.permission_model_conditions" :plus="false" :options="options" height="250px"/>
+        </div>
       </div>
-
-      <label class="c-form__label">Conditions</label>
-      <div v-if="checkSelectedModel" class="row">
-        <div class="col-md-3">
-          <div class="c-form__control">
-            <multiselect
-              class="c-form__select"
-              v-model="data.conditions.field"
-              :options="payload.permission_model_fields"
-              select-label="Selected"
-              deselect-label="Hit to remove"
-              placeholder="Field"
-            >
-              <template slot="caret">
-                <div class="multiselect__select c-chevron c-chevron--bottom"></div>
-              </template>
-            </multiselect>
+      <!--            conditions-->
+      <div v-if="false">
+        <label class="c-form__label">Conditions</label>
+        <div v-if="checkSelectedModel" class="row">
+          <div class="col-md-3">
+            <div class="c-form__control">
+              <multiselect
+                class="c-form__select"
+                v-model="data.conditions.field"
+                :options="payload.permission_model_fields"
+                select-label="Selected"
+                deselect-label="Hit to remove"
+                placeholder="Field"
+              >
+                <template slot="caret">
+                  <div class="multiselect__select c-chevron c-chevron--bottom"></div>
+                </template>
+              </multiselect>
+            </div>
           </div>
-        </div>
-        <div class="col-md-3">
-          <div class="c-form__control">
-            <multiselect
-              class="c-form__select"
-              v-model="data.conditions.condition"
-              :options="list.conditions"
-              select-label="Selected"
-              deselect-label="Hit to remove"
-              placeholder="Condition"
-              track-by="label"
-              label="label"
-            >
-              <template slot="caret">
-                <div class="multiselect__select c-chevron c-chevron--bottom"></div>
-              </template>
-            </multiselect>
+          <div class="col-md-3">
+            <div class="c-form__control">
+              <multiselect
+                class="c-form__select"
+                v-model="data.conditions.condition"
+                :options="list.conditions"
+                select-label="Selected"
+                deselect-label="Hit to remove"
+                placeholder="Condition"
+                track-by="label"
+                label="label"
+              >
+                <template slot="caret">
+                  <div class="multiselect__select c-chevron c-chevron--bottom"></div>
+                </template>
+              </multiselect>
+            </div>
           </div>
-        </div>
-        <div class="col-md-3">
-          <div class="c-form__control" v-show="data.conditions.condition.is_value">
-            <input v-model="data.conditions.value"
-                   placeholder="Value"
-                   class="c-form__input"/>
-            <span>current_user = user logged in</span>
+          <div class="col-md-3">
+            <div class="c-form__control" v-show="data.conditions.condition.is_value">
+              <input v-model="data.conditions.value"
+                     placeholder="Value"
+                     class="c-form__input"/>
+              <span>current_user = user logged in</span>
+            </div>
           </div>
-        </div>
-        <div class="col-md-3">
-          <VBtn type="button" @action="addCondition" btn="outline" :loader="loaderRequest">ADD</VBtn>
+          <div class="col-md-3">
+            <VBtn type="button" @action="addCondition" btn="outline" :loader="loaderRequest">ADD</VBtn>
+          </div>
         </div>
       </div>
       <VBtn :loader="loaderRequest">SAVE</VBtn>
@@ -114,7 +120,10 @@ export default {
   components: {Multiselect},
   data() {
     return {
-      hasFilter: true,
+      hasFilter: false,
+      options: {
+        mode: 'code'
+      },
       list: {
         route: [],
         model: [],
@@ -228,12 +237,25 @@ export default {
         .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
-          await this.$store.dispatch("fieldName/create", {...this.payload, field_type_id: this.payload.field_type.id});
+          let payload = {
+            name: this.payload.name.name,
+            label: this.payload.label,
+          }
+          if (this.hasFilter) {
+            payload = {
+              ...payload, permission_model: {
+                model_id: this.payload.permission_model_model.id,
+                conditions: this.payload.permission_model_conditions,
+                fields: this.payload.permission_model_fields
+              }
+            }
+          }
+          await this.$store.dispatch("permission/create", payload);
           this.stopLoading();
-          const err = this.handleError(this.$store.state.fieldName.error);
+          const err = this.handleError(this.$store.state.permission.error);
           if (!err) {
-            this.$toast.success("Field Name successfully created.");
-            this.$router.push("/field/name");
+            this.$toast.success("Permission successfully created.");
+            this.$router.push("/acl/permission");
           }
         })
         .catch((err) => {
@@ -263,7 +285,7 @@ export default {
       if (this.hasFilter) {
         roles = {
           permission_model_model: Yup.object().nullable().required(),
-          permission_model_fields: Yup.array().nullable().min(2)
+          permission_model_fields: Yup.array().nullable().min(3)
           , ...roles
         }
       }
@@ -279,10 +301,21 @@ export default {
       };
     },
     addCondition() {
-      this.payload.permission_model_conditions.push({
-        field: 'equal',
-        condition: '',
-        value: this.data.conditions.value,
+      Yup.object({
+        field: Yup.string().nullable().required(),
+        condition: Yup.object().nullable().required(),
+      }).validate(this.data.conditions, {abortEarly: false}).then(async () => {
+        this.payload.permission_model_conditions.push({
+          field: this.data.conditions.field,
+          condition: this.data.conditions.condition,
+          value: this.data.conditions.value,
+        });
+        this.data.conditions.field = ''
+        this.data.conditions.condition = ''
+        this.data.conditions.value = ''
+      }).catch((err) => {
+        console.log(err.inner)
+        this.$toast.error("Please fill all field");
       });
     },
   },
