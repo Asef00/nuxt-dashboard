@@ -4,5 +4,8 @@ export default {
   },
   list(state) {
     return state.list
+  },
+  error(state) {
+    return state.error
   }
 }
