@@ -25,68 +25,49 @@ export default {
           {
             key: "edit",
             label: '<img src="/img/edit.svg" alt="" />',
-            // value: '<a href="#" class="c-table__link">Edit</a>',
           },
         ],
-        items: [],
+        items: json,
+        map: {
+          mls(item) {
+            let html = "";
+            for (let badge of item.mls) {
+              html += `<span class="c-badge">${badge}</span>`;
+            }
+            return html;
+          },
+          full_name(item) {
+            return item.name + " " + item.family_name;
+          },
+          paid(item) {
+            return `
+              $${item.paid.toLocaleString()}
+              <img src="/img/increment.svg" alt="" />`;
+          },
+          status(item) {
+            if (item.is_active) {
+              return `<span class="c-status c-status--active">Active</span>`;
+            } else {
+              return `<span class="c-status c-status--inactive">Inactive</span>`;
+            }
+          },
+          notification(item) {
+            if (item.notification)
+              return `
+                <a href="#" class="c-notification">
+                  <img src="/img/note.svg" alt="" />
+                  <span class="c-notification__badge">${item.notification}</span>
+                </a>`;
+          },
+          edit() {
+            return `<a href="#" class="c-table__link">Edit</a>`;
+          },
+          rowClass(item) {
+            return "has-note";
+          },
+        },
       },
-      sample: json,
     };
-  },
-
-  methods: {
-    mls(arr) {
-      let html = "";
-      for (let item of arr) {
-        html += `<span class="c-badge">${item}</span>`;
-      }
-      return html;
-    },
-    full_name(first, last) {
-      return first + " " + last;
-    },
-    paid(amount) {
-      return `
-      $${amount.toLocaleString()}
-      <img src="/img/increment.svg" alt="" />`;
-    },
-    status(is_active) {
-      if (is_active) {
-        return `<span class="c-status c-status--active">Active</span>`;
-      } else {
-        return `<span class="c-status c-status--inactive">Inactive</span>`;
-      }
-    },
-    notification(count) {
-      if (count) return `
-        <a href="#" class="c-notification">
-          <img src="/img/note.svg" alt="" />
-          <span class="c-notification__badge">${count}</span>
-        </a>`;
-    },
-    edit() {
-      return `<a href="#" class="c-table__link">Edit</a>`;
-    },
-    getData() {
-      for (let item of json) {
-        this.table.items.push({
-          id: item.id,
-          full_name: this.full_name(item.name, item.family_name),
-          source: item.source,
-          mls: this.mls(item.mls),
-          paid: this.paid(item.paid),
-          email: item.email,
-          status: this.status(item.is_active),
-          notification: this.notification(item.notification),
-          edit: this.edit(),
-        });
-      }
-      return;
-    },
-  },
-
-  mounted() {
-    this.getData();
   },
 
   created() {

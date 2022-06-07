@@ -72,23 +72,23 @@
       </thead>
       <tbody class="c-table__body">
         <!-- if no data -->
-        <!--      <tr v-if="!table.items || !table.items.length">-->
-        <!--        <td colspan="100%" class="u-text-center">No Data</td>-->
-        <!--      </tr>-->
+        <tr v-if="!table.items || !table.items.length">
+          <td colspan="100%" class="u-text-center">No Data</td>
+        </tr>
 
         <tr
+          v-else
           class="c-table__row"
-          v-for="item in allData"
-          :key="item.id"
-          :class="item.rowClass"
+          v-for="row in allData"
+          :key="row.id"
+          :class="row.rowClass"
         >
-          <template v-for="(col, index) in table.columns">
-            <td
-              class="c-table__cell"
-              :key="index"
-              v-html="showItem(item, col)"
-            ></td>
-          </template>
+          <td
+            v-for="(col, index) in table.columns"
+            :key="index"
+            class="c-table__cell"
+            v-html="showItem(row, col)"
+          ></td>
         </tr>
       </tbody>
     </table>
@@ -104,33 +104,36 @@ export default {
       map: Object,
     },
   },
+
   data() {
     return {
       sortColumn: "",
-      data: this.table.items,
+      table_data: this.table.items,
       hasPaginate: false,
     };
   },
+
   methods: {
-    showItem(item, col) {
-      let key = col.key;
-      let map = this.table.map;
+    showItem(row, col) {
+      let key = col.key;  //based on defined structure
+      let map = this.table.map; //custom mapped data
       if (map.hasOwnProperty(key)) {
-        return map[key](item);
+        return map[key](row);
       } else {
-        return item.hasOwnProperty(key) ? item[key] : "";
+        return row.hasOwnProperty(key) ? row[key] : "";
       }
     },
   },
+
   computed: {
     allData() {
-      if (this.data.hasOwnProperty("data")) {
+      if (this.table_data.hasOwnProperty("data")) {
         this.hasPaginate = true;
-        return this.data.data;
+        return this.table_data.data;
         //is paginated
       } else {
         this.hasPaginate = false;
-        return this.data;
+        return this.table_data;
         //is not paginated
       }
     },

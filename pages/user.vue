@@ -9,6 +9,7 @@ import json from "~/static/json/user.json";
 
 export default {
   layout: "default",
+  
   data() {
     return {
       table: {
