@@ -9,7 +9,7 @@ import json from "~/static/json/user.json";
 
 export default {
   layout: "default",
-  
+
   data() {
     return {
       table: {
@@ -39,6 +39,12 @@ export default {
           },
           edit() {
             return `<NuxtLink to="/" class="c-table__link">Edit</NuxtLink>`;
+          },
+          //REQUIRED
+          rowClass(item) {
+            if (item.notification) {
+              return "has-note";
+            }
           },
         },
       },
