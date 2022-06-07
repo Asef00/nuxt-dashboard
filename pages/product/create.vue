@@ -81,8 +81,8 @@ export default {
           this.stopLoading();
           const err = this.handleError(this.$store.state.fieldName.error);
           if (!err) {
-            this.$toast.success("Role successfully created.");
-            this.$router.push("/acl/role");
+            this.$toast.success("Product successfully created.");
+            this.$router.push("/product");
           }
         })
         .catch((err) => {
