@@ -63,7 +63,9 @@ export default {
             return `<a href="#" class="c-table__link">Edit</a>`;
           },
           rowClass(item) {
-            return "has-note";
+            if (item.notification) {
+              return "has-note";
+            }
           },
         },
       },

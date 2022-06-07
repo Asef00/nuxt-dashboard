@@ -78,10 +78,10 @@
 
         <tr
           v-else
-          class="c-table__row"
           v-for="row in allData"
           :key="row.id"
-          :class="row.rowClass"
+          :class="table.map['rowClass'](row)"
+          class="c-table__row"
         >
           <td
             v-for="(col, index) in table.columns"
@@ -120,6 +120,7 @@ export default {
       if (map.hasOwnProperty(key)) {
         return map[key](row);
       } else {
+        //nothing special
         return row.hasOwnProperty(key) ? row[key] : "";
       }
     },
