@@ -1,18 +1,61 @@
-.c-pagination {
+.c-perpage {
   @include font-size(14px);
 }
 
-.c-pagination__input {
+.c-perpage__input {
+  appearance: none;
   width: 30px;
   height: 22px;
   text-align: center;
   border-radius: 3px;
   color: $placeholder-color;
-  @include font-size(13px);
+  @include font-size(13px, 1.15);
   border: solid 1px #e5e5e5;
   @include input-transition;
 
   &:focus {
     @include input-focus;
+  }
+}
+
+.c-pagination {
+  @include flex-center;
+  gap: 0.5em;
+}
+
+.c-pagination__arrow {
+  height: 2em;
+  width: 2em;
+  @include flex-center;
+  @include box-shadow;
+  @include input-border;
+  color: $placeholder-color;
+  border-radius: 100%;
+  cursor: pointer;
+  transition: box-shadow .2s;
+  
+  &:hover {
+    box-shadow: none;
+  }
+}
+
+.c-pagination__item {
+  height: 2em;
+  width: 2em;
+  @include flex-center;
+  @include font-size(14px);
+  cursor: pointer;
+  border: none;
+  border-radius: 100%;
+  transition: background-color .2s;
+  background-color: transparent;
+
+  &:hover {
+    background-color: #efefef;
+  }
+
+  &.is-active {
+    background-color: $primary-color;
+    color: #fff;
   }
 }

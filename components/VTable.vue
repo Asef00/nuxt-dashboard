@@ -1,14 +1,25 @@
 <template>
   <div class="c-datatable">
-    <div class="c-datatable__toolbar">
+    <div class="c-datatable__header">
       <div>
-        <VPagination />
+        <div class="c-perpage">
+          Show
+          <select class="c-perpage__input" name="per_page" id="per_page">
+            <option v-html="per_page" :value="per_page"></option>
+            <option v-html="30" value="30"></option>
+            <option v-html="40" value="40"></option>
+            <option v-html="50" value="50"></option>
+            <option v-html="70" value="70"></option>
+            <option v-html="100" value="100"></option>
+          </select>
+          entries
+        </div>
       </div>
       <div class="c-search">
         <input class="c-search__input" type="text" placeholder="Search..." />
       </div>
     </div>
-    <div class="c-datatable__container">
+    <div class="c-datatable__body">
       <table class="c-table">
         <thead class="c-table__header">
           <tr class="c-table__row">
@@ -102,6 +113,20 @@
         </tbody>
       </table>
     </div>
+    <div class="c-datatable__footer">
+      <div class="c-pagination">
+        <span class="c-pagination__arrow c-chevron c-chevron--left"></span>
+        <button
+          v-for="page in total_pages"
+          :key="page"
+          class="c-pagination__item"
+          :class="page == current_page ? 'is-active' : ''"
+        >
+          {{ page }}
+        </button>
+        <span class="c-pagination__arrow c-chevron c-chevron--right"></span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -112,6 +137,16 @@ export default {
       columns: Array,
       items: Array,
       map: Object,
+    },
+    per_page: {
+      type: Number,
+      default: 25,
+    },
+    total_pages: {
+      type: Number,
+    },
+    current_page: {
+      type: Number,
     },
   },
 
@@ -148,9 +183,19 @@ export default {
         //is not paginated
       }
     },
+    per_page() {
+      return this.table_data.per_page;
+    },
+    total_pages() {
+      return this.table_data.total;
+    },
+    current_page() {
+      return this.table_data.current_page;
+    },
   },
 };
 </script>
 
-<style>
+<style  lang="scss">
+@import "~/assets/scss/components/pagination";
 </style>
