@@ -72,40 +72,21 @@
       </thead>
       <tbody class="c-table__body">
         <!-- if no data -->
-        <tr v-if="!table.items || !table.items.length">
-          <td colspan="100%" class="u-text-center">No Data</td>
-        </tr>
-        
+        <!--      <tr v-if="!table.items || !table.items.length">-->
+        <!--        <td colspan="100%" class="u-text-center">No Data</td>-->
+        <!--      </tr>-->
+
         <tr
           class="c-table__row"
-          v-else
-          v-for="item in table.items"
+          v-for="item in allData"
           :key="item.id"
           :class="item.rowClass"
         >
           <template v-for="(col, index) in table.columns">
-            <td :key="index" v-if="false" class="c-table__cell">
-              <!-- Verified icon -->
-              <template v-if="col == 'full_name' && item['_verified']">
-                {{ item[col] }} <img src="/img/verify.svg" alt="" />
-              </template>
-              <!-- Paid so far -->
-              <template v-else-if="col == 'paid_so_far'">
-                <template v-if="item['_increment']">
-                  {{ item[col] }}
-                  <img src="/img/increment.svg" alt="" />
-                </template>
-                <template v-else>
-                  {{ item[col] }}
-                  <img src="/img/decrement.svg" alt="" />
-                </template>
-              </template>
-            </td>
             <td
               class="c-table__cell"
               :key="index"
-              v-html="item[col.key]"
-              v-else
+              v-html="showItem(item, col)"
             ></td>
           </template>
         </tr>
@@ -119,13 +100,40 @@ export default {
   props: {
     table: {
       columns: Array,
-      items: Array
+      items: Array,
+      map: Object,
     },
   },
   data() {
     return {
       sortColumn: "",
+      data: this.table.items,
+      hasPaginate: false,
     };
+  },
+  methods: {
+    showItem(item, col) {
+      let key = col.key;
+      let map = this.table.map;
+      if (map.hasOwnProperty(key)) {
+        return map[key](item);
+      } else {
+        return item.hasOwnProperty(key) ? item[key] : "";
+      }
+    },
+  },
+  computed: {
+    allData() {
+      if (this.data.hasOwnProperty("data")) {
+        this.hasPaginate = true;
+        return this.data.data;
+        //is paginated
+      } else {
+        this.hasPaginate = false;
+        return this.data;
+        //is not paginated
+      }
+    },
   },
 };
 </script>
