@@ -1,5 +1,5 @@
 <template>
-  <VCard title="Create new Permission">
+  <VCard title="Edit new Permission">
     <form @submit.prevent="update" class="c-form">
       <div class="row">
         <div class="col-md-6">
