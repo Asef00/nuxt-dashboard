@@ -3,12 +3,15 @@ $left-spacing: 1.5em;
 $min-width: 28px;
 
 .c-table {
-  @include font-size(13px);
+  @include font-size(12px);
   width: 100%;
   border-collapse: collapse;
   color: $placeholder-color;
-  // margin-bottom: 0;
-  // overflow: hidden;
+  margin-bottom: 0;
+
+  @include mq(lg) {
+    @include font-size(13px);
+  }
 }
 
 .c-table__th {

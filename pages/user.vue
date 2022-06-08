@@ -15,11 +15,11 @@ export default {
       table: {
         columns: [
           { key: "id", label: "#" },
-          { key: "full_name", label: "Full Name", filterable: true },
-          { key: "username", label: "Username", filterable: true },
+          { key: "full_name", label: "Full Name" },
+          { key: "username", label: "Username" },
           { key: "created_at", label: "Created", class: "u-text-center" },
           { key: "updated_at", label: "Updated", class: "u-text-center" },
-          { key: "enabled", label: "Status", filterable: true },
+          { key: "enabled", label: "Status" },
           {
             key: "edit",
             label: '<img src="/img/edit.svg" alt="" />',
