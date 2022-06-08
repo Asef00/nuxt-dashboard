@@ -12,6 +12,7 @@
         "paid": 8400,
         "email": "Ross@gmail.com",
         "is_active": false,
+        "is_verified": false,
         "notification": null
     },
     {
@@ -26,6 +27,7 @@
         "paid": 4300,
         "email": "Rachel@gmail.com",
         "is_active": true,
+        "is_verified": true,
         "notification": 2
     },
     {
@@ -37,6 +39,7 @@
         "paid": 9500,
         "email": "Monica@gmail.com",
         "is_active": true,
+        "is_verified": true,
         "notification": null
     },
     {
@@ -50,6 +53,7 @@
         "paid": 1200,
         "email": "Chandler@gmail.com",
         "is_active": false,
+        "is_verified": false,
         "notification": null
     }
 ]

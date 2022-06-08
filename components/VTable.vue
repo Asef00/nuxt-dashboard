@@ -2,7 +2,7 @@
   <div class="c-datatable">
     <div class="c-datatable__header">
       <div>
-        <div class="c-perpage">
+        <div class="c-perpage" v-if="per_page">
           Show
           <select class="c-perpage__input" name="per_page" id="per_page">
             <option v-html="per_page" :value="per_page"></option>
@@ -114,7 +114,7 @@
       </table>
     </div>
     <div class="c-datatable__footer">
-      <div class="c-pagination">
+      <div class="c-pagination" v-if="total_pages && current_page">
         <span class="c-pagination__arrow c-chevron c-chevron--left"></span>
         <button
           v-for="page in total_pages"
@@ -137,16 +137,6 @@ export default {
       columns: Array,
       items: Array,
       map: Object,
-    },
-    per_page: {
-      type: Number,
-      default: 25,
-    },
-    total_pages: {
-      type: Number,
-    },
-    current_page: {
-      type: Number,
     },
   },
 

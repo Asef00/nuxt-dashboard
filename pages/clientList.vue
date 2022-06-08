@@ -42,7 +42,14 @@ export default {
             return html;
           },
           full_name(item) {
-            return item.name + " " + item.family_name;
+            if (item.is_verified)
+              return (
+                item.name +
+                " " +
+                item.family_name +
+                ` <img src="/img/verify.svg" alt="" />`
+              );
+            else return item.name + " " + item.family_name;
           },
           paid(item) {
             return `
