@@ -11,7 +11,8 @@
 }
 
 .c-card__header {
-  padding: 0.97em .7em;
+  @include flex-between;
+  padding: 0.8em .7em;
   border-bottom: 1px solid #e5e5e5;
 
   @include mq(lg) {
@@ -25,6 +26,11 @@
   font-weight: 600;
   color: $text-color;
   margin: 0;
+}
+
+.c-card__toolbar {
+  @include flex-center;
+  gap: .5em;
 }
 
 .c-card__body {
