@@ -119,10 +119,6 @@
       <VAlert class="c-alert--dark"> A simple dark alert—check it out! </VAlert>
     </VCard>
     <VCard title="MLS Information">
-      <template #header>
-        <VBtn class="m-0 c-btn--small">Button</VBtn>
-        <VBtn class="m-0 c-btn--small" btn="outline">Button</VBtn>
-      </template>
       <form action="" class="c-form">
         <h4 class="c-form__title">Sync Accounts</h4>
       </form>
