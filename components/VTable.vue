@@ -107,8 +107,12 @@
               :key="col.key"
               class="c-table__cell"
               :class="col.class"
-              v-html="showItem(row, col)"
-            ></td>
+            >
+              <!-- {{ String(showItem(row, col)) }} -->
+              <v-runtime-template
+                :template="String(showItem(row, col))"
+              ></v-runtime-template>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -131,7 +135,13 @@
 </template>
 
 <script>
+import VRuntimeTemplate from "v-runtime-template";
+
 export default {
+  components: {
+    VRuntimeTemplate,
+  },
+
   props: {
     table: {
       columns: Array,
@@ -153,10 +163,18 @@ export default {
       let key = col.key; //based on defined structure
       let map = this.table.map; //custom mapped data
       if (map.hasOwnProperty(key)) {
-        return map[key](row);
+        return `<span>${
+          map[key](row) === undefined ? "" : map[key](row)
+        }</span>`;
       } else {
         //nothing special
-        return row.hasOwnProperty(key) ? row[key] : "";
+        return `<span>${
+          row.hasOwnProperty(key)
+            ? row[key] === undefined
+              ? ""
+              : row[key]
+            : ""
+        }</span>`;
       }
     },
   },

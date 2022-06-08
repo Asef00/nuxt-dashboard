@@ -72,7 +72,7 @@ export default {
                 </a>`;
           },
           edit() {
-            return `<a href="#" class="c-table__link">Edit</a>`;
+            return `<NuxtLink to="/" class="c-table__link">Edit</NuxtLink>`;
           },
           //REQUIRED
           rowClass(item) {
