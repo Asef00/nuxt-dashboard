@@ -2,7 +2,8 @@
   <div>
     <VCard title="MLS Information">
       <template #header>
-        <VBtn customClass="m-0">Button</VBtn>
+        <VBtn customClass="m-0 c-btn--small">Button</VBtn>
+        <VBtn customClass="m-0 c-btn--small" btn="outline">Button</VBtn>
       </template>
       <form action="" class="c-form">
         <h4 class="c-form__title">Sync Accounts</h4>
@@ -10,7 +11,7 @@
     </VCard>
     <VCard title="MLS Information">
       <template #header>
-        <VBtn customClass="m-0 c-btn--block">Button</VBtn>
+        <VBtn customClass="m-0 c-btn--block c-btn--small">Button</VBtn>
       </template>
       <form action="" class="c-form">
         <h4 class="c-form__title">Sync Accounts</h4>

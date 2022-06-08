@@ -47,3 +47,8 @@ $btn-bg: rgb(146 150 154 / 10%);
   display: block;
   width: 100%;
 }
+
+.c-btn--small {
+  height: 30px;
+  min-width: 5em;
+}
