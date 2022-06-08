@@ -11,7 +11,6 @@
 }
 
 .c-card__header {
-  @include flex-between;
   padding: 0.8em .7em;
   border-bottom: 1px solid #e5e5e5;
 
