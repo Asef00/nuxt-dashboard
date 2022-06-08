@@ -2,7 +2,7 @@
   <div class="c-card">
     <div class="c-card__header">
       <h2 class="c-card__title">{{ title }}</h2>
-      <div class="">
+      <div class="c-card__toolbar">
         <slot name="header" />
       </div>
     </div>
