@@ -7,5 +7,8 @@ export default {
   },
   cognitoUsers(state) {
     return state.cognitoUsers
+  },
+  error(state) {
+    return state.error
   }
 }

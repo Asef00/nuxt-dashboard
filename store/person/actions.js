@@ -3,63 +3,63 @@ export default {
     await this.$axios.get('person').then((response) => {
       commit('SET_LIST', response.data)
     }).catch((error) => {
-      this.$error(error.response)
+      commit('RESET_ERROR', error)
     })
   },
-  async show({commit}, {person}) {
-    await this.$axios.get('person/'.person._id).then((response) => {
+  async show({commit}, id) {
+    await this.$axios.get(`person/${id}`).then((response) => {
       commit('SET_ITEM', response.data)
     }).catch((error) => {
-      this.$error(error.response)
+      commit('RESET_ERROR', error)
     })
   },
   async create({commit}, payload) {
     await this.$axios.post('person', payload).then((response) => {
       commit('SET_ITEM', response.data)
     }).catch((error) => {
-      this.$error(error.response)
+      commit('RESET_ERROR', error)
     })
   },
-  async update({commit}, {payload, person}) {
-    await this.$axios.put(`person/${person._id}`, payload).then((response) => {
+  async update({commit}, {payload, id}) {
+    await this.$axios.put(`person/${id}`, payload).then((response) => {
       commit('SET_ITEM', response.data)
     }).catch((error) => {
-      this.$error(error.response)
+      commit('RESET_ERROR', error)
     })
   },
-  async changePassword({commit}, {payload, person}) {
-    await this.$axios.put(`person/${person._id}/change-password`, payload).then((response) => {
+  async changePassword({commit}, {payload, id}) {
+    await this.$axios.put(`person/${id}/change-password`, payload).then((response) => {
       commit('SET_ITEM', response.data)
     }).catch((error) => {
-      this.$error(error.response)
+      commit('RESET_ERROR', error)
     })
   },
-  async toggleEnable({commit}, {payload, person}) {
-    await this.$axios.put(`person/${person._id}/toggle/enable`, payload).then((response) => {
+  async toggleEnable({commit}, {payload, id}) {
+    await this.$axios.put(`person/${id}/toggle/enable`, payload).then((response) => {
       commit('SET_ITEM', response.data)
     }).catch((error) => {
-      this.$error(error.response)
+      commit('RESET_ERROR', error)
     })
   },
-  async toggleVerifyEmail({commit}, {payload, person}) {
-    await this.$axios.put(`person/${person._id}/toggle/verify-email`, payload).then((response) => {
+  async toggleVerifyEmail({commit}, {payload, id}) {
+    await this.$axios.put(`person/${id}/toggle/verify-email`, payload).then((response) => {
       commit('SET_ITEM', response.data)
     }).catch((error) => {
-      this.$error(error.response)
+      commit('RESET_ERROR', error)
     })
   },
-  async searchInCognito({commit}, key, value) {
+  async searchInCognito({commit}, {key, value}) {
     await this.$axios.get(`person/search/cognito`, {params: {key: key, value: value}}).then((response) => {
       commit('SET_COGNITO_USERS', response.data)
     }).catch((error) => {
-      this.$error(error.response)
+      commit('RESET_ERROR', error)
     })
   },
   async createPersonFromCognito({commit}, payload) {
     await this.$axios.post(`person/cognito/create`, payload).then((response) => {
       commit('SET_ITEM', response.data)
     }).catch((error) => {
-      this.$error(error.response)
+      commit('RESET_ERROR', error)
     })
   },
 }
