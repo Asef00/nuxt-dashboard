@@ -49,7 +49,7 @@ const mixin = {
         return true;
       }
       if (error.response.status === 404) {
-        this.$router.back()
+        // this.$router.back()
         this.$toast.error('Not found!')
         return true;
       }

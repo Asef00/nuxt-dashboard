@@ -49,14 +49,14 @@ export default {
     })
   },
   async searchInCognito({commit}, {key, value}) {
-    await this.$axios.get(`person/search/cognito`, {params: {key: key, value: value}}).then((response) => {
+    await this.$axios.get(`/person/cognito/search`, {params: {key: key, value: value}}).then((response) => {
       commit('SET_COGNITO_USERS', response.data)
     }).catch((error) => {
       commit('SET_ERROR', error)
     })
   },
   async createPersonFromCognito({commit}, payload) {
-    await this.$axios.post(`person/cognito/create`, payload).then((response) => {
+    await this.$axios.post(`/person/cognito/create`, payload).then((response) => {
       commit('SET_ITEM', response.data)
     }).catch((error) => {
       commit('SET_ERROR', error)
