@@ -3,7 +3,7 @@
     @click="$emit('action')"
     :disabled="disabled"
     :type="type"
-    :class="['c-btn', classBtn, customClass]"
+    :class="['c-btn', classBtn]"
   >
     <span v-if="loader"><LoaderDots :color="colorLoader"></LoaderDots></span>
     <slot v-else />
@@ -30,7 +30,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    customClass: String,
   },
   data() {
     return {
