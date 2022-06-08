@@ -29,7 +29,7 @@
 }
 
 .c-card__toolbar {
-  @include flex-center;
+  @include flex-end;
   gap: .5em;
 }
 

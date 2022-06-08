@@ -1,13 +1,22 @@
 <template>
-  <VCard title="MLS Information">
-    <template #header>
-      <VBtn customClass="m-0">Button</VBtn>
-    </template>
-
-    <form action="" class="c-form">
-      <h4 class="c-form__title">Sync Accounts</h4>
-    </form>
-  </VCard>
+  <div>
+    <VCard title="MLS Information">
+      <template #header>
+        <VBtn customClass="m-0">Button</VBtn>
+      </template>
+      <form action="" class="c-form">
+        <h4 class="c-form__title">Sync Accounts</h4>
+      </form>
+    </VCard>
+    <VCard title="MLS Information">
+      <template #header>
+        <VBtn customClass="m-0 c-btn--block">Button</VBtn>
+      </template>
+      <form action="" class="c-form">
+        <h4 class="c-form__title">Sync Accounts</h4>
+      </form>
+    </VCard>
+  </div>
 </template>
 
 <script>

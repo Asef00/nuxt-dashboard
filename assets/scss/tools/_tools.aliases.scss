@@ -19,6 +19,11 @@ $global-line-height: 24px;
   align-items: center;
   justify-content: flex-start;
 }
+@mixin flex-end {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
 
 // UTILITY
 @mixin box-shadow {
