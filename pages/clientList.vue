@@ -15,12 +15,12 @@ export default {
       table: {
         columns: [
           { key: "id", label: "#" },
-          { key: "full_name", label: "Full Name", filterable: true },
-          { key: "source", label: "Source", filterable: true },
-          { key: "mls", label: "MLS", filterable: true },
-          { key: "paid", label: "Paid so far", filterable: true },
-          { key: "email", label: "Email", filterable: true },
-          { key: "status", label: "Status", filterable: true },
+          { key: "full_name", label: "Full Name" },
+          { key: "source", label: "Source" },
+          { key: "mls", label: "MLS" },
+          { key: "paid", label: "Paid so far" },
+          { key: "email", label: "Email" },
+          { key: "status", label: "Status" },
           {
             key: "notification",
             label: '<img src="/img/note.svg" alt="">',
