@@ -241,9 +241,18 @@
         eligendi quis, assumenda corporis ut error molestiae totam hic facilis
         et, nostrum culpa expedita maiores cumque amet modi delectus earum enim!
       </p>
+      <VBtn id="show-modal" @action="showModal = true">Show Modal</VBtn>
     </VCard>
+
+    <transition name="c-modal" mode="out-in">
+      <VModal v-if="showModal" @close="showModal = false" title="Modal Header">
+        <template #footer>Modal footer</template>
+      </VModal>
+    </transition>
   </div>
 </template>
+
+
 
 <script>
 import * as Yup from "yup";
@@ -251,6 +260,8 @@ import * as Yup from "yup";
 export default {
   data() {
     return {
+      showModal: false,
+
       payload: {
         name: "",
         tag: "",

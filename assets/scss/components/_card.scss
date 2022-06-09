@@ -12,7 +12,7 @@
 
 .c-card__header {
   padding: 0.8em .7em;
-  border-bottom: 1px solid #e5e5e5;
+  @include border(bottom);
 
   @include mq(lg) {
     padding-left: 1.56em;
