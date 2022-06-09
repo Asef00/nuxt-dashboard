@@ -38,8 +38,8 @@ export default {
       commit('SET_ERROR', error)
     })
   },
-  async toggleEnable({commit}, {payload, id}) {
-    await this.$axios.put(`person/${id}/toggle/enable`, payload).then((response) => {
+  async toggleEnable({commit}, id) {
+    await this.$axios.put(`person/${id}/toggle/enable`).then((response) => {
       commit('SET_ITEM', response.data)
     }).catch((error) => {
       commit('SET_ERROR', error)
