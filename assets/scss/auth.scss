@@ -48,8 +48,8 @@ body {
 }
 
 .wrapper .btn-social {
-  background-color: #ffffff;
-  border: 1px solid #e5e5e5;
+  background-color: #fff;
+  @include border;
   height: 40px;
   border-radius: 3px;
 }

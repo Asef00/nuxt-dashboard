@@ -121,6 +121,7 @@
       </VAlert>
       <VAlert class="c-alert--dark"> A simple dark alert—check it out! </VAlert>
     </VCard>
+
     <VCard title="MLS Information">
       <template #header>
         <VBtn class="m-0 c-btn--small" btn="info">Button</VBtn>
@@ -232,6 +233,7 @@
         <span class="c-badge c-badge--dark">success</span>
       </form>
     </VCard>
+
     <VCard title="Card Toolbar Block button">
       <template #header>
         <VBtn class="m-0 c-btn--block c-btn--small">Button</VBtn>
@@ -241,9 +243,136 @@
         eligendi quis, assumenda corporis ut error molestiae totam hic facilis
         et, nostrum culpa expedita maiores cumque amet modi delectus earum enim!
       </p>
+      <VBtn id="show-modal" @action="showModal = true">Show Modal</VBtn>
+      <VBtn id="show-modal" @action="showFormModal = true" btn="info">
+        Show Form Modal
+      </VBtn>
     </VCard>
+
+    <VModal
+      :showModal="showModal"
+      @close="showModal = false"
+      title="Modal Header"
+    >
+      <template #body>
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque
+          numquam, vel quibusdam distinctio ullam, amet saepe, ipsa adipisci
+          doloribus magni officia quod ad tenetur voluptas alias ratione culpa
+          consequatur voluptate.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque
+          numquam, vel quibusdam distinctio ullam, amet saepe, ipsa adipisci
+          doloribus magni officia quod ad tenetur voluptas alias ratione culpa
+          consequatur voluptate.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque
+          numquam, vel quibusdam distinctio ullam, amet saepe, ipsa adipisci
+          doloribus magni officia quod ad tenetur voluptas alias ratione culpa
+          consequatur voluptate.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque
+          numquam, vel quibusdam distinctio ullam, amet saepe, ipsa adipisci
+          doloribus magni officia quod ad tenetur voluptas alias ratione culpa
+          consequatur voluptate.
+        </p>
+      </template>
+      <template #footer>Modal footer</template>
+    </VModal>
+
+    <VModal
+      :showModal="showFormModal"
+      @close="showFormModal = false"
+      title="Modal Header"
+    >
+      <template #body>
+        <form action="" class="c-form">
+          <h4 class="c-form__title">Sync Accounts</h4>
+
+          <VSelect
+            @validation="validate('tag')"
+            :error="errorMessage('tag')"
+            :multiple="true"
+            placeholder="Please select tag"
+            v-model="payload.tag"
+            :list="options"
+            label="Tags"
+          />
+
+          <VSelect
+            :disabled="true"
+            @validation="validate('tag')"
+            :error="errorMessage('tag')"
+            :multiple="true"
+            placeholder="Please select tag"
+            v-model="payload.tag"
+            :list="options"
+            label="Tags"
+          />
+
+          <VInput
+            @validation="validate('name')"
+            :error="errorMessage('name')"
+            label="Name"
+            v-model="payload.name"
+            placeholder="Please enter name"
+          />
+
+          <VTextarea
+            @validation="validate('summary')"
+            :error="errorMessage('summary')"
+            v-model="payload.summary"
+            label="Summary"
+            placeholder="Please enter summary"
+          />
+
+          <VSwitch
+            :defaultState="true"
+            v-on:change="triggerToggleEvent"
+            :labelText="'Validate Response'"
+          />
+
+          <VCheckbox
+            label="Ali"
+            data="Ali"
+            :list="selectedOptions"
+            v-model="selected"
+          />
+
+          <VCheckbox
+            label="Reza"
+            data="Reza"
+            :list="selectedOptions"
+            v-model="selected"
+          />
+
+          <VCheckbox
+            label="Disabled"
+            inputValue="foo"
+            v-model="selectedOptions"
+            :disabled="true"
+          />
+
+          <VBtn
+            @action="startLoading"
+            btn="block"
+            type="button"
+            :loader="loaderRequest"
+          >
+            Add Note
+          </VBtn>
+        </form>
+      </template>
+
+      <template #footer>Modal footer</template>
+    </VModal>
   </div>
 </template>
+
+
 
 <script>
 import * as Yup from "yup";
@@ -251,6 +380,9 @@ import * as Yup from "yup";
 export default {
   data() {
     return {
+      showModal: false,
+      showFormModal: false,
+
       payload: {
         name: "",
         tag: "",
