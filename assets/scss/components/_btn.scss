@@ -20,35 +20,45 @@ $btn-bg: rgb(146 150 154 / 10%);
     opacity: 0.65;
     pointer-events: none;
   }
-}
 
-.c-btn--primary {
-  background-color: $primary-color;
-  color: #fff;
-  outline-color: $primary-color;
-  
-  &:hover {
-    background-color: darken($primary-color, 15%);
-  }
-}
-
-.c-btn--outline {
-  background-color: #fff;
-  color: $primary-color;
-  outline-color: $primary-color;
-
-  &:hover {
+  &--primary {
     background-color: $primary-color;
     color: #fff;
+    outline-color: $primary-color;
+
+    &:hover {
+      background-color: darken($primary-color, 15%);
+    }
   }
-}
 
-.c-btn--block {
-  display: block;
-  width: 100%;
-}
+  &--info {
+    background-color: $info-color;
+    color: #fff;
+    outline-color: $info-color;
 
-.c-btn--small {
-  height: 30px;
-  min-width: 5em;
+    &:hover {
+      background-color: darken($info-color, 15%);
+    }
+  }
+
+  &--outline {
+    background-color: #fff;
+    color: $primary-color;
+    outline-color: $primary-color;
+
+    &:hover {
+      background-color: $primary-color;
+      color: #fff;
+    }
+  }
+
+  &--block {
+    display: block;
+    width: 100%;
+  }
+
+  &--small {
+    height: 30px;
+    min-width: 5em;
+  }
 }

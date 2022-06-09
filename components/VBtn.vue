@@ -50,6 +50,10 @@ export default {
         this.colorLoader = "#444";
         return "c-btn--block";
       }
+      if (this.btn === "info") {
+        this.colorLoader = "#fff";
+        return "c-btn--info";
+      }
       if (this.btn === "simple") {
         this.colorLoader = "#444";
         return "";
