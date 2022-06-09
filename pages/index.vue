@@ -122,6 +122,9 @@
       <VAlert class="c-alert--dark"> A simple dark alert—check it out! </VAlert>
     </VCard>
     <VCard title="MLS Information">
+      <template #header>
+        <VBtn class="m-0 c-btn--small" btn="info">Button</VBtn>
+      </template>
       <form action="" class="c-form">
         <div class="row mb-3">
           <div class="col">
@@ -292,7 +295,7 @@ export default {
   color: #006bff;
 }
 .u-text-info {
-  color: #04cad0;
+  color: $info-color;
 }
 .c-badge {
   border-radius: 3px;
