@@ -124,6 +124,7 @@
     <VCard title="MLS Information">
       <template #header>
         <VBtn class="m-0 c-btn--small" btn="info">Button</VBtn>
+        <VBtn class="m-0 c-btn--small" btn="danger">Button</VBtn>
       </template>
       <form action="" class="c-form">
         <div class="row mb-3">
