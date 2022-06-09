@@ -6,8 +6,12 @@ export default {
       commit('SET_ERROR', error)
     })
   },
-  async show({commit}, id) {
-    await this.$axios.get(`person/${id}`).then((response) => {
+  async show({commit}, {id, product = false}) {
+    let config = {}
+    if (product) {
+      config.params = {'with': 'products'}
+    }
+    await this.$axios.get(`person/${id}`, config).then((response) => {
       commit('SET_ITEM', response.data)
     }).catch((error) => {
       commit('SET_ERROR', error)
