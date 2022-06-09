@@ -6,8 +6,12 @@ export default {
       commit('SET_ERROR', error)
     })
   },
-  async show({commit}, id) {
-    await this.$axios.get(`person/${id}`).then((response) => {
+  async show({commit}, {id, product = false}) {
+    let config = {}
+    if (product) {
+      config.params = {'with': 'products'}
+    }
+    await this.$axios.get(`person/${id}`, config).then((response) => {
       commit('SET_ITEM', response.data)
     }).catch((error) => {
       commit('SET_ERROR', error)
@@ -34,16 +38,16 @@ export default {
       commit('SET_ERROR', error)
     })
   },
-  async toggleEnable({commit}, {payload, id}) {
-    await this.$axios.put(`person/${id}/toggle/enable`, payload).then((response) => {
+  async toggleEnable({commit}, id) {
+    await this.$axios.put(`person/${id}/toggle/enable`).then((response) => {
       commit('SET_ITEM', response.data)
     }).catch((error) => {
       commit('SET_ERROR', error)
     })
   },
-  async toggleVerifyEmail({commit}, {payload, id}) {
-    await this.$axios.put(`person/${id}/toggle/verify-email`, payload).then((response) => {
-      commit('SET_ITEM', response.data)
+  async toggleVerifyEmail({commit}, id) {
+    await this.$axios.put(`person/${id}/toggle/verify-email`).then((response) => {
+      commit('SET_COGNITO_USER', response.data)
     }).catch((error) => {
       commit('SET_ERROR', error)
     })
