@@ -6,7 +6,7 @@
     :class="['c-btn', classBtn]"
   >
     <span v-if="loader"><LoaderDots :color="colorLoader"></LoaderDots></span>
-    <slot v-else />
+    <slot v-else/>
   </button>
 </template>
 
@@ -57,6 +57,10 @@ export default {
       if (this.btn === "danger") {
         this.colorLoader = "#fff";
         return "c-btn--danger";
+      }
+      if (this.btn === "success") {
+        this.colorLoader = "#fff";
+        return "c-btn--success";
       }
       if (this.btn === "simple") {
         this.colorLoader = "#444";

@@ -100,7 +100,7 @@ export default {
         });
     },
     async getPerson() {
-      await this.$store.dispatch('person/show', this.$route.params.id)
+      await this.$store.dispatch('person/show', {id:this.$route.params.id})
       let err = this.handleError(this.$store.state.person.error)
       if (!err) {
         this.payload.person = this.$store.state.person.item
