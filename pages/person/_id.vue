@@ -5,9 +5,66 @@
         <NuxtLink to="/person">List</NuxtLink>
       </VBtn>
     </template>
-    <div class="row">
-      <h4 class="c-form__title">Person</h4>
-    </div>
+    <form action="" class="c-form">
+      <h4 class="c-form__title mb-2">Details</h4>
+      <div class="row mb-3">
+        <div class=" col-md-6 c-form__control c-form__control--inline mb-0">
+          <label class="c-form__label">Name</label>
+          <span class="u-text-secondary">{{ data.person.name }}</span>
+        </div>
+        <div class=" col-md-6 c-form__control c-form__control--inline mb-0">
+          <label class="c-form__label">Family Name</label>
+          <span class="u-text-secondary">{{ data.person.family_name }}</span>
+        </div>
+        <div class=" col-md-6 c-form__control c-form__control--inline mb-0">
+          <label class="c-form__label">Email</label>
+          <span class="u-text-secondary">{{ data.person.username }}</span>
+        </div>
+        <div class=" col-md-6 c-form__control c-form__control--inline mb-0">
+          <label class="c-form__label">Email Verified</label>
+          <VBtn :loader="loaderRequest" @action="toggleVerifyEmail" type="button" class="c-btn--small"
+                :btn="data.cognito.email_verified ? 'success' :'danger'">
+            {{ data.cognito.email_verified ? 'Verified' : 'Not Verified' }}
+          </VBtn>
+          <span class="u-text-secondary">(Click to Change)</span>
+        </div>
+        <div class=" col-md-6 c-form__control c-form__control--inline mb-0">
+          <label class="c-form__label">Enabled</label>
+          <VBtn :loader="loaderRequest" @action="toggleVerifyEmail" type="button" class="c-btn--small"
+                :btn="data.person.enabled ? 'success' :'danger'">
+            {{ data.person.enabled ? 'Enabled' : 'Disabled' }}
+          </VBtn>
+          <span class="u-text-secondary">(Click to Change)</span>
+        </div>
+        <div class=" col-md-6 c-form__control c-form__control--inline mb-0">
+          <label class="c-form__label">Created At</label>
+          <span class="u-text-secondary">{{ dateFormat(data.person.created_at) }}</span>
+        </div>
+        <div class=" col-md-6 c-form__control c-form__control--inline mb-0">
+          <label class="c-form__label">Updated At</label>
+          <span class="u-text-secondary">{{ dateFormat(data.person.updated_at) }}</span>
+        </div>
+        <div class="row mb-3">
+          <div class=" col-md-6 c-form__control c-form__control--inline mb-0">
+            <label class="c-form__label">Roles</label>
+            <span class="c-badge ">{{ data.cognito.email }}</span>
+          </div>
+        </div>
+      </div>
+      <h4 class="c-form__title mb-2">Cognito Details</h4>
+      <div class="row mb-3">
+        <div class=" col-md-6 c-form__control c-form__control--inline mb-0">
+          <label class="c-form__label">Status</label>
+          <span class="u-text-secondary">{{ data.cognito.status }}</span>
+        </div>
+        <div class=" col-md-6 c-form__control c-form__control--inline mb-0">
+          <label class="c-form__label">Enabled</label>
+          <span :class="['c-badge',data.cognito.enabled ?'c-badge--success':'c-badge--danger']">{{
+              data.cognito.enabled ? "Enabled" : "Disabled"
+            }}</span>
+        </div>
+      </div>
+    </form>
   </VCard>
 </template>
 
@@ -17,7 +74,8 @@ export default {
   data() {
     return {
       data: {
-        person: []
+        person: {},
+        cognito: {},
       }
     };
   }
@@ -25,10 +83,21 @@ export default {
   methods: {
     async show() {
       this.startLoading()
-      await this.$store.dispatch("person/show", {id:this.$route.params.id,product:true});
+      await this.$store.dispatch("person/show", {id: this.$route.params.id, product: true});
       let err = this.handleError(this.$store.state.person.error);
       if (!err) {
         this.data.person = this.$store.state.person.item;
+        this.data.cognito = this.$store.state.person.item.cognito;
+      }
+      this.stopLoading()
+    },
+    async toggleVerifyEmail() {
+      this.startLoading()
+      await this.$store.dispatch("person/toggleVerifyEmail", this.$route.params.id);
+      let err = this.handleError(this.$store.state.person.error);
+      if (!err) {
+        console.log(this.$store.state.person.cognitoUser)
+        this.data.cognito = this.$store.state.person.cognitoUser;
       }
       this.stopLoading()
     },
@@ -54,6 +123,48 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+// utility
+.u-text-secondary {
+  color: $placeholder-color;
+}
 
+.u-text-link {
+  color: #006bff;
+}
+
+.u-text-info {
+  color: $info-color;
+}
+
+.c-badge {
+  border-radius: 3px;
+  padding: 0 5px;
+  background-color: #e2e3e5;
+
+  &--danger {
+    background-color: $danger-color;
+    color: #fff;
+  }
+
+  &--info {
+    background-color: $info-color;
+    color: #fff;
+  }
+
+  &--warn {
+    background-color: $warn-color;
+    color: #000;
+  }
+
+  &--success {
+    background-color: $success-color;
+    color: #fff;
+  }
+
+  &--dark {
+    background-color: $dark-color;
+    color: #fff;
+  }
+}
 </style>

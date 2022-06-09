@@ -45,9 +45,9 @@ export default {
       commit('SET_ERROR', error)
     })
   },
-  async toggleVerifyEmail({commit}, {payload, id}) {
-    await this.$axios.put(`person/${id}/toggle/verify-email`, payload).then((response) => {
-      commit('SET_ITEM', response.data)
+  async toggleVerifyEmail({commit}, id) {
+    await this.$axios.put(`person/${id}/toggle/verify-email`).then((response) => {
+      commit('SET_COGNITO_USER', response.data)
     }).catch((error) => {
       commit('SET_ERROR', error)
     })

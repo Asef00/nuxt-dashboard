@@ -50,6 +50,15 @@ $btn-bg: rgb(146 150 154 / 10%);
       background-color: darken($danger-color, 15%);
     }
   }
+  &--success {
+    background-color: $success-color;
+    color: #fff;
+    outline-color: $success-color;
+
+    &:hover {
+      background-color: darken($success-color, 15%);
+    }
+  }
 
   &--outline {
     background-color: #fff;
