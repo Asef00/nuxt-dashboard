@@ -223,6 +223,13 @@
             </div>
           </div>
         </div>
+
+        <span class="c-badge c-badge--danger">danger</span>
+        <span class="c-badge c-badge--warn">warn</span>
+        <span class="c-badge c-badge--info">info</span>
+        <span class="c-badge c-badge--success">success</span>
+        <span class="c-badge">badge</span>
+        <span class="c-badge c-badge--dark">success</span>
       </form>
     </VCard>
     <VCard title="Card Toolbar Block button">
@@ -301,10 +308,30 @@ export default {
 .c-badge {
   border-radius: 3px;
   padding: 0 5px;
-  background-color: #f8f8f8;
+  background-color: #e2e3e5;
 
   &--danger {
-    background-color: #dc3545;
+    background-color: $danger-color;
+    color: #fff;
+  }
+
+  &--info {
+    background-color: $info-color;
+    color: #fff;
+  }
+
+  &--warn {
+    background-color: $warn-color;
+    color: #000;
+  }
+
+  &--success {
+    background-color: $success-color;
+    color: #fff;
+  }
+
+  &--dark {
+    background-color: $dark-color;
     color: #fff;
   }
 }
