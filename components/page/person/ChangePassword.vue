@@ -27,9 +27,14 @@ import * as Yup from "yup";
 
 export default {
   name: "ChangePassword",
+  props:{
+    id: {
+      type: Number,
+      required: true
+    }
+  },
   data() {
     return {
-      setPassword: false,
       payload: {
         force_change_password: true,
         password: '',
@@ -43,16 +48,17 @@ export default {
         .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
-          await this.$store.dispatch("person/create", {
-            permanent: !this.payload.force_change_password,
-            password: this.payload.password,
+          await this.$store.dispatch("person/changePassword", {
+            id: this.id,
+            payload: {
+              permanent: !this.payload.force_change_password,
+              password: this.payload.password,
+            }
           });
           this.stopLoading();
           const err = this.handleError(this.$store.state.person.error);
           if (!err) {
-            let data = this.$store.state.person.item;
-            this.$toast.success("Person successfully created.");
-            this.$router.push("/person/" + data.id);
+            this.$toast.success("Password successfully change.");
           }
         })
         .catch((err) => {
