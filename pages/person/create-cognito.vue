@@ -1,9 +1,7 @@
 <template>
   <VCard title="Search User Form Cognito">
     <form @submit.prevent="search" class="c-form">
-      <div v-show="hasError('username')" class="alert alert-danger mt-1 mb-1">
-        {{ errorMessage('username') }}
-      </div>
+      <VAlert class="c-alert--danger mt-1 mb-2" v-show="hasError('username')">{{ errorMessage('username') }}</VAlert>
       <div class="row">
         <div class="col-md-12">
           <VInput
