@@ -8,6 +8,11 @@ html {
 body {
   color: $text-color;
   background: #f9f7fd;
+
+  &.is-modal-open {
+    overflow: hidden;
+    height: 100vh;
+  }
 }
 .main {
   background-color: #fff;

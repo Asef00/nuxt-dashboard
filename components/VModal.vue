@@ -32,5 +32,11 @@ export default {
     title: String,
     showModal: Boolean,
   },
+
+  watch: {
+    showModal() {
+      document.body.classList.toggle("is-modal-open");
+    },
+  },
 };
 </script>

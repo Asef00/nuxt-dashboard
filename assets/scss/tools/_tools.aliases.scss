@@ -24,6 +24,10 @@ $global-line-height: 24px;
   align-items: center;
   justify-content: flex-end;
 }
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
 
 // UTILITY
 @mixin box-shadow {

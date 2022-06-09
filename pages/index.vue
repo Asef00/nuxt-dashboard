@@ -356,6 +356,20 @@
             :disabled="true"
           />
 
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque
+            numquam, vel quibusdam distinctio ullam, amet saepe, ipsa adipisci
+            doloribus magni officia quod ad tenetur voluptas alias ratione culpa
+            consequatur voluptate.
+          </p>
+
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque
+            numquam, vel quibusdam distinctio ullam, amet saepe, ipsa adipisci
+            doloribus magni officia quod ad tenetur voluptas alias ratione culpa
+            consequatur voluptate.
+          </p>
+
           <VBtn
             @action="startLoading"
             btn="block"
