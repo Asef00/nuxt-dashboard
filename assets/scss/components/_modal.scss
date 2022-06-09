@@ -47,6 +47,8 @@
 
 .c-modal__body {
   padding: 1em;
+  max-height: 600px;
+  overflow-y: auto;
 }
 
 .c-modal__footer {
