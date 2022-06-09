@@ -244,11 +244,13 @@
       <VBtn id="show-modal" @action="showModal = true">Show Modal</VBtn>
     </VCard>
 
-    <transition name="c-modal" mode="out-in">
-      <VModal v-if="showModal" @close="showModal = false" title="Modal Header">
-        <template #footer>Modal footer</template>
-      </VModal>
-    </transition>
+    <VModal
+      :showModal="showModal"
+      @close="showModal = false"
+      title="Modal Header"
+    >
+      <template #footer>Modal footer</template>
+    </VModal>
   </div>
 </template>
 
