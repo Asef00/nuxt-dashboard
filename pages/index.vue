@@ -100,8 +100,11 @@
       </form>
     </VCard>
     <VCard title="Alert">
-      <VAlert class="c-alert--secondary">
+      <VAlert class="c-alert--primary">
         A simple primary alert—check it out!
+      </VAlert>
+      <VAlert class="c-alert--secondary">
+        A simple secondary alert—check it out!
       </VAlert>
       <VAlert class="c-alert--success">
         A simple success alert—check it out!
@@ -119,8 +122,114 @@
       <VAlert class="c-alert--dark"> A simple dark alert—check it out! </VAlert>
     </VCard>
     <VCard title="MLS Information">
+      <template #header>
+        <VBtn class="m-0 c-btn--small" btn="info">Button</VBtn>
+        <VBtn class="m-0 c-btn--small" btn="danger">Button</VBtn>
+      </template>
       <form action="" class="c-form">
-        <h4 class="c-form__title">Sync Accounts</h4>
+        <div class="row mb-3">
+          <div class="col">
+            <div class="c-form__control c-form__control--inline mb-0">
+              <label class="c-form__label">Full Name</label>
+              <span class="u-text-secondary">
+                Toronto Regional Real Estate Board
+              </span>
+            </div>
+
+            <div class="c-form__control c-form__control--inline mb-0">
+              <label class="c-form__label">Feed Type</label>
+              <span class="c-badge u-text-secondary">IDX</span>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="c-form__control c-form__control--inline mb-0">
+              <label class="c-form__label">Abbreviated</label>
+              <span class="u-text-secondary">Treb MLS</span>
+            </div>
+
+            <div class="c-form__control c-form__control--inline mb-0">
+              <label class="c-form__label">Credentials</label>
+              <NuxtLink to="/" class="u-text-info">Click to View</NuxtLink>
+              <span class="c-badge c-badge--danger">Revoke</span>
+            </div>
+          </div>
+        </div>
+
+        <h4 class="c-form__title mb-2">Details</h4>
+        <div class="row mb-3">
+          <div class="col">
+            <div class="c-form__control c-form__control--inline mb-0">
+              <label class="c-form__label">Address</label>
+              <span class="u-text-secondary">
+                456 Prentiss St, San Francisco, USA
+              </span>
+            </div>
+
+            <div class="c-form__control c-form__control--inline mb-0">
+              <label class="c-form__label">Coverage Area</label>
+              <span class="u-text-secondary">4617, 7819, 1012, Florida</span>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="c-form__control c-form__control--inline mb-0">
+              <label class="c-form__label"># of Clients</label>
+              <span class="u-text-secondary">873</span>
+            </div>
+
+            <div class="c-form__control c-form__control--inline mb-0">
+              <label class="c-form__label"># of Agents</label>
+              <span class="u-text-secondary">100</span>
+            </div>
+          </div>
+        </div>
+
+        <span class="c-form__divider"></span>
+
+        <h4 class="c-form__title mb-2">Contact Information For IDX</h4>
+        <div class="row mb-3">
+          <div class="col">
+            <div class="c-form__control c-form__control--inline mb-0">
+              <label class="c-form__label">Website</label>
+              <span class="u-text-link">sitename.com/mls</span>
+            </div>
+
+            <div class="c-form__control c-form__control--inline mb-0">
+              <label class="c-form__label">Contact 1</label>
+              <span class="u-text-secondary">00 55 369 888 3365</span>
+            </div>
+
+            <div class="c-form__control c-form__control--inline mb-0">
+              <label class="c-form__label">Contact 2</label>
+              <span class="u-text-secondary">00 55 369 888 3366</span>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="c-form__control c-form__control--inline mb-0">
+              <label class="c-form__label">Contact Num</label>
+              <span class="u-text-secondary">00 225 558 9966</span>
+            </div>
+
+            <div class="c-form__control c-form__control--inline mb-0">
+              <label class="c-form__label">Contact Ticket</label>
+              <span class="u-text-secondary">RFK-662</span>
+            </div>
+
+            <div class="c-form__control c-form__control--inline mb-0">
+              <label class="c-form__label">Contact Email</label>
+              <span class="u-text-secondary">mls@trebmls.com</span>
+            </div>
+          </div>
+        </div>
+
+        <span class="c-badge c-badge--danger">danger</span>
+        <span class="c-badge c-badge--warn">warn</span>
+        <span class="c-badge c-badge--info">info</span>
+        <span class="c-badge c-badge--success">success</span>
+        <span class="c-badge">badge</span>
+        <span class="c-badge c-badge--dark">success</span>
       </form>
     </VCard>
     <VCard title="Card Toolbar Block button">
@@ -184,3 +293,46 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+// utility
+.u-text-secondary {
+  color: $placeholder-color;
+}
+.u-text-link {
+  color: #006bff;
+}
+.u-text-info {
+  color: $info-color;
+}
+.c-badge {
+  border-radius: 3px;
+  padding: 0 5px;
+  background-color: #e2e3e5;
+
+  &--danger {
+    background-color: $danger-color;
+    color: #fff;
+  }
+
+  &--info {
+    background-color: $info-color;
+    color: #fff;
+  }
+
+  &--warn {
+    background-color: $warn-color;
+    color: #000;
+  }
+
+  &--success {
+    background-color: $success-color;
+    color: #fff;
+  }
+
+  &--dark {
+    background-color: $dark-color;
+    color: #fff;
+  }
+}
+</style>
