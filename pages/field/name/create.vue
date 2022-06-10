@@ -1,5 +1,10 @@
 <template>
   <VCard title="Create new Field Name">
+    <template #header>
+      <VBtn type="button" class="m-0 c-btn--small">
+        <NuxtLink to="/field/name">List</NuxtLink>
+      </VBtn>
+    </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">
         <div class="col-md-6">
@@ -123,7 +128,7 @@ export default {
         .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
-          await this.$store.dispatch("fieldName/create", {...this.payload,field_type_id:this.payload.field_type.id});
+          await this.$store.dispatch("fieldName/create", {...this.payload, field_type_id: this.payload.field_type.id});
           this.stopLoading();
           const err = this.handleError(this.$store.state.fieldName.error);
           if (!err) {
@@ -161,6 +166,7 @@ export default {
     },
     resetError() {
       this.$store.commit('fieldName/RESET_ERROR')
+      this.$store.commit('fieldType/RESET_ERROR')
       this.errors = {
         name: '',
         label: '',
@@ -176,6 +182,16 @@ export default {
   },
   created() {
     this.resetError()
+    this.setTitle('Field Name')
+    this.setBreadcrumb([
+      {
+        to: '/field/name',
+        name: 'Field Name'
+      }, {
+        to: '/field/name/create',
+        name: 'Create'
+      }
+    ])
   },
   mounted() {
     this.getFieldType()

@@ -1,5 +1,10 @@
 <template>
   <VCard title="Edit a Product">
+    <template #header>
+      <VBtn type="button" class="m-0 c-btn--small">
+        <NuxtLink to="/product">List</NuxtLink>
+      </VBtn>
+    </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">
         <div class="col-md-6">
@@ -147,8 +152,8 @@ export default {
         name: 'Product'
       },
       {
-        to: '/product/create',
-        name: 'Product'
+        to: '/product/edit/' + this.$route.params.id,
+        name: 'Edit'
       }
     ])
     this.show()

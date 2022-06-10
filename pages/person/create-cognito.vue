@@ -1,5 +1,13 @@
 <template>
   <VCard title="Search User Form Cognito">
+    <template #header>
+      <VBtn type="button" class="m-0 c-btn--small">
+        <NuxtLink to="/person/create">Create</NuxtLink>
+      </VBtn>
+      <VBtn type="button" class="m-0 c-btn--small">
+        <NuxtLink to="/person">List</NuxtLink>
+      </VBtn>
+    </template>
     <form @submit.prevent="search" class="c-form">
       <VAlert class="c-alert--danger mt-1 mb-2" v-show="hasError('username')">{{ errorMessage('username') }}</VAlert>
       <div class="row">
@@ -119,8 +127,8 @@ export default {
         name: 'Person'
       },
       {
-        to: '/person/create',
-        name: 'Create'
+        to: '/person/create-cognito',
+        name: 'Create Cognito'
       }
     ])
   }

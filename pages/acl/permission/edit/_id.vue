@@ -1,5 +1,10 @@
 <template>
-  <VCard title="Edit new Permission">
+  <VCard title="Edit a Permission">
+    <template #header>
+      <VBtn type="button" class="m-0 c-btn--small">
+        <NuxtLink to="/acl/permission">List</NuxtLink>
+      </VBtn>
+    </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">
         <div class="col-md-6">
@@ -52,7 +57,8 @@
         </div>
         <div v-if="checkSelectedModel" class="col-md-12 mb-4">
           <label class="c-form__label">Conditions</label>
-          <v-jsoneditor v-model="payload.permission_model_conditions" :plus="false" :options="optionsJson" height="250px"/>
+          <v-jsoneditor v-model="payload.permission_model_conditions" :plus="false" :options="optionsJson"
+                        height="250px"/>
         </div>
       </div>
       <VBtn :loader="loaderRequest">SAVE</VBtn>
@@ -69,6 +75,7 @@ export default {
   components: {Multiselect},
   data() {
     return {
+      id: this.$route.params.id,
       hasFilter: false,
       optionsJson: {
         mode: 'code'
@@ -108,7 +115,7 @@ export default {
           }
           await this.$store.dispatch("permission/update", {
             payload,
-            id: this.$route.params.id
+            id: this.id
           });
           this.stopLoading();
           const err = this.handleError(this.$store.state.permission.error);
@@ -138,7 +145,7 @@ export default {
     },
     async show() {
       this.startLoading()
-      await this.$store.dispatch("permission/show", this.$route.params.id);
+      await this.$store.dispatch("permission/show", this.id);
       let err = this.handleError(this.$store.state.permission.error);
       if (!err) {
         let data = this.$store.state.permission.item;
@@ -189,8 +196,8 @@ export default {
         name: 'Permission'
       },
       {
-        to: '/acl/permission/create',
-        name: 'Create'
+        to: '/acl/permission/edit/' + this.id,
+        name: 'Edit'
       }
     ])
   },

@@ -1,5 +1,10 @@
 <template>
   <VCard title="Edit a Field Name">
+    <template #header>
+      <VBtn type="button" class="m-0 c-btn--small">
+        <NuxtLink to="/field/name">List</NuxtLink>
+      </VBtn>
+    </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">
         <div class="col-md-6">
@@ -97,6 +102,7 @@ export default {
   name: "create",
   data() {
     return {
+      id: this.$route.params.id,
       list: {
         field_type: [],
         default_access: ['edit', 'show']
@@ -126,7 +132,7 @@ export default {
           this.resetError();
           await this.$store.dispatch("fieldName/update", {
             payload: {...this.payload, field_type_id: this.payload.field_type.id},
-            id: this.$route.params.id
+            id: this.id
           });
           this.stopLoading();
           const err = this.handleError(this.$store.state.fieldName.error);
@@ -142,7 +148,7 @@ export default {
     },
     async show() {
       this.startLoading()
-      await this.$store.dispatch("fieldName/show", this.$route.params.id);
+      await this.$store.dispatch("fieldName/show", this.id);
       let err = this.handleError(this.$store.state.fieldName.error);
       if (!err) {
         let data = this.$store.state.fieldName.item;
@@ -198,6 +204,16 @@ export default {
   },
   created() {
     this.resetError()
+    this.setTitle('Field Name')
+    this.setBreadcrumb([
+      {
+        to: '/field/name',
+        name: 'Field Name'
+      }, {
+        to: '/field/name/edit/' + this.id,
+        name: 'Edit'
+      }
+    ])
     this.getFieldType()
     this.show()
   },

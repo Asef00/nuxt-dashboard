@@ -1,5 +1,7 @@
 <template>
-
+  <VCard title="List Person Products">
+    
+  </VCard>
 </template>
 
 <script>

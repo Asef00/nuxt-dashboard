@@ -1,5 +1,10 @@
 <template>
   <VCard title="Create New License Mode">
+    <template #header>
+      <VBtn type="button" class="m-0 c-btn--small">
+        <NuxtLink to="/license-mode">List</NuxtLink>
+      </VBtn>
+    </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">
         <div class="col-md-6">

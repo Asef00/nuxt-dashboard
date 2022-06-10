@@ -7,6 +7,9 @@
       <VBtn type="button" class="m-0 c-btn--small">
         <NuxtLink :to="`/person/edit/${id}`">Edit</NuxtLink>
       </VBtn>
+      <VBtn type="button" class="m-0 c-btn--small">
+        <NuxtLink :to="`/person-product/create/${id}`">Add Product</NuxtLink>
+      </VBtn>
       <VBtn type="button" @action="showChangePasswordModal = true" class="m-0 c-btn--small">
         Change password
       </VBtn>

@@ -1,5 +1,10 @@
 <template>
   <VCard title="Create new Product">
+    <template #header>
+      <VBtn type="button" class="m-0 c-btn--small">
+        <NuxtLink to="/product">List</NuxtLink>
+      </VBtn>
+    </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">
         <div class="col-md-6">
@@ -131,7 +136,7 @@ export default {
       },
       {
         to: '/product/create',
-        name: 'Product'
+        name: 'Create'
       }
     ])
     this.getLicenseMode()
