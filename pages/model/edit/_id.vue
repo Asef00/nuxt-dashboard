@@ -1,5 +1,10 @@
 <template>
   <VCard title="Edit a Model">
+    <template #header>
+      <VBtn type="button" class="m-0 c-btn--small">
+        <NuxtLink to="/model">List</NuxtLink>
+      </VBtn>
+    </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">
         <div class="col-md-6">
@@ -35,6 +40,7 @@ export default {
   name: "ModelEdit",
   data() {
     return {
+      id: this.$route.params.id,
       payload: {
         name: "",
         fields: [],
@@ -51,7 +57,7 @@ export default {
           this.resetError();
           await this.$store.dispatch("model/update", {
             payload: this.payload,
-            id: this.$route.params.id
+            id: this.id
           });
           this.stopLoading();
           const err = this.handleError(this.$store.state.model.error);
@@ -67,7 +73,7 @@ export default {
     },
     async show() {
       this.startLoading()
-      await this.$store.dispatch("model/show", this.$route.params.id);
+      await this.$store.dispatch("model/show", this.id);
       let err = this.handleError(this.$store.state.model.error);
       if (!err) {
         let data = this.$store.state.model.item;
@@ -98,7 +104,7 @@ export default {
         name: "Model",
       },
       {
-        to: "/model/create",
+        to: "/model/edit/" + this.id,
         name: "Edit",
       },
     ]);

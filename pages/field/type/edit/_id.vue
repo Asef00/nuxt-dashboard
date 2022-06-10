@@ -1,5 +1,10 @@
 <template>
-  <VCard title="Create New Field Type">
+  <VCard title="Edit a Field Type">
+    <template #header>
+      <VBtn type="button" class="m-0 c-btn--small">
+        <NuxtLink to="/field/type">List</NuxtLink>
+      </VBtn>
+    </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">
         <div class="col-md-6">
@@ -33,6 +38,7 @@ export default {
   name: "create",
   data() {
     return {
+      id: this.$route.params.id,
       payload: {
         type: '',
         label: '',
@@ -47,8 +53,8 @@ export default {
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("fieldType/update", {
-            payload:this.payload,
-            id:this.$route.params.id
+            payload: this.payload,
+            id: this.id
           });
           this.stopLoading();
           const err = this.handleError(this.$store.state.fieldType.error);
@@ -64,7 +70,7 @@ export default {
     },
     async show() {
       this.startLoading()
-      await this.$store.dispatch("fieldType/show", this.$route.params.id);
+      await this.$store.dispatch("fieldType/show", this.id);
       let err = this.handleError(this.$store.state.fieldType.error);
       if (!err) {
         let data = this.$store.state.fieldType.item;
@@ -95,7 +101,7 @@ export default {
         name: 'Field Type'
       },
       {
-        to: '/field/type/edit',
+        to: '/field/type/edit/' + this.id,
         name: 'Edit'
       }
     ])

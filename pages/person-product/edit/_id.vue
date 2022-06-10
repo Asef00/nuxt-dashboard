@@ -156,8 +156,8 @@ export default {
         name: 'Person Product'
       },
       {
-        to: '/person-product/create',
-        name: 'Create'
+        to: '/person-product/edit/' + this.$route.params.id,
+        name: 'Edit'
       }
     ])
     this.show()

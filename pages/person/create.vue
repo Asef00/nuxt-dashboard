@@ -1,5 +1,13 @@
 <template>
   <VCard title="Create new Person">
+    <template #header>
+      <VBtn type="button" class="m-0 c-btn--small">
+        <NuxtLink to="/person">List</NuxtLink>
+      </VBtn>
+      <VBtn type="button" class="m-0 c-btn--small">
+        <NuxtLink to="/person/create-cognito">Add form Cognito</NuxtLink>
+      </VBtn>
+    </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">
         <div class="col-md-6">

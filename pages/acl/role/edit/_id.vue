@@ -1,5 +1,10 @@
 <template>
-  <VCard title="Edit new Role">
+  <VCard title="Edit a Role">
+    <template #header>
+      <VBtn type="button" class="m-0 c-btn--small">
+        <NuxtLink to="/acl/role">List</NuxtLink>
+      </VBtn>
+    </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">
         <div class="col-md-6">
@@ -59,6 +64,7 @@ export default {
   name: "edit",
   data() {
     return {
+      id: this.$route.params.id,
       list: {
         field_name: [],
         permission: [],
@@ -85,7 +91,7 @@ export default {
             field_name_ids: this.payload.field_name.map(a => a.id)
           };
           await this.$store.dispatch("role/update", {
-            id: this.$route.params.id,
+            id: this.id,
             payload: this.payload
           });
           this.stopLoading();
@@ -102,7 +108,7 @@ export default {
     },
     async show() {
       this.startLoading()
-      await this.$store.dispatch("role/show", this.$route.params.id);
+      await this.$store.dispatch("role/show", this.id);
       let err = this.handleError(this.$store.state.role.error);
       if (!err) {
         let data = this.$store.state.role.item;
@@ -157,7 +163,7 @@ export default {
         name: 'Role'
       },
       {
-        to: '/acl/role/edit/' + this.$route.params.id,
+        to: '/acl/role/edit/' + this.id,
         name: 'Edit'
       }
     ])

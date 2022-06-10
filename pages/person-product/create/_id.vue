@@ -91,7 +91,7 @@ export default {
           const err = this.handleError(this.$store.state.person.product.error);
           if (!err) {
             this.$toast.success("Product successfully created.");
-            this.$router.push("/person/"+this.payload.person.id);
+            this.$router.push("/person/" + this.payload.person.id);
           }
         })
         .catch((err) => {
@@ -100,7 +100,7 @@ export default {
         });
     },
     async getPerson() {
-      await this.$store.dispatch('person/show', {id:this.$route.params.id})
+      await this.$store.dispatch('person/show', {id: this.$route.params.id})
       let err = this.handleError(this.$store.state.person.error)
       if (!err) {
         this.payload.person = this.$store.state.person.item
@@ -145,7 +145,7 @@ export default {
         name: 'Person Product'
       },
       {
-        to: '/person-product/create',
+        to: '/person-product/create/' + this.$route.params.id,
         name: 'Create'
       }
     ])

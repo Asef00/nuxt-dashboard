@@ -1,5 +1,10 @@
 <template>
-  <VCard title="Create New License Mode">
+  <VCard title="Edit a License Mode">
+    <template #header>
+      <VBtn type="button" class="m-0 c-btn--small">
+        <NuxtLink to="/license-mode">List</NuxtLink>
+      </VBtn>
+    </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">
         <div class="col-md-6">
@@ -33,6 +38,7 @@ export default {
   name: "edit",
   data() {
     return {
+      id: this.$route.params.id,
       payload: {
         name: '',
         label: '',
@@ -48,7 +54,7 @@ export default {
           this.resetError();
           await this.$store.dispatch("licenseMode/update", {
             payload: this.payload,
-            id: this.$route.params.id
+            id: this.id
           });
           this.stopLoading();
           const err = this.handleError(this.$store.state.licenseMode.error);
@@ -64,7 +70,7 @@ export default {
     },
     async show() {
       this.startLoading()
-      await this.$store.dispatch("licenseMode/show", this.$route.params.id);
+      await this.$store.dispatch("licenseMode/show", this.id);
       this.handleError(this.$store.state.licenseMode.error);
       let data = this.$store.state.licenseMode.item;
       this.payload.label = data.label
@@ -94,8 +100,8 @@ export default {
         name: 'License Mode'
       },
       {
-        to: '/license-mode/create',
-        name: 'Create'
+        to: '/license-mode/edit/' + this.id,
+        name: 'Edit'
       }
     ])
     this.resetError()
