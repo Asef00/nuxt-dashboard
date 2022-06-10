@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <VModal
+    :showModal="show"
+    @close="show = false"
+    title="Change password"
+  >
     <form @submit.prevent="changePassword" class="c-form">
       <div class="row">
         <div class="col-md-12">
@@ -19,7 +23,7 @@
       </div>
       <VBtn :loader="loaderRequest">Change Password</VBtn>
     </form>
-  </div>
+  </VModal>
 </template>
 
 <script>
@@ -27,10 +31,14 @@ import * as Yup from "yup";
 
 export default {
   name: "ChangePassword",
-  props:{
+  props: {
     id: {
-      type: Number,
+      type: [String, Number],
       required: true
+    },
+    show: {
+      type: Boolean,
+      required: false
     }
   },
   data() {
@@ -58,6 +66,7 @@ export default {
           this.stopLoading();
           const err = this.handleError(this.$store.state.person.error);
           if (!err) {
+            this.show = false;
             this.$toast.success("Password successfully change.");
           }
         })
@@ -83,6 +92,11 @@ export default {
   },
   created() {
     this.resetError()
+  },
+  watch: {
+    show(val) {
+      this.$emit('show', val);
+    }
   }
 }
 </script>

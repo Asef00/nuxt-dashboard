@@ -1,5 +1,16 @@
 <template>
   <VCard title="Edit a Person">
+    <template #header>
+      <VBtn type="button" class="m-0 c-btn--small">
+        <NuxtLink to="/person">List</NuxtLink>
+      </VBtn>
+      <VBtn type="button" class="m-0 c-btn--small">
+        <NuxtLink :to="`/person/${id}`">Details</NuxtLink>
+      </VBtn>
+      <VBtn type="button" @action="showChangePasswordModal = true" class="m-0 c-btn--small">
+        Change password
+      </VBtn>
+    </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">
         <div class="col-md-6">
@@ -36,16 +47,23 @@
       </div>
       <VBtn :loader="loaderRequest">SAVE</VBtn>
     </form>
+    <ChangePassword @show="changePasswordModal($event)" :show="showChangePasswordModal" :id="id"/>
   </VCard>
 </template>
 
 <script>
 import * as Yup from "yup";
+import ChangePassword from "@/components/page/person/ChangePassword";
 
 export default {
   name: "edit",
+  components: {
+    ChangePassword
+  },
   data() {
     return {
+      showChangePasswordModal: false,
+      id: this.$route.params.id,
       list: {
         role: []
       },
@@ -57,6 +75,9 @@ export default {
     };
   },
   methods: {
+    changePasswordModal(show) {
+      this.showChangePasswordModal = show;
+    },
     update() {
       this.startLoading();
       this.validation()
@@ -68,7 +89,7 @@ export default {
             family_name: this.payload.family_name,
             role_ids: this.payload.role.map(i => i.id),
           };
-          await this.$store.dispatch("person/update", {id: this.$route.params.id, payload});
+          await this.$store.dispatch("person/update", {id: this.id, payload});
           this.stopLoading();
           const err = this.handleError(this.$store.state.person.error);
           if (!err) {
@@ -84,7 +105,7 @@ export default {
     },
     async show() {
       this.startLoading()
-      await this.$store.dispatch("person/show", {id:this.$route.params.id});
+      await this.$store.dispatch("person/show", {id: this.id});
       let err = this.handleError(this.$store.state.person.error);
       if (!err) {
         let data = this.$store.state.person.item;
