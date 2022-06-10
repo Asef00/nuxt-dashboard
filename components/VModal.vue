@@ -14,7 +14,7 @@
           </div>
 
           <div class="c-modal__body">
-            <slot name="body"> Modal body </slot>
+            <slot> Modal body </slot>
           </div>
 
           <div class="c-modal__footer" v-if="this.$slots.footer">
