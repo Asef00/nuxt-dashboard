@@ -4,13 +4,18 @@
       <div>
         <div class="c-perpage" v-if="per_page">
           Show
-          <select class="c-perpage__input" name="per_page" id="per_page">
-            <option v-html="per_page" :value="per_page"></option>
-            <option v-html="30" value="30"></option>
-            <option v-html="40" value="40"></option>
-            <option v-html="50" value="50"></option>
-            <option v-html="70" value="70"></option>
-            <option v-html="100" value="100"></option>
+          <select
+            class="c-perpage__input"
+            name="per_page"
+            v-model="preferedPerPage"
+          >
+            <option
+              v-for="(op, index) in perPageArray"
+              :key="index"
+              :value="op"
+            >
+              {{ op }}
+            </option>
           </select>
           entries
         </div>
@@ -137,7 +142,7 @@
             :key="page"
             class="c-pagination__item"
             :class="page == current_page ? 'is-active' : ''"
-            @click="page != current_page ? changePage(page): ''"
+            @click="page != current_page ? changePage(page) : ''"
           >
             {{ page }}
           </button>
@@ -179,6 +184,8 @@ export default {
 
   data() {
     return {
+      preferedPerPage: 25,
+      perPageArray: [25, 50, 100],
       sortColumn: "",
       table_data: this.table.items,
       hasPaginate: false,
@@ -188,6 +195,12 @@ export default {
       has_pre_dots: false,
       has_next_dots: false,
     };
+  },
+
+  watch: {
+    preferedPerPage(val) {
+      this.$emit("changePerPage",val);
+    },
   },
 
   methods: {
@@ -213,7 +226,7 @@ export default {
 
     changePage(target) {
       this.table_data.current_page = target;
-      this.$emit('changePage',target);
+      this.$emit("changePage", target);
     },
   },
 
