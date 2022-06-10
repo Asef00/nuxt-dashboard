@@ -254,32 +254,30 @@
       @close="showModal = false"
       title="Modal Header"
     >
-      <template #body>
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque
-          numquam, vel quibusdam distinctio ullam, amet saepe, ipsa adipisci
-          doloribus magni officia quod ad tenetur voluptas alias ratione culpa
-          consequatur voluptate.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque
-          numquam, vel quibusdam distinctio ullam, amet saepe, ipsa adipisci
-          doloribus magni officia quod ad tenetur voluptas alias ratione culpa
-          consequatur voluptate.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque
-          numquam, vel quibusdam distinctio ullam, amet saepe, ipsa adipisci
-          doloribus magni officia quod ad tenetur voluptas alias ratione culpa
-          consequatur voluptate.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque
-          numquam, vel quibusdam distinctio ullam, amet saepe, ipsa adipisci
-          doloribus magni officia quod ad tenetur voluptas alias ratione culpa
-          consequatur voluptate.
-        </p>
-      </template>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque
+        numquam, vel quibusdam distinctio ullam, amet saepe, ipsa adipisci
+        doloribus magni officia quod ad tenetur voluptas alias ratione culpa
+        consequatur voluptate.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque
+        numquam, vel quibusdam distinctio ullam, amet saepe, ipsa adipisci
+        doloribus magni officia quod ad tenetur voluptas alias ratione culpa
+        consequatur voluptate.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque
+        numquam, vel quibusdam distinctio ullam, amet saepe, ipsa adipisci
+        doloribus magni officia quod ad tenetur voluptas alias ratione culpa
+        consequatur voluptate.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque
+        numquam, vel quibusdam distinctio ullam, amet saepe, ipsa adipisci
+        doloribus magni officia quod ad tenetur voluptas alias ratione culpa
+        consequatur voluptate.
+      </p>
       <template #footer>Modal footer</template>
     </VModal>
 
@@ -288,99 +286,96 @@
       @close="showFormModal = false"
       title="Modal Header"
     >
-      <template #body>
-        <form action="" class="c-form">
-          <h4 class="c-form__title">Sync Accounts</h4>
+      <form action="" class="c-form">
+        <h4 class="c-form__title">Sync Accounts</h4>
 
-          <VSelect
-            @validation="validate('tag')"
-            :error="errorMessage('tag')"
-            :multiple="true"
-            placeholder="Please select tag"
-            v-model="payload.tag"
-            :list="options"
-            label="Tags"
-          />
+        <VSelect
+          @validation="validate('tag')"
+          :error="errorMessage('tag')"
+          :multiple="true"
+          placeholder="Please select tag"
+          v-model="payload.tag"
+          :list="options"
+          label="Tags"
+        />
 
-          <VSelect
-            :disabled="true"
-            @validation="validate('tag')"
-            :error="errorMessage('tag')"
-            :multiple="true"
-            placeholder="Please select tag"
-            v-model="payload.tag"
-            :list="options"
-            label="Tags"
-          />
+        <VSelect
+          :disabled="true"
+          @validation="validate('tag')"
+          :error="errorMessage('tag')"
+          :multiple="true"
+          placeholder="Please select tag"
+          v-model="payload.tag"
+          :list="options"
+          label="Tags"
+        />
 
-          <VInput
-            @validation="validate('name')"
-            :error="errorMessage('name')"
-            label="Name"
-            v-model="payload.name"
-            placeholder="Please enter name"
-          />
+        <VInput
+          @validation="validate('name')"
+          :error="errorMessage('name')"
+          label="Name"
+          v-model="payload.name"
+          placeholder="Please enter name"
+        />
 
-          <VTextarea
-            @validation="validate('summary')"
-            :error="errorMessage('summary')"
-            v-model="payload.summary"
-            label="Summary"
-            placeholder="Please enter summary"
-          />
+        <VTextarea
+          @validation="validate('summary')"
+          :error="errorMessage('summary')"
+          v-model="payload.summary"
+          label="Summary"
+          placeholder="Please enter summary"
+        />
 
-          <VSwitch
-            :defaultState="true"
-            v-on:change="triggerToggleEvent"
-            :labelText="'Validate Response'"
-          />
+        <VSwitch
+          :defaultState="true"
+          v-on:change="triggerToggleEvent"
+          :labelText="'Validate Response'"
+        />
 
-          <VCheckbox
-            label="Ali"
-            data="Ali"
-            :list="selectedOptions"
-            v-model="selected"
-          />
+        <VCheckbox
+          label="Ali"
+          data="Ali"
+          :list="selectedOptions"
+          v-model="selected"
+        />
 
-          <VCheckbox
-            label="Reza"
-            data="Reza"
-            :list="selectedOptions"
-            v-model="selected"
-          />
+        <VCheckbox
+          label="Reza"
+          data="Reza"
+          :list="selectedOptions"
+          v-model="selected"
+        />
 
-          <VCheckbox
-            label="Disabled"
-            inputValue="foo"
-            v-model="selectedOptions"
-            :disabled="true"
-          />
+        <VCheckbox
+          label="Disabled"
+          inputValue="foo"
+          v-model="selectedOptions"
+          :disabled="true"
+        />
 
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque
-            numquam, vel quibusdam distinctio ullam, amet saepe, ipsa adipisci
-            doloribus magni officia quod ad tenetur voluptas alias ratione culpa
-            consequatur voluptate.
-          </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque
+          numquam, vel quibusdam distinctio ullam, amet saepe, ipsa adipisci
+          doloribus magni officia quod ad tenetur voluptas alias ratione culpa
+          consequatur voluptate.
+        </p>
 
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque
-            numquam, vel quibusdam distinctio ullam, amet saepe, ipsa adipisci
-            doloribus magni officia quod ad tenetur voluptas alias ratione culpa
-            consequatur voluptate.
-          </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque
+          numquam, vel quibusdam distinctio ullam, amet saepe, ipsa adipisci
+          doloribus magni officia quod ad tenetur voluptas alias ratione culpa
+          consequatur voluptate.
+        </p>
 
-          <VBtn
-            @action="startLoading"
-            btn="block"
-            type="button"
-            :loader="loaderRequest"
-          >
-            Add Note
-          </VBtn>
-        </form>
-      </template>
-
+        <VBtn
+          @action="startLoading"
+          btn="block"
+          type="button"
+          :loader="loaderRequest"
+        >
+          Add Note
+        </VBtn>
+      </form>
       <template #footer>Modal footer</template>
     </VModal>
   </div>
