@@ -119,16 +119,40 @@
     </div>
     <div class="c-datatable__footer">
       <div class="c-pagination" v-if="total_pages && current_page">
-        <span class="c-pagination__arrow c-chevron c-chevron--left"></span>
-        <button
-          v-for="page in total_pages"
-          :key="page"
-          class="c-pagination__item"
-          :class="page == current_page ? 'is-active' : ''"
-        >
-          {{ page }}
-        </button>
-        <span class="c-pagination__arrow c-chevron c-chevron--right"></span>
+        <span
+          :class="current_page == 1 ? 'is-disabled' : ''"
+          class="c-pagination__arrow c-chevron c-chevron--left"
+        ></span>
+
+        <template v-if="has_pre_pages">
+          <button class="c-pagination__item">1</button>
+          <span>...</span>
+        </template>
+
+        <template v-for="page in total_pages">
+          <button
+            v-if="
+              Math.abs(page - current_page) < 3 ||
+              //page == total_pages - 1 ||
+              page == 0
+            "
+            :key="page"
+            class="c-pagination__item"
+            :class="page == current_page ? 'is-active' : ''"
+          >
+            {{ page }}
+          </button>
+        </template>
+
+        <template v-if="has_next_pages">
+          <span>...</span>
+          <button class="c-pagination__item">{{ total_pages }}</button>
+        </template>
+
+        <span
+          :class="current_page == total_pages ? 'is-disabled' : ''"
+          class="c-pagination__arrow c-chevron c-chevron--right"
+        ></span>
       </div>
     </div>
   </div>
@@ -155,6 +179,11 @@ export default {
       sortColumn: "",
       table_data: this.table.items,
       hasPaginate: false,
+      per_page: 25,
+      total_pages: 1,
+      current_page: 1,
+      has_pre_pages: false,
+      has_next_pages: false,
     };
   },
 
@@ -163,6 +192,7 @@ export default {
       let key = col.key; //based on defined structure
       let map = this.table.map; //custom mapped data
       if (map.hasOwnProperty(key)) {
+        // using wrapper to fix functoin output for runtime template
         return `<span>${
           map[key](row) === undefined ? "" : map[key](row)
         }</span>`;
@@ -182,23 +212,20 @@ export default {
   computed: {
     allData() {
       if (this.table_data.hasOwnProperty("data")) {
+        //is paginated
+        this.current_page = this.table_data.current_page;
+        this.has_pre_pages = this.current_page > 4;
+        this.has_next_pages = this.current_page + 4 <= this.total_pages ;
+        this.per_page = this.table_data.per_page;
+        this.total_pages = this.table_data.total;
+
         this.hasPaginate = true;
         return this.table_data.data;
-        //is paginated
       } else {
+        //is not paginated
         this.hasPaginate = false;
         return this.table_data;
-        //is not paginated
       }
-    },
-    per_page() {
-      return this.table_data.per_page;
-    },
-    total_pages() {
-      return this.table_data.total;
-    },
-    current_page() {
-      return this.table_data.current_page;
     },
   },
 };
