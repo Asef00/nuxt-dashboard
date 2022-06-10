@@ -24,6 +24,7 @@
         <input class="c-search__input" type="text" placeholder="Search..." />
       </div>
     </div>
+    
     <div class="c-datatable__body">
       <table class="c-table">
         <thead class="c-table__header">
@@ -113,7 +114,6 @@
               class="c-table__cell"
               :class="col.class"
             >
-              <!-- {{ String(showItem(row, col)) }} -->
               <v-runtime-template
                 :template="String(showItem(row, col))"
               ></v-runtime-template>
@@ -122,6 +122,7 @@
         </tbody>
       </table>
     </div>
+
     <div class="c-datatable__footer">
       <div class="c-pagination" v-if="total_pages && current_page">
         <!-- prev btn -->
@@ -131,11 +132,13 @@
           @click="changePage(current_page - 1)"
         ></span>
 
+        <!-- prev page dots -->
         <template v-if="has_pre_dots">
           <button class="c-pagination__item" @click="changePage(1)">1</button>
           <span>...</span>
         </template>
 
+        <!-- page numbers -->
         <template v-for="page in total_pages">
           <button
             v-if="Math.abs(page - current_page) < 3"
@@ -148,6 +151,7 @@
           </button>
         </template>
 
+        <!-- next page dots -->
         <template v-if="has_next_dots">
           <span>...</span>
           <button class="c-pagination__item" @click="changePage(total_pages)">
@@ -199,7 +203,7 @@ export default {
 
   watch: {
     preferedPerPage(val) {
-      this.$emit("changePerPage",val);
+      this.$emit("changePerPage", val);
     },
   },
 
