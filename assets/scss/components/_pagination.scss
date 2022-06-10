@@ -47,8 +47,8 @@ $border-radius: 3px;
 }
 
 .c-pagination__item {
-  height: 2em;
-  width: 2em;
+  min-height: 2em;
+  min-width: 2em;
   @include flex-center;
   @include font-size(14px);
   cursor: pointer;
