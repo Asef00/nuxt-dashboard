@@ -1,11 +1,13 @@
 <template>
-  <div>
-    <button @click="$emit('action')" :disabled="disabled" :type="type"
-            :class="['c-btn',classBtn]">
-      <span v-if="loader"><LoaderDots :color="colorLoader"></LoaderDots></span>
-      <slot v-else/>
-    </button>
-  </div>
+  <button
+    @click="$emit('action')"
+    :disabled="disabled"
+    :type="type"
+    :class="['c-btn', classBtn]"
+  >
+    <span v-if="loader"><LoaderDots :color="colorLoader"></LoaderDots></span>
+    <slot v-else/>
+  </button>
 </template>
 
 <script>
@@ -14,54 +16,65 @@ export default {
   props: {
     type: {
       type: String,
-      default: 'submit'
+      default: "submit",
     },
     btn: {
       type: String,
-      default: 'primary'
+      default: "primary",
     },
     loader: {
       type: Boolean,
-      default: false
+      default: false,
     },
     disabled: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
-      colorLoader: '#fff'
-    }
+      colorLoader: "#fff",
+    };
   },
   computed: {
     classBtn() {
-      if (this.btn === 'primary') {
-        this.colorLoader = '#fff'
-        return 'c-btn--primary';
+      if (this.btn === "primary") {
+        this.colorLoader = "#fff";
+        return "c-btn--primary";
       }
-      if (this.btn === 'outline') {
-        this.colorLoader = '#444'
-        return 'c-btn--outline';
+      if (this.btn === "outline") {
+        this.colorLoader = "#444";
+        return "c-btn--outline";
       }
-      if (this.btn === 'block') {
-        this.colorLoader = '#444'
-        return 'c-btn--block';
+      if (this.btn === "block") {
+        this.colorLoader = "#444";
+        return "c-btn--block";
       }
-      if (this.btn === 'simple') {
-        this.colorLoader = '#444'
-        return '';
+      if (this.btn === "info") {
+        this.colorLoader = "#fff";
+        return "c-btn--info";
       }
-    }
+      if (this.btn === "danger") {
+        this.colorLoader = "#fff";
+        return "c-btn--danger";
+      }
+      if (this.btn === "success") {
+        this.colorLoader = "#fff";
+        return "c-btn--success";
+      }
+      if (this.btn === "simple") {
+        this.colorLoader = "#444";
+        return "";
+      }
+    },
   },
   watch: {
     loader(value) {
-      this.disabled = value
-    }
-  }
-}
+      this.disabled = value;
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

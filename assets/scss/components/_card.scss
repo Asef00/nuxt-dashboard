@@ -11,8 +11,8 @@
 }
 
 .c-card__header {
-  padding: 0.97em .7em;
-  border-bottom: 1px solid $border-color;
+  padding: 0.8em .7em;
+  @include border(bottom);
 
   @include mq(lg) {
     padding-left: 1.56em;
@@ -21,10 +21,21 @@
 }
 
 .c-card__title {
+  @include flex-start;
   @include font-size(16px);
   font-weight: 600;
   color: $text-color;
   margin: 0;
+}
+
+.c-card__toolbar {
+  @include flex-end;
+  margin-top: 0.5em;
+  gap: .5em;
+
+  @include mq(lg) {
+    margin-top: 0;
+  }
 }
 
 .c-card__body {

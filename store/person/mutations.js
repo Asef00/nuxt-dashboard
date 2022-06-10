@@ -17,5 +17,17 @@ export default {
   RESET_COGNITO_USERS(state) {
     state.cognitoUsers = []
   },
+  SET_COGNITO_USER(state, data) {
+    state.cognitoUser = data
+  },
+  RESET_COGNITO_USER(state) {
+    state.cognitoUser = null
+  },
+  RESET_ERROR(state) {
+    state.error = null
+  },
+  SET_ERROR(state, data) {
+    state.error = data
+  },
 
 }

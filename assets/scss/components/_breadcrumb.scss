@@ -7,7 +7,7 @@
     opacity: 0.7;
 
     &:hover,
-    &:first-child {
+    &:last-child {
         opacity: 1;
     }
 }

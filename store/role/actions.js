@@ -3,35 +3,35 @@ export default {
     await this.$axios.get('role').then((response) => {
       commit('SET_LIST', response.data)
     }).catch((error) => {
-      this.$error(error.response)
+      commit('SET_ERROR', error)
     })
   },
-  async show({commit}, {role}) {
-    await this.$axios.get(`role/${role._id}`).then((response) => {
+  async show({commit}, id) {
+    await this.$axios.get(`role/${id}`).then((response) => {
       commit('SET_ITEM', response.data)
     }).catch((error) => {
-      this.$error(error.response)
+      commit('SET_ERROR', error)
     })
   },
   async create({commit}, payload) {
     await this.$axios.post('role', payload).then((response) => {
       commit('SET_ITEM', response.data)
     }).catch((error) => {
-      this.$error(error.response)
+      commit('SET_ERROR', error)
     })
   },
-  async update({commit}, {payload, role}) {
-    await this.$axios.put(`role/${role._id}`, payload).then((response) => {
+  async update({commit}, {payload, id}) {
+    await this.$axios.put(`role/${id}`, payload).then((response) => {
       commit('SET_ITEM', response.data)
     }).catch((error) => {
-      this.$error(error.response)
+      commit('SET_ERROR', error)
     })
   },
-  async delete({commit}, {role}) {
-    await this.$axios.delete(`role/${role._id}`).then((response) => {
+  async delete({commit}, id) {
+    await this.$axios.delete(`role/${id}`).then((response) => {
       commit('SET_ITEM', response.data)
     }).catch((error) => {
-      this.$error(error.response)
+      commit('SET_ERROR', error)
     })
   },
 }

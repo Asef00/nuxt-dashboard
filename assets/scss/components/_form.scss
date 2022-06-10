@@ -1,18 +1,29 @@
+.c-form {
+  @include font-size(14px);
+}
+
 .c-form__title {
   font-size: 14px;
   color: $primary-color;
   font-weight: 600;
+  margin: 0 0 1.5em;
 }
 
 .c-form__control {
+  @include flex-column;
   margin-bottom: 1em;
+  gap: 0.5em;
+
+  &--inline {
+    flex-direction: row;
+    gap: 1.5em;
+  }
 }
 
 .c-form__label {
-  @include font-size(14px);
   font-weight: 500;
   color: $text-color;
-  margin-bottom: 0.5em;
+  margin: 0;
   display: block;
 }
 
@@ -50,4 +61,10 @@
   @include font-size(14px);
   margin: 0.2em 0 1em;
   display: block;
+}
+
+.c-form__divider {
+  border-top: 1px solid #e1e0ea;
+  display: block;
+  margin: 1em 0;
 }
