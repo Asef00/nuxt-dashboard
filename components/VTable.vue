@@ -119,6 +119,7 @@
     </div>
     <div class="c-datatable__footer">
       <div class="c-pagination" v-if="total_pages && current_page">
+        <!-- prev btn -->
         <span
           :class="current_page == 1 ? 'is-disabled' : ''"
           class="c-pagination__arrow c-chevron c-chevron--left"
@@ -131,11 +132,7 @@
 
         <template v-for="page in total_pages">
           <button
-            v-if="
-              Math.abs(page - current_page) < 3 ||
-              //page == total_pages - 1 ||
-              page == 0
-            "
+            v-if="Math.abs(page - current_page) < 3"
             :key="page"
             class="c-pagination__item"
             :class="page == current_page ? 'is-active' : ''"
@@ -149,6 +146,7 @@
           <button class="c-pagination__item">{{ total_pages }}</button>
         </template>
 
+        <!-- next btn -->
         <span
           :class="current_page == total_pages ? 'is-disabled' : ''"
           class="c-pagination__arrow c-chevron c-chevron--right"
@@ -215,9 +213,16 @@ export default {
         //is paginated
         this.current_page = this.table_data.current_page;
         this.has_pre_pages = this.current_page > 4;
-        this.has_next_pages = this.current_page + 4 <= this.total_pages ;
-        this.per_page = this.table_data.per_page;
         this.total_pages = this.table_data.total;
+        this.has_next_pages = this.current_page + 4 <= this.total_pages;
+        this.per_page = this.table_data.per_page;
+
+        console.log(
+          this.current_page,
+          this.has_pre_pages,
+          this.has_next_pages,
+          this.total_pages
+        );
 
         this.hasPaginate = true;
         return this.table_data.data;
