@@ -4,7 +4,10 @@
       <VBtn type="button" class="m-0 c-btn--small">
         <NuxtLink to="/person">List</NuxtLink>
       </VBtn>
-      <VBtn type="button" @action="" class="m-0 c-btn--small">
+      <VBtn type="button" class="m-0 c-btn--small">
+        <NuxtLink :to="`/person/edit/${id}`">Edit</NuxtLink>
+      </VBtn>
+      <VBtn type="button" @action="showChangePasswordModal = true" class="m-0 c-btn--small">
         Change password
       </VBtn>
     </template>
@@ -68,14 +71,20 @@
         </div>
       </div>
     </form>
+    <ChangePassword @show="changePasswordModal($event)" :show="showChangePasswordModal" :id="id"/>
   </VCard>
 </template>
 
 <script>
+import ChangePassword from "@/components/page/person/ChangePassword";
+
 export default {
   name: "Details",
+  components: {ChangePassword},
   data() {
     return {
+      showChangePasswordModal: false,
+      id: this.$route.params.id,
       data: {
         person: {},
         cognito: {},
@@ -84,9 +93,12 @@ export default {
   }
   ,
   methods: {
+    changePasswordModal(e) {
+      this.showChangePasswordModal = e;
+    },
     async show() {
       this.startLoading()
-      await this.$store.dispatch("person/show", {id: this.$route.params.id, product: true});
+      await this.$store.dispatch("person/show", {id: this.id, product: true});
       let err = this.handleError(this.$store.state.person.error);
       if (!err) {
         this.data.person = this.$store.state.person.item;
@@ -96,7 +108,7 @@ export default {
     },
     async toggleVerifyEmail() {
       this.startLoading()
-      await this.$store.dispatch("person/toggleVerifyEmail", this.$route.params.id);
+      await this.$store.dispatch("person/toggleVerifyEmail", this.id);
       let err = this.handleError(this.$store.state.person.error);
       if (!err) {
         this.data.cognito = this.$store.state.person.cognitoUser;
@@ -105,7 +117,7 @@ export default {
     },
     async toggleEnabled() {
       this.startLoading()
-      await this.$store.dispatch("person/toggleEnable", this.$route.params.id);
+      await this.$store.dispatch("person/toggleEnable", this.id);
       let err = this.handleError(this.$store.state.person.error);
       if (!err) {
         this.data.person.enabled = !this.data.person.enabled;
@@ -126,7 +138,7 @@ export default {
         name: 'Person'
       },
       {
-        to: `/person/${this.$route.params.id}`,
+        to: `/person/${this.id}`,
         name: 'Details'
       }
     ])
