@@ -15,6 +15,10 @@
     vertical-align: top;
   }
 
+  &.is-disabled::before {
+    border-color: #e5e5e5;
+  }
+
   &--right:before {
     left: 0;
     transform: rotate(45deg);
@@ -26,7 +30,7 @@
   }
 
   &--left:before {
-    left: 0.25em;
+    // left: 0.25em;
     transform: rotate(-135deg);
   }
 }

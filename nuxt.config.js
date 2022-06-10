@@ -3,12 +3,12 @@ export default {
   head: {
     title: "Dashboard",
     meta: [
-      {charset: "utf-8"},
-      {name: "viewport", content: "width=device-width, initial-scale=1"},
-      {hid: "description", name: "description", content: ""},
-      {name: "format-detection", content: "telephone=no"},
+      { charset: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { hid: "description", name: "description", content: "" },
+      { name: "format-detection", content: "telephone=no" },
     ],
-    link: [{rel: "icon", type: "image/x-icon", href: "/favicon.ico"}],
+    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -47,9 +47,7 @@ export default {
   ],
 
   styleResources: {
-    scss: [
-      "./assets/scss/app.scss",
-    ],
+    scss: ["./assets/scss/app.scss"],
     hoistUseStatements: true,
   },
 
@@ -68,7 +66,12 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    extend(config, { isDev, isClient }) {
+      config.resolve.alias["vue"] = "vue/dist/vue.common";
+    },
+  },
+
   auth: {
     strategies: {
       local: {
@@ -89,10 +92,10 @@ export default {
           maxAge: 60 * 60 * 24 * 30,
         },
         endpoints: {
-          login: {url: "/auth/token", method: "post"},
-          refresh: {url: "/auth/token", method: "post"},
-          user: {url: "/auth/person", method: "get"},
-          logout: {url: "/auth/token/revoke", method: "post"},
+          login: { url: "/auth/token", method: "post" },
+          refresh: { url: "/auth/token", method: "post" },
+          user: { url: "/auth/person", method: "get" },
+          logout: { url: "/auth/token/revoke", method: "post" },
         },
       },
     },
@@ -103,6 +106,7 @@ export default {
       home: "/",
     },
   },
+
   fontawesome: {
     component: "fa",
     icons: {
@@ -111,14 +115,17 @@ export default {
       brands: true,
     },
   },
+
   googleFonts: {
     families: {
       Montserrat: true,
     },
   },
+
   router: {
     // middleware: ['auth','authenticated']
   },
+
   toast: {
     position: "bottom-right",
     timeout: 5000,

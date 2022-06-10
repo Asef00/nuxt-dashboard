@@ -1,0 +1,43 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Ross",
+            "family_name": "Geller",
+            "username": "Ross@gmail.com",
+            "enabled": false,
+            "created_at": "2022-05-28",
+            "updated_at": "2022-05-28"
+        },
+        {
+            "id": 2,
+            "name": "Rachel",
+            "family_name": "Green",
+            "username": "Rachel@gmail.com",
+            "enabled": true,
+            "created_at": "2022-05-28",
+            "updated_at": "2022-05-28"
+        },
+        {
+            "id": 3,
+            "name": "Monica",
+            "family_name": "Geller",
+            "username": "Monica@gmail.com",
+            "enabled": false,
+            "created_at": "2022-05-28",
+            "updated_at": "2022-05-28"
+        },
+        {
+            "id": 4,
+            "name": "Chandler",
+            "family_name": "Bing",
+            "username": "Chandler@gmail.com",
+            "enabled": true,
+            "created_at": "2022-05-28",
+            "updated_at": "2022-05-28"
+        }
+    ],
+    "per_page": 25,
+    "total": 22,
+    "current_page": 2
+}

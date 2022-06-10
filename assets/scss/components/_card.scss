@@ -39,5 +39,11 @@
 }
 
 .c-card__body {
-  padding: 20px 25px;
+  padding: 1.25em 1.56em;
+}
+
+.c-card--fluid {
+  .c-card__body {
+    padding: 0;
+  }
 }

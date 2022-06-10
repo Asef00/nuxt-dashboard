@@ -1,0 +1,12 @@
+.c-datatable__header {
+  padding: 1em 1.5em;
+  @include flex-between;
+}
+
+.c-datatable__body {
+  overflow-x: auto;
+}
+
+.c-datatable__footer {
+  padding: 1em;
+}

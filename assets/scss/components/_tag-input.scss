@@ -3,7 +3,7 @@
 
   .ti-input {
     @include input-border;
-    transition: $input-transition;
+    @include input-transition;
   }
 
   &.ti-focus {

@@ -21,7 +21,7 @@ body {
 }
 
 .wrapper .form-field input::placeholder {
-  color: #92969a;
+  color: $placeholder-color;
   font-size: 14px;
 }
 

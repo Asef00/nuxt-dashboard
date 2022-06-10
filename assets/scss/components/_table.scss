@@ -1,0 +1,103 @@
+$right-spacing: 13px;
+$left-spacing: 1.5em;
+$min-width: 28px;
+
+.c-table {
+  @include font-size(12px);
+  width: 100%;
+  border-collapse: collapse;
+  color: $placeholder-color;
+  margin-bottom: 0;
+
+  @include mq(lg) {
+    @include font-size(13px);
+  }
+}
+
+.c-table__th {
+  height: 38px;
+  min-width: $min-width;
+  padding: 0;
+
+  white-space: nowrap;
+  text-transform: capitalize;
+  font-weight: 600;
+  text-align: left;
+  background: #f2f2f2;
+  color: $text-color;
+  transition: 0.2s;
+
+  &:first-child {
+    padding-left: $left-spacing;
+  }
+
+  &:last-child {
+    padding-right: $right-spacing;
+  }
+
+  &:hover {
+    background: darken($color: #f2f2f2, $amount: 10%);
+  }
+
+  &.is-active {
+    color: $primary-color;
+  }
+}
+
+.c-table__row {
+  border-bottom: 1px solid $border-color;
+
+  &.has-note {
+    background: #ffebeb;
+    border-color: #f5334f;
+  }
+}
+
+.c-table__cell {
+  min-width: $min-width;
+  white-space: nowrap;
+  padding: 8px;
+
+  &:first-child {
+    @include font-size(14px);
+    padding-left: $left-spacing;
+    color: $text-color;
+  }
+  &:last-child {
+    padding-right: $right-spacing;
+  }
+}
+
+.c-table__link {
+  color: $link-color;
+}
+
+// Status
+.c-status {
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+
+  &::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border-radius: 100%;
+  }
+}
+
+.c-status--active {
+  color: $active-color;
+  &::before {
+    background-color: $active-color;
+  }
+}
+
+.c-status--inactive {
+  color: $inactive-color;
+  &::before {
+    background-color: $inactive-color;
+  }
+}

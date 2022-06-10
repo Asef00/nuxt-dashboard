@@ -1,0 +1,23 @@
+.c-search {
+}
+
+.c-search__input {
+  height: 28px;
+  padding: 0 1em;
+  @include input-border;
+  @include font-size(13px);
+  @include input-search-bg;
+  @include input-transition;
+
+  &::placeholder {
+    color: $placeholder-color;
+  }
+
+  &:focus {
+    @include input-focus;
+  }
+
+  @include mq(lg) {
+    width: 20em;
+  }
+}

@@ -8,7 +8,7 @@
           height="14"
           viewBox="0 0 18 14"
         >
-          <path data-name="Rectangle 2" style="fill: #fff" d="M0 0h18v2H0z"/>
+          <path data-name="Rectangle 2" style="fill: #fff" d="M0 0h18v2H0z" />
           <path
             data-name="Rectangle 3"
             transform="translate(0 8)"
@@ -31,7 +31,7 @@
       </button>
 
       <div class="c-navbar">
-        <input type="text" class="c-navbar__search" placeholder="Search ..."/>
+        <input type="text" class="c-navbar__search" placeholder="Search ..." />
 
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -61,8 +61,8 @@
           />
         </svg>
 
-        <div class="c-dropdown" data-dropdown>
-          <button class="c-navbar__avatar c-dropdown__btn" data-dropdown-btn>
+        <div class="c-dropdown" data-dropdown="container">
+          <button class="c-navbar__avatar c-dropdown__btn"  data-dropdown="btn">
             <img
               src="~/assets/images/top.jpg"
               width="34"
@@ -70,7 +70,7 @@
               alt="avatar"
             />
           </button>
-          <div class="c-dropdown__menu c-dropdown__menu--bl">
+          <div class="c-dropdown__menu c-dropdown__menu--bl u-bg-dark" data-dropdown="menu">
             <header class="c-dropdown__header">Welcome!</header>
 
             <a href="#" class="c-dropdown__item">My Profile</a>
@@ -107,5 +107,4 @@ export default {
 @import "~/assets/scss/partials/header";
 @import "~/assets/scss/components/navbar";
 @import "~/assets/scss/components/breadcrumb";
-@import "~/assets/scss/components/dropdown";
 </style>

@@ -31,6 +31,11 @@
 // OBJECTS
 @import "objects/wrapper";
 
+// UTILITIES
+@import "utilities/typography";
+@import "utilities/color";
+
+
 // COMPONENTS
 @import "components/form";
 @import "components/btn";
@@ -38,6 +43,15 @@
 @import "components/card";
 @import "components/chevron";
 @import "components/tag-input";
+
+@import "components/table";
+@import "components/datatable";
+@import "components/pagination";
+@import "components/search";
+@import "components/badge";
+@import "components/dropdown";
+@import "components/filter";
+
 @import "components/checkbox";
 @import "components/switch";
 @import "components/alert";

@@ -1,0 +1,59 @@
+[
+    {
+        "id": 1,
+        "name": "Ross",
+        "family_name": "Geller",
+        "source": "Realtyna.com",
+        "mls": [
+            "XMLS",
+            "Alpha",
+            "MLS PRO"
+        ],
+        "paid": 8400,
+        "email": "Ross@gmail.com",
+        "is_active": false,
+        "is_verified": false,
+        "notification": null
+    },
+    {
+        "id": 2,
+        "name": "Rachel",
+        "family_name": "Green",
+        "source": "Houzes",
+        "mls": [
+            "MFR MLS",
+            "MLS PRO"
+        ],
+        "paid": 4300,
+        "email": "Rachel@gmail.com",
+        "is_active": true,
+        "is_verified": true,
+        "notification": 2
+    },
+    {
+        "id": 3,
+        "name": "Monica",
+        "family_name": "Geller",
+        "source": "Realtyna.com",
+        "mls": [],
+        "paid": 9500,
+        "email": "Monica@gmail.com",
+        "is_active": true,
+        "is_verified": true,
+        "notification": null
+    },
+    {
+        "id": 4,
+        "name": "Chandler",
+        "family_name": "Bing",
+        "source": "Realtyna.com",
+        "mls": [
+            "MFR MLS"
+        ],
+        "paid": 1200,
+        "email": "Chandler@gmail.com",
+        "is_active": false,
+        "is_verified": false,
+        "notification": null
+    }
+]
