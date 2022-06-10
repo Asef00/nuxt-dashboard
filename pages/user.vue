@@ -1,6 +1,6 @@
 <template>
   <VCard title="Client List" class="c-card--fluid">
-    <VTable :table="table" />
+    <VTable :table="table" @changePage="page($event)" />
   </VCard>
 </template>
 
@@ -50,6 +50,12 @@ export default {
         },
       },
     };
+  },
+
+  methods: {
+    page(target) {
+      console.log(target);
+    },
   },
 
   created() {

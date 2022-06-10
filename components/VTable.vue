@@ -123,10 +123,11 @@
         <span
           :class="current_page == 1 ? 'is-disabled' : ''"
           class="c-pagination__arrow c-chevron c-chevron--left"
+          @click="changePage(current_page - 1)"
         ></span>
 
-        <template v-if="has_pre_pages">
-          <button class="c-pagination__item">1</button>
+        <template v-if="has_pre_dots">
+          <button class="c-pagination__item" @click="changePage(1)">1</button>
           <span>...</span>
         </template>
 
@@ -136,20 +137,24 @@
             :key="page"
             class="c-pagination__item"
             :class="page == current_page ? 'is-active' : ''"
+            @click="page != current_page ? changePage(page): ''"
           >
             {{ page }}
           </button>
         </template>
 
-        <template v-if="has_next_pages">
+        <template v-if="has_next_dots">
           <span>...</span>
-          <button class="c-pagination__item">{{ total_pages }}</button>
+          <button class="c-pagination__item" @click="changePage(total_pages)">
+            {{ total_pages }}
+          </button>
         </template>
 
         <!-- next btn -->
         <span
           :class="current_page == total_pages ? 'is-disabled' : ''"
           class="c-pagination__arrow c-chevron c-chevron--right"
+          @click="changePage(current_page + 1)"
         ></span>
       </div>
     </div>
@@ -180,8 +185,8 @@ export default {
       per_page: 25,
       total_pages: 1,
       current_page: 1,
-      has_pre_pages: false,
-      has_next_pages: false,
+      has_pre_dots: false,
+      has_next_dots: false,
     };
   },
 
@@ -205,24 +210,22 @@ export default {
         }</span>`;
       }
     },
+
+    changePage(target) {
+      this.table_data.current_page = target;
+      this.$emit('changePage',target);
+    },
   },
 
   computed: {
     allData() {
       if (this.table_data.hasOwnProperty("data")) {
         //is paginated
-        this.current_page = this.table_data.current_page;
-        this.has_pre_pages = this.current_page > 4;
-        this.total_pages = this.table_data.total;
-        this.has_next_pages = this.current_page + 4 <= this.total_pages;
         this.per_page = this.table_data.per_page;
-
-        console.log(
-          this.current_page,
-          this.has_pre_pages,
-          this.has_next_pages,
-          this.total_pages
-        );
+        this.current_page = this.table_data.current_page;
+        this.total_pages = this.table_data.total;
+        this.has_pre_dots = this.current_page > 4;
+        this.has_next_dots = this.current_page + 4 <= this.total_pages;
 
         this.hasPaginate = true;
         return this.table_data.data;
