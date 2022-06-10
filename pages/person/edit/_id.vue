@@ -84,7 +84,7 @@ export default {
     },
     async show() {
       this.startLoading()
-      await this.$store.dispatch("person/show", this.$route.params.id);
+      await this.$store.dispatch("person/show", {id:this.$route.params.id});
       let err = this.handleError(this.$store.state.person.error);
       if (!err) {
         let data = this.$store.state.person.item;

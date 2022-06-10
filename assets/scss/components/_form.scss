@@ -10,8 +10,7 @@
 }
 
 .c-form__control {
-  display: flex;
-  flex-direction: column;
+  @include flex-column;
   margin-bottom: 1em;
   gap: 0.5em;
 

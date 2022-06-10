@@ -24,10 +24,21 @@ $global-line-height: 24px;
   align-items: center;
   justify-content: flex-end;
 }
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
 
 // UTILITY
 @mixin box-shadow {
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+}
+@mixin border($prop: "") {
+  @if $prop == "" {
+    border: 1px solid #e5e5e5;
+  } @else {
+    border#{-$prop}: 1px solid #e5e5e5;
+  }
 }
 
 // INPUT
