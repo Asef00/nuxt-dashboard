@@ -25,3 +25,45 @@
   font-weight: 500;
   @include font-size(11px);
 }
+
+.c-badge {
+  border-radius: 3px;
+  padding: 0 5px;
+  background-color: #e2e3e5;
+
+  &--hover {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &--danger {
+    background-color: $danger-color;
+    color: #fff;
+  }
+
+  &--info {
+    background-color: $info-color;
+    color: #fff;
+  }
+
+  &--primary {
+    background-color: $primary-color;
+    color: #fff;
+  }
+
+  &--warn {
+    background-color: $warn-color;
+    color: #000;
+  }
+
+  &--success {
+    background-color: $success-color;
+    color: #fff;
+  }
+
+  &--dark {
+    background-color: $dark-color;
+    color: #fff;
+  }
+}
