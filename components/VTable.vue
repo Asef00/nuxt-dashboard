@@ -21,104 +21,104 @@
         </div>
       </div>
       <div class="c-search">
-        <input class="c-search__input" type="text" placeholder="Search..."/>
+        <input class="c-search__input" type="text" placeholder="Search..." />
       </div>
     </div>
-    
+
     <div class="c-datatable__body">
       <table class="c-table">
         <thead class="c-table__header">
-        <tr class="c-table__row">
-          <template v-for="col in table.columns">
-            <th
-              v-if="col.filterable"
-              :key="col.key"
-              :class="col.class"
-              class="c-table__th c-filter"
-              data-dropdown="container"
-            >
-              <button class="c-filter__btn" data-dropdown="btn">
-                <!-- Filter icon -->
-                <img
-                  :src="
+          <tr class="c-table__row">
+            <template v-for="col in table.columns">
+              <th
+                v-if="col.filterable"
+                :key="col.key"
+                :class="col.class"
+                class="c-table__th c-filter"
+                data-dropdown="container"
+              >
+                <button class="c-filter__btn" data-dropdown="btn">
+                  <!-- Filter icon -->
+                  <img
+                    :src="
                       col == sortColumn
                         ? '/img/filter.is-active.svg'
                         : '/img/filter.svg'
                     "
-                  alt="filter icon"
-                />
-                <span v-html="col.label"></span>
-              </button>
-              <div
-                class="c-filter__menu c-filter__menu--bottom"
-                data-dropdown="menu"
-              >
-                <header class="c-filter__header">
-                  <input
-                    class="c-filter__search"
-                    type="text"
-                    placeholder="Search..."
+                    alt="filter icon"
                   />
-                  <a href="#" class="c-filter__control">Select All</a>
-                  <a href="#" class="c-filter__control">Clear</a>
-                </header>
-                <div class="c-filter__options">
-                  <label href="#" class="c-filter__item">
-                    <input type="checkbox" name="" id=""/>
-                    AKMLS
-                  </label>
-                  <label href="#" class="c-filter__item">
-                    <input type="checkbox" name="" id=""/>
-                    bridgeMLS
-                  </label>
-                  <label href="#" class="c-filter__item">
-                    <input type="checkbox" name="" id=""/>
-                    CLAW
-                  </label>
-                  <label href="#" class="c-filter__item">
-                    <input type="checkbox" name="" id=""/>
-                    ITech MLS
-                  </label>
-                  <label href="#" class="c-filter__item">
-                    <input type="checkbox" name="" id=""/>
-                    Kern River Lake Isabella Board
-                  </label>
+                  <span v-html="col.label"></span>
+                </button>
+                <div
+                  class="c-filter__menu c-filter__menu--bottom"
+                  data-dropdown="menu"
+                >
+                  <header class="c-filter__header">
+                    <input
+                      class="c-filter__search"
+                      type="text"
+                      placeholder="Search..."
+                    />
+                    <a href="#" class="c-filter__control">Select All</a>
+                    <a href="#" class="c-filter__control">Clear</a>
+                  </header>
+                  <div class="c-filter__options">
+                    <label href="#" class="c-filter__item">
+                      <input type="checkbox" name="" id="" />
+                      AKMLS
+                    </label>
+                    <label href="#" class="c-filter__item">
+                      <input type="checkbox" name="" id="" />
+                      bridgeMLS
+                    </label>
+                    <label href="#" class="c-filter__item">
+                      <input type="checkbox" name="" id="" />
+                      CLAW
+                    </label>
+                    <label href="#" class="c-filter__item">
+                      <input type="checkbox" name="" id="" />
+                      ITech MLS
+                    </label>
+                    <label href="#" class="c-filter__item">
+                      <input type="checkbox" name="" id="" />
+                      Kern River Lake Isabella Board
+                    </label>
+                  </div>
                 </div>
-              </div>
-            </th>
-            <th
-              v-else
-              :key="col.key"
-              v-html="col.label"
-              class="c-table__th"
-              :class="col.class"
-            ></th>
-          </template>
-        </tr>
+              </th>
+              <th
+                v-else
+                :key="col.key"
+                v-html="col.label"
+                class="c-table__th"
+                :class="col.class"
+              ></th>
+            </template>
+          </tr>
         </thead>
         <tbody class="c-table__body">
-        <!-- if no data -->
-        <tr v-if="!allData || !allData.length">
-          <td colspan="100%" class="u-text-center">No Data</td>
-        </tr>
-        <tr
-          v-else
-          v-for="row in allData"
-          :key="row.id"
-          :class="table.map['rowClass'](row)"
-          class="c-table__row"
-        >
-          <td
-            v-for="col in table.columns"
-            :key="col.key"
-            class="c-table__cell"
-            :class="col.class"
+          <!-- if no data -->
+          <tr v-if="!allData || !allData.length">
+            <td colspan="100%" class="u-text-center">No Data</td>
+          </tr>
+          <tr
+            v-else
+            v-for="row in allData"
+            :key="row.id"
+            :class="table.map['rowClass'](row)"
+            class="c-table__row"
           >
-            <v-runtime-template
-              :template="String(showItem(row, col))"
-            ></v-runtime-template>
-          </td>
-        </tr>
+            <td
+              v-for="col in table.columns"
+              :key="col.key"
+              class="c-table__cell"
+              :class="col.class"
+            >
+              <v-runtime-template
+                :template="String(showItem(row, col))"
+              ></v-runtime-template>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -227,12 +227,12 @@ export default {
         }</span>`;
       }
     },
-    action(data,action){
-      this.$emit(`action${action}`,data);
+    action(data, action) {
+      this.$emit(`action${action}`, data);
     },
     changePage(target) {
       this.table_data.current_page = target;
-      this.$emit('changePage', target);
+      this.$emit("changePage", target);
     },
   },
 
