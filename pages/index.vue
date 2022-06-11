@@ -139,7 +139,7 @@
 
             <div class="c-form__control c-form__control--inline mb-0">
               <label class="c-form__label">Feed Type</label>
-              <span class="c-badge u-text-secondary">IDX</span>
+              <span class="c-badge u-bg-light u-text-secondary">IDX</span>
             </div>
           </div>
 
@@ -152,7 +152,7 @@
             <div class="c-form__control c-form__control--inline mb-0">
               <label class="c-form__label">Credentials</label>
               <NuxtLink to="/" class="u-text-info">Click to View</NuxtLink>
-              <span class="c-badge c-badge--danger">Revoke</span>
+              <span class="c-badge u-bg-danger">Revoke</span>
             </div>
           </div>
         </div>
@@ -225,12 +225,12 @@
           </div>
         </div>
 
-        <span class="c-badge c-badge--danger">danger</span>
-        <span class="c-badge c-badge--warn">warn</span>
-        <span class="c-badge c-badge--info">info</span>
-        <span class="c-badge c-badge--success">success</span>
+        <span class="c-badge u-bg-danger">danger</span>
+        <span class="c-badge u-bg-warn">warn</span>
+        <span class="c-badge u-bg-info">info</span>
+        <span class="c-badge u-bg-success">success</span>
         <span class="c-badge">badge</span>
-        <span class="c-badge c-badge--dark">success</span>
+        <span class="c-badge u-bg-dark">success</span>
       </form>
     </VCard>
 
