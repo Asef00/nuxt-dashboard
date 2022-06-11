@@ -34,8 +34,16 @@ export default {
   },
 
   watch: {
-    showModal() {
-      document.body.classList.toggle("is-modal-open");
+    showModal(value) {
+      if (value) {
+        document.body.style.top = `-${window.scrollY}px`;
+        document.body.style.position = "fixed";
+      } else {
+        const scrollY = document.body.style.top;
+        document.body.style.position = "";
+        document.body.style.top = "";
+        window.scrollTo(0, parseInt(scrollY || "0") * -1);
+      }
     },
   },
 };
