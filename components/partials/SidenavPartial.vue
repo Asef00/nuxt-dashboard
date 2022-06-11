@@ -8,7 +8,7 @@
         <fa icon="xmark" />
       </span>
     </li>
-    <li class="c-sidenav__item">
+    <li class="c-sidenav__item pr-3 pl-3">
       <input type="text" class="c-sidenav__search" placeholder="Search ..." />
     </li>
     <li class="c-sidenav__item c-dropdown" data-dropdown="container">
