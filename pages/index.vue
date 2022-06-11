@@ -436,44 +436,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// utility
-.u-text-secondary {
-  color: $placeholder-color;
-}
-.u-text-link {
-  color: #006bff;
-}
-.u-text-info {
-  color: $info-color;
-}
-.c-badge {
-  border-radius: 3px;
-  padding: 0 5px;
-  background-color: #e2e3e5;
 
-  &--danger {
-    background-color: $danger-color;
-    color: #fff;
-  }
-
-  &--info {
-    background-color: $info-color;
-    color: #fff;
-  }
-
-  &--warn {
-    background-color: $warn-color;
-    color: #000;
-  }
-
-  &--success {
-    background-color: $success-color;
-    color: #fff;
-  }
-
-  &--dark {
-    background-color: $dark-color;
-    color: #fff;
-  }
-}
 </style>
