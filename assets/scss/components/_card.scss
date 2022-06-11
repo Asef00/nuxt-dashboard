@@ -11,6 +11,9 @@
 }
 
 .c-card__header {
+  @include flex-between;
+  flex-wrap: wrap;
+  gap: 1em;
   padding: 0.8em .7em;
   @include border(bottom);
 
@@ -26,12 +29,14 @@
   font-weight: 600;
   color: $text-color;
   margin: 0;
+  white-space: nowrap;
 }
 
 .c-card__toolbar {
   @include flex-end;
-  margin-top: 0.5em;
+  flex: 1;
   gap: .5em;
+  // margin-top: 0.5em;
 
   @include mq(lg) {
     margin-top: 0;
