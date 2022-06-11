@@ -65,7 +65,7 @@ export default {
         await this.$store.dispatch("licenseMode/delete", id);
         let err = this.handleError(this.$store.state.licenseMode.error);
         if (!err) {
-          this.$toast.success('Model successfully deleted.');
+          this.$toast.success('License mode successfully deleted.');
           await this.list();
         }
         this.stopLoading()
