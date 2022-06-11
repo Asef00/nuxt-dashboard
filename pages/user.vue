@@ -1,6 +1,10 @@
 <template>
   <VCard title="Client List" class="c-card--fluid">
-    <VTable :table="table" @changePage="page($event)" />
+    <VTable
+      :table="table"
+      @changePage="page($event)"
+      @changePerPage="perPage($event)"
+    />
   </VCard>
 </template>
 
@@ -55,6 +59,9 @@ export default {
   methods: {
     page(target) {
       console.log(target);
+    },
+    perPage(prefered) {
+      console.log("prefered per page: ", prefered);
     },
   },
 
