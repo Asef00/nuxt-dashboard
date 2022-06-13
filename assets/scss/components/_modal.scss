@@ -27,7 +27,7 @@
   overflow: hidden;
 
   @include mq(sm) {
-    height: 700px;
+    height: auto;
     max-height: 95vh;
     border-radius: 5px;
     max-width: 400px;
@@ -52,7 +52,7 @@
 
 .c-modal__body {
   padding: 1em;
-  overflow-y: auto;
+  overflow: hidden auto;
 }
 
 .c-modal__footer {
