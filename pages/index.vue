@@ -382,7 +382,6 @@
 </template>
 
 
-
 <script>
 import * as Yup from "yup";
 
@@ -434,6 +433,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-</style>
