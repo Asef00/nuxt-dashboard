@@ -11,7 +11,7 @@
     </div>
     <div class="c-form__control c-form__control--inline">
       <label class="c-form__label">Fields</label>
-      <span v-for="field in data.fields" class="c-badge c-badge--primary mr-0">
+      <span v-for="field in data.fields" class="c-badge u-bg-primary mr-0">
         {{ field }}
       </span>
     </div>

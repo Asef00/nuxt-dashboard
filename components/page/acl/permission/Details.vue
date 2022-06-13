@@ -36,7 +36,7 @@
       <div class=" col-md-12 c-form__control c-form__control--inline mb-0">
         <label class="c-form__label">Fields</label>
         <span v-for="field in data.permission_model ? data.permission_model.fields : []"
-              class="c-badge c-badge--primary">{{ field }}</span>
+              class="c-badge u-bg-primary">{{ field }}</span>
       </div>
 
       <div class=" col-md-12 c-form__control c-form__control--inline mb-0">

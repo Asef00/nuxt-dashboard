@@ -32,11 +32,11 @@
       </div>
       <div class=" col-md-12 c-form__control c-form__control--inline mb-0">
         <label class="c-form__label">Data set</label>
-        <span v-for="item in data.data_set" class="c-badge c-badge--primary">{{ item }}</span>
+        <span v-for="item in data.data_set" class="c-badge u-bg-primary">{{ item }}</span>
       </div>
       <div class=" col-md-12 c-form__control c-form__control--inline mb-0">
         <label class="c-form__label">Default access</label>
-        <span v-for="item in data.default_access" class="c-badge c-badge--primary">{{ item }}</span>
+        <span v-for="item in data.default_access" class="c-badge u-bg-primary">{{ item }}</span>
       </div>
       <div class=" col-md-12 c-form__control c-form__control--inline mb-0">
         <label class="c-form__label">Created At</label>

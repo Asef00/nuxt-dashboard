@@ -34,9 +34,9 @@ export default {
         items: [],
         map: {
           action(item) {
-            return `<NuxtLink to="/model/edit/${item.id}" class="c-table__link c-badge c-badge--info">Edit</NuxtLink>|
-            <span v-on:click="action(${item.id},'Delete')" class="c-badge--hover c-badge c-badge--danger">Delete</span>|
-            <span v-on:click="action(${item.id},'Details')" class="c-badge--hover c-badge c-badge--primary">Details</span>`;
+            return `<NuxtLink to="/model/edit/${item.id}" class="c-table__link c-badge u-bg-info">Edit</NuxtLink>|
+            <span v-on:click="action(${item.id},'Delete')" class="c-badge--hover c-badge u-bg-danger">Delete</span>|
+            <span v-on:click="action(${item.id},'Details')" class="c-badge--hover c-badge u-bg-primary">Details</span>`;
           },
           created_at(item) {
             return _this.dateFormat(item.created_at);

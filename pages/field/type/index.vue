@@ -29,8 +29,8 @@ export default {
         items: [],
         map: {
           action(item) {
-            return `<NuxtLink to="/field/type/edit/${item.id}" class="c-table__link c-badge c-badge--info">Edit</NuxtLink>|
-            <span v-on:click="action(${item.id},'Delete')" class="c-badge--hover c-badge c-badge--danger">Delete</span>
+            return `<NuxtLink to="/field/type/edit/${item.id}" class="c-table__link c-badge u-bg-info">Edit</NuxtLink>|
+            <span v-on:click="action(${item.id},'Delete')" class="c-badge--hover c-badge u-bg-danger">Delete</span>
 <!--            <span v-on:click="action(${item.id},'Details')" class="c-badge&#45;&#45;hover c-badge c-badge&#45;&#45;primary">Details</span>-->
 `;
           },

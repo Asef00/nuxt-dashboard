@@ -39,7 +39,7 @@
         </div>
         <div class=" col-md-6 c-form__control c-form__control--inline mb-0">
           <label class="c-form__label">Roles</label>
-          <span v-for="role in data.person.roles" class="c-badge c-badge--primary">{{ role.label }}</span>
+          <span v-for="role in data.person.roles" class="c-badge u-bg-primary">{{ role.label }}</span>
         </div>
       </div>
       <div class="row mt-3 mb-3">
@@ -68,7 +68,7 @@
         </div>
         <div class=" col-md-6 c-form__control c-form__control--inline mb-0">
           <label class="c-form__label">Enabled</label>
-          <span :class="['c-badge',data.cognito.enabled ?'c-badge--success':'c-badge--danger']">{{
+          <span :class="['c-badge',data.cognito.enabled ?'u-bg-success':'u-bg-danger']">{{
               data.cognito.enabled ? "Enabled" : "Disabled"
             }}</span>
         </div>
