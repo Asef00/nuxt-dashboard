@@ -44,10 +44,16 @@ export default {
     async show() {
       this.startLoading()
       this.$store.commit('model/RESET_ERROR')
-      await this.$store.dispatch("model/show", this.id);
-      let err = this.handleError(this.$store.state.model.error);
-      if (!err) {
-        this.data = this.$store.state.model.item;
+      let list = this.$store.state.model.list;
+      let item = list.find(item => item.id === this.id);
+      if (item !== undefined) {
+        this.data = item;
+      } else {
+        await this.$store.dispatch("model/show", this.id);
+        let err = this.handleError(this.$store.state.model.error);
+        if (!err) {
+          this.data = this.$store.state.model.item;
+        }
       }
       this.stopLoading()
     },

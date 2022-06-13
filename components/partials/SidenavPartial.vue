@@ -2,14 +2,13 @@
   <ul class="c-sidenav js-sidenav" role="presentation">
     <li class="c-sidenav__header">
       <div class="c-logo">
-        <span>ID</span>
-        <span>X</span>
+        <img src="/img/logo.svg" alt="logo">
       </div>
       <span class="c-sidenav__close js-menu-close">
         <fa icon="xmark" />
       </span>
     </li>
-    <li class="c-sidenav__item">
+    <li class="c-sidenav__item pr-3 pl-3">
       <input type="text" class="c-sidenav__search" placeholder="Search ..." />
     </li>
     <li class="c-sidenav__item c-dropdown" data-dropdown="container">
