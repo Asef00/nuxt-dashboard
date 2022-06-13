@@ -38,6 +38,9 @@ $global-line-height: 24px;
 @mixin box-shadow($inset: '') {
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1) #{$inset};
 }
+@mixin background-shadow {
+  background-color: rgba(0, 0, 0, 0.5);
+}
 @mixin border($prop: "") {
   @if $prop == "" {
     border: 1px solid #e5e5e5;
