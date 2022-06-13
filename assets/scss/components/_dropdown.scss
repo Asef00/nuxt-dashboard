@@ -32,13 +32,26 @@
 
   @include font-size(14px);
   transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+  background-color: $light-color;
 
   //----Positioning----
   //right
   &.c-dropdown__menu--right {
     transform: translateX(10px);
-    left: 100%;
+    left: calc(100% + 15px);
     top: 0;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -10px;
+      top: 10px;
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-right: 10px solid $light-color;
+      border-bottom: 10px solid transparent;
+    }
   }
 
   //bottom left
