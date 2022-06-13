@@ -27,6 +27,7 @@
     max-height: 0;
     transition: 0.3s;
     position: static;
+    border-radius: 0 5px 5px 0;
 
     @include mq(lg) {
       position: absolute;
