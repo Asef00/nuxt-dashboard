@@ -16,7 +16,6 @@ const mixin = {
     stopLoading() {
       this.loaderRequest = false
     },
-
     validate(field) {
       if (!field) {
         return false;
@@ -135,6 +134,21 @@ const mixin = {
         return permissions.includes(name)
       }
       return false;
+    },
+    setPaginate(page) {
+      this.$router.push({query: {...this.$route.query, page: page}})
+      console.log('set paginate')
+      return this.getPaginate();
+    },
+    setLimit(limit) {
+      this.$router.push({query: {...this.$route.query, limit: limit}})
+      return this.getLimit();
+    },
+    getPaginate() {
+      return this.$route.query.page ?? 1
+    },
+    getLimit() {
+      return this.$route.query.limit ?? 25
     }
   }
 }

@@ -1,6 +1,6 @@
 export default {
-  async list({commit}) {
-    await this.$axios.get('permission').then((response) => {
+  async list({commit}, {page, limit, paginate = 0}) {
+    await this.$axios.get(`/permission?page=${page}&limit=${limit}&paginate=${paginate}`).then((response) => {
       commit('SET_LIST', response.data)
     }).catch((error) => {
       commit('SET_ERROR', error)
