@@ -70,7 +70,7 @@
               alt="avatar"
             />
           </button>
-          <div class="c-dropdown__menu c-dropdown__menu--bl u-bg-dark" data-dropdown="menu">
+          <div class="c-dropdown__menu c-dropdown__menu--bll u-bg-light" data-dropdown="menu">
             <header class="c-dropdown__header">Welcome!</header>
 
             <a href="#" class="c-dropdown__item">My Profile</a>

@@ -27,8 +27,10 @@
     max-height: 0;
     transition: 0.3s;
     position: static;
+    border-radius: 0;
 
     @include mq(lg) {
+      border-radius: 5px;
       position: absolute;
       max-height: unset;
     }
@@ -59,18 +61,19 @@
 
 .c-sidenav__link {
   @include flex-start;
+  position: relative;
   padding: 1em;
   gap: 0.43em;
+  z-index: 1;
   border-top: 1px solid #f0f1f4;
   color: $text-color;
   @include font-size(14px);
   transition: 0.2s;
-  position: relative;
-  z-index: 1;
+  background-color: #fff;
 
   &:hover,
   &:focus {
-    background-color: $hover-color;
+    background-color: #eee;
   }
 
   @include mq(lg) {

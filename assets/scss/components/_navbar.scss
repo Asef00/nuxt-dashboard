@@ -6,11 +6,11 @@
 
 .c-navbar__search {
   display: none;
-  
+
   &::placeholder {
     color: rgba(255, 255, 255, 0.7);
   }
-  
+
   @include mq(lg) {
     display: block;
     background: rgba(0, 0, 0, 0.2);
@@ -28,4 +28,11 @@
   border-radius: 100%;
   overflow: hidden;
   padding: 0;
+  outline: 0px solid #fff;
+  transition: outline 0.1s;
+
+  .is-active > & {
+    outline: 3px solid $light-color;
+    border-radius: 100% 100% 100% 3px;
+  }
 }

@@ -1,24 +1,40 @@
 //Background Color
 .u-bg-danger {
-  background-color: $danger-color;
+  background-color: $danger-color !important;
   color: #fff;
 }
-
 .u-bg-dark {
-  background-color: #444;
+  background-color: $dark-color !important;
   color: #fff;
+}
+.u-bg-success {
+  background-color: $success-color !important;
+  color: #fff;
+}
+.u-bg-info {
+  background-color: $info-color !important;
+  color: $text-color;
+}
+.u-bg-primary {
+  background-color: $primary-color !important;
+  color: #fff;
+}
+.u-bg-warn {
+  background-color: $warn-color !important;
+  color: $text-color;
+}
+.u-bg-light {
+  background-color: $light-color !important;
+  color: $text-color;
 }
 
 // Text Color
-
 .u-text-secondary {
   color: $placeholder-color;
 }
-
 .u-text-link {
-  color: #006bff;
+  color: $link-color;
 }
-
 .u-text-info {
   color: $info-color;
 }

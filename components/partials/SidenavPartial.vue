@@ -41,7 +41,7 @@
         <span>Dashboard</span>
       </button>
       <div
-        class="c-dropdown__menu c-dropdown__menu--right u-bg-dark"
+        class="c-dropdown__menu c-dropdown__menu--right u-bg-light"
         data-dropdown="menu"
       >
         <a class="c-dropdown__item">Overview</a>
@@ -68,7 +68,7 @@
         <span>Alerts</span>
       </button>
       <div
-        class="c-dropdown__menu c-dropdown__menu--right u-bg-dark"
+        class="c-dropdown__menu c-dropdown__menu--right u-bg-light"
         data-dropdown="menu"
       >
         <a class="c-dropdown__item">Overview</a>
@@ -95,7 +95,7 @@
         <span>Active Requests</span>
       </button>
       <div
-        class="c-dropdown__menu c-dropdown__menu--right u-bg-dark"
+        class="c-dropdown__menu c-dropdown__menu--right u-bg-light"
         data-dropdown="menu"
       >
         <a class="c-dropdown__item">Overview</a>
@@ -122,7 +122,7 @@
         <span>Clients</span>
       </button>
       <div
-        class="c-dropdown__menu c-dropdown__menu--right u-bg-dark"
+        class="c-dropdown__menu c-dropdown__menu--right u-bg-light"
         data-dropdown="menu"
       >
         <a class="c-dropdown__item">Overview</a>
@@ -149,7 +149,7 @@
         <span>Logs</span>
       </button>
       <div
-        class="c-dropdown__menu c-dropdown__menu--right u-bg-dark"
+        class="c-dropdown__menu c-dropdown__menu--right u-bg-light"
         data-dropdown="menu"
       >
         <a class="c-dropdown__item">Overview</a>
@@ -176,7 +176,7 @@
         <span>Settings</span>
       </button>
       <div
-        class="c-dropdown__menu c-dropdown__menu--right u-bg-dark"
+        class="c-dropdown__menu c-dropdown__menu--right u-bg-light"
         data-dropdown="menu"
       >
         <a class="c-dropdown__item">Overview</a>
