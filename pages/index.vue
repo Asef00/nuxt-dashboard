@@ -234,9 +234,9 @@
       </form>
     </VCard>
 
-    <VCard title="Card Toolbar Block button">
+    <VCard title="Card Long Title Sample">
       <template #header>
-        <VBtn class="m-0 c-btn--block c-btn--small">Button</VBtn>
+        <VBtn class="m-0 c-btn--small" btn="success">Success</VBtn>
       </template>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam
