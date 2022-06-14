@@ -34,7 +34,7 @@ export default {
         items: [],
         map: {
           action(item) {
-            return `<NuxtLink to="/model/edit/${item.id}" class="c-table__link c-badge u-bg-info">Edit</NuxtLink>|
+            return `<NuxtLink to="/model/edit/${item.id}" class=" c-badge u-bg-info">Edit</NuxtLink>|
             <span v-on:click="action(${item.id},'Delete')" class="c-badge--hover c-badge u-bg-danger">Delete</span>|
             <span v-on:click="action(${item.id},'Details')" class="c-badge--hover c-badge u-bg-primary">Details</span>`;
           },
