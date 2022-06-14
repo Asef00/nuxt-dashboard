@@ -14,7 +14,7 @@
   @include flex-between;
   flex-wrap: wrap;
   gap: 1em;
-  padding: 0.8em .7em;
+  padding: 0.8em 0.7em;
   @include border(bottom);
 
   @include mq(lg) {
@@ -35,7 +35,7 @@
 .c-card__toolbar {
   @include flex-end;
   flex: 1;
-  gap: .5em;
+  gap: 0.5em;
   // margin-top: 0.5em;
 
   @include mq(lg) {
@@ -45,6 +45,7 @@
 
 .c-card__body {
   padding: 1.25em 1.56em;
+  position: relative;
 }
 
 .c-card--fluid {
