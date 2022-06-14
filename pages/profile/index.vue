@@ -15,12 +15,12 @@
         </VBtn>
       </template>
       <div class="row">
-        <div class="col-md-4 col-12">
+        <div class="col-md-3 col-12">
           <div class="c-avatar">
-            <img src="/img/avatar.jpg" width="300" height="300" alt="avatar" />
+            <img src="/img/avatar.svg" width="300" height="300" alt="avatar" />
           </div>
         </div>
-        <div class="col-md-8 col-12">
+        <div class="col-md-9 col-12">
           <form action="" class="c-form">
             <h4 class="c-form__title">Profile Info</h4>
             <div class="row">
