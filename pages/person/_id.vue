@@ -1,5 +1,5 @@
 <template>
-  <VCard title="Person Details">
+  <VCard :loader="loaderRequest" title="Person Details">
     <template #header>
       <VBtn type="button" class="m-0 c-btn--small">
         <NuxtLink to="/person">List</NuxtLink>

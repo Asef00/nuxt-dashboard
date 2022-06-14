@@ -1,5 +1,5 @@
 <template>
-  <VCard title="List Person">
+  <VCard :loader="loaderRequest" title="List Person">
     <template #header>
       <VBtn type="button" class="m-0 c-btn--small">
         <NuxtLink to="/person/create">Create</NuxtLink>
@@ -61,6 +61,7 @@ export default {
   },
   methods: {
     async list(page = null, limit = null) {
+      this.startLoading();
       this.$store.commit('person/RESET_ERROR')
       await this.$store.dispatch("person/list", {
         page: page ?? this.getPaginate(),

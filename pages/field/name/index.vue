@@ -1,5 +1,5 @@
 <template>
-  <VCard title="List Field Names">
+  <VCard :loader="loaderRequest" title="List Field Names">
     <template #header>
       <VBtn type="button" class="m-0 c-btn--small">
         <NuxtLink to="/field/name/create">Create</NuxtLink>

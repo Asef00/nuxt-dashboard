@@ -3,11 +3,11 @@
     <div class="c-card__header">
       <h2 class="c-card__title">{{ title }}</h2>
       <div class="c-card__toolbar" v-if="this.$slots.header">
-        <slot name="header" />
+        <slot name="header"/>
       </div>
     </div>
-    <div class="c-card__body">
-      <slot />
+    <div :class="{'c-card__body':true,'is-loading':loader}">
+      <slot/>
     </div>
   </div>
 </template>
@@ -17,6 +17,10 @@ export default {
   name: "VCard",
   props: {
     title: String,
+    loader: {
+      type: Boolean,
+      default: false,
+    }
   },
   methods: {},
 };

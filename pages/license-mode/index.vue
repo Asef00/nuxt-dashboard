@@ -1,5 +1,5 @@
 <template>
-  <VCard title="List License Modes">
+  <VCard :loader="loaderRequest" title="List License Modes">
     <template #header>
       <VBtn type="button" class="m-0 c-btn--small">
         <NuxtLink to="/license-mode/create">Create</NuxtLink>
