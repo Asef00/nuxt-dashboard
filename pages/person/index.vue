@@ -8,10 +8,8 @@
         <NuxtLink to="/person/create-cognito">Add form Cognito</NuxtLink>
       </VBtn>
     </template>
-    <VTable @actionDetails="detailsItem($event)"
-            @changePage="changePage($event)"
+    <VTable @changePage="changePage($event)"
             @changePerPage="changePerPage($event)"
-            @actionDelete="deleteItem($event)"
             :table="table"/>
   </VCard>
 </template>
@@ -73,23 +71,6 @@ export default {
         this.table.items = this.$store.state.person.list;
       }
       this.stopLoading()
-    },
-    async deleteItem(id) {
-      if (confirm("Are you sure?")) {
-        this.startLoading()
-        this.$store.commit('person/RESET_ERROR')
-        await this.$store.dispatch("person/delete", id);
-        let err = this.handleError(this.$store.state.person.error);
-        if (!err) {
-          this.$toast.success('Permission successfully deleted.');
-          await this.list();
-        }
-        this.stopLoading()
-      }
-    },
-    detailsItem(id) {
-      this.detailsItemId = id;
-      this.showDetails = true;
     },
     changePage(val) {
       this.setPaginate(val);
