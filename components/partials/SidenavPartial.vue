@@ -12,8 +12,8 @@
       <li class="c-sidenav__item pr-3 pl-3">
         <input type="text" class="c-sidenav__search" placeholder="Search ..." />
       </li>
-      <li class="c-sidenav__item c-dropdown" data-dropdown="container">
-        <button class="c-sidenav__link c-dropdown__btn" data-dropdown="btn">
+      <li class="c-sidenav__item">
+        <NuxtLink to="/" class="c-sidenav__link">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -39,71 +39,10 @@
             </g>
           </svg>
           <span>Dashboard</span>
-        </button>
-        <div
-          class="c-dropdown__menu c-dropdown__menu--right"
-          data-dropdown="menu"
-        >
-          <a class="c-dropdown__item">Overview</a>
-          <a class="c-dropdown__item">Tools</a>
-          <a class="c-dropdown__item">Staff</a>
-          <div id="arrow" data-popper-arrow></div>
-        </div>
+        </NuxtLink>
       </li>
-      <li class="c-sidenav__item c-dropdown" data-dropdown="container">
-        <button class="c-sidenav__link c-dropdown__btn" data-dropdown="btn">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="22"
-            height="18.859"
-            viewBox="0 0 22 18.859"
-          >
-            <path
-              data-name="Alerts"
-              d="M2.85 18.859A2.844 2.844 0 0 1 .43 14.52L8.581 1.348a2.844 2.844 0 0 1 4.838 0l8.15 13.171a2.844 2.844 0 0 1-2.419 4.34zm7.192-16.607-8.15 13.172a1.126 1.126 0 0 0 .958 1.717h16.3a1.126 1.126 0 0 0 .958-1.717l-8.15-13.171a1.126 1.126 0 0 0-1.915 0zm.1 13.385v-1.718h1.718v1.718zm0-3.437V5.456h1.718V12.2z"
-              style="fill: #564ec1"
-            />
-          </svg>
-          <span>Alerts</span>
-        </button>
-        <div
-          class="c-dropdown__menu c-dropdown__menu--right"
-          data-dropdown="menu"
-        >
-          <a class="c-dropdown__item">Overview</a>
-          <a class="c-dropdown__item">Tools</a>
-          <a class="c-dropdown__item">Staff</a>
-          <div id="arrow" data-popper-arrow></div>
-        </div>
-      </li>
-      <li class="c-sidenav__item c-dropdown" data-dropdown="container">
-        <button class="c-sidenav__link c-dropdown__btn" data-dropdown="btn">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="22"
-            viewBox="0 0 18 22"
-          >
-            <path
-              data-name="Union 5"
-              d="M2.561 22A2.542 2.542 0 0 1 0 19.482V2.52A2.544 2.544 0 0 1 2.561 0h9.966a.694.694 0 0 1 .482.193l4.784 4.625A.671.671 0 0 1 18 5.3v14.182A2.542 2.542 0 0 1 15.439 22zM1.373 2.52v16.962a1.181 1.181 0 0 0 1.188 1.17h12.878a1.179 1.179 0 0 0 1.188-1.168V5.976h-3.2a1.581 1.581 0 0 1-1.59-1.566V1.351H2.561A1.18 1.18 0 0 0 1.373 2.52zm11.841 1.889a.217.217 0 0 0 .217.216h2.2l-2.417-2.339zM4.09 16.419a.675.675 0 1 1 0-1.351h8.838a.675.675 0 1 1 0 1.351zm0-2.7a.675.675 0 1 1 0-1.351h7.888a.675.675 0 1 1 0 1.351zm0-2.7a.675.675 0 1 1 0-1.351h9.674a.675.675 0 1 1 0 1.351z"
-              style="fill: #564ec1"
-            />
-          </svg>
-          <span>Active Requests</span>
-        </button>
-        <div
-          class="c-dropdown__menu c-dropdown__menu--right"
-          data-dropdown="menu"
-        >
-          <a class="c-dropdown__item">Overview</a>
-          <a class="c-dropdown__item">Tools</a>
-          <a class="c-dropdown__item">Staff</a>
-          <div id="arrow" data-popper-arrow></div>
-        </div>
-      </li>
-      <li class="c-sidenav__item c-dropdown" data-dropdown="container">
-        <button class="c-sidenav__link c-dropdown__btn" data-dropdown="btn">
+      <li class="c-sidenav__item" >
+        <NuxtLink to="/person" class="c-sidenav__link">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -116,43 +55,14 @@
               style="fill: #564ec1"
             />
           </svg>
-          <span>Clients</span>
-        </button>
-        <div
-          class="c-dropdown__menu c-dropdown__menu--right"
-          data-dropdown="menu"
-        >
-          <a class="c-dropdown__item">Overview</a>
-          <a class="c-dropdown__item">Tools</a>
-          <a class="c-dropdown__item">Staff</a>
-          <div id="arrow" data-popper-arrow></div>
-        </div>
+          <span>Person</span>
+        </NuxtLink>
       </li>
-      <li class="c-sidenav__item c-dropdown" data-dropdown="container">
-        <button class="c-sidenav__link c-dropdown__btn" data-dropdown="btn">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="22"
-            height="22.001"
-            viewBox="0 0 22 22.001"
-          >
-            <path
-              data-name="Union 7"
-              d="M2.063 22A2.062 2.062 0 0 1 0 19.938V2.063A2.063 2.063 0 0 1 2.063 0h11a.689.689 0 0 1 .488.2l4.125 4.125a.687.687 0 0 1 .2.488v2.75H16.5V5.5h-2.75a1.375 1.375 0 0 1-1.375-1.375v-2.75H2.063a.688.688 0 0 0-.687.688v17.875a.688.688 0 0 0 .688.688h4.811V22zm15.813-4.125A1.375 1.375 0 0 1 16.5 16.5v-4.125A1.375 1.375 0 0 1 17.875 11h2.75A1.375 1.375 0 0 1 22 12.375h-4.125V16.5h2.75v-1.375H19.25V13.75h1.375A1.375 1.375 0 0 1 22 15.125V16.5a1.375 1.375 0 0 1-1.375 1.375zm-7.562-2.75V13.75a2.75 2.75 0 0 1 5.5 0v1.375a2.75 2.75 0 1 1-5.5 0zm1.375-1.375v1.375a1.375 1.375 0 0 0 2.75 0V13.75a1.375 1.375 0 0 0-2.75 0zm-5.5 4.125a.688.688 0 0 1-.687-.688V11h1.373v5.5h2.75v1.375z"
-              style="fill: #564ec1"
-            />
-          </svg>
-          <span>Logs</span>
-        </button>
-        <div
-          class="c-dropdown__menu c-dropdown__menu--right"
-          data-dropdown="menu"
-        >
-          <a class="c-dropdown__item">Overview</a>
-          <a class="c-dropdown__item">Tools</a>
-          <a class="c-dropdown__item">Staff</a>
-          <div id="arrow" data-popper-arrow></div>
-        </div>
+      <li class="c-sidenav__item" >
+        <NuxtLink to="/product" class="c-sidenav__link">
+          <img src="/img/products.svg" alt="product" />
+          <span>Products</span>
+        </NuxtLink>
       </li>
       <li class="c-sidenav__item c-dropdown" data-dropdown="container">
         <button class="c-sidenav__link c-dropdown__btn" data-dropdown="btn">
@@ -170,13 +80,14 @@
           </svg>
           <span>Settings</span>
         </button>
-        <div
-          class="c-dropdown__menu c-dropdown__menu--right"
-          data-dropdown="menu"
-        >
-          <a class="c-dropdown__item">Overview</a>
-          <a class="c-dropdown__item">Tools</a>
-          <a class="c-dropdown__item">Staff</a>
+        <div class="c-dropdown__menu c-dropdown__menu--right"
+          data-dropdown="menu">
+          <NuxtLink to="/acl/role" class="c-dropdown__item">Roles</NuxtLink>
+          <NuxtLink to="/acl/permission" class="c-dropdown__item">Permissions</NuxtLink>
+          <NuxtLink to="/field/type" class="c-dropdown__item">Field types</NuxtLink>
+          <NuxtLink to="/field/name" class="c-dropdown__item">Field names</NuxtLink>
+          <NuxtLink to="/model" class="c-dropdown__item">Model</NuxtLink>
+          <NuxtLink to="/license-mode" class="c-dropdown__item">License mode</NuxtLink>
           <div id="arrow" data-popper-arrow></div>
         </div>
       </li>
