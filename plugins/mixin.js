@@ -47,8 +47,13 @@ const mixin = {
         this.$router.push('/auth')
         return true;
       }
+      if (error.response.status === 403) {
+        this.$router.push('/')
+        this.$toast.error('Forbidden!')
+        return true;
+      }
       if (error.response.status === 404) {
-        // this.$router.back()
+        // this.$router.push('404')
         this.$toast.error('Not found!')
         return true;
       }
