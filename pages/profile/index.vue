@@ -37,7 +37,7 @@
           consequatur voluptate.
         </p>
 
-        <VBtn @action="startLoading" btn="block" :loader="loaderRequest">
+        <VBtn @action="startLoading" class="m-0 c-btn--block" btn="primary" :loader="loaderRequest">
           Change Password
         </VBtn>
       </form>
