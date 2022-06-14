@@ -1,5 +1,5 @@
 <template>
-  <VCard title="List Permissions">
+  <VCard :loader="loaderRequest" title="List Permissions">
     <template #header>
       <VBtn type="button" class="m-0 c-btn--small">
         <NuxtLink to="/acl/permission/create">Create</NuxtLink>
@@ -41,7 +41,7 @@ export default {
         items: [],
         map: {
           action(item) {
-            return `<NuxtLink to="/acl/permission/edit/${item.id}" class="c-table__link c-badge u-bg-info">Edit</NuxtLink> |
+            return `<NuxtLink to="/acl/permission/edit/${item.id}" class="c-badge u-bg-info">Edit</NuxtLink> |
             <span v-on:click="action(${item.id},'Delete')" class="c-badge--hover c-badge u-bg-danger">Delete</span> |
             <span v-on:click="action(${item.id},'Details')" class="c-badge--hover c-badge u-bg-primary">Details</span>
 `;
@@ -61,6 +61,7 @@ export default {
   },
   methods: {
     async list(page = null, limit = null) {
+      this.startLoading();
       this.$store.commit('permission/RESET_ERROR')
       await this.$store.dispatch("permission/list", {
         page: page ?? this.getPaginate(),

@@ -1,5 +1,5 @@
 <template>
-  <VCard title="List License Modes">
+  <VCard :loader="loaderRequest" title="List License Modes">
     <template #header>
       <VBtn type="button" class="m-0 c-btn--small">
         <NuxtLink to="/license-mode/create">Create</NuxtLink>
@@ -29,7 +29,7 @@ export default {
         items: [],
         map: {
           action(item) {
-            return `<NuxtLink to="/license-mode/edit/${item.id}" class="c-table__link c-badge u-bg-info">Edit</NuxtLink>|
+            return `<NuxtLink to="/license-mode/edit/${item.id}" class=" c-badge u-bg-info">Edit</NuxtLink>|
             <span v-on:click="action(${item.id},'Delete')" class="c-badge--hover c-badge u-bg-danger">Delete</span>
 <!--            <span v-on:click="action(${item.id},'Details')" class="c-badge&#45;&#45;hover c-badge c-badge&#45;&#45;primary">Details</span>-->
 `;

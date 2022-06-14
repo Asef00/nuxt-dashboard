@@ -1,5 +1,5 @@
 <template>
-  <VCard title="List Field Names">
+  <VCard :loader="loaderRequest" title="List Field Names">
     <template #header>
       <VBtn type="button" class="m-0 c-btn--small">
         <NuxtLink to="/field/name/create">Create</NuxtLink>
@@ -35,7 +35,7 @@ export default {
         items: [],
         map: {
           action(item) {
-            return `<NuxtLink to="/field/name/edit/${item.id}" class="c-table__link c-badge u-bg-info">Edit</NuxtLink>|
+            return `<NuxtLink to="/field/name/edit/${item.id}" class="c-badge u-bg-info">Edit</NuxtLink>|
             <span v-on:click="action(${item.id},'Delete')" class="c-badge--hover c-badge u-bg-danger">Delete</span>
             <span v-on:click="action(${item.id},'Details')" class="c-badge--hover c-badge u-bg-primary">Details</span>
 `;

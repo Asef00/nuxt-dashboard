@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="16.001" viewBox="0 0 20 16.001">
+    <path data-name="Subtraction 2" d="M4.667 13H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2.668l-1.777-2h3.5a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-14a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h3.39l-1.778 2z" style="fill: #564ec1" />
+    <g data-name="Polygon 2" style="fill: none">
+        <path d="M5.241.886a1 1 0 0 1 1.519 0l3.826 4.463A1 1 0 0 1 9.826 7H2.174a1 1 0 0 1-.759-1.651z" style="stroke: none" transform="translate(3.999 9.001)" />
+        <path d="M6 1.537 2.174 6h7.652L6.002 1.537H6m0-1c.28 0 .56.116.76.349l3.825 4.463A1 1 0 0 1 9.825 7h-7.65a1 1 0 0 1-.76-1.65L5.241.885c.2-.233.48-.35.759-.35z" style="fill: #564ec1; stroke: none" transform="translate(3.999 9.001)" />
+    </g>
+</svg>
