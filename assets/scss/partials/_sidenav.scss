@@ -80,6 +80,7 @@
   @include font-size(14px);
   transition: 0.2s;
   background-color: #fff;
+  font-family: inherit;
 
   &:hover,
   &:focus {
