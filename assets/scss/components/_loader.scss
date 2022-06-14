@@ -1,0 +1,28 @@
+.is-loading:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  background: linear-gradient(
+    110deg,
+    rgba(255, 255, 255, 0.9) 45%,
+    #f0f2f4c1 50%,
+    rgba(255, 255, 255, 0.9) 55%
+  );
+  background-size: 400% 100%;
+  animation: loader 1.2s linear infinite reverse;
+
+  @include mq(lg) {
+    animation-duration: 1.4s;
+  }
+}
+
+/* skeleton animation */
+@keyframes loader {
+  to {
+    background-position: 100% center;
+  }
+}

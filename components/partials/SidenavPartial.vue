@@ -2,9 +2,9 @@
   <div class="c-sidenav js-sidenav">
     <ul class="c-sidenav__list" role="presentation">
       <li class="c-sidenav__header">
-        <div class="c-logo">
+        <NuxtLink to="/" class="c-logo">
           <img src="/img/logo.svg" alt="logo" />
-        </div>
+        </NuxtLink>
         <span class="c-sidenav__close js-menu-close">
           <fa icon="xmark" />
         </span>
