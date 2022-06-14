@@ -11,7 +11,7 @@
           Edit Profile
           <fa icon="pen-to-square" />
         </VBtn>
-        <VBtn @action="showModal = true" type="button" class="m-0 c-btn--small">
+        <VBtn @action="showModal = true" btn="warn" type="button" class="m-0 c-btn--small">
           Change Password
         </VBtn>
       </template>

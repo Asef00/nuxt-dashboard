@@ -6,7 +6,7 @@
     :class="['c-btn', classBtn]"
   >
     <span v-if="loader"><LoaderDots :color="colorLoader"></LoaderDots></span>
-    <slot v-else/>
+    <slot v-else />
   </button>
 </template>
 
@@ -38,33 +38,25 @@ export default {
   },
   computed: {
     classBtn() {
-      if (this.btn === "primary") {
-        this.colorLoader = "#fff";
-        return "c-btn--primary";
-      }
-      if (this.btn === "outline") {
-        this.colorLoader = "#444";
-        return "c-btn--outline";
-      }
-      if (this.btn === "block") {
-        this.colorLoader = "#444";
-        return "c-btn--block";
-      }
-      if (this.btn === "info") {
-        this.colorLoader = "#fff";
-        return "c-btn--info";
-      }
-      if (this.btn === "danger") {
-        this.colorLoader = "#fff";
-        return "c-btn--danger";
-      }
-      if (this.btn === "success") {
-        this.colorLoader = "#fff";
-        return "c-btn--success";
-      }
-      if (this.btn === "simple") {
-        this.colorLoader = "#444";
-        return "";
+      switch (this.btn) {
+        case "primary":
+          return "c-btn--primary";
+        case "secondary":
+          return "c-btn--secondary";
+        case "success":
+          return "c-btn--success";
+        case "danger":
+          return "c-btn--danger";
+        case "warn":
+          return "c-btn--warn";
+        case "info":
+          return "c-btn--info";
+        case "light":
+          return "c-btn--light";
+        case "dark":
+          return "c-btn--dark";
+        default:
+          return "c-btn--primary";
       }
     },
   },
