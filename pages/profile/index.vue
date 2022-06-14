@@ -2,16 +2,24 @@
   <div>
     <VCard title="Profile">
       <template #header>
+        <transition>
+          <VBtn
+            v-if="!editMode"
+            @action="editMode = !editMode"
+            btn="info"
+            type="button"
+            class="m-0 c-btn--small"
+          >
+            Edit Profile
+            <fa icon="pen-to-square" />
+          </VBtn>
+        </transition>
         <VBtn
-          @action="editMode = !editMode"
-          btn="info"
+          @action="showModal = true"
+          btn="warn"
           type="button"
           class="m-0 c-btn--small"
         >
-          Edit Profile
-          <fa icon="pen-to-square" />
-        </VBtn>
-        <VBtn @action="showModal = true" btn="warn" type="button" class="m-0 c-btn--small">
           Change Password
         </VBtn>
       </template>
@@ -66,6 +74,15 @@
                 </VInput>
               </div>
             </div>
+            <transition>
+              <!-- Shouldn't use template with transition -->
+              <div v-if="editMode">
+                <VBtn @action="updateProfile"> Update Profile </VBtn>
+                <VBtn type="button" btn="simple" @action="editMode = !editMode"
+                  >Cancel</VBtn
+                >
+              </div>
+            </transition>
           </form>
         </div>
       </div>

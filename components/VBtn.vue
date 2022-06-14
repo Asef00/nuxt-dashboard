@@ -39,24 +39,42 @@ export default {
   computed: {
     classBtn() {
       switch (this.btn) {
-        case "primary":
-          return "c-btn--primary";
-        case "secondary":
-          return "c-btn--secondary";
-        case "success":
+        case "success": {
+          this.colorLoader = "#fff";
           return "c-btn--success";
-        case "danger":
+        }
+        case "danger": {
+          this.colorLoader = "#fff";
           return "c-btn--danger";
-        case "warn":
+        }
+        case "warn": {
+          this.colorLoader = "#fff";
           return "c-btn--warn";
-        case "info":
+        }
+        case "info": {
+          this.colorLoader = "#fff";
           return "c-btn--info";
-        case "light":
-          return "c-btn--light";
-        case "dark":
+        }
+        case "dark": {
+          this.colorLoader = "#fff";
           return "c-btn--dark";
-        default:
+        }
+        case "simple": {
+          this.colorLoader = "#444";
+          return "";
+        }
+        case "outline": {
+          this.colorLoader = "#444";
+          return "c-btn--outline";
+        }
+        case "block": {
+          this.colorLoader = "#444";
+          return "c-btn--block";
+        }
+        default: {
+          this.colorLoader = "#fff";
           return "c-btn--primary";
+        }
       }
     },
   },
