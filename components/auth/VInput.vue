@@ -1,17 +1,29 @@
 <template>
   <div>
-    <div :class="[$parent.hasError(keyValidation) ? 'invalid-input': '','form-field' ,'d-flex ','align-items-center']">
-      <span class="icon"><fa :icon="icon"/></span>
-      <input @keyup="$parent.validate(keyValidation)" @blur="$parent.validate(keyValidation)"
-             @keydown="$parent.validate(keyValidation)"
-             v-bind="$attrs"
-             v-bind:value="value"
-             v-on:input="$emit('input', $event.target.value)"
-             :type="type"
-             :name="keyValidation"
-             :placeholder="label">
+    <div
+      :class="[
+        $parent.hasError(keyValidation) ? 'invalid-input' : '',
+        'form-field',
+        'd-flex ',
+        'align-items-center',
+      ]"
+    >
+      <span class="icon"><fa :icon="icon" /></span>
+      <input
+        @keyup="$parent.validate(keyValidation)"
+        @blur="$parent.validate(keyValidation)"
+        @keydown="$parent.validate(keyValidation)"
+        v-bind="$attrs"
+        v-bind:value="value"
+        v-on:input="$emit('input', $event.target.value)"
+        :type="type"
+        :name="keyValidation"
+        :placeholder="label"
+      />
     </div>
-    <div class="invalid-message" v-if="$parent.hasError(keyValidation)">{{ $parent.errorMessage(keyValidation) }}</div>
+    <div class="invalid-message" v-if="$parent.hasError(keyValidation)">
+      {{ $parent.errorMessage(keyValidation) }}
+    </div>
   </div>
 </template>
 
@@ -22,23 +34,23 @@ export default {
     value: [String, Number],
     type: {
       type: String,
-      default: 'text'
+      default: "text",
     },
     keyValidation: String,
     icon: {
-      type: [Object,Array],
-      required: true
+      type: [Object, Array],
+      required: true,
     },
     label: {
       type: String,
-      required: true
+      required: true,
     },
   },
   data() {
-    return {}
+    return {};
   },
-  methods: {}
-}
+  methods: {},
+};
 </script>
 
 <style scoped lang="scss">
