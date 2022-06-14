@@ -96,7 +96,8 @@ export default {
     },
     changePerPage(val) {
       this.setLimit(val);
-      this.list(this.getPaginate(), val);
+      this.setPaginate(1);
+      this.list(1, val);
     },
   },
   created() {
