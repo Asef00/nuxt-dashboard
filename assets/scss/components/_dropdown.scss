@@ -27,8 +27,6 @@
 
   border-radius: 5px;
   @include box-shadow;
-  @include flex-column;
-  justify-content: center;
 
   @include font-size(14px);
   transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
@@ -96,6 +94,7 @@
 
 .c-dropdown__item {
   padding: 0.5em 1em;
+  display: block;
 
   &.nuxt-link-exact-active,
   &:hover {
