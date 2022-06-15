@@ -3,7 +3,7 @@
   width: 100%;
   padding: 0;
   margin: 0;
-  
+
   // to put dropdown menu at the top of card loader
   z-index: 10;
 
@@ -84,7 +84,7 @@
   background-color: #fff;
   font-family: inherit;
 
-  &.is-active,
+  &.nuxt-link-exact-active,
   &:hover,
   &:focus {
     background-color: #eee;

@@ -95,7 +95,7 @@
 .c-dropdown__item {
   padding: 0.5em 1em;
 
-  &.is-active,
+  &.nuxt-link-exact-active,
   &:hover {
     background-color: #eee;
   }
