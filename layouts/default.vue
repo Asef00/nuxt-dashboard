@@ -1,17 +1,17 @@
 <template>
   <div class="o-wrapper">
     <nav class="o-wrapper__side">
-      <SidenavPartial />
+      <SidenavPartial/>
     </nav>
 
     <div class="o-wrapper__center">
-      <HeaderPartial />
+      <HeaderPartial/>
 
       <main class="o-wrapper__main">
-        <Nuxt />
+        <Nuxt/>
       </main>
 
-      <FooterPartial />
+      <FooterPartial/>
     </div>
   </div>
 </template>
@@ -20,8 +20,10 @@
 import FooterPartial from "../components/partials/FooterPartial.vue";
 import HeaderPartial from "../components/partials/HeaderPartial.vue";
 import SidenavPartial from "../components/partials/SidenavPartial.vue";
+
 export default {
   name: "default",
+  scrollTop: true,
   components: {
     HeaderPartial,
     SidenavPartial,
@@ -29,8 +31,8 @@ export default {
   },
   head: {
     script: [
-      { src: "/main.js" },
-      { src: "/dropdown.js" },
+      {src: "/main.js"},
+      {src: "/dropdown.js"},
     ],
   },
 };
