@@ -6,10 +6,10 @@
 
 .o-wrapper__center {
   position: relative;
-  min-height: 100vh;
+  min-height: calc(100vh - $header-height);
 
   @include mq(lg) {
-    margin-left: 130px;
+    margin-left: $side-width;
   }
 }
 

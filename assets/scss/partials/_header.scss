@@ -17,8 +17,8 @@
   width: 100%;
 
   @include mq(lg) {
-    width: calc(100% - 130px);
-    margin-left: 130px;
+    width: calc(100% - $side-width);
+    margin-left: $side-width;
     padding: 0 1.87em;
     justify-content: flex-end;
   }
