@@ -63,6 +63,14 @@
 <script>
 export default {
   name: "SidenavPartial",
+
+  watch: {
+    $route() {
+      document
+        .querySelector("[data-dropdown='container']")
+        .classList.remove("is-active");
+    },
+  },
 };
 </script>
 
