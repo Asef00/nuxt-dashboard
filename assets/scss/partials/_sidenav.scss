@@ -84,6 +84,7 @@
   background-color: #fff;
   font-family: inherit;
 
+  &.is-active,
   &.nuxt-link-exact-active,
   &:hover,
   &:focus {

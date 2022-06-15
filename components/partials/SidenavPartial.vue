@@ -64,15 +64,47 @@ export default {
   name: "SidenavPartial",
 
   watch: {
-    $route() {
-      // close dropdown when route changes
-      document
-        .querySelector("[data-dropdown='container']")
-        .classList.remove("is-active");
+    $route: {
+      handler() {
+        // close dropdown when route changes
+        document
+          .querySelector("[data-dropdown='container']")
+          .classList.remove("is-active");
 
-      // close sidenave when route changes
-      document.querySelector(".js-sidenav").classList.remove("is-open");
+        // close sidenave when route changes
+        document.querySelector(".js-sidenav").classList.remove("is-open");
+
+        // remove active class from all links
+        setTimeout(() => {
+          this.findActive();
+        }, 500);
+      },
+      // immediate: true,
+      deep: true,
     },
+  },
+
+  methods: {
+    findActive() {
+      let test = document.querySelector(
+        "[data-dropdown='container'] .nuxt-link-exact-active"
+      );
+      if (test) {
+        test
+          .closest("[data-dropdown='container']")
+          .querySelector("[data-dropdown='btn']")
+          .classList.add("is-active");
+      } else {
+        document.querySelectorAll("[data-dropdown='btn']").forEach((btn) => {
+          btn.classList.remove("is-active");
+        });
+      }
+    },
+  },
+
+  mounted() {
+    // add active class to dropdown btn
+    this.findActive();
   },
 };
 </script>
