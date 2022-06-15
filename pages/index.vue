@@ -243,8 +243,8 @@
         eligendi quis, assumenda corporis ut error molestiae totam hic facilis
         et, nostrum culpa expedita maiores cumque amet modi delectus earum enim!
       </p>
-      <VBtn id="show-modal" @action="showModal = true">Show Modal</VBtn>
-      <VBtn id="show-modal" @action="showFormModal = true" btn="info">
+      <VBtn @action="showModal = true">Show Modal</VBtn>
+      <VBtn @action="showFormModal = true" btn="info">
         Show Form Modal
       </VBtn>
     </VCard>

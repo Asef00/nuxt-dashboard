@@ -1,4 +1,14 @@
-$btn-bg: rgb(146 150 154 / 10%);
+$btn-bg: #f4f4f5;
+
+@mixin hover-color($color, $value: 10%, $action: darken) {
+  &:hover {
+    @if ($action == darken) {
+      background-color: darken($color, $value);
+    } @else {
+      background-color: lighten($color, $value);
+    }
+  }
+}
 
 .c-btn {
   min-width: 9em;
@@ -11,10 +21,7 @@ $btn-bg: rgb(146 150 154 / 10%);
   background-color: $btn-bg;
   outline: 1px solid $btn-bg;
   transition: 0.2s;
-
-  &:hover {
-    background-color: darken($btn-bg, 20%);
-  }
+  @include hover-color($btn-bg);
 
   &:disabled {
     opacity: 0.65;
@@ -25,39 +32,42 @@ $btn-bg: rgb(146 150 154 / 10%);
     background-color: $primary-color;
     color: #fff;
     outline-color: $primary-color;
-
-    &:hover {
-      background-color: darken($primary-color, 15%);
-    }
+    @include hover-color($primary-color);
   }
 
   &--info {
     background-color: $info-color;
     color: #fff;
     outline-color: $info-color;
-
-    &:hover {
-      background-color: darken($info-color, 15%);
-    }
+    @include hover-color($info-color);
   }
 
   &--danger {
     background-color: $danger-color;
     color: #fff;
     outline-color: $danger-color;
-
-    &:hover {
-      background-color: darken($danger-color, 15%);
-    }
+    @include hover-color($danger-color);
   }
+
   &--success {
     background-color: $success-color;
     color: #fff;
     outline-color: $success-color;
+    @include hover-color($success-color);
+  }
 
-    &:hover {
-      background-color: darken($success-color, 15%);
-    }
+  &--warn {
+    background-color: $warn-color;
+    color: $text-color;
+    outline-color: $warn-color;
+    @include hover-color($warn-color);
+  }
+
+  &--dark {
+    background-color: $dark-color;
+    color: #fff;
+    outline-color: $dark-color;
+    @include hover-color($dark-color, 10%, lighten);
   }
 
   &--outline {

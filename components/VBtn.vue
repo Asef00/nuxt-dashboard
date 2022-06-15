@@ -6,7 +6,7 @@
     :class="['c-btn', classBtn]"
   >
     <span v-if="loader"><LoaderDots :color="colorLoader"></LoaderDots></span>
-    <slot v-else/>
+    <slot v-else />
   </button>
 </template>
 
@@ -38,33 +38,43 @@ export default {
   },
   computed: {
     classBtn() {
-      if (this.btn === "primary") {
-        this.colorLoader = "#fff";
-        return "c-btn--primary";
-      }
-      if (this.btn === "outline") {
-        this.colorLoader = "#444";
-        return "c-btn--outline";
-      }
-      if (this.btn === "block") {
-        this.colorLoader = "#444";
-        return "c-btn--block";
-      }
-      if (this.btn === "info") {
-        this.colorLoader = "#fff";
-        return "c-btn--info";
-      }
-      if (this.btn === "danger") {
-        this.colorLoader = "#fff";
-        return "c-btn--danger";
-      }
-      if (this.btn === "success") {
-        this.colorLoader = "#fff";
-        return "c-btn--success";
-      }
-      if (this.btn === "simple") {
-        this.colorLoader = "#444";
-        return "";
+      switch (this.btn) {
+        case "success": {
+          this.colorLoader = "#fff";
+          return "c-btn--success";
+        }
+        case "danger": {
+          this.colorLoader = "#fff";
+          return "c-btn--danger";
+        }
+        case "warn": {
+          this.colorLoader = "#fff";
+          return "c-btn--warn";
+        }
+        case "info": {
+          this.colorLoader = "#fff";
+          return "c-btn--info";
+        }
+        case "dark": {
+          this.colorLoader = "#fff";
+          return "c-btn--dark";
+        }
+        case "simple": {
+          this.colorLoader = "#444";
+          return "";
+        }
+        case "outline": {
+          this.colorLoader = "#444";
+          return "c-btn--outline";
+        }
+        case "block": {
+          this.colorLoader = "#444";
+          return "c-btn--block";
+        }
+        default: {
+          this.colorLoader = "#fff";
+          return "c-btn--primary";
+        }
       }
     },
   },
