@@ -3,7 +3,9 @@
   width: 100%;
   padding: 0;
   margin: 0;
-  z-index: 1;
+  
+  // to put dropdown menu at the top of card loader
+  z-index: 10;
 
   position: fixed;
   left: -100%;
