@@ -82,6 +82,7 @@
   background-color: #fff;
   font-family: inherit;
 
+  &.is-active,
   &:hover,
   &:focus {
     background-color: #eee;
