@@ -57,6 +57,10 @@ const mixin = {
         this.$toast.error('Not found!')
         return true;
       }
+      if (error.response.status === 400) {
+        this.$toast.error(error.response.data.message)
+        return true;
+      }
       if (error.response.status === 422) {
         let data = error.response.data
         if (data.errors) {
