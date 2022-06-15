@@ -11,11 +11,11 @@
             class="m-0 c-btn--small"
           >
             Edit Profile
-            <fa icon="pen-to-square" />
+            <fa icon="pen-to-square"/>
           </VBtn>
         </transition>
         <VBtn
-          @action="showModal = true"
+          @action="showModalChangePassword = true"
           btn="warn"
           type="button"
           class="m-0 c-btn--small"
@@ -26,38 +26,36 @@
       <div class="row">
         <div class="col-md-3 col-12">
           <div class="c-avatar">
-            <img src="/img/avatar.svg" width="300" height="300" alt="avatar" />
+            <img src="/img/avatar.svg" width="300" height="300" alt="avatar"/>
           </div>
         </div>
         <div class="col-md-9 col-12">
-          <form action="" class="c-form">
+          <form @submit.prevent="update" class="c-form">
             <h4 class="c-form__title">Profile Info</h4>
             <div class="row">
               <div class="col-md-6">
                 <VInput
-                  @validation="validate('firstname')"
-                  :error="errorMessage('firstname')"
+                  @validation="validate('name')"
+                  :error="errorMessage('name')"
                   :disabled="!editMode"
                   label="First Name"
-                  v-model="payload.firstname"
-                  placeholder="Enter your first name"
+                  v-model="payload.name"
+                  placeholder="Enter your name"
                 />
               </div>
               <div class="col-md-6">
                 <VInput
-                  @validation="validate('lastname')"
-                  :error="errorMessage('lastname')"
+                  @validation="validate('family_name')"
+                  :error="errorMessage('family_name')"
                   :disabled="!editMode"
                   label="Last Name"
-                  v-model="payload.lastname"
-                  placeholder="Enter your last name"
+                  v-model="payload.family_name"
+                  placeholder="Enter your family name"
                 />
               </div>
               <div class="col-md-6">
                 <VInput
-                  @validation="validate('email')"
-                  :error="errorMessage('email')"
-                  :disabled="!editMode"
+                  :disabled="true"
                   label="Email"
                   v-model="payload.email"
                   placeholder="Enter your Email"
@@ -73,13 +71,17 @@
                   </template>
                 </VInput>
               </div>
+              <div class="col-md-6">
+                <VBtn btn="success">Verify Email</VBtn>
+              </div>
             </div>
             <transition>
               <!-- Shouldn't use template with transition -->
               <div v-if="editMode">
-                <VBtn @action="updateProfile"> Update Profile </VBtn>
+                <VBtn> Update Profile</VBtn>
                 <VBtn type="button" btn="simple" @action="editMode = !editMode"
-                  >Cancel</VBtn
+                >Cancel
+                </VBtn
                 >
               </div>
             </transition>
@@ -89,8 +91,8 @@
     </VCard>
 
     <VModal
-      :showModal="showModal"
-      @close="showModal = false"
+      :showModalChangePassword="showModalChangePassword"
+      @close="showModalChangePassword = false"
       title="Change Password"
     >
       <form action="" class="c-form">
@@ -136,29 +138,69 @@ import * as Yup from "yup";
 export default {
   data() {
     return {
-      showModal: false,
+      showModalChangePassword: false,
       editMode: false,
-
+      id: 0,
       payload: {
-        password: "",
-        firstname: "John",
-        lastname: "Doe",
-        email: "johndoe@gmail.com",
-        is_verified: true,
+        name: "",
+        family_name: "",
+        email: "",
+        is_verified: false,
       },
     };
   },
 
   methods: {
+    me() {
+      this.id = this.$auth.user.id;
+      this.payload.name = this.$auth.user.name;
+      this.payload.family_name = this.$auth.user.family_name;
+      this.payload.email = this.$auth.user.username;
+      this.payload.is_verified = this.$auth.user.cognito.email_verified;
+    },
     validation() {
       return Yup.object({
-        password: Yup.string().required(),
-        firstname: Yup.string().required(),
-        lastname: Yup.string().required(),
+        name: Yup.string().required(),
+        family_name: Yup.string().required(),
       });
     },
-  },
-};
+    update() {
+      this.startLoading();
+      this.validation()
+        .validate(this.payload, {abortEarly: false})
+        .then(async () => {
+          this.resetError();
+          await this.$store.dispatch("me/update", {
+            name: this.payload.name,
+            family_name: this.payload.family_name,
+            fields: [],
+          });
+          this.stopLoading();
+          const err = this.handleError(this.$store.state.me.error);
+          if (!err) {
+            this.$toast.success("Profile successfully updated.");
+            this.editMode = false;
+          }
+        })
+        .catch((err) => {
+          this.setAllErrorValidation(err);
+          this.stopLoading();
+        });
+    },
+    resetError() {
+      this.$store.commit("me/RESET_ERROR");
+      this.errors = {
+        name: '',
+        family_name: '',
+      };
+    },
+  }
+  ,
+  created() {
+    this.resetError()
+    this.me();
+  }
+}
 </script>
 
 <style lang="scss">
