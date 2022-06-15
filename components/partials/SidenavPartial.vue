@@ -53,7 +53,6 @@
           <NuxtLink to="/license-mode" class="c-dropdown__item">
             License mode
           </NuxtLink>
-          <div id="arrow" data-popper-arrow></div>
         </div>
       </li>
     </ul>
