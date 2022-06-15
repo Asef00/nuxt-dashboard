@@ -14,11 +14,14 @@
     menu_close.onclick = function () {
       sidenav.classList.remove("is-open");
     };
-
   });
 })();
-Array.prototype.remove = function() {
-  var what, a = arguments, L = a.length, ax;
+
+Array.prototype.remove = function () {
+  var what,
+    a = arguments,
+    L = a.length,
+    ax;
   while (L && this.length) {
     what = a[--L];
     while ((ax = this.indexOf(what)) !== -1) {
