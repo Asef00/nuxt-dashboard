@@ -1,3 +1,7 @@
+.c-datatable {
+  margin: -1.25em -1.56em;  //based on card body padding
+}
+
 .c-datatable__header {
   padding: 1em 1.5em;
   @include flex-between;

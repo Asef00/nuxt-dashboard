@@ -72,7 +72,7 @@ export default {
   top: 0;
   right: 0;
   color: #e2e1ea;
-  margin: 1.25em 1.56em;  
+  margin: $card-body-padding;
 }
 .c-report__big {
   @include font-size(32px);
