@@ -1,7 +1,7 @@
 <template>
   <VCard :loader="loaderRequest" title="List Models">
     <template #header>
-      <VBtn type="button" class="m-0 c-btn--small">
+      <VBtn v-if="can('model.store')" type="button" class="m-0 c-btn--small">
         <NuxtLink to="/model/create">Create</NuxtLink>
       </VBtn>
     </template>
@@ -34,9 +34,9 @@ export default {
         items: [],
         map: {
           action(item) {
-            return `<NuxtLink to="/model/edit/${item.id}" class="c-badge u-bg-info">Edit</NuxtLink> |
-            <span v-on:click="action(${item.id},'Delete')" class="c-badge--hover c-badge u-bg-danger">Delete</span> |
-            <span v-on:click="action(${item.id},'Details')" class="c-badge--hover c-badge u-bg-primary">Details</span>`;
+            return `<NuxtLink v-if="can('model.update')" to="/model/edit/${item.id}" class="c-badge u-bg-info">Edit</NuxtLink> |
+            <span v-if="can('model.destroy')" v-on:click="action(${item.id},'Delete')" class="c-badge--hover c-badge u-bg-danger">Delete</span> |
+            <span v-if="can('model.show')" v-on:click="action(${item.id},'Details')" class="c-badge--hover c-badge u-bg-primary">Details</span>`;
           },
           created_at(item) {
             return _this.dateFormat(item.created_at);
