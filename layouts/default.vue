@@ -87,6 +87,17 @@ export default {
       sidenav.classList.remove("is-open");
     };
   },
+
+  watch: {
+    $route() {
+      // close all dropdowns when route changes
+      document
+        .querySelectorAll("[data-dropdown='container']")
+        .forEach((dropdown) => {
+          dropdown.classList.remove("is-active");
+        });
+    },
+  },
 };
 </script>
 

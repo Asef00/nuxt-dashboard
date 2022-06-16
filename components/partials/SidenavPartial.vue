@@ -66,11 +66,6 @@ export default {
   watch: {
     $route: {
       handler() {
-        // close dropdown when route changes
-        document
-          .querySelector("[data-dropdown='container']")
-          .classList.remove("is-active");
-
         // close sidenave when route changes
         document.querySelector(".js-sidenav").classList.remove("is-open");
 

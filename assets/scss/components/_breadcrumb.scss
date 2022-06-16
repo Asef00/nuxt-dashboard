@@ -1,17 +1,18 @@
 .c-breadcrumb {
-    @include flex-center;
-    @include font-size(12px);
+  @include flex-center;
+  @include font-size(12px);
 }
 
 .c-breadcrumb__item {
-    opacity: 0.7;
+  opacity: 0.7;
+  display: flex;
 
-    &:hover,
-    &:last-child {
-        opacity: 1;
-    }
+  &:hover,
+  &:last-child {
+    opacity: 1;
+  }
 }
 
-.c-breadcrumb__link {
-    white-space: pre;   // count spaces
+.c-breadcrumb__div {
+    margin: 0 0.2em;
 }

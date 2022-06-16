@@ -42,8 +42,9 @@
           v-for="(breadcrumb, index) in $store.state.pageHeaderBreadcrumb"
           :key="index"
         >
+          <span class="c-breadcrumb__div">/</span>
           <NuxtLink class="c-breadcrumb__link" :to="breadcrumb.to">
-            / {{ breadcrumb.name }}
+            {{ breadcrumb.name }}
           </NuxtLink>
         </li>
       </ul>
@@ -57,20 +58,6 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch("me/revokeToken");
-    },
-  },
-  watch: {
-    $route: {
-      handler() {
-        // close dropdown when route changes
-        setTimeout(() => {
-          document
-            .querySelector("[data-dropdown='container']")
-            .classList.remove("is-active");
-        }, 300);
-      },
-      // immediate: true,
-      deep: true,
     },
   },
 };

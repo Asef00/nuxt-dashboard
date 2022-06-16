@@ -11,7 +11,7 @@
             class="m-0 c-btn--small"
           >
             Edit Profile
-            <fa icon="pen-to-square"/>
+            <fa icon="pen-to-square" />
           </VBtn>
         </transition>
         <VBtn
@@ -26,7 +26,7 @@
       <div class="row">
         <div class="col-md-3 col-12">
           <div class="c-avatar">
-            <img src="/img/avatar.svg" width="300" height="300" alt="avatar"/>
+            <img src="/img/avatar.svg" width="300" height="300" alt="avatar" />
           </div>
         </div>
         <div class="col-md-9 col-12">
@@ -72,7 +72,12 @@
                 </VInput>
               </div>
               <div class="col-md-6">
-                <VBtn type="button" @action="sendVerifyCode" v-if="!payload.is_verified" btn="success">Verify Email
+                <VBtn
+                  type="button"
+                  @action="sendVerifyCode"
+                  v-if="!payload.is_verified"
+                  btn="success"
+                  >Verify Email
                 </VBtn>
               </div>
             </div>
@@ -81,17 +86,22 @@
               <div v-if="editMode">
                 <VBtn> Update Profile</VBtn>
                 <VBtn type="button" btn="simple" @action="editMode = !editMode"
-                >Cancel
-                </VBtn
-                >
+                  >Cancel
+                </VBtn>
               </div>
             </transition>
           </form>
         </div>
       </div>
     </VCard>
-    <ChangePassword @show="changePasswordModal($event)" :show="showModalChangePassword"/>
-    <VerifyEmail @show="verifyEmailModal($event)" :show="showModalVerifyEmail"/>
+    <ChangePassword
+      @show="changePasswordModal($event)"
+      :show="showModalChangePassword"
+    />
+    <VerifyEmail
+      @show="verifyEmailModal($event)"
+      :show="showModalVerifyEmail"
+    />
   </div>
 </template>
 
@@ -104,7 +114,7 @@ export default {
   name: "Profile",
   components: {
     ChangePassword,
-    VerifyEmail
+    VerifyEmail,
   },
   data() {
     return {
@@ -138,7 +148,7 @@ export default {
     update() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("me/update", {
@@ -161,8 +171,8 @@ export default {
     resetError() {
       this.$store.commit("me/RESET_ERROR");
       this.errors = {
-        name: '',
-        family_name: '',
+        name: "",
+        family_name: "",
       };
     },
     changePasswordModal(show) {
@@ -184,14 +194,21 @@ export default {
           this.$toast.success("Verification code sent.");
         }
       });
-    }
-  }
-  ,
+    },
+  },
+
   created() {
-    this.resetError()
+    this.setTitle("Profile");
+    this.setBreadcrumb([
+      {
+        to: "/profile",
+        name: "Profile",
+      },
+    ]);
+    this.resetError();
     this.me();
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss">
