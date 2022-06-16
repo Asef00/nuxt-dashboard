@@ -1,0 +1,130 @@
+<template>
+  <VModal
+    :showModal="show"
+    @close="show = false"
+    title="Change password"
+  >
+    <form @submit.prevent="changePassword" class="c-form">
+      <div class="row">
+        <div class="col-md-12">
+          <VInput
+            @validation="validate('current_password')"
+            :error="errorMessage('current_password')"
+            label="Current Password"
+            v-model="payload.current_password"
+            placeholder="Please enter current password"
+            type="password"
+          />
+          <VInput
+            @validation="validate('new_password')"
+            :error="errorMessage('new_password')"
+            label="New Password"
+            v-model="payload.new_password"
+            placeholder="Please enter new password"
+            type="password"
+          />
+          <VInput
+            @validation="validate('new_password_confirmation')"
+            :error="errorMessage('new_password_confirmation')"
+            label="New Password Confirmation"
+            v-model="payload.new_password_confirmation"
+            placeholder="Please enter new password confirmation"
+            type="password"
+          />
+        </div>
+      </div>
+      <VBtn :loader="loaderRequest">Change Password</VBtn>
+    </form>
+  </VModal>
+</template>
+
+<script>
+import * as Yup from "yup";
+
+export default {
+  name: "ChangePassword",
+  props: {
+    id: {
+      type: [String, Number],
+      required: true
+    },
+    show: {
+      type: Boolean,
+      required: false
+    }
+  },
+  data() {
+    return {
+      payload: {
+        current_password: '',
+        new_password: '',
+        new_password_confirmation: '',
+      }
+    };
+  },
+  methods: {
+    changePassword() {
+      this.startLoading();
+      this.validation()
+        .validate(this.payload, {abortEarly: false})
+        .then(async () => {
+          this.resetError();
+          await this.$store.dispatch("me/changePassword", {
+            password: this.payload.current_password,
+            new_password: this.payload.new_password,
+            new_password_confirmation: this.payload.new_password_confirmation,
+          });
+          this.stopLoading();
+          const err = this.handleError(this.$store.state.me.error);
+          if (err) {
+            console.log('inside err');
+            if (err.response.data.error === "NotAuthorizedException") {
+              console.log("Incorrect username or password.");
+              this.errors.current_password = 'The current password is incorrect.';
+            }
+          }
+          if (!err) {
+            this.show = false;
+            this.$toast.success("Password successfully changed.");
+          }
+        })
+        .catch((err) => {
+          this.setAllErrorValidation(err);
+          this.stopLoading();
+        });
+    },
+    validation() {
+      let roles = {
+        current_password: Yup.string().required(),
+        new_password: Yup.string().required(),
+        new_password_confirmation: Yup.string().oneOf([Yup.ref('new_password'), null], 'new password must match').required(),
+      };
+      return Yup.object(roles);
+    },
+    resetError() {
+      this.$store.commit('me/RESET_ERROR')
+      this.errors = {
+        current_password: '',
+        new_password: '',
+        new_password_confirmation: '',
+      };
+    },
+  },
+  created() {
+    this.resetError()
+  },
+  watch: {
+    show(val) {
+      this.$emit('show', val);
+      this.payload.current_password = ''
+      this.payload.new_password = ''
+      this.payload.new_password_confirmation = ''
+      this.resetError()
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

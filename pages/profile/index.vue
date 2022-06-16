@@ -89,53 +89,19 @@
         </div>
       </div>
     </VCard>
-
-    <VModal
-      :showModalChangePassword="showModalChangePassword"
-      @close="showModalChangePassword = false"
-      title="Change Password"
-    >
-      <form action="" class="c-form">
-        <VInput
-          @validation="validate('password')"
-          :error="errorMessage('password')"
-          label="New Password"
-          v-model="payload.name"
-          placeholder="Enter a new password"
-        />
-
-        <VInput
-          @validation="validate('password')"
-          :error="errorMessage('password')"
-          label="Confirm Password"
-          v-model="payload.name"
-          placeholder="repeat your password"
-        />
-
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque
-          numquam, vel quibusdam distinctio ullam, amet saepe, ipsa adipisci
-          doloribus magni officia quod ad tenetur voluptas alias ratione culpa
-          consequatur voluptate.
-        </p>
-
-        <VBtn
-          @action="startLoading"
-          class="m-0 c-btn--block"
-          btn="primary"
-          :loader="loaderRequest"
-        >
-          Change Password
-        </VBtn>
-      </form>
-    </VModal>
+    <ChangePassword @show="changePasswordModal($event)" :show="showModalChangePassword" :id="id"/>
   </div>
 </template>
 
 <script>
 import * as Yup from "yup";
+import ChangePassword from "@/components/page/profile/ChangePassword";
 
 export default {
+  name: "Profile",
+  components: {
+    ChangePassword
+  },
   data() {
     return {
       showModalChangePassword: false,
@@ -193,6 +159,9 @@ export default {
         name: '',
         family_name: '',
       };
+    },
+    changePasswordModal(show) {
+      this.showModalChangePassword = show;
     },
   }
   ,
