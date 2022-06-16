@@ -1,7 +1,7 @@
 <template>
   <VCard :loader="loaderRequest" title="List Field Types">
     <template #header>
-      <VBtn type="button" class="m-0 c-btn--small">
+      <VBtn v-if="can('field-type.store')" type="button" class="m-0 c-btn--small">
         <NuxtLink to="/field/type/create">Create</NuxtLink>
       </VBtn>
     </template>
@@ -29,8 +29,8 @@ export default {
         items: [],
         map: {
           action(item) {
-            return `<NuxtLink to="/field/type/edit/${item.id}" class=" c-badge u-bg-info">Edit</NuxtLink>|
-            <span v-on:click="action(${item.id},'Delete')" class="c-badge--hover c-badge u-bg-danger">Delete</span>
+            return `<NuxtLink v-if="can('field-type.update')"  to="/field/type/edit/${item.id}" class=" c-badge u-bg-info">Edit</NuxtLink>|
+            <span  v-if="can('field-type.destroy')" v-on:click="action(${item.id},'Delete')" class="c-badge--hover c-badge u-bg-danger">Delete</span>
 <!--            <span v-on:click="action(${item.id},'Details')" class="c-badge&#45;&#45;hover c-badge c-badge&#45;&#45;primary">Details</span>-->
 `;
           },

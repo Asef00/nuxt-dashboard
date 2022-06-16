@@ -5,13 +5,13 @@
         <VBtn type="button" class="m-0 c-btn--small">
           <NuxtLink to="/person">List</NuxtLink>
         </VBtn>
-        <VBtn type="button" class="m-0 c-btn--small">
+        <VBtn v-if="can('person.update')" type="button" class="m-0 c-btn--small">
           <NuxtLink :to="`/person/edit/${id}`">Edit</NuxtLink>
         </VBtn>
-        <VBtn type="button" class="m-0 c-btn--small">
+        <VBtn v-if="can('person.product.store')" type="button" class="m-0 c-btn--small">
           <NuxtLink :to="`/person-product/create/${id}`">Add Product</NuxtLink>
         </VBtn>
-        <VBtn type="button" @action="showChangePasswordModal = true" class="m-0 c-btn--small">
+        <VBtn v-if="can('person.change-password')" type="button" @action="showChangePasswordModal = true" class="m-0 c-btn--small">
           Change password
         </VBtn>
       </template>
@@ -46,7 +46,7 @@
         <div class="row mt-3 mb-3">
           <div class=" col-md-6 c-form__control c-form__control--inline mb-0">
             <label class="c-form__label">Email Verified</label>
-            <VBtn :loader="loaderRequest" @action="toggleVerifyEmail" type="button" class="c-btn--small"
+            <VBtn v-if="can('person.toggle.verify-email')" :loader="loaderRequest" @action="toggleVerifyEmail" type="button" class="c-btn--small"
                   :btn="data.cognito.email_verified ? 'success' :'danger'">
               {{ data.cognito.email_verified ? 'Verified' : 'Not Verified' }}
             </VBtn>
@@ -54,7 +54,7 @@
           </div>
           <div class=" col-md-6 c-form__control c-form__control--inline mb-0">
             <label class="c-form__label">Enabled</label>
-            <VBtn :loader="loaderRequest" @action="toggleEnabled" type="button" class="c-btn--small"
+            <VBtn v-if="can('person.toggle.enable')" :loader="loaderRequest" @action="toggleEnabled" type="button" class="c-btn--small"
                   :btn="data.person.enabled ? 'success' :'danger'">
               {{ data.person.enabled ? 'Enabled' : 'Disabled' }}
             </VBtn>
@@ -79,7 +79,7 @@
     </VCard>
     <VCard :loader="loaderRequest" title="Product">
       <template #header>
-        <VBtn type="button" class="m-0 c-btn--small">
+        <VBtn v-if="can('person.product.store')" type="button" class="m-0 c-btn--small">
           <NuxtLink :to="`/person-product/create/${id}`">Create</NuxtLink>
         </VBtn>
       </template>
@@ -123,9 +123,9 @@ export default {
         items: [],
         map: {
           action(item) {
-            return `<NuxtLink to="/person-product/edit/${item.id}" class="c-badge u-bg-info">Edit</NuxtLink> |
-            <span v-on:click="action(${item.id},'Delete')" class="c-badge--hover c-badge u-bg-danger">Delete</span> |
-            <span v-on:click="action(${item.id},'Details')" class="c-badge--hover c-badge u-bg-primary">Details</span>`;
+            return `<NuxtLink v-if="can('person.product.update')" to="/person-product/edit/${item.id}" class="c-badge u-bg-info">Edit</NuxtLink> |
+            <span v-if="can('person.product.destroy')" v-on:click="action(${item.id},'Delete')" class="c-badge--hover c-badge u-bg-danger">Delete</span> |
+            <span v-if="can('person.product.show')" v-on:click="action(${item.id},'Details')" class="c-badge--hover c-badge u-bg-primary">Details</span>`;
           },
           created_at(item) {
             return _this.dateFormat(item.created_at);

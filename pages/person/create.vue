@@ -4,7 +4,7 @@
       <VBtn type="button" class="m-0 c-btn--small">
         <NuxtLink to="/person">List</NuxtLink>
       </VBtn>
-      <VBtn type="button" class="m-0 c-btn--small">
+      <VBtn v-if="can('person.cognito.store')" type="button" class="m-0 c-btn--small">
         <NuxtLink to="/person/create-cognito">Add form Cognito</NuxtLink>
       </VBtn>
     </template>
