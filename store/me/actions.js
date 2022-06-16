@@ -35,8 +35,8 @@ export default {
       commit('SET_ERROR', error)
     })
   },
-  async sendVerifyCodeEmail({commit, context}, payload) {
-    await this.$axios.post('auth/send-verify-code/email', payload).then((response) => {
+  async sendVerifyCodeEmail({commit}) {
+    await this.$axios.post('auth/send-verify-code/email').then((response) => {
       commit('SET_RESPONSE', response.data)
     }).catch((error) => {
       commit('SET_ERROR', error)
@@ -61,6 +61,16 @@ export default {
       commit('SET_RESPONSE', response.data)
     }).catch((error) => {
       commit('SET_ERROR', error)
+    })
+  },
+  revokeToken() {
+    this.$axios.post('/auth/token/revoke', {
+      refresh_token: this.$auth.strategy.refreshToken.get()
+    }).then((response) => {
+      this.$auth.setUser(false)
+      this.$auth.strategy.token.reset()
+      this.$auth.strategy.refreshToken.reset()
+      this.$router.push("/auth");
     })
   },
   setToken({}, data) {

@@ -72,7 +72,8 @@
                 </VInput>
               </div>
               <div class="col-md-6">
-                <VBtn btn="success">Verify Email</VBtn>
+                <VBtn type="button" @action="sendVerifyCode" v-if="!payload.is_verified" btn="success">Verify Email
+                </VBtn>
               </div>
             </div>
             <transition>
@@ -89,22 +90,26 @@
         </div>
       </div>
     </VCard>
-    <ChangePassword @show="changePasswordModal($event)" :show="showModalChangePassword" :id="id"/>
+    <ChangePassword @show="changePasswordModal($event)" :show="showModalChangePassword"/>
+    <VerifyEmail @show="verifyEmailModal($event)" :show="showModalVerifyEmail"/>
   </div>
 </template>
 
 <script>
 import * as Yup from "yup";
 import ChangePassword from "@/components/page/profile/ChangePassword";
+import VerifyEmail from "@/components/page/profile/VerifyEmail";
 
 export default {
   name: "Profile",
   components: {
-    ChangePassword
+    ChangePassword,
+    VerifyEmail
   },
   data() {
     return {
       showModalChangePassword: false,
+      showModalVerifyEmail: false,
       editMode: false,
       id: 0,
       payload: {
@@ -163,6 +168,23 @@ export default {
     changePasswordModal(show) {
       this.showModalChangePassword = show;
     },
+    verifyEmailModal(show) {
+      this.showModalVerifyEmail = show;
+      if (!show) {
+        this.me();
+      }
+    },
+    sendVerifyCode() {
+      this.showModalVerifyEmail = true;
+      this.startLoading();
+      this.$store.dispatch("me/sendVerifyCodeEmail").then(() => {
+        this.stopLoading();
+        const err = this.handleError(this.$store.state.me.error);
+        if (!err) {
+          this.$toast.success("Verification code sent.");
+        }
+      });
+    }
   }
   ,
   created() {
