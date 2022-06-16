@@ -44,10 +44,6 @@ import * as Yup from "yup";
 export default {
   name: "ChangePassword",
   props: {
-    id: {
-      type: [String, Number],
-      required: true
-    },
     show: {
       type: Boolean,
       required: false
@@ -75,11 +71,10 @@ export default {
             new_password_confirmation: this.payload.new_password_confirmation,
           });
           this.stopLoading();
-          const err = this.handleError(this.$store.state.me.error);
+          let error = this.$store.state.me.error
+          const err = this.handleError(error);
           if (err) {
-            console.log('inside err');
-            if (err.response.data.error === "NotAuthorizedException") {
-              console.log("Incorrect username or password.");
+            if (error.response.data.error === "NotAuthorizedException") {
               this.errors.current_password = 'The current password is incorrect.';
             }
           }

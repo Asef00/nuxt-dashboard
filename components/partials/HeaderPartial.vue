@@ -8,7 +8,7 @@
           height="14"
           viewBox="0 0 18 14"
         >
-          <path data-name="Rectangle 2" style="fill: #fff" d="M0 0h18v2H0z" />
+          <path data-name="Rectangle 2" style="fill: #fff" d="M0 0h18v2H0z"/>
           <path
             data-name="Rectangle 3"
             transform="translate(0 8)"
@@ -31,7 +31,7 @@
       </button>
 
       <div class="c-navbar">
-        <input type="text" class="c-navbar__search" placeholder="Search ..." />
+        <input type="text" class="c-navbar__search" placeholder="Search ..."/>
 
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +62,7 @@
         </svg>
 
         <div class="c-dropdown" data-dropdown="container">
-          <button class="c-navbar__avatar c-dropdown__btn"  data-dropdown="btn">
+          <button class="c-navbar__avatar c-dropdown__btn" data-dropdown="btn">
             <img
               src="~/assets/images/top.jpg"
               width="34"
@@ -73,12 +73,12 @@
           <div class="c-dropdown__menu c-dropdown__menu--bll u-bg-light" data-dropdown="menu">
             <header class="c-dropdown__header">Welcome!</header>
 
-            <a href="#" class="c-dropdown__item">My Profile</a>
-            <a href="#" class="c-dropdown__item">Settings</a>
-            <a href="#" class="c-dropdown__item">Activity</a>
-            <a href="#" class="c-dropdown__item">Support</a>
+            <NuxtLink to="/profile" class="c-dropdown__item">My Profile</NuxtLink>
+            <!--            <a href="#" class="c-dropdown__item">Settings</a>-->
+            <!--            <a href="#" class="c-dropdown__item">Activity</a>-->
+            <!--            <a href="#" class="c-dropdown__item">Support</a>-->
             <span class="c-dropdown__divider"></span>
-            <a href="#" class="c-dropdown__item">Logout</a>
+            <a @click="logout" class="c-dropdown__item">Logout</a>
           </div>
         </div>
       </div>
@@ -100,6 +100,25 @@
 <script>
 export default {
   name: "HeaderPartial",
+  methods: {
+     logout() {
+       this.$store.dispatch("me/revokeToken");
+    }
+  },
+  watch: {
+    $route: {
+      handler() {
+        // close dropdown when route changes
+        setTimeout(() => {
+          document
+            .querySelector("[data-dropdown='container']")
+            .classList.remove("is-active");
+        }, 300);
+      },
+      // immediate: true,
+      deep: true,
+    },
+  },
 };
 </script>
 
