@@ -82,8 +82,7 @@
                 <VBtn> Update Profile</VBtn>
                 <VBtn type="button" btn="simple" @action="editMode = !editMode"
                 >Cancel
-                </VBtn
-                >
+                </VBtn>
               </div>
             </transition>
           </form>
@@ -92,6 +91,17 @@
     </VCard>
     <ChangePassword @show="changePasswordModal($event)" :show="showModalChangePassword"/>
     <VerifyEmail @show="verifyEmailModal($event)" :show="showModalVerifyEmail"/>
+<!--    <VCard :loader="loaderRequest" title="Product">-->
+<!--      <template #header>-->
+<!--        <VBtn type="button" class="m-0 c-btn&#45;&#45;small">-->
+<!--          <NuxtLink :to="`/person-product/create/${id}`">Create</NuxtLink>-->
+<!--        </VBtn>-->
+<!--      </template>-->
+<!--      <VTable @actionDetails="detailsItem($event)" @actionDelete="deleteItem($event)" :table="table"/>-->
+<!--      <VModal :showModal="showDetails" @close="showDetails =false" title="Product details">-->
+<!--        <Detail :id="detailsItemId"/>-->
+<!--      </VModal>-->
+<!--    </VCard>-->
   </div>
 </template>
 
@@ -111,7 +121,40 @@ export default {
       showModalChangePassword: false,
       showModalVerifyEmail: false,
       editMode: false,
+      showDetails: false,
       id: 0,
+      table: {
+        columns: [
+          {key: "id", label: "#"},
+          {key: "product_title", label: "Product Title",},
+          {key: "status", label: "Status",},
+          {key: "site", label: "Site",},
+          {key: "version", label: "Version",},
+          {key: "created_at", label: "Created At", class: "u-text-center"},
+          {key: "updated_at", label: "Updated At", class: "u-text-center"},
+          {key: "action", label: '<img src="/img/gear.svg" alt="" />', class: "u-text-center",},
+        ],
+        items: [],
+        map: {
+          action(item) {
+            return `<NuxtLink to="/person-product/edit/${item.id}" class="c-badge u-bg-info">Edit</NuxtLink> |
+            <span v-on:click="action(${item.id},'Delete')" class="c-badge--hover c-badge u-bg-danger">Delete</span> |
+            <span v-on:click="action(${item.id},'Details')" class="c-badge--hover c-badge u-bg-primary">Details</span>`;
+          },
+          created_at(item) {
+            return _this.dateFormat(item.created_at);
+          },
+          updated_at(item) {
+            return _this.dateFormat(item.updated_at);
+          },
+          product_title(item) {
+            return item.product.title;
+          },
+          //REQUIRED
+          rowClass() {
+          },
+        },
+      },
       payload: {
         name: "",
         family_name: "",
@@ -128,6 +171,7 @@ export default {
       this.payload.family_name = this.$auth.user.family_name;
       this.payload.email = this.$auth.user.username;
       this.payload.is_verified = this.$auth.user.cognito.email_verified;
+      // this.table.items = this.$auth.user.products;
     },
     validation() {
       return Yup.object({
@@ -184,6 +228,10 @@ export default {
           this.$toast.success("Verification code sent.");
         }
       });
+    },
+    detailsItem(id) {
+      this.detailsItemId = id;
+      this.showDetails = true;
     }
   }
   ,

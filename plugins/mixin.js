@@ -140,7 +140,15 @@ const mixin = {
     can(name) {
       if (this.$auth.loggedIn) {
         let permissions = this.$auth.user.permission_names;
-        return permissions.includes(name)
+        if (typeof (name) === 'string') {
+          return permissions.includes(name)
+        } else {
+          for (let item of name) {
+            if (permissions.includes(item)) {
+              return true;
+            }
+          }
+        }
       }
       return false;
     },

@@ -1,7 +1,7 @@
 <template>
   <VCard :loader="loaderRequest" title="List Permissions">
     <template #header>
-      <VBtn type="button" class="m-0 c-btn--small">
+      <VBtn v-if="can('permission.store')" type="button" class="m-0 c-btn--small">
         <NuxtLink to="/acl/permission/create">Create</NuxtLink>
       </VBtn>
     </template>
@@ -41,9 +41,9 @@ export default {
         items: [],
         map: {
           action(item) {
-            return `<NuxtLink to="/acl/permission/edit/${item.id}" class="c-badge u-bg-info">Edit</NuxtLink> |
-            <span v-on:click="action(${item.id},'Delete')" class="c-badge--hover c-badge u-bg-danger">Delete</span> |
-            <span v-on:click="action(${item.id},'Details')" class="c-badge--hover c-badge u-bg-primary">Details</span>
+            return `<NuxtLink v-if="can('permission.update')" to="/acl/permission/edit/${item.id}" class="c-badge u-bg-info">Edit</NuxtLink> |
+            <span v-if="can('permission.destroy')" v-on:click="action(${item.id},'Delete')" class="c-badge--hover c-badge u-bg-danger">Delete</span> |
+            <span v-if="can('permission.show')" v-on:click="action(${item.id},'Details')" class="c-badge--hover c-badge u-bg-primary">Details</span>
 `;
           },
           created_at(item) {

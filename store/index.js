@@ -6,13 +6,13 @@ export const state = () => ({
 
 export const getters = {
   error(state) {
-    state.error
+    return state.error
   },
   pageHeaderTitle(state) {
-    state.pageHeaderTitle
+    return state.pageHeaderTitle
   },
   pageHeaderBreadcrumb(state) {
-    state.pageHeaderBreadcrumb
+    return state.pageHeaderBreadcrumb
   }
 }
 

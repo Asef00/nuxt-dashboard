@@ -1,10 +1,10 @@
 <template>
   <VCard :loader="loaderRequest" title="List Person">
     <template #header>
-      <VBtn type="button" class="m-0 c-btn--small">
+      <VBtn v-if="can('person.store')" type="button" class="m-0 c-btn--small">
         <NuxtLink to="/person/create">Create</NuxtLink>
       </VBtn>
-      <VBtn type="button" class="m-0 c-btn--small">
+      <VBtn v-if="can('person.cognito.store')" type="button" class="m-0 c-btn--small">
         <NuxtLink to="/person/create-cognito">Add form Cognito</NuxtLink>
       </VBtn>
     </template>
@@ -35,8 +35,8 @@ export default {
         items: [],
         map: {
           action(item) {
-            return `<NuxtLink to="/person/edit/${item.id}" class="c-badge u-bg-info">Edit</NuxtLink> |
-                <NuxtLink to="/person/${item.id}" class="c-badge u-bg-primary">Details</NuxtLink>`;
+            return `<NuxtLink v-if="can('person.update')" to="/person/edit/${item.id}" class="c-badge u-bg-info">Edit</NuxtLink> |
+                <NuxtLink v-if="can('person.show')" to="/person/${item.id}" class="c-badge u-bg-primary">Details</NuxtLink>`;
           },
           created_at(item) {
             return _this.dateFormat(item.created_at);
