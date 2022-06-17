@@ -1,0 +1,20 @@
+.c-report {
+  font-weight: 600;
+}
+
+.c-report__icon {
+  color: #e2e1ea;
+}
+
+.c-report__title {
+  @include flex-between;
+}
+
+.c-report__big {
+  @include font-size(32px);
+  color: #182d49;
+}
+
+.c-report__change {
+  @include font-size(14px);
+}
