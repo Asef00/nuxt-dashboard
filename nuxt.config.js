@@ -69,8 +69,8 @@ export default {
       theme_color: '#564ec1',
     },
     icon: {
-      source: '`/static/pwa-icon.jpg',
-      fileName: 'pwa-icon.jpg',
+      source: '`/static/pwa-icon.png',
+      fileName: 'pwa-icon.png',
     },
     meta: {
       mobileAppIOS: true,
