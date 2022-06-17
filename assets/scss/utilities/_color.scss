@@ -13,7 +13,7 @@
 }
 .u-bg-info {
   background-color: $info-color !important;
-  color: #fff;
+  color: #fff !important;
 }
 .u-bg-primary {
   background-color: $primary-color !important;
@@ -21,11 +21,19 @@
 }
 .u-bg-warn {
   background-color: $warn-color !important;
-  color: $text-color;
+  color: $text-color !important;
 }
 .u-bg-light {
   background-color: $light-color !important;
-  color: $text-color;
+  color: $text-color !important;
+}
+.u-bg-active {
+  background-color: $active-color !important;
+  color: #fff !important;
+}
+.u-bg-inactive {
+  background-color: $inactive-color !important;
+  color: #fff !important;
 }
 
 // Text Color
@@ -37,4 +45,10 @@
 }
 .u-text-info {
   color: $info-color;
+}
+.u-text-active {
+  color: $active-color;
+}
+.u-text-inactive {
+  color: $inactive-color;
 }
