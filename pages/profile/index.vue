@@ -11,7 +11,7 @@
             class="m-0 c-btn--small"
           >
             Edit Profile
-            <fa icon="pen-to-square" />
+            <fa icon="pen-to-square"/>
           </VBtn>
         </transition>
         <VBtn
@@ -26,7 +26,7 @@
       <div class="row">
         <div class="col-md-3 col-12">
           <div class="c-avatar">
-            <img src="/img/avatar.svg" width="300" height="300" alt="avatar" />
+            <img src="/img/avatar.svg" width="300" height="300" alt="avatar"/>
           </div>
         </div>
         <div class="col-md-9 col-12">
@@ -77,16 +77,16 @@
                   @action="sendVerifyCode"
                   v-if="!payload.is_verified"
                   btn="success"
-                  >Verify Email
+                >Verify Email
                 </VBtn>
               </div>
             </div>
             <transition>
               <!-- Shouldn't use template with transition -->
               <div v-if="editMode">
-                <VBtn> Update Profile</VBtn>
+                <VBtn :loader="loaderRequest"> Update Profile</VBtn>
                 <VBtn type="button" btn="simple" @action="editMode = !editMode"
-                  >Cancel
+                >Cancel
                 </VBtn>
               </div>
             </transition>
@@ -136,13 +136,13 @@ export default {
       id: 0,
       table: {
         columns: [
-          { key: "id", label: "#" },
-          { key: "product_title", label: "Product Title" },
-          { key: "status", label: "Status" },
-          { key: "site", label: "Site" },
-          { key: "version", label: "Version" },
-          { key: "created_at", label: "Created At", class: "u-text-center" },
-          { key: "updated_at", label: "Updated At", class: "u-text-center" },
+          {key: "id", label: "#"},
+          {key: "product_title", label: "Product Title"},
+          {key: "status", label: "Status"},
+          {key: "site", label: "Site"},
+          {key: "version", label: "Version"},
+          {key: "created_at", label: "Created At", class: "u-text-center"},
+          {key: "updated_at", label: "Updated At", class: "u-text-center"},
           {
             key: "action",
             label: '<img src="/img/gear.svg" alt="" />',
@@ -166,7 +166,8 @@ export default {
             return item.product.title;
           },
           //REQUIRED
-          rowClass() {},
+          rowClass() {
+          },
         },
       },
       payload: {
@@ -196,7 +197,7 @@ export default {
     update() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, { abortEarly: false })
+        .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("me/update", {

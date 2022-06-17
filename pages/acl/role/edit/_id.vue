@@ -127,7 +127,7 @@ export default {
       }
     },
     async getPermission() {
-      await this.$store.dispatch('permission/list',{})
+      await this.$store.dispatch('permission/list', {})
       let err = this.handleError(this.$store.state.permission.error)
       if (!err) {
         this.list.permission = this.$store.state.permission.list
@@ -154,7 +154,7 @@ export default {
       };
     },
   },
-  created() {
+  async created() {
     this.resetError()
     this.setTitle('Role')
     this.setBreadcrumb([
@@ -167,7 +167,7 @@ export default {
         name: 'Edit'
       }
     ])
-    this.show()
+    await this.show()
     this.getFieldName()
     this.getPermission()
   },

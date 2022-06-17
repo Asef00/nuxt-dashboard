@@ -143,7 +143,7 @@ export default {
         .replace(/[^\w-]+/g, '');
     }
   },
-  created() {
+  async created() {
     this.resetError()
     this.setTitle('Product')
     this.setBreadcrumb([
@@ -156,7 +156,7 @@ export default {
         name: 'Edit'
       }
     ])
-    this.show()
+    await this.show()
     this.getLicenseMode()
   },
   watch: {
