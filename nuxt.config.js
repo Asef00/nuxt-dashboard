@@ -63,14 +63,14 @@ export default {
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
-      name: 'Realtyna Dashboard',
+      name: 'Realtyna',
       lang: "en",
-      short_name: 'Realtyna Dashboard',
+      short_name: 'Realtyna',
       theme_color: '#564ec1',
     },
     icon: {
       source: '`/static/pwa-icon.jpg',
-      fileName: 'pwa-icon.png',
+      fileName: 'pwa-icon.jpg',
     },
     meta: {
       mobileAppIOS: true,
