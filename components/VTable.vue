@@ -1,7 +1,7 @@
 <template>
   <div class="c-datatable">
     <div class="c-datatable__header">
-      <div class="datatable__title" v-if="title">{{ title }}</div>
+      <div class="c-datatable__title" v-if="title">{{ title }}</div>
       <div class="c-perpage" v-else-if="per_page">
         Show
         <select
