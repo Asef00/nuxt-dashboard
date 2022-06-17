@@ -33,6 +33,7 @@ export default {
     "@nuxtjs/fontawesome",
     "@nuxtjs/google-fonts",
     "@nuxtjs/style-resources",
+    "@nuxtjs/pwa",
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
