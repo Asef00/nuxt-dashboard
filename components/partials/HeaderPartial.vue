@@ -31,7 +31,7 @@
         </div>
       </div>
     </div>
-    <div class="c-header__lower">
+    <div class="c-header__lower js-header-lower">
       <h1 class="c-header__title">{{ $store.state.pageHeaderTitle }}</h1>
       <ul class="c-breadcrumb">
         <li class="c-breadcrumb__item">
