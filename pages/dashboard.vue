@@ -52,26 +52,18 @@
     </VCard>
 
     <VCard :loader="loaderRequest">
-      <VTable
-        @changePage="changePage($event)"
-        @changePerPage="changePerPage($event)"
-        :table="table"
-        title="Overdue Payments"
-      />
+      <VTable :table="table" title="Overdue Payments" />
     </VCard>
 
     <VCard :loader="loaderRequest">
-      <VTable
-        @changePage="changePage($event)"
-        @changePerPage="changePerPage($event)"
-        :table="table"
-        title="Multiple Missed Payments"
-      />
+      <VTable :table="table" title="Multiple Missed Payments" />
     </VCard>
   </div>
 </template>
 
 <script>
+import json from "~/static/json/dashboard.json";
+
 export default {
   name: "dashboard",
 
@@ -81,34 +73,24 @@ export default {
       alertValue: 40,
       activeRequests0Value: 60,
       clientsValue: 30,
+
       table: {
         columns: [
-          { key: "id", label: "#" },
-          { key: "full_name", label: "Full Name" },
-          { key: "username", label: "Username" },
+          { key: "client", label: "Client" },
+          { key: "last_update", label: "Last Update", class: "u-text-center" },
           { key: "status", label: "Status" },
-          { key: "created_at", label: "Created At", class: "u-text-center" },
-          { key: "updated_at", label: "Updated At", class: "u-text-center" },
           {
             key: "action",
             label: '<img src="/img/gear.svg" alt="" />',
             class: "u-text-center",
           },
         ],
-        items: [],
+        items: json,
         map: {
           action(item) {
-            return `<NuxtLink v-if="can('person.update')" to="/person/edit/${item.id}" class="c-badge u-bg-info">Edit</NuxtLink> |
-                <NuxtLink v-if="can('person.show')" to="/person/${item.id}" class="c-badge u-bg-primary">Details</NuxtLink>`;
-          },
-          created_at(item) {
-            return _this.dateFormat(item.created_at);
-          },
-          updated_at(item) {
-            return _this.dateFormat(item.updated_at);
-          },
-          full_name(item) {
-            return `${item.name} ${item.family_name}`;
+            return `<NuxtLink v-if="can('person.update')" to="/person/edit/${item.id}">
+              <fa icon="ellipsis-vertical" size="lg" />
+            </NuxtLink>`;
           },
           status(item) {
             return item.enabled
@@ -120,27 +102,6 @@ export default {
         },
       },
     };
-  },
-
-  methods: {
-    async list(page = null, limit = null) {
-      this.startLoading();
-      this.$store.commit("person/RESET_ERROR");
-      await this.$store.dispatch("person/list", {
-        page: page ?? this.getPaginate(),
-        limit: limit ?? this.getLimit(),
-        paginate: 1,
-      });
-      let err = this.handleError(this.$store.state.person.error);
-      if (!err) {
-        this.table.items = this.$store.state.person.list;
-      }
-      this.stopLoading();
-    },
-  },
-
-  created() {
-    this.list();
   },
 };
 </script>

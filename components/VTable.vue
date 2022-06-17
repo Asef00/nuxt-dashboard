@@ -15,6 +15,7 @@
         </select>
         entries
       </div>
+
       <div class="c-search">
         <input class="c-search__input" type="text" placeholder="Search..." />
       </div>
@@ -117,6 +118,7 @@
         </tbody>
       </table>
     </div>
+
     <div class="c-datatable__footer">
       <div class="c-pagination" v-if="hasPaginate">
         <!-- prev btn -->
@@ -125,11 +127,13 @@
           class="c-pagination__arrow c-chevron c-chevron--left"
           @click="changePage(current_page - 1)"
         ></span>
+
         <!-- prev page dots -->
         <template v-if="hasPreDots">
           <button class="c-pagination__item" @click="changePage(1)">1</button>
           <span>...</span>
         </template>
+
         <!-- page numbers -->
         <template v-for="page in totalPaginate">
           <button
@@ -142,6 +146,7 @@
             {{ page }}
           </button>
         </template>
+
         <!-- next page dots -->
         <template v-if="hasNextDots">
           <span>...</span>
@@ -149,6 +154,7 @@
             {{ totalPaginate }}
           </button>
         </template>
+
         <!-- next btn -->
         <span
           :class="current_page === totalPaginate ? 'is-disabled' : ''"
