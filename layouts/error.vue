@@ -1,10 +1,13 @@
 <template>
   <VCard>
-    <h1 v-if="error.statusCode === 404" class="u-text-secondary u-text-center">404</h1>
-    <p v-if="error.statusCode === 404" class="u-text-center">
-      Page not found
-    </p>
-    <h3 v-else class="u-text-center">An error occurred</h3>
+    <div class="d-flex flex-column u-text-center">
+      <img class="m-auto" src="/img/errorPage.png" width="500" alt="error" />
+      <h2>Oops. The page you were looking for doesn’t exist.</h2>
+      <p>You may have mistyped the address or the page may have been moved.</p>
+      <NuxtLink to="/" class="u-text-link">
+        TAKE ME BACK TO THE HOME PAGE
+      </NuxtLink>
+    </div>
   </VCard>
 </template>
 <script>
