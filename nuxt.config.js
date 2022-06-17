@@ -4,12 +4,12 @@ export default {
   head: {
     title: "Dashboard",
     meta: [
-      { charset: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { hid: "description", name: "description", content: "" },
-      { name: "format-detection", content: "telephone=no" },
+      {charset: "utf-8"},
+      {name: "viewport", content: "width=device-width, initial-scale=1"},
+      {hid: "description", name: "description", content: ""},
+      {name: "format-detection", content: "telephone=no"},
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    link: [{rel: "icon", type: "image/x-icon", href: "/favicon.ico"}],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -22,7 +22,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     "~/plugins/mixin",
-    { src: '~/plugins/jsonEditor', mode: 'client' }
+    {src: '~/plugins/jsonEditor', mode: 'client'}
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -68,18 +68,18 @@ export default {
       short_name: 'Realtyna Dashboard',
       theme_color: '#564ec1',
     },
-    icon:{
-      source:'`/static/pwa-icon.png',
-      fileName:'pwa-icon.png',
+    icon: {
+      source: '`/static/pwa-icon.jpg',
+      fileName: 'pwa-icon.png',
     },
-    meta:{
-      mobileAppIOS:true,
+    meta: {
+      mobileAppIOS: true,
     }
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    extend(config, { isDev, isClient }) {
+    extend(config, {isDev, isClient}) {
       config.resolve.alias["vue"] = "vue/dist/vue.common";
     },
   },
@@ -104,10 +104,10 @@ export default {
           maxAge: 60 * 60 * 24 * 30,
         },
         endpoints: {
-          login: { url: "/auth/token", method: "post" },
-          refresh: { url: "/auth/token", method: "post" },
-          user: { url: "/auth/person", method: "get" },
-          logout: { url: "/auth/token/revoke", method: "post" },
+          login: {url: "/auth/token", method: "post"},
+          refresh: {url: "/auth/token", method: "post"},
+          user: {url: "/auth/person", method: "get"},
+          logout: {url: "/auth/token/revoke", method: "post"},
         },
       },
     },
@@ -135,7 +135,7 @@ export default {
   },
 
   router: {
-    middleware: ['auth','authenticated']
+    middleware: ['auth', 'authenticated']
   },
 
   toast: {
