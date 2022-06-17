@@ -1,4 +1,5 @@
 export const state = () => ({
+  version: '1.0.0',
   error: null,
   pageHeaderTitle: '',
   pageHeaderBreadcrumb: [],

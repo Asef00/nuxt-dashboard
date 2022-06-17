@@ -202,7 +202,7 @@ export default {
       };
     },
   },
-  created() {
+  async created() {
     this.resetError()
     this.setTitle('Field Name')
     this.setBreadcrumb([
@@ -214,8 +214,8 @@ export default {
         name: 'Edit'
       }
     ])
+    await this.show()
     this.getFieldType()
-    this.show()
   },
   computed: {
     checkFieldTypeHasSelect() {

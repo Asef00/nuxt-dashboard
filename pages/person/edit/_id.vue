@@ -144,10 +144,8 @@ export default {
     },
 
   },
-  created() {
+  async created() {
     this.resetError()
-    this.getRole()
-    this.show()
     this.setTitle('Person')
     this.setBreadcrumb([
       {
@@ -159,6 +157,8 @@ export default {
         name: 'Edit'
       }
     ])
+    await this.show()
+    this.getRole()
   }
 }
 </script>

@@ -1,4 +1,5 @@
 export default {
+  ssr: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: "Dashboard",
@@ -63,6 +64,13 @@ export default {
     manifest: {
       lang: "en",
     },
+    icon:{
+      source:'`/static/icon.png',
+    },
+    meta:{
+      mobileAppIOS:true,
+      appleStatusBarStyle:'black-translucent',
+    }
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
