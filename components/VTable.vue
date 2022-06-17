@@ -22,7 +22,7 @@
     </div>
 
     <div class="c-datatable__body">
-      <table class="c-table">
+      <table class="c-table" ref="table">
         <thead class="c-table__header">
           <tr class="c-table__row">
             <template v-for="col in table.columns">
@@ -246,6 +246,7 @@ export default {
       }
     },
   },
+
   watch: {
     "table.items": {
       handler(val) {
@@ -253,8 +254,9 @@ export default {
       },
       immediate: true,
     },
-    current_page(val) {
+    current_page() {
       this.applyPaginate();
+      window.scrollTo({ top: this.$refs.table.offsetTop, behavior: 'smooth' })
     },
     preferredPerPage(val) {
       this.$emit("changePerPage", val);
