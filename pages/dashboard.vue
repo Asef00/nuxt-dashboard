@@ -56,6 +56,16 @@
         @changePage="changePage($event)"
         @changePerPage="changePerPage($event)"
         :table="table"
+        title="Overdue Payments"
+      />
+    </VCard>
+
+    <VCard :loader="loaderRequest">
+      <VTable
+        @changePage="changePage($event)"
+        @changePerPage="changePerPage($event)"
+        :table="table"
+        title="Multiple Missed Payments"
       />
     </VCard>
   </div>
@@ -63,6 +73,8 @@
 
 <script>
 export default {
+  name: "dashboard",
+
   data() {
     let _this = this;
     return {
@@ -126,7 +138,7 @@ export default {
       this.stopLoading();
     },
   },
-  
+
   created() {
     this.list();
   },
