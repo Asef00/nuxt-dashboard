@@ -33,7 +33,6 @@ export default {
     "@nuxtjs/fontawesome",
     "@nuxtjs/google-fonts",
     "@nuxtjs/style-resources",
-    "@nuxtjs/pwa",
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -44,6 +43,7 @@ export default {
     "@nuxtjs/axios",
     // https://go.nuxtjs.dev/pwa
     "@nuxtjs/pwa",
+
     "@nuxtjs/auth-next",
     "vue-toastification/nuxt",
   ],
