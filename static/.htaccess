@@ -1,9 +1,12 @@
-# Allow mod_dir to serve index.html when requesting the directory
-DirectoryIndex index.html
+<IfModule mod_negotiation.c>
+  Options -MultiViews
+</IfModule>
 
-RewriteEngine On
-
-# Front-controller (exclude static resources)
-RewriteRule ^index\.html$ - [L]
-RewriteCond %{REQUEST_URI} !^/(assets|css|img|js|modules)/
-RewriteRule . index.html [L]
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>

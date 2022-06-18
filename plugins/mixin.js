@@ -53,7 +53,7 @@ const mixin = {
         return true;
       }
       if (error.response.status === 404) {
-        // this.$router.push('404')
+        this.$router.push('/404')
         this.$toast.error('Not found!')
         return true;
       }
@@ -154,7 +154,6 @@ const mixin = {
     },
     setPaginate(page) {
       this.$router.push({query: {...this.$route.query, page: page}})
-      console.log('set paginate')
       return this.getPaginate();
     },
     setLimit(limit) {
