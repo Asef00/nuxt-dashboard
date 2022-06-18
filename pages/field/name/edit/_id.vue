@@ -214,8 +214,8 @@ export default {
         name: 'Edit'
       }
     ])
-    await this.show()
-    this.getFieldType()
+    await this.getFieldType()
+    this.show()
   },
   computed: {
     checkFieldTypeHasSelect() {
