@@ -1,7 +1,7 @@
 <template>
   <VCard>
     <div class="d-flex flex-column u-text-center">
-      <img class="m-auto" src="/img/errorPage.png" width="500" alt="error" />
+      <img class="m-auto" src="/img/errorPage.png" width="500" height="243" alt="error" />
       <h2>Oops. The page you were looking for doesn’t exist.</h2>
       <p>You may have mistyped the address or the page may have been moved.</p>
       <NuxtLink to="/" class="u-text-link">
