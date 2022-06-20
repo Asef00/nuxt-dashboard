@@ -17,6 +17,8 @@ $btn-bg: #f4f4f5;
   @include font-size(14px);
   margin-right: 1em;
   margin-bottom: 1em;
+  
+  color: $text-color;
   background-color: $btn-bg;
   border: 1px solid $btn-bg;
   transition: 0.2s;
