@@ -17,7 +17,7 @@ $btn-bg: #f4f4f5;
   @include font-size(14px);
   margin-right: 1em;
   margin-bottom: 1em;
-  
+
   color: $text-color;
   background-color: $btn-bg;
   border: 1px solid $btn-bg;
@@ -59,7 +59,6 @@ $btn-bg: #f4f4f5;
 
   &--warn {
     background-color: $warn-color;
-    color: $text-color;
     border-color: $warn-color;
     @include hover-color($warn-color);
   }
