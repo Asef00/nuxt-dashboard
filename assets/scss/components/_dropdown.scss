@@ -1,3 +1,5 @@
+$dropdow-radius: 5px;
+
 .c-dropdown {
   position: relative;
 
@@ -24,9 +26,8 @@
   top: calc(100% + 0.25rem);
   opacity: 0;
   pointer-events: none;
-  overflow: hidden;
 
-  border-radius: 5px;
+  border-radius: $dropdow-radius;
   @include box-shadow;
 
   @include font-size(14px);
@@ -100,6 +101,15 @@
   &.nuxt-link-exact-active,
   &:hover {
     background-color: #eee;
+  }
+
+  &:first-child {
+    border-top-left-radius: $dropdow-radius;
+    border-top-right-radius: $dropdow-radius;
+  }
+  &:last-child {
+    border-bottom-left-radius: $dropdow-radius;
+    border-bottom-right-radius: $dropdow-radius;
   }
 }
 
