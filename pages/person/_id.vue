@@ -97,6 +97,7 @@ import Detail from "@/components/page/person-product/Details";
 
 export default {
   name: "Details",
+  permission: "person.show",
   components: {ChangePassword, Detail},
   data() {
     let _this = this;

@@ -60,6 +60,7 @@ import ChangePassword from "@/components/page/person/ChangePassword";
 
 export default {
   name: "edit",
+  permission: "person.update",
   components: {
     ChangePassword
   },

@@ -99,6 +99,7 @@ import * as Yup from "yup";
 
 export default {
   name: "create",
+  permission: "field-name.store",
   data() {
     return {
       list: {

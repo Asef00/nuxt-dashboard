@@ -59,6 +59,7 @@ import * as Yup from "yup";
 
 export default {
   name: "create",
+  permission: "person.cognito.store",
   data() {
     return {
       data: {

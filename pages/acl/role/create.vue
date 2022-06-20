@@ -62,6 +62,7 @@ import * as Yup from "yup";
 
 export default {
   name: "create",
+  permission: "role.store",
   data() {
     return {
       list: {

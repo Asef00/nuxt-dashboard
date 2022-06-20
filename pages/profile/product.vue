@@ -12,6 +12,7 @@ import Detail from "@/components/page/person-product/Details";
 
 export default {
   name: "product",
+  permission: "person.product.index",
   components: {Detail},
   data() {
     let _this = this;
@@ -63,6 +64,11 @@ export default {
   },
   created() {
     this.list()
+  },
+  mounted() {
+    console.log(this.$route.meta);
+    console.log(this.$route.meta.permission);
+    console.log(this.$auth.user.permission_names);
   }
 }
 </script>

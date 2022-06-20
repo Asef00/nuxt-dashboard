@@ -36,6 +36,7 @@ import * as Yup from "yup";
 
 export default {
   name: "edit",
+  permission: "license-mode.update",
   data() {
     return {
       id: this.$route.params.id,

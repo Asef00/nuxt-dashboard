@@ -62,6 +62,7 @@ import * as Yup from "yup";
 
 export default {
   name: "edit",
+  permission: "role.update",
   data() {
     return {
       id: this.$route.params.id,

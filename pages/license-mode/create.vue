@@ -36,6 +36,7 @@ import * as Yup from "yup";
 
 export default {
   name: "create",
+  permission: "license-mode.store",
   data() {
     return {
       payload: {

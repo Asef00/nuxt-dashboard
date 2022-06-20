@@ -12,6 +12,7 @@
 <script>
 export default {
   name: "index",
+  permission: "license-mode.index",
   data() {
     let _this = this;
     return {

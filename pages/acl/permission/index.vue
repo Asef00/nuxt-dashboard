@@ -21,6 +21,7 @@ import Details from "@/components/page/acl/permission/Details";
 
 export default {
   name: "index",
+  permission: "permission.index",
   components: {
     Details,
   },
