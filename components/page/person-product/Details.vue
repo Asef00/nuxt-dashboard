@@ -1,5 +1,5 @@
 <template>
-  <form action="" class="c-form">
+  <form action="" class="c-form" :class="{'is-loading':loaderRequest}">
     <h4 class="c-form__title mb-2">Details</h4>
     <div class="c-form__control c-form__control--inline mb-0">
       <label class="c-form__label">Id</label>
@@ -7,7 +7,7 @@
     </div>
     <div class="c-form__control c-form__control--inline mb-0">
       <label class="c-form__label">Product Title</label>
-      <span class="u-text-secondary">{{ data.product.title }}</span>
+      <span class="u-text-secondary">{{ data.product ? data.product.title : '' }}</span>
     </div>
     <div class="c-form__control c-form__control--inline mb-0">
       <label class="c-form__label">Status</label>
@@ -56,7 +56,10 @@ export default {
       this.$store.commit("person/RESET_ERROR");
       this.$store.commit("person/product/RESET_ERROR");
       let list = this.$store.state.person.item;
-      let item = list.products.find((item) => item.id === this.id);
+      let item = undefined;
+      if (list != null) {
+        item = list.products.find((item) => item.id === this.id);
+      }
       if (item !== undefined) {
         this.data = item;
       } else {

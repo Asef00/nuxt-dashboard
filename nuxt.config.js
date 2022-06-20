@@ -7,16 +7,16 @@ export default {
       {charset: "utf-8"},
       {name: "viewport", content: "width=device-width, initial-scale=1"},
       {hid: "description", name: "description", content: ""},
-      {name: "format-detection", content: "telephone=no"},
+      {name: "format-detection", content: "telephone=no"}
     ],
-    link: [{rel: "icon", type: "image/x-icon", href: "/favicon.ico"}],
+    link: [{rel: "icon", type: "image/x-icon", href: "/favicon.ico"}]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   // css: ["~assets/scss/main.scss"],
   css: [
     "bootstrap/scss/bootstrap-grid.scss",
-    "vue-multiselect/dist/vue-multiselect.min.css",
+    "vue-multiselect/dist/vue-multiselect.min.css"
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -32,7 +32,7 @@ export default {
   buildModules: [
     "@nuxtjs/fontawesome",
     "@nuxtjs/google-fonts",
-    "@nuxtjs/style-resources",
+    "@nuxtjs/style-resources"
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -45,19 +45,19 @@ export default {
     "@nuxtjs/pwa",
 
     "@nuxtjs/auth-next",
-    "vue-toastification/nuxt",
+    "vue-toastification/nuxt"
   ],
 
   styleResources: {
     scss: ["./assets/scss/app.scss"],
-    hoistUseStatements: true,
+    hoistUseStatements: true
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: 'https://api.dashboard.alanb.realtyna.info'
-    // baseURL: "http://127.0.0.1:8000",
+    // baseURL: "http://127.0.0.1:8000"
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
@@ -66,14 +66,14 @@ export default {
       name: 'Realtyna',
       lang: "en",
       short_name: 'Realtyna',
-      theme_color: '#564ec1',
+      theme_color: '#564ec1'
     },
     icon: {
       source: '`/static/pwa-icon.png',
-      fileName: 'pwa-icon.png',
+      fileName: 'pwa-icon.png'
     },
     meta: {
-      mobileAppIOS: true,
+      mobileAppIOS: true
     }
   },
 
@@ -81,7 +81,7 @@ export default {
   build: {
     extend(config, {isDev, isClient}) {
       config.resolve.alias["vue"] = "vue/dist/vue.common";
-    },
+    }
   },
 
   auth: {
@@ -92,31 +92,31 @@ export default {
           property: "access_token",
           maxAge: 1800,
           global: true,
-          type: "Bearer",
+          type: "Bearer"
         },
         user: {
           property: "",
-          autoFetch: true,
+          autoFetch: true
         },
         refreshToken: {
           property: "refresh_token",
           data: "refresh_token",
-          maxAge: 60 * 60 * 24 * 30,
+          maxAge: 60 * 60 * 24 * 30
         },
         endpoints: {
           login: {url: "/auth/token", method: "post"},
           refresh: {url: "/auth/token", method: "post"},
-          user: {url: "/auth/person", method: "get"},
-          logout: {url: "/auth/token/revoke", method: "post"},
-        },
-      },
+          user: {url: "/auth/person?with=products", method: "get"},
+          logout: {url: "/auth/token/revoke", method: "post"}
+        }
+      }
     },
     redirect: {
       login: "/auth",
       logout: "/",
       callback: "/auth",
-      home: "/",
-    },
+      home: "/"
+    }
   },
 
   fontawesome: {
@@ -124,14 +124,14 @@ export default {
     icons: {
       solid: true,
       regular: true,
-      brands: true,
-    },
+      brands: true
+    }
   },
 
   googleFonts: {
     families: {
-      Montserrat: true,
-    },
+      Montserrat: true
+    }
   },
 
   router: {
@@ -151,6 +151,6 @@ export default {
     closeButton: "button",
     icon: true,
     rtl: false,
-    transition: "Vue-Toastification__fade",
-  },
+    transition: "Vue-Toastification__fade"
+  }
 };
