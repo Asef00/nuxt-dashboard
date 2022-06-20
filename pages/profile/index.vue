@@ -5,13 +5,13 @@
         <transition>
           <VBtn
             v-if="!editMode"
-            @action="editMode = !editMode"
+            @action="editModeToggle"
             btn="info"
             type="button"
             class="m-0 c-btn--small"
           >
             Edit Profile
-            <fa icon="pen-to-square"/>
+            <fa icon="pen-to-square" />
           </VBtn>
         </transition>
         <VBtn
@@ -26,11 +26,11 @@
       <div class="row">
         <div class="col-md-3 col-12">
           <div class="c-avatar">
-            <img src="/img/avatar.svg" width="300" height="300" alt="avatar"/>
+            <img src="/img/avatar.svg" width="300" height="300" alt="avatar" />
           </div>
         </div>
         <div class="col-md-9 col-12">
-          <form @submit.prevent="update" class="c-form">
+          <form ref="form" @submit.prevent="update" class="c-form">
             <h4 class="c-form__title">Profile Info</h4>
             <div class="row">
               <div class="col-md-6">
@@ -77,7 +77,7 @@
                   @action="sendVerifyCode"
                   v-if="!payload.is_verified"
                   btn="success"
-                >Verify Email
+                  >Verify Email
                 </VBtn>
               </div>
             </div>
@@ -85,8 +85,8 @@
               <!-- Shouldn't use template with transition -->
               <div v-if="editMode">
                 <VBtn :loader="loaderRequest"> Update Profile</VBtn>
-                <VBtn type="button" btn="simple" @action="editMode = !editMode"
-                >Cancel
+                <VBtn type="button" btn="simple" @action="editModeToggle">
+                  Cancel
                 </VBtn>
               </div>
             </transition>
@@ -94,10 +94,12 @@
         </div>
       </div>
     </VCard>
+
     <ChangePassword
       @show="changePasswordModal($event)"
       :show="showModalChangePassword"
     />
+
     <VerifyEmail
       @show="verifyEmailModal($event)"
       :show="showModalVerifyEmail"
@@ -123,26 +125,29 @@ import VerifyEmail from "@/components/page/profile/VerifyEmail";
 
 export default {
   name: "Profile",
+
   components: {
     ChangePassword,
     VerifyEmail,
   },
+
   data() {
     return {
       showModalChangePassword: false,
       showModalVerifyEmail: false,
+      // if true, the form will be editable
       editMode: false,
       showDetails: false,
       id: 0,
       table: {
         columns: [
-          {key: "id", label: "#"},
-          {key: "product_title", label: "Product Title"},
-          {key: "status", label: "Status"},
-          {key: "site", label: "Site"},
-          {key: "version", label: "Version"},
-          {key: "created_at", label: "Created At", class: "u-text-center"},
-          {key: "updated_at", label: "Updated At", class: "u-text-center"},
+          { key: "id", label: "#" },
+          { key: "product_title", label: "Product Title" },
+          { key: "status", label: "Status" },
+          { key: "site", label: "Site" },
+          { key: "version", label: "Version" },
+          { key: "created_at", label: "Created At", class: "u-text-center" },
+          { key: "updated_at", label: "Updated At", class: "u-text-center" },
           {
             key: "action",
             label: '<img src="/img/gear.svg" alt="" />',
@@ -166,8 +171,7 @@ export default {
             return item.product.title;
           },
           //REQUIRED
-          rowClass() {
-          },
+          rowClass() {},
         },
       },
       payload: {
@@ -180,6 +184,14 @@ export default {
   },
 
   methods: {
+    editModeToggle() {
+      this.editMode = !this.editMode;
+
+      if (this.editMode) {
+        this.scrollToElement(this.$refs.form);
+      }
+    },
+    //current user
     me() {
       this.id = this.$auth.user.id;
       this.payload.name = this.$auth.user.name;
@@ -197,7 +209,7 @@ export default {
     update() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("me/update", {
@@ -249,6 +261,7 @@ export default {
       this.showDetails = true;
     },
   },
+
   created() {
     this.setTitle("Profile");
     this.setBreadcrumb([
