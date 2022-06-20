@@ -25,13 +25,20 @@
 export default {
   props: {
     btnClass: String,
+    menuStyle: {
+      type: String,
+      default: "light",
+    },
     position: String,
-    wrapper: String,
+    wrapper: {
+      type: String,
+      default: "div",
+    },
   },
 
   computed: {
     menuClass() {
-      return `c-dropdown__menu--${this.position}`;
+      return `c-dropdown__menu--${this.position} u-bg-${this.menuStyle}`;
     },
   },
 };
