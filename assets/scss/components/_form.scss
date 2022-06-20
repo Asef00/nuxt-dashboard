@@ -41,6 +41,7 @@
 
   &:disabled {
     background-color: $input-disable;
+    opacity: 1; // for safari
   }
 
   &::placeholder {
