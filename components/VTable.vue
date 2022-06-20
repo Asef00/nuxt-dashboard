@@ -256,7 +256,8 @@ export default {
     },
     current_page() {
       this.applyPaginate();
-      window.scrollTo({ top: this.$refs.table.offsetTop, behavior: 'smooth' })
+      // window.scrollTo({ top: this.$refs.table.offsetTop, behavior: 'smooth' })
+      this.scrollToElement(this.$refs.table);
     },
     preferredPerPage(val) {
       this.$emit("changePerPage", val);
