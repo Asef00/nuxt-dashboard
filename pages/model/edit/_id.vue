@@ -38,6 +38,7 @@ import * as Yup from "yup";
 
 export default {
   name: "ModelEdit",
+  permission: "model.update",
   data() {
     return {
       id: this.$route.params.id,

@@ -37,6 +37,7 @@ import * as Yup from "yup";
 
 export default {
   name: "ModelCreate",
+  permission: "model.store",
   data() {
     return {
       payload: {

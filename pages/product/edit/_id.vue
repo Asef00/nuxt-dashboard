@@ -57,6 +57,7 @@ import * as Yup from "yup";
 
 export default {
   name: "edit",
+  permission: "product.update",
   data() {
     return {
       list: {

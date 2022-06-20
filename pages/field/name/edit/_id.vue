@@ -100,6 +100,7 @@ import * as Yup from "yup";
 
 export default {
   name: "create",
+  permission: "field-name.update",
   data() {
     return {
       id: this.$route.params.id,

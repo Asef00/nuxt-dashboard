@@ -23,6 +23,7 @@
 <script>
 export default {
   name: "index",
+  permission: "person.index",
   data() {
     let _this = this;
     return {

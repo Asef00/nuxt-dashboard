@@ -17,6 +17,7 @@ import Details from "@/components/page/model/Details";
 
 export default {
   name: "index",
+  permission: "model.index",
   components: {Details},
   data() {
     let _this = this;

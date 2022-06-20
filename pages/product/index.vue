@@ -16,6 +16,7 @@
 import Details from "@/components/page/product/Details";
 export default {
   name: "index",
+  permission: "product.index",
   components: {
     Details,
   },

@@ -16,6 +16,7 @@
 import Details from "@/components/page/acl/role/Details";
 export default {
   name: "index",
+  permission: "role.index",
   components: {
     Details
   },

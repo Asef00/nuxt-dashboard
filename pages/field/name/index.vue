@@ -17,6 +17,7 @@ import Details from "@/components/page/field/name/Details";
 
 export default {
   name: "index",
+  permission: "field-name.index",
   components: {Details},
   data() {
     let _this = this;

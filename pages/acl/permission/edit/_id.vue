@@ -72,6 +72,7 @@ import * as Yup from "yup";
 
 export default {
   name: "create",
+  permission: "permission.update",
   components: {Multiselect},
   data() {
     return {
