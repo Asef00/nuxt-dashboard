@@ -1,30 +1,40 @@
-import Vue from 'vue'
+import Vue from "vue";
 
 const mixin = {
   data() {
     return {
       payload: [],
       errors: [],
-      message: '',
+      message: "",
       loaderRequest: false,
-    }
+    };
   },
+
   methods: {
+    scrollToElement(element) {
+      if (element) {
+        window.scrollTo({
+          top: element.getBoundingClientRect().top,
+          behavior: "smooth",
+        });
+      }
+    },
     startLoading() {
-      this.loaderRequest = true
+      this.loaderRequest = true;
     },
     stopLoading() {
-      this.loaderRequest = false
+      this.loaderRequest = false;
     },
     validate(field) {
       if (!field) {
         return false;
       }
-      this.validation().validateAt(field, this.payload)
+      this.validation()
+        .validateAt(field, this.payload)
         .then(() => {
           this.errors[field] = "";
         })
-        .catch(err => {
+        .catch((err) => {
           this.errors[field] = err.message;
         });
     },
@@ -34,63 +44,66 @@ const mixin = {
       }
       if (!error.response) {
         // network error
-        this.$toast.error('Network Error!')
+        this.$toast.error("Network Error!");
         return true;
       }
       if (error.response.status === 500) {
         // server error
-        this.$toast.error('Server Error!')
+        this.$toast.error("Server Error!");
         return true;
       }
       if (error.response.status === 401) {
-        this.$toast.error('Not authenticated! Please login.')
-        this.$router.push('/auth')
+        this.$toast.error("Not authenticated! Please login.");
+        this.$router.push("/auth");
         return true;
       }
       if (error.response.status === 403) {
-        this.$router.push('/')
-        this.$toast.error('Forbidden!')
+        this.$router.push("/");
+        this.$toast.error("Forbidden!");
         return true;
       }
       if (error.response.status === 404) {
-        this.$router.push('/404')
-        this.$toast.error('Not found!')
+        this.$router.push("/404");
+        this.$toast.error("Not found!");
         return true;
       }
       if (error.response.status === 400) {
-        this.$toast.error(error.response.data.message)
+        this.$toast.error(error.response.data.message);
         return true;
       }
       if (error.response.status === 422) {
-        let data = error.response.data
+        let data = error.response.data;
         if (data.errors) {
           for (let err in data.errors) {
-            this.errors[err] = data.errors[err][0]
+            this.errors[err] = data.errors[err][0];
           }
         }
         return true;
       }
       if (error.response.data.message) {
-        this.$toast.error(error.response.data.message)
+        this.$toast.error(error.response.data.message);
         return true;
       }
       return false;
     },
     errorMessage(filed) {
       if (this.hasError(filed)) {
-        let string = this.errors[filed]
+        let string = this.errors[filed];
         let last = string.charAt(string.length - 1);
-        if (last === '.') {
+        if (last === ".") {
           return string;
         } else {
-          string = string.match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
-            .map(x => x.toLowerCase())
-            .join(' ');
+          string = string
+            .match(
+              /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g
+            )
+            .map((x) => x.toLowerCase())
+            .join(" ");
           return `The ${string}.`;
         }
       }
     },
-    dateFormat(inputDate, format = 'MM-dd-yyyy') {
+    dateFormat(inputDate, format = "MM-dd-yyyy") {
       //parse the input date
       const date = new Date(inputDate);
 
@@ -119,29 +132,29 @@ const mixin = {
         return false;
       }
       if (field in this.errors) {
-        return this.errors[field] !== '';
+        return this.errors[field] !== "";
       }
       return false;
     },
     setAllErrorValidation(error) {
       for (let e in error.inner) {
-        this.errors[error.inner[e].path] = error.inner[e].message
+        this.errors[error.inner[e].path] = error.inner[e].message;
       }
     },
     getErrorMessage(error) {
-      return error.response.data.message
+      return error.response.data.message;
     },
     setTitle(name) {
-      this.$store.commit('SET_PAGE_HEADER_TITLE', name)
+      this.$store.commit("SET_PAGE_HEADER_TITLE", name);
     },
     setBreadcrumb(links) {
-      this.$store.commit('SET_PAGE_HEADER_BREADCRUMB', links)
+      this.$store.commit("SET_PAGE_HEADER_BREADCRUMB", links);
     },
     can(name) {
       if (this.$auth.loggedIn) {
         let permissions = this.$auth.user.permission_names;
-        if (typeof (name) === 'string') {
-          return permissions.includes(name)
+        if (typeof name === "string") {
+          return permissions.includes(name);
         } else {
           for (let item of name) {
             if (permissions.includes(item)) {
@@ -153,20 +166,20 @@ const mixin = {
       return false;
     },
     setPaginate(page) {
-      this.$router.push({query: {...this.$route.query, page: page}})
+      this.$router.push({ query: { ...this.$route.query, page: page } });
       return this.getPaginate();
     },
     setLimit(limit) {
-      this.$router.push({query: {...this.$route.query, limit: limit}})
+      this.$router.push({ query: { ...this.$route.query, limit: limit } });
       return this.getLimit();
     },
     getPaginate() {
-      return this.$route.query.page ?? 1
+      return this.$route.query.page ?? 1;
     },
     getLimit() {
-      return this.$route.query.limit ?? 25
-    }
-  }
-}
+      return this.$route.query.limit ?? 25;
+    },
+  },
+};
 
-Vue.mixin(mixin)
+Vue.mixin(mixin);
