@@ -2,7 +2,7 @@
   <div class="c-header">
     <div class="c-header__upper">
       <button class="c-header__menu js-menu-open">
-        <img src="/img/menu.svg" alt="menu icon" />
+        <VIcon icon="menu" />
       </button>
 
       <div class="c-navbar">
