@@ -1,23 +1,31 @@
 <template>
   <!-- Dynamic Wrapper -->
-  <component :is="wrapper" class="c-dropdown" data-dropdown="container">
+  <component
+    :is="wrapper"
+    class="c-dropdown"
+    data-dropdown="container"
+    v-click-outside="handleClickOutside"
+  >
     <!-- Dropdown Button -->
     <button
       v-if="this.$slots.btn"
       :class="[btnClass, 'c-dropdown__btn']"
       data-dropdown="btn"
+      @click="toggle"
     >
       <slot name="btn"></slot>
     </button>
 
     <!-- Dropdown Menu -->
-    <div
-      v-if="this.$slots.menu"
-      :class="[menuClass, 'c-dropdown__menu']"
-      data-dropdown="menu"
-    >
-      <slot name="menu"></slot>
-    </div>
+    <transition name="c-dropdown__menu" mode="out-in">
+      <div
+        v-if="this.$slots.menu && active"
+        :class="[menuClass, 'c-dropdown__menu']"
+        data-dropdown="menu"
+      >
+        <slot name="menu"></slot>
+      </div>
+    </transition>
   </component>
 </template>
 
@@ -33,6 +41,23 @@ export default {
     wrapper: {
       type: String,
       default: "div",
+    },
+  },
+
+  data() {
+    return {
+      active: false,
+    };
+  },
+
+  methods: {
+    toggle() {
+      this.active = !this.active;
+    },
+    handleClickOutside() {
+      if (this.active) {
+        this.active = false;
+      }
     },
   },
 
