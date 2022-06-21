@@ -7,9 +7,9 @@
         internalValue ? 'is-active' : '',
       ]"
     >
-      <span class="c-switch__label" :class="{ 'c-switch__error': hasError }">{{
-        label
-      }}</span>
+      <span class="c-switch__label" :class="{ 'c-switch__error': hasError }">
+        {{ label }}
+      </span>
       <input
         type="checkbox"
         role="switch"
