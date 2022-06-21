@@ -1,6 +1,10 @@
 <template>
   <!-- Dynamic Wrapper -->
-  <component :is="wrapper" class="c-dropdown" v-click-outside="blur">
+  <component
+    :is="wrapper"
+    :class="['c-dropdown', isActive ? 'is-active' : '']"
+    v-click-outside="blur"
+  >
     <!-- Dropdown Button -->
     <button
       v-if="this.$slots.btn"
@@ -15,7 +19,7 @@
       <div
         ref="menu"
         v-if="this.$slots.menu"
-        v-show="active"
+        v-show="isActive"
         :class="[menuClass, 'c-dropdown__menu']"
       >
         <slot name="menu"></slot>
@@ -41,17 +45,17 @@ export default {
 
   data() {
     return {
-      active: false,
+      isActive: false,
     };
   },
 
   methods: {
     toggle() {
-      this.active = !this.active;
+      this.isActive = !this.isActive;
     },
     blur() {
-      if (this.active) {
-        this.active = false;
+      if (this.isActive) {
+        this.isActive = false;
       }
     },
     // handle dropdown close to the edge
@@ -77,10 +81,10 @@ export default {
 
   watch: {
     $route() {
-      this.active = false;
+      this.isActive = false;
     },
-    active() {
-      if (this.active) {
+    isActive() {
+      if (this.isActive) {
         this.reposition();
       }
     },
