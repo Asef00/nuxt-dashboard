@@ -1,7 +1,15 @@
 <template>
   <div class="c-form__control">
-    <label class="c-switch" :class="{ 'is-active': internalValue }">
-      <span class="c-switch__label" :class="{ 'c-switch__error': hasError }">{{ label }}</span>
+    <label
+      :class="[
+        `c-switch`,
+        type ? `c-switch--${type}` : '',
+        internalValue ? 'is-active' : '',
+      ]"
+    >
+      <span class="c-switch__label" :class="{ 'c-switch__error': hasError }">{{
+        label
+      }}</span>
       <input
         type="checkbox"
         role="switch"
@@ -31,9 +39,15 @@ export default {
       type: Boolean,
       default: false,
     },
+
     error: {
       type: String,
-      default: ''
+      default: "",
+    },
+
+    type: {
+      type: String,
+      default: "",
     },
   },
 
@@ -42,11 +56,13 @@ export default {
       internalValue: this.checked,
     };
   },
+
   methods: {
     hasError() {
-      return this.error !== '';
-    }
+      return this.error !== "";
+    },
   },
+
   watch: {
     internalValue(v) {
       this.$emit("input", v);
@@ -54,7 +70,7 @@ export default {
     },
     checked(v) {
       this.internalValue = v;
-    }
+    },
   },
 };
 </script>
