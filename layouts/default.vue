@@ -45,37 +45,6 @@ export default {
       }
     });
 
-    // document.addEventListener("click", (e) => {
-    //   const isDropdownButton = e.target.matches(
-    //     "[data-dropdown='btn'], [data-dropdown='btn'] > *"
-    //   );
-    //   if (
-    //     !isDropdownButton &&
-    //     e.target.closest("[data-dropdown='container']") != null
-    //   )
-    //     return;
-
-    //   let currentDropdown;
-    //   if (isDropdownButton) {
-    //     currentDropdown = e.target.closest("[data-dropdown='container']");
-    //     let menu = currentDropdown.querySelector("[data-dropdown='menu']");
-    //     currentDropdown.classList.toggle("is-active");
-
-    //     // dealing with max-height property to have animation/transition on mobile accordion menu
-    //     if (menu.style.maxHeight) menu.style.maxHeight = null;
-    //     else menu.style.maxHeight = currentDropdown.scrollHeight + "px";
-    //   }
-
-    //   document
-    //     .querySelectorAll("[data-dropdown='container'].is-active")
-    //     .forEach((dropdown) => {
-    //       if (dropdown === currentDropdown) return;
-    //       dropdown.querySelector("[data-dropdown='menu']").style.maxHeight =
-    //         null;
-    //       dropdown.classList.remove("is-active");
-    //     });
-    // });
-
     //sidenav.js
     // handle sidenav on mobile
     let sidenav = document.querySelector(".js-sidenav");
@@ -87,17 +56,6 @@ export default {
     menu_close.onclick = function () {
       sidenav.classList.remove("is-open");
     };
-  },
-
-  watch: {
-    $route() {
-      // close all dropdowns when route changes
-      document
-        .querySelectorAll("[data-dropdown='container']")
-        .forEach((dropdown) => {
-          dropdown.classList.remove("is-active");
-        });
-    },
   },
 };
 </script>

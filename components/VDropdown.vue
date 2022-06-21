@@ -66,5 +66,11 @@ export default {
       return `c-dropdown__menu--${this.position} u-bg-${this.menuStyle}`;
     },
   },
+
+  watch: {
+    $route() {
+      this.active = false;
+    },
+  },
 };
 </script>
