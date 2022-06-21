@@ -3,58 +3,92 @@
     <ul class="c-sidenav__list" role="presentation">
       <li class="c-sidenav__header">
         <NuxtLink to="/" class="c-logo">
-          <img src="/img/logo.svg" alt="logo"/>
+          <img src="/img/logo.svg" alt="logo" />
         </NuxtLink>
         <span class="c-sidenav__close js-menu-close">
-          <fa icon="xmark"/>
+          <fa icon="xmark" />
         </span>
       </li>
       <li class="c-sidenav__item pr-3 pl-3">
-        <input type="text" class="c-sidenav__search" placeholder="Search ..."/>
+        <input type="text" class="c-sidenav__search" placeholder="Search ..." />
       </li>
       <li class="c-sidenav__item">
         <NuxtLink to="/" class="c-sidenav__link">
-          <img src="/img/dashboard.svg" alt="dashboard"/>
+          <img src="/img/dashboard.svg" alt="dashboard" />
           <span>Dashboard</span>
         </NuxtLink>
       </li>
       <li v-if="can('person.index')" class="c-sidenav__item">
         <NuxtLink to="/person" class="c-sidenav__link">
-          <img src="/img/users.svg" alt="users"/>
+          <img src="/img/users.svg" alt="users" />
           <span>Person</span>
         </NuxtLink>
       </li>
       <li v-if="can('product.index')" class="c-sidenav__item">
         <NuxtLink to="/product" class="c-sidenav__link">
-          <img src="/img/products.svg" alt="product"/>
+          <img src="/img/products.svg" alt="product" />
           <span>Products</span>
         </NuxtLink>
       </li>
-      <li v-if="can(['role.index','permission.index','field-type.index','field-name.index','model.index','license-mode.index'])" class="c-sidenav__item c-dropdown" data-dropdown="container">
-        <button class="c-sidenav__link c-dropdown__btn" data-dropdown="btn">
-          <img src="/img/settings.svg" alt=""/>
+      <VDropdown
+        v-if="
+          can([
+            'role.index',
+            'permission.index',
+            'field-type.index',
+            'field-name.index',
+            'model.index',
+            'license-mode.index',
+          ])
+        "
+        class="c-sidenav__item"
+        btnClass="c-sidenav__link"
+        position="right"
+        wrapper="li"
+      >
+        <template #btn>
+          <img src="/img/settings.svg" alt="gear icon" />
           <span>Settings</span>
-        </button>
-        <div
-          class="c-dropdown__menu c-dropdown__menu--right"
-          data-dropdown="menu"
-        >
-          <NuxtLink v-if="can('role.index')" to="/acl/role" class="c-dropdown__item">Roles</NuxtLink>
-          <NuxtLink v-if="can('permission.index')" to="/acl/permission" class="c-dropdown__item">
-            Permissions
-          </NuxtLink>
-          <NuxtLink v-if="can('field-type.index')" to="/field/type" class="c-dropdown__item">
-            Field types
-          </NuxtLink>
-          <NuxtLink v-if="can('field-name.index')" to="/field/name" class="c-dropdown__item">
-            Field names
-          </NuxtLink>
-          <NuxtLink v-if="can('model.index')" to="/model" class="c-dropdown__item">Model</NuxtLink>
-          <NuxtLink v-if="can('license-mode.index')" to="/license-mode" class="c-dropdown__item">
-            License mode
-          </NuxtLink>
-        </div>
-      </li>
+        </template>
+        <template #menu>
+          <NuxtLink
+            v-if="can('role.index')"
+            to="/acl/role"
+            class="c-dropdown__item"
+            >Roles</NuxtLink
+          >
+          <NuxtLink
+            v-if="can('permission.index')"
+            to="/acl/permission"
+            class="c-dropdown__item"
+            >Permissions</NuxtLink
+          >
+          <NuxtLink
+            v-if="can('field-type.index')"
+            to="/field/type"
+            class="c-dropdown__item"
+            >Field types</NuxtLink
+          >
+          <NuxtLink
+            v-if="can('field-name.index')"
+            to="/field/name"
+            class="c-dropdown__item"
+            >Field names</NuxtLink
+          >
+          <NuxtLink
+            v-if="can('model.index')"
+            to="/model"
+            class="c-dropdown__item"
+            >Model</NuxtLink
+          >
+          <NuxtLink
+            v-if="can('license-mode.index')"
+            to="/license-mode"
+            class="c-dropdown__item"
+            >License mode</NuxtLink
+          >
+        </template>
+      </VDropdown>
     </ul>
   </div>
 </template>
@@ -104,7 +138,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import "~/assets/scss/partials/sidenav";
 @import "~/assets/scss/components/logo";
 </style>

@@ -1,3 +1,5 @@
+$dropdow-radius: 5px;
+
 .c-dropdown {
   position: relative;
 
@@ -11,7 +13,6 @@
   height: 100%;
   border: 0;
 
-  background-color: inherit;
   font-weight: inherit;
   text-transform: inherit;
   font-size: inherit;
@@ -24,14 +25,12 @@
   top: calc(100% + 0.25rem);
   opacity: 0;
   pointer-events: none;
-  overflow: hidden;
 
-  border-radius: 5px;
+  border-radius: $dropdow-radius;
   @include box-shadow;
 
   @include font-size(14px);
   transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
-  background-color: $light-color;
 
   //----Positioning----
   //right
@@ -100,6 +99,15 @@
   &.nuxt-link-exact-active,
   &:hover {
     background-color: #eee;
+  }
+
+  &:first-child {
+    border-top-left-radius: $dropdow-radius;
+    border-top-right-radius: $dropdow-radius;
+  }
+  &:last-child {
+    border-bottom-left-radius: $dropdow-radius;
+    border-bottom-right-radius: $dropdow-radius;
   }
 }
 
