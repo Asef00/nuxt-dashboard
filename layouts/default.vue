@@ -36,15 +36,6 @@ export default {
   },
 
   mounted() {
-    //dropdown.js
-    // handle dropdown close to the edge
-    document.querySelectorAll("[data-dropdown='menu']").forEach((menu) => {
-      if (menu.getBoundingClientRect().right + 10 > window.innerWidth) {
-        menu.style.left = "unset";
-        menu.style.right = 0;
-      }
-    });
-
     //sidenav.js
     // handle sidenav on mobile
     let sidenav = document.querySelector(".js-sidenav");

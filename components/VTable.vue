@@ -262,7 +262,6 @@ export default {
     },
     current_page() {
       this.applyPaginate();
-      // window.scrollTo({ top: this.$refs.table.offsetTop, behavior: 'smooth' })
       this.scrollToElement(this.$refs.table);
     },
     preferredPerPage(val) {

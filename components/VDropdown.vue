@@ -1,16 +1,10 @@
 <template>
   <!-- Dynamic Wrapper -->
-  <component
-    :is="wrapper"
-    class="c-dropdown"
-    data-dropdown="container"
-    v-click-outside="handleClickOutside"
-  >
+  <component :is="wrapper" class="c-dropdown" v-click-outside="blur">
     <!-- Dropdown Button -->
     <button
       v-if="this.$slots.btn"
       :class="[btnClass, 'c-dropdown__btn']"
-      data-dropdown="btn"
       @click="toggle"
     >
       <slot name="btn"></slot>
@@ -19,9 +13,10 @@
     <!-- Dropdown Menu -->
     <transition name="c-dropdown__menu" mode="out-in">
       <div
-        v-if="this.$slots.menu && active"
+        ref="menu"
+        v-if="this.$slots.menu"
+        v-show="active"
         :class="[menuClass, 'c-dropdown__menu']"
-        data-dropdown="menu"
       >
         <slot name="menu"></slot>
       </div>
@@ -54,10 +49,23 @@ export default {
     toggle() {
       this.active = !this.active;
     },
-    handleClickOutside() {
+    blur() {
       if (this.active) {
         this.active = false;
       }
+    },
+    // handle dropdown close to the edge
+    reposition() {
+      // using nestTick to let the element show up
+      this.$nextTick(() => {
+        if (
+          this.$refs.menu.getBoundingClientRect().right + 10 >
+          window.innerWidth
+        ) {
+          this.$refs.menu.style.left = "unset";
+          this.$refs.menu.style.right = 0;
+        }
+      });
     },
   },
 
@@ -70,6 +78,11 @@ export default {
   watch: {
     $route() {
       this.active = false;
+    },
+    active() {
+      if (this.active) {
+        this.reposition();
+      }
     },
   },
 };
