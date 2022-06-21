@@ -5,12 +5,7 @@
         <div class="c-modal__container">
           <div class="c-modal__header">
             <h4 class="c-modal__title">{{ title }}</h4>
-            <img
-              class="c-modal__close"
-              src="/x.svg"
-              @click="$emit('close')"
-              alt=""
-            />
+            <VIcon class="c-modal__close" icon="x" @action="$emit('close')" />
           </div>
 
           <div class="c-modal__body">

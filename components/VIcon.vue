@@ -1,5 +1,9 @@
 <template>
-  <img :src="[`/img/${icon}.svg`]" :alt="icon" />
+  <img
+    @click="$emit('action')"
+    :src="[`/img/${icon}.svg`]"
+    :alt="[`${icon} icon`]"
+  />
 </template>
 
 <script>

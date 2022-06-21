@@ -26,7 +26,7 @@
       <div class="row">
         <div class="col-md-3 col-12">
           <div class="c-avatar">
-            <img src="/img/avatar.svg" width="300" height="300" alt="avatar" />
+            <VIcon icon="avatar" width="300" height="300" />
           </div>
         </div>
         <div class="col-md-9 col-12">
