@@ -23,19 +23,15 @@ $dropdow-radius: 5px;
   position: absolute;
   min-width: 10em;
   top: calc(100% + 0.25rem);
-  opacity: 0;
-  pointer-events: none;
 
   border-radius: $dropdow-radius;
   @include box-shadow;
 
   @include font-size(14px);
-  transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
 
   //----Positioning----
   //right
   &.c-dropdown__menu--right {
-    transform: translateX(10px);
     left: calc(100% + 15px);
     top: 0;
 
@@ -56,34 +52,23 @@ $dropdow-radius: 5px;
 
   //bottom left
   &.c-dropdown__menu--bl {
-    transform: translateY(-10px);
     right: 0;
   }
 
   //bottom double left
   &.c-dropdown__menu--bll {
-    transform: translateY(-10px);
     right: calc(100% + 0.25rem);
   }
 
   //bottom right
   &.c-dropdown__menu--br {
-    transform: translateY(-10px);
     left: 0;
   }
 
   //bottom
   &.c-dropdown__menu--bottom {
-    transform: translateY(-10px);
     left: 0;
     right: 0;
-  }
-
-  .c-dropdown.is-active & {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-    z-index: 1;
   }
 }
 
@@ -113,4 +98,23 @@ $dropdow-radius: 5px;
 
 .c-dropdown__divider {
   border-bottom: 1px solid #fff9;
+}
+
+/*
+   * The following styles are auto-applied to elements with
+   * transition="c-dropdown__menu" when their visibility is toggled
+   * by Vue.js.
+   *
+   * You can easily play with the c-dropdown__menu transition by editing
+   * these styles.
+   */
+
+.c-dropdown__menu-enter-active,
+.c-dropdown__menu-leave-active {
+  transition: opacity 0.2s;
+}
+
+.c-dropdown__menu-enter,
+.c-dropdown__menu-leave-active {
+  opacity: 0;
 }

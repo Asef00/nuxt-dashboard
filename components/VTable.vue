@@ -90,7 +90,13 @@
         <tbody class="c-table__body">
           <!-- if no data -->
           <tr v-if="!list || !list.length">
-            <td colspan="100%" class="u-text-center">No Data</td>
+            <td
+              colspan="100%"
+              style="height: 10em; font-size: 16px"
+              class="u-text-center"
+            >
+              No Data Available
+            </td>
           </tr>
           <tr
             v-else
@@ -251,7 +257,6 @@ export default {
     },
     current_page() {
       this.applyPaginate();
-      // window.scrollTo({ top: this.$refs.table.offsetTop, behavior: 'smooth' })
       this.scrollToElement(this.$refs.table);
     },
     preferredPerPage(val) {

@@ -71,7 +71,7 @@
                   </template>
                 </VInput>
               </div>
-              <div class="col-md-6">
+              <div class="align-items-end d-flex col-md-6">
                 <VBtn
                   type="button"
                   @action="sendVerifyCode"

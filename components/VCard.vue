@@ -3,11 +3,11 @@
     <div class="c-card__header" v-if="title">
       <h2 class="c-card__title">{{ title }}</h2>
       <div class="c-card__toolbar" v-if="this.$slots.header">
-        <slot name="header"/>
+        <slot name="header" />
       </div>
     </div>
-    <div :class="{'c-card__body':true,'is-loading':loader}">
-      <slot/>
+    <div :class="{ 'c-card__body': true, 'is-loading': loader }">
+      <slot />
     </div>
   </div>
 </template>
@@ -20,12 +20,8 @@ export default {
     loader: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   methods: {},
 };
 </script>
-
-<style scoped lang="scss">
-@import "~/assets/scss/components/_card.scss";
-</style>
