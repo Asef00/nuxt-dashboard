@@ -1,30 +1,17 @@
-@use 'sass:math';
-
-// SETTINGS
-@import "settings/_settings.config";
-@import "../../node_modules/inuitcss/settings/settings.core";
-@import "settings/settings.global";
-@import "settings/mq";
+//SETTINGS
 @import "settings/fonts";
-
-// TOOLS
-@import "../../node_modules/inuitcss/tools/tools.font-size";
-@import "../../node_modules/inuitcss/tools/tools.clearfix";
-@import "../../node_modules/sass-mq/mq";
-@import "tools/tools.aliases";
 
 // GENERIC
 @import "../../node_modules/inuitcss/generic/generic.box-sizing";
 @import "../../node_modules/inuitcss/generic/generic.normalize";
 @import "../../node_modules/inuitcss/generic/generic.shared";
-@import "../../node_modules/inuitcss/generic/generic.shared";
+@import "../../node_modules/inuitcss/generic/generic.reset";
 
 // ELEMENTS
 @import "../../node_modules/inuitcss/elements/elements.page";
 @import "../../node_modules/inuitcss/elements/elements.headings";
 @import "../../node_modules/inuitcss/elements/elements.images";
 @import "../../node_modules/inuitcss/elements/elements.tables";
-
 @import "elements/ie";
 @import "elements/defaults";
 
@@ -35,7 +22,6 @@
 @import "utilities/typography";
 @import "utilities/color";
 
-
 // COMPONENTS
 @import "components/form";
 @import "components/btn";
@@ -43,7 +29,6 @@
 @import "components/card";
 @import "components/chevron";
 @import "components/tag-input";
-
 @import "components/table";
 @import "components/datatable";
 @import "components/pagination";
@@ -51,7 +36,6 @@
 @import "components/badge";
 @import "components/dropdown";
 @import "components/filter";
-
 @import "components/checkbox";
 @import "components/switch";
 @import "components/alert";
