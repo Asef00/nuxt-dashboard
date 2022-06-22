@@ -100,6 +100,7 @@
         </VBtn>
       </form>
     </VCard>
+
     <VCard title="Alert">
       <VAlert class="c-alert--primary">
         A simple primary alert—check it out!
@@ -248,6 +249,38 @@
       <VBtn @action="showFormModal = true" btn="info">Show Form Modal</VBtn>
     </VCard>
 
+    <VCard>
+      <template #tabs>
+        <VTabs>
+          <VTab title="calendar">
+            1. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+            Laudantium nostrum quis iusto perspiciatis magnam repudiandae,
+            labore nobis? Voluptatum quis officia voluptas tempore, pariatur
+            perspiciatis quia assumenda iste aliquam quo a?
+          </VTab>
+          <VTab title="note">
+            2. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+            Laudantium nostrum quis iusto perspiciatis magnam repudiandae,
+            labore nobis? Voluptatum quis officia voluptas tempore, pariatur
+            perspiciatis quia assumenda iste aliquam quo a?
+          </VTab>
+          <VTab title="history">
+            2. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+            Laudantium nostrum quis iusto perspiciatis magnam repudiandae,
+            labore nobis? Voluptatum quis officia voluptas tempore, pariatur
+            perspiciatis quia assumenda iste aliquam quo a?
+          </VTab>
+        </VTabs>
+      </template>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam
+        eligendi quis, assumenda corporis ut error molestiae totam hic facilis
+        et, nostrum culpa expedita maiores cumque amet modi delectus earum enim!
+      </p>
+      <VBtn @action="showModal = true">Show Modal</VBtn>
+      <VBtn @action="showFormModal = true" btn="info">Show Form Modal</VBtn>
+    </VCard>
+
     <VModal
       :showModal="showModal"
       @close="showModal = false"
@@ -384,6 +417,7 @@ export default {
         tag: "",
         summary: "",
       },
+
       options: ["list", "of", "options", "bla"],
       toggleActive: false,
       selected: "", //for checkbox
