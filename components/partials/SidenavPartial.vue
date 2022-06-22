@@ -3,7 +3,7 @@
     <ul class="c-sidenav__list" role="presentation">
       <li class="c-sidenav__header">
         <NuxtLink to="/" class="c-logo">
-          <img src="/img/logo.svg" alt="logo" />
+          <VIcon icon="logo" />
         </NuxtLink>
         <span class="c-sidenav__close js-menu-close">
           <fa icon="xmark" />
@@ -14,19 +14,19 @@
       </li>
       <li class="c-sidenav__item">
         <NuxtLink to="/" class="c-sidenav__link">
-          <img src="/img/dashboard.svg" alt="dashboard" />
+          <VIcon icon="dashboard" />
           <span>Dashboard</span>
         </NuxtLink>
       </li>
       <li v-if="can('person.index')" class="c-sidenav__item">
         <NuxtLink to="/person" class="c-sidenav__link">
-          <img src="/img/users.svg" alt="users" />
+          <VIcon icon="users" />
           <span>Person</span>
         </NuxtLink>
       </li>
       <li v-if="can('product.index')" class="c-sidenav__item">
         <NuxtLink to="/product" class="c-sidenav__link">
-          <img src="/img/products.svg" alt="product" />
+          <VIcon icon="products" />
           <span>Products</span>
         </NuxtLink>
       </li>
@@ -47,7 +47,7 @@
         wrapper="li"
       >
         <template #btn>
-          <img src="/img/settings.svg" alt="gear icon" />
+          <VIcon icon="settings" />
           <span>Settings</span>
         </template>
         <template #menu>

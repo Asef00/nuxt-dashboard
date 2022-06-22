@@ -35,13 +35,8 @@
               >
                 <button class="c-filter__btn" data-dropdown="btn">
                   <!-- Filter icon -->
-                  <img
-                    :src="
-                      col == sortColumn
-                        ? '/img/filter.is-active.svg'
-                        : '/img/filter.svg'
-                    "
-                    alt="filter icon"
+                  <VIcon
+                    :icon="col == sortColumn ? 'filter.is-active' : 'filter'"
                   />
                   <span v-html="col.label"></span>
                 </button>
@@ -95,7 +90,13 @@
         <tbody class="c-table__body">
           <!-- if no data -->
           <tr v-if="!list || !list.length">
-            <td colspan="100%" class="u-text-center">No Data</td>
+            <td
+              colspan="100%"
+              style="height: 10em; font-size: 16px"
+              class="u-text-center"
+            >
+              No Data Available
+            </td>
           </tr>
           <tr
             v-else
@@ -256,7 +257,6 @@ export default {
     },
     current_page() {
       this.applyPaginate();
-      // window.scrollTo({ top: this.$refs.table.offsetTop, behavior: 'smooth' })
       this.scrollToElement(this.$refs.table);
     },
     preferredPerPage(val) {

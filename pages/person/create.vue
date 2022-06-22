@@ -48,14 +48,16 @@
           />
         </div>
         <div class="col-md-6">
-          <VInput
-            v-if="setPassword"
-            @validation="validate('password')"
-            :error="errorMessage('password')"
-            label="Password"
-            v-model="payload.password"
-            placeholder="Please enter password"
-          />
+          <transition>
+            <VInput
+              v-if="setPassword"
+              @validation="validate('password')"
+              :error="errorMessage('password')"
+              label="Password"
+              v-model="payload.password"
+              placeholder="Please enter password"
+            />
+          </transition>
         </div>
       </div>
       <VBtn :loader="loaderRequest">SAVE</VBtn>

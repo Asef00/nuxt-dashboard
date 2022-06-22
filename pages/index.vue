@@ -98,7 +98,7 @@ export default {
           { key: "status", label: "Status" },
           {
             key: "action",
-            label: '<img src="/img/gear.svg" alt="" />',
+            label: '<VIcon icon="gear" />',
             class: "u-text-center",
           },
         ],
