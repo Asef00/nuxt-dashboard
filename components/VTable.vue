@@ -35,13 +35,8 @@
               >
                 <button class="c-filter__btn" data-dropdown="btn">
                   <!-- Filter icon -->
-                  <img
-                    :src="
-                      col == sortColumn
-                        ? '/img/filter.is-active.svg'
-                        : '/img/filter.svg'
-                    "
-                    alt="filter icon"
+                  <VIcon
+                    :icon="col == sortColumn ? 'filter.is-active' : 'filter'"
                   />
                   <span v-html="col.label"></span>
                 </button>

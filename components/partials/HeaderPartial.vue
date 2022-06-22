@@ -2,15 +2,15 @@
   <div class="c-header">
     <div class="c-header__upper">
       <button class="c-header__menu js-menu-open">
-        <img src="/img/menu.svg" alt="menu icon" />
+        <VIcon icon="menu" />
       </button>
 
       <div class="c-navbar">
         <input type="text" class="c-navbar__search" placeholder="Search ..." />
 
-        <img src="/img/bell.svg" alt="notification icon" />
+        <VIcon icon="bell" />
 
-        <img src="/img/envelope.svg" alt="message icon" />
+        <VIcon icon="envelope" />
 
         <VDropdown
           class="c-navbar__user"
@@ -18,7 +18,7 @@
           btnClass="c-navbar__avatar"
         >
           <template #btn>
-            <img src="/img/avatar.svg" width="34" height="34" alt="user icon" />
+            <VIcon icon="avatar" width="34" height="34" />
           </template>
           <template #menu>
             <header class="c-dropdown__header">Welcome!</header>
