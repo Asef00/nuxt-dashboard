@@ -3,7 +3,7 @@
     <ul class="c-tabs__header">
       <li
         class="c-tabs__item"
-        v-for="tab in tabs"
+        v-for="(tab, index) in tabs"
         :key="tab.title"
         @click="selectTab(index)"
         :class="{ 'is-active': index == selectedIndex }"

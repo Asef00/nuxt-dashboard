@@ -265,20 +265,13 @@
             perspiciatis quia assumenda iste aliquam quo a?
           </VTab>
           <VTab title="history">
-            2. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+            3. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
             Laudantium nostrum quis iusto perspiciatis magnam repudiandae,
             labore nobis? Voluptatum quis officia voluptas tempore, pariatur
             perspiciatis quia assumenda iste aliquam quo a?
           </VTab>
         </VTabs>
       </template>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam
-        eligendi quis, assumenda corporis ut error molestiae totam hic facilis
-        et, nostrum culpa expedita maiores cumque amet modi delectus earum enim!
-      </p>
-      <VBtn @action="showModal = true">Show Modal</VBtn>
-      <VBtn @action="showFormModal = true" btn="info">Show Form Modal</VBtn>
     </VCard>
 
     <VModal
