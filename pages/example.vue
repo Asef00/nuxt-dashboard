@@ -250,8 +250,6 @@
     </VCard>
 
     <VCard>
-      <!-- <template #tabs>
-      </template> -->
       <VTabs>
         <VTab title="calendar">
           1. Lorem ipsum dolor, sit amet consectetur adipisicing elit.

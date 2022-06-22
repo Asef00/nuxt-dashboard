@@ -59,7 +59,7 @@ export default {
 }
 
 .c-tabs__header {
-  margin: (-$card-body-py) (-$card-body-px) 0;
+  margin: (-$card-body-py) (-$card-body-px) 1em;
   display: flex;
   @include border(bottom);
 }
@@ -69,5 +69,14 @@ export default {
   text-transform: capitalize;
   padding: 1em;
   cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    background-color: $hover-color;
+  }
+
+  &.is-active {
+    box-shadow: 0 -2px 0 0 #ff6e38 inset;
+  }
 }
 </style>
