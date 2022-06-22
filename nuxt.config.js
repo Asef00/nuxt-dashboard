@@ -17,20 +17,7 @@ export default {
 
   //scss variables & mixins
   styleResources: {
-    scss: [
-      "~/assets/scss/resources.scss",
-      // //settings
-      // "~/assets/scss/settings/_mq.scss",
-      // "~/assets/scss/settings/_settings.config.scss",
-      // "~/assets/scss/settings/_settings.global.scss",
-      // "inuitcss/settings/_settings.core.scss",
-
-      // //tools
-      // "inuitcss/tools/_tools.font-size.scss",
-      // "inuitcss/tools/_tools.clearfix.scss",
-      // "sass-mq/_mq.scss",
-      // "~/assets/scss/tools/_tools.aliases.scss",
-    ],
+    scss: ["~/assets/scss/resources.scss"],
     hoistUseStatements: true,
   },
 
@@ -156,6 +143,7 @@ export default {
   router: {
     middleware: ["auth", "authenticated", "permission"],
   },
+
   toast: {
     position: "bottom-right",
     timeout: 5000,
