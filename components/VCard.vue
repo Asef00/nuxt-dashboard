@@ -8,9 +8,9 @@
       </div>
     </div>
     <!-- Tabs -->
-    <div v-if="this.$slots.tabs" class="c-card__header p-0">
+    <!-- <div v-if="this.$slots.tabs" class="c-card__header p-0">
       <slot name="tabs"></slot>
-    </div>
+    </div> -->
     <!-- Body -->
     <div :class="{ 'c-card__body': true, 'is-loading': loader }">
       <slot />

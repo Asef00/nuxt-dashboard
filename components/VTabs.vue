@@ -55,13 +55,19 @@ export default {
 
 <style lang="scss">
 .c-tabs {
-  @include flex-start;
-  gap: 1em;
+  @include flex-column;
+}
+
+.c-tabs__header {
+  margin: (-$card-body-py) (-$card-body-px) 0;
+  display: flex;
+  @include border(bottom);
 }
 
 .c-tabs__item {
   font-weight: 600;
   text-transform: capitalize;
   padding: 1em;
+  cursor: pointer;
 }
 </style>

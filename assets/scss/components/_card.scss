@@ -44,7 +44,7 @@
 }
 
 .c-card__body {
-  padding: $card-body-padding;
+  padding: $card-body-py $card-body-px;
   position: relative;
 }
 
