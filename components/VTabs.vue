@@ -9,6 +9,9 @@
         :class="{ 'is-active': index == selectedIndex }"
       >
         {{ tab.title }}
+        <VBadge :type="tab.noteType" v-if="tab.noteCount">
+          {{ tab.noteCount }}
+        </VBadge>
       </li>
     </ul>
     <slot></slot>
@@ -54,6 +57,8 @@ export default {
 </script>
 
 <style lang="scss">
+$orange-color: #ff6e38;
+
 .c-tabs {
   @include flex-column;
 }
@@ -76,7 +81,7 @@ export default {
   }
 
   &.is-active {
-    box-shadow: 0 -2px 0 0 #ff6e38 inset;
+    box-shadow: 0 -2px 0 0 $orange-color inset;
   }
 }
 </style>

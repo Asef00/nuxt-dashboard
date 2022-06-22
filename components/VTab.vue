@@ -10,6 +10,8 @@ export default {
 
   props: {
     title: String,
+    noteCount: Number,
+    noteType: String,
   },
   data() {
     return {
@@ -18,6 +20,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>

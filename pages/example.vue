@@ -251,7 +251,7 @@
 
     <VCard>
       <VTabs>
-        <VTab title="calendar">
+        <VTab title="calendar" noteCount="2">
           1. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
           Laudantium nostrum quis iusto perspiciatis magnam repudiandae, labore
           nobis? Voluptatum quis officia voluptas tempore, pariatur perspiciatis
