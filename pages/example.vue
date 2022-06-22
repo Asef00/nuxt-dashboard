@@ -49,6 +49,7 @@
               :defaultState="true"
               v-on:change="triggerToggleEvent"
               :labelText="'Validate Response'"
+              type="danger"
             />
           </div>
           <div class="col-12">
@@ -244,9 +245,7 @@
         et, nostrum culpa expedita maiores cumque amet modi delectus earum enim!
       </p>
       <VBtn @action="showModal = true">Show Modal</VBtn>
-      <VBtn @action="showFormModal = true" btn="info">
-        Show Form Modal
-      </VBtn>
+      <VBtn @action="showFormModal = true" btn="info">Show Form Modal</VBtn>
     </VCard>
 
     <VModal
@@ -318,6 +317,7 @@
           :defaultState="true"
           v-on:change="triggerToggleEvent"
           :labelText="'Validate Response'"
+          type="success"
         />
 
         <VCheckbox
