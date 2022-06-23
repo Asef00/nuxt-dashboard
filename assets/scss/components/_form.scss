@@ -72,3 +72,19 @@
   display: block;
   margin: 1em 0;
 }
+
+.c-form__visiblity {
+  @include input-border;
+  border-radius: 0 3px 3px 0;
+  @include flex-inline-center;
+  height: 40px;
+  width: 40px;
+  background: $filled-color;
+  cursor: pointer;
+  border-left: 0;
+}
+
+.c-form__password {
+  border-radius: 3px 0 0 3px;
+  z-index: 1;
+}

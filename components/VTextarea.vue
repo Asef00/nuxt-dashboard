@@ -1,16 +1,19 @@
 <template>
   <div class="c-form__control">
     <label class="c-form__label">{{ label }}</label>
-    <textarea @keyup="$emit('validation')"
-              @blur="$emit('validation')"
-              @keydown="$emit('validation')"
-              :class="[hasError() ? 'is-invalid': '','c-form__input c-form__input--area']"
-              :placeholder="placeholder"
-              v-bind="$attrs"
-              v-bind:value="value"
-              v-on:input="$emit('input', $event.target.value)"
-              :rows="rows"
-              :disabled="disabled"
+    <textarea
+      @keyup="$emit('validation')"
+      @blur="$emit('validation')"
+      @keydown="$emit('validation')"
+      @input="$emit('input', $event.target.value)"
+      :class="[
+        hasError() ? 'is-invalid' : '',
+        'c-form__input c-form__input--area',
+      ]"
+      :placeholder="placeholder"
+      :value="value"
+      :rows="rows"
+      :disabled="disabled"
     ></textarea>
     <span v-if="hasError()" class="c-form__error">{{ error }}</span>
   </div>
@@ -23,43 +26,41 @@ export default {
     value: [String, Number],
     label: {
       type: [String, Number],
-      required: true
+      required: true,
     },
     rows: {
       type: [Number],
-      default: 4
+      default: 4,
     },
     type: {
       type: String,
-      default: 'text'
+      default: "text",
     },
     placeholder: {
-      type: String
+      type: String,
     },
     error: {
       type: String,
-      default: ''
+      default: "",
     },
     disabled: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
-      parent: ''
+      parent: "",
     };
   },
-  created() {
-  },
+  created() {},
   methods: {
     hasError() {
-      return this.error !== '';
-    }
-  }
-}
+      return this.error !== "";
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 </style>
