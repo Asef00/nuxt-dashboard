@@ -5,7 +5,10 @@
         class="c-tabs__item"
         v-for="(tab, index) in tabs"
         :key="tab.title"
-        @click="selectTab(index)"
+        @click="
+          $emit(tab.action);
+          selectTab(index);
+        "
         :class="{ 'is-active': index == selectedIndex }"
       >
         {{ tab.title }}

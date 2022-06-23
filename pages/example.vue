@@ -250,20 +250,24 @@
     </VCard>
 
     <VCard>
-      <VTabs>
-        <VTab title="calendar">
+      <VTabs
+        @action1="calendarMethod()"
+        @action2="historyMethod()"
+        @action3="paymentrMethod()"
+      >
+        <VTab title="calendar" action="action1">
           1. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
           Laudantium nostrum quis iusto perspiciatis magnam repudiandae, labore
           nobis? Voluptatum quis officia voluptas tempore, pariatur perspiciatis
           quia assumenda iste aliquam quo a?
         </VTab>
-        <VTab title="history">
+        <VTab title="history" action="action2">
           2. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
           Laudantium nostrum quis iusto perspiciatis magnam repudiandae, labore
           nobis? Voluptatum quis officia voluptas tempore, pariatur perspiciatis
           quia assumenda iste aliquam quo a?
         </VTab>
-        <VTab title="payment" :noteCount="2" noteType="active">
+        <VTab title="payment" action="action3" :noteCount="2" noteType="active">
           3. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
           Laudantium nostrum quis iusto perspiciatis magnam repudiandae, labore
           nobis? Voluptatum quis officia voluptas tempore, pariatur perspiciatis
@@ -418,6 +422,16 @@ export default {
   },
 
   methods: {
+    calendarMethod() {
+      console.log("calendar tab!");
+    },
+    historyMethod() {
+      console.log("history tab!");
+    },
+    paymentrMethod() {
+      console.log("payment tab!");
+    },
+
     validation() {
       return Yup.object({
         name: Yup.string().required(),
