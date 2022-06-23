@@ -240,13 +240,36 @@
       <template #header>
         <VBtn class="m-0 c-btn--small" btn="success">Success</VBtn>
       </template>
-      <p>
+      <p class="mb-3">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam
         eligendi quis, assumenda corporis ut error molestiae totam hic facilis
         et, nostrum culpa expedita maiores cumque amet modi delectus earum enim!
       </p>
       <VBtn @action="showModal = true">Show Modal</VBtn>
       <VBtn @action="showFormModal = true" btn="info">Show Form Modal</VBtn>
+    </VCard>
+
+    <VCard>
+      <VTabs>
+        <VTab title="calendar" :noteCount="2">
+          1. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+          Laudantium nostrum quis iusto perspiciatis magnam repudiandae, labore
+          nobis? Voluptatum quis officia voluptas tempore, pariatur perspiciatis
+          quia assumenda iste aliquam quo a?
+        </VTab>
+        <VTab title="note">
+          2. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+          Laudantium nostrum quis iusto perspiciatis magnam repudiandae, labore
+          nobis? Voluptatum quis officia voluptas tempore, pariatur perspiciatis
+          quia assumenda iste aliquam quo a?
+        </VTab>
+        <VTab title="history" :noteCount="4" noteType="danger">
+          3. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+          Laudantium nostrum quis iusto perspiciatis magnam repudiandae, labore
+          nobis? Voluptatum quis officia voluptas tempore, pariatur perspiciatis
+          quia assumenda iste aliquam quo a?
+        </VTab>
+      </VTabs>
     </VCard>
 
     <VCard>
