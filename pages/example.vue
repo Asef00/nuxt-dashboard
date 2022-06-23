@@ -263,7 +263,7 @@
           nobis? Voluptatum quis officia voluptas tempore, pariatur perspiciatis
           quia assumenda iste aliquam quo a?
         </VTab>
-        <VTab title="history">
+        <VTab title="history" noteCount="4" noteType="danger">
           3. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
           Laudantium nostrum quis iusto perspiciatis magnam repudiandae, labore
           nobis? Voluptatum quis officia voluptas tempore, pariatur perspiciatis

@@ -9,9 +9,9 @@
         :class="{ 'is-active': index == selectedIndex }"
       >
         {{ tab.title }}
-        <VBadge :type="tab.noteType" v-if="tab.noteCount">
+        <span v-if="tab.noteCount" :class="`c-note u-bg-${tab.noteType}`">
           {{ tab.noteCount }}
-        </VBadge>
+        </span>
       </li>
     </ul>
     <slot></slot>

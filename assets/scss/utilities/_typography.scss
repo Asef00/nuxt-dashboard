@@ -9,3 +9,7 @@
 .u-text-start {
   text-align: start !important;
 }
+
+.u-text-small {
+  @include font-size(12px);
+}

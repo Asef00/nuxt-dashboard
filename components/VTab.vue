@@ -1,5 +1,5 @@
 <template>
-  <div class="c-tab__item" v-show="isActive">
+  <div class="c-tab__content" v-show="isActive">
     <slot></slot>
   </div>
 </template>
@@ -13,6 +13,7 @@ export default {
     noteCount: Number,
     noteType: String,
   },
+
   data() {
     return {
       isActive: true,
