@@ -21,14 +21,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.c-note {
-  @include flex-inline-center;
-  width: 16px;
-  height: 16px;
-  @include font-size(12px);
-  background-color: #e2e3e5;
-  border-radius: 5px;
-}
-</style>

@@ -84,4 +84,14 @@ $orange-color: #ff6e38;
     box-shadow: 0 -2px 0 0 $orange-color inset;
   }
 }
+
+.c-note {
+  @include flex-inline-center;
+  width: 16px;
+  height: 16px;
+  @include font-size(12px);
+  background-color: #e2e3e5;
+  border-radius: 5px;
+  transform: translateY(-5px);
+}
 </style>
