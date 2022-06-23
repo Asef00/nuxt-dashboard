@@ -101,7 +101,7 @@
       </form>
     </VCard>
 
-    <VCard title="Alert">
+    <VCard title="Alerts">
       <VAlert class="c-alert--primary">
         A simple primary alert—check it out!
       </VAlert>
@@ -124,7 +124,7 @@
       <VAlert class="c-alert--dark"> A simple dark alert—check it out! </VAlert>
     </VCard>
 
-    <VCard title="MLS Information">
+    <VCard title="Inline Form Controls">
       <template #header>
         <VBtn class="m-0 c-btn--small" btn="info">Button</VBtn>
         <VBtn class="m-0 c-btn--small" btn="danger">Button</VBtn>
@@ -251,7 +251,7 @@
 
     <VCard>
       <VTabs>
-        <VTab title="calendar" noteCount="2">
+        <VTab title="calendar" :noteCount="2">
           1. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
           Laudantium nostrum quis iusto perspiciatis magnam repudiandae, labore
           nobis? Voluptatum quis officia voluptas tempore, pariatur perspiciatis
@@ -263,7 +263,7 @@
           nobis? Voluptatum quis officia voluptas tempore, pariatur perspiciatis
           quia assumenda iste aliquam quo a?
         </VTab>
-        <VTab title="history" noteCount="4" noteType="danger">
+        <VTab title="history" :noteCount="4" noteType="danger">
           3. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
           Laudantium nostrum quis iusto perspiciatis magnam repudiandae, labore
           nobis? Voluptatum quis officia voluptas tempore, pariatur perspiciatis
@@ -272,6 +272,7 @@
       </VTabs>
     </VCard>
 
+    <!-------- Modals --------->
     <VModal
       :showModal="showModal"
       @close="showModal = false"
