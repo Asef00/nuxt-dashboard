@@ -22,7 +22,7 @@
             <div class="text-right fs-6">
               <NuxtLink to="/auth/forget-password">Forget password?</NuxtLink>
             </div>
-            <VButton label="LOGIN" />
+            <VButton label="LOGIN"/>
           </form>
           <div class="p-3">
             <div v-if="false" class="text-center fs-6 mb-3">
@@ -31,7 +31,7 @@
             <div class="mt-4 btn-social" @click="continueWithGoogle">
               <a class="mb-3" href="#!" role="button">
                 <i class="g-plus">
-                  <fa :icon="['fab', 'google-plus-g']" />
+                  <fa :icon="['fab', 'google-plus-g']"/>
                 </i>
                 <span class="text-center"> Continue with Google </span>
               </a>
@@ -39,7 +39,7 @@
             <div class="mt-2 btn-social">
               <a class="mb-3" href="#!" role="button">
                 <i class="facebook">
-                  <fa :icon="['fab', 'facebook-f']" />
+                  <fa :icon="['fab', 'facebook-f']"/>
                 </i>
                 <span class="text-center"> Continue with Facebook </span>
               </a>
@@ -63,7 +63,7 @@
               type="password"
               :icon="['fas', 'unlock-keyhole']"
             ></VInput>
-            <VButton label="SEND" />
+            <VButton label="SEND"/>
           </form>
         </div>
         <div v-if="show.verificationCode" class="wrapper pb-3 pr-2 pl-2">
@@ -81,7 +81,7 @@
               label="Code"
               :icon="['fas', 'lock']"
             ></VInput>
-            <VButton label="CONFIRM ACCOUNT" />
+            <VButton label="CONFIRM ACCOUNT"/>
             <div class="text-center pt-4 fs-6">
               <span class="text-normal">Didn't receive a code?</span>
               <a
@@ -106,7 +106,7 @@ import VButton from "@/components/auth/VButton";
 
 export default {
   name: "AuthIndex",
-  components: { VInput, VButton },
+  components: {VInput, VButton},
   layout: "auth",
   data() {
     return {
@@ -131,7 +131,7 @@ export default {
     signIn() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, { abortEarly: false })
+        .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
           await this.$auth
@@ -156,14 +156,15 @@ export default {
               this.stopLoading();
             })
             .catch((err) => {
-              this.$toast.error(this.getErrorMessage(err));
+              // this.$toast.error(this.getErrorMessage(err));
               this.payload.password = "";
               this.stopLoading();
-              if (err.response.data.error === "UserNotConfirmedException") {
+              if (err.response?.data?.error === "UserNotConfirmedException") {
                 this.resendVerificationCode();
                 this.show.singIn = false;
                 this.show.verificationCode = true;
               }
+              this.handleError(err)
             });
         })
         .catch((err) => {
@@ -174,8 +175,8 @@ export default {
     tokenWithCode() {
       let code = this.$route.query.code;
       if (code) {
-        this.validation({ code: Yup.string().uuid() })
-          .validate({ code: code }, { abortEarly: false })
+        this.validation({code: Yup.string().uuid()})
+          .validate({code: code}, {abortEarly: false})
           .then(() => {
             this.resetError();
             this.startLoading();
@@ -213,7 +214,7 @@ export default {
     challengePassword() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, { abortEarly: false })
+        .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("me/authPassChallenge", this.payload);
@@ -235,7 +236,7 @@ export default {
     verificationCode() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, { abortEarly: false })
+        .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("me/confirmSingUp", {

@@ -42,9 +42,14 @@ const mixin = {
       if (!error) {
         return false;
       }
+      if (error.response === undefined) {
+        // network error
+        this.$toast.error("Connection Error!");
+        return true;
+      }
       if (!error.response) {
         // network error
-        this.$toast.error("Network Error!");
+        this.$toast.error("Connection Error!");
         return true;
       }
       if (error.response.status === 500) {
