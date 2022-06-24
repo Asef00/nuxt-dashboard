@@ -134,11 +134,11 @@ export default {
     },
   },
 
-  googleFonts: {
-    families: {
-      Montserrat: true,
-    },
-  },
+  // googleFonts: {
+  //   families: {
+  //     Montserrat: true,
+  //   },
+  // },
 
   router: {
     middleware: ["auth", "authenticated", "permission"],
