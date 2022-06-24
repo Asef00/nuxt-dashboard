@@ -47,7 +47,7 @@
           <div class="col-12">
             <VSwitch
               :defaultState="true"
-              v-on:change="triggerToggleEvent"
+              @change="triggerToggleEvent"
               :labelText="'Validate Response'"
               type="danger"
             />
@@ -344,7 +344,7 @@
 
         <VSwitch
           :defaultState="true"
-          v-on:change="triggerToggleEvent"
+          @change="triggerToggleEvent"
           :labelText="'Validate Response'"
           type="success"
         />
