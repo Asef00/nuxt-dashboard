@@ -3,10 +3,10 @@
     <ul class="c-tabs__header">
       <li
         class="c-tabs__item"
-        v-for="(tab, index) in tabs"
-        @click="clickHandler(tab.action, index)"
-        :key="tab.title"
-        :class="{ 'is-active': index == selectedIndex }"
+        v-for="tab in tabs"
+        @click="clickHandler(tab.tabKey)"
+        :key="tab.tabKey"
+        :class="{ 'is-active': tab.tabKey == selectedTab }"
       >
         {{ tab.title }}
         <span v-if="tab.noteCount" :class="`c-note u-bg-${tab.noteType}`">
@@ -31,7 +31,7 @@ export default {
 
   data() {
     return {
-      selectedIndex: 0,
+      selectedTab: "",
       tabs: [],
     };
   },
@@ -45,38 +45,34 @@ export default {
   },
 
   methods: {
-    clickHandler(event, index) {
-      if (index != this.selectedIndex) {
-        this.$emit(event);
-        this.changeTab(index);
+    clickHandler(key) {
+      if (key != this.selectedTab) {
+        this.$emit(key);
+        this.changeTab(key);
       }
     },
 
-    changeTab(i) {
+    changeTab(key) {
       //Query stuff
-      if (i !== undefined) {
-        console.log("set:", i);
+      if (key !== undefined) {
         //Set query
         let query = { ...this.$route.query };
-        query.tab = i;
+        query.tab = key;
         this.$router.replace({ query: query });
       } else {
         //Get query
-        i = this.$route.query.tab || 0;
-        console.log("get:", i);
+        key = this.$route.query.tab || 0;
       }
 
       //change UI
-      this.selectTab(i);
+      this.selectTab(key);
     },
 
-    selectTab(i) {
-      console.log("change to: ", i);
-      this.selectedIndex = i;
+    selectTab(key) {
+      this.selectedTab = key;
       // loop over all the tabs
-      this.tabs.forEach((tab, index) => {
-        tab.isActive = index == i;
-        console.log(tab.isActive);
+      this.tabs.forEach((tab) => {
+        tab.isActive = tab.tabKey == key;
       });
     },
   },

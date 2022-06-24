@@ -14,7 +14,7 @@ export default {
     title: String,
     noteCount: Number,
     noteType: String,
-    action: String,
+    tabKey: String,
   },
 
   data() {

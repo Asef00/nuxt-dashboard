@@ -252,23 +252,23 @@
     <VCard>
       <VTabs
         key="tabs1"
-        @action1="calendarMethod()"
-        @action2="historyMethod()"
-        @action3="paymentrMethod()"
+        @tab1="calendarMethod()"
+        @tab2="historyMethod()"
+        @tab3="paymentrMethod()"
       >
-        <VTab title="calendar" action="action1">
+        <VTab title="calendar" tabKey="tab1">
           1. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
           Laudantium nostrum quis iusto perspiciatis magnam repudiandae, labore
           nobis? Voluptatum quis officia voluptas tempore, pariatur perspiciatis
           quia assumenda iste aliquam quo a?
         </VTab>
-        <VTab title="history" action="action2">
+        <VTab title="history" tabKey="tab2">
           2. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
           Laudantium nostrum quis iusto perspiciatis magnam repudiandae, labore
           nobis? Voluptatum quis officia voluptas tempore, pariatur perspiciatis
           quia assumenda iste aliquam quo a?
         </VTab>
-        <VTab title="payment" action="action3" :noteCount="2" noteType="active">
+        <VTab title="payment" tabKey="tab3" :noteCount="2" noteType="active">
           3. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
           Laudantium nostrum quis iusto perspiciatis magnam repudiandae, labore
           nobis? Voluptatum quis officia voluptas tempore, pariatur perspiciatis
