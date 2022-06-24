@@ -251,7 +251,7 @@
 
     <VCard>
       <VTabs
-        key="tabs1"
+        qKey="tabs1"
         @tab1="calendarMethod()"
         @tab2="historyMethod()"
         @tab3="paymentrMethod()"
