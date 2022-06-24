@@ -53,6 +53,7 @@ export default {
     },
 
     changeTab(i) {
+      //Query stuff
       if (i !== undefined) {
         console.log("set:", i);
         //Set query
@@ -74,7 +75,8 @@ export default {
       this.selectedIndex = i;
       // loop over all the tabs
       this.tabs.forEach((tab, index) => {
-        tab.isActive = index === i;
+        tab.isActive = index == i;
+        console.log(tab.isActive);
       });
     },
   },
