@@ -9,9 +9,12 @@ export default {
   name: "VTab",
 
   props: {
+    // these props are required
+    // are being used in the parent(Tabs)
     title: String,
     noteCount: Number,
     noteType: String,
+    action: String,
   },
 
   data() {

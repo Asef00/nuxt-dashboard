@@ -4,11 +4,11 @@
       <li
         class="c-tabs__item"
         v-for="(tab, index) in tabs"
-        :key="tab.title"
         @click="
           $emit(tab.action);
-          selectTab(index);
+          changeTab(index);
         "
+        :key="tab.title"
         :class="{ 'is-active': index == selectedIndex }"
       >
         {{ tab.title }}
@@ -44,11 +44,29 @@ export default {
   },
 
   mounted() {
-    this.selectTab(0);
+    this.changeTab();
   },
 
   methods: {
+    changeTab(i) {
+      if (i !== undefined) {
+        console.log("set: ", i);
+        //Set query
+        let query = { ...this.$route.query };
+        query.tab = i;
+        this.$router.replace({ query: query });
+      } else {
+        //Get query
+        i = this.$route.query.tab || 0;
+        console.log("get: ", i);
+      }
+
+      //change UI
+      this.selectTab(i);
+    },
+
     selectTab(i) {
+      console.log("change to: ", i);
       this.selectedIndex = i;
       // loop over all the tabs
       this.tabs.forEach((tab, index) => {
