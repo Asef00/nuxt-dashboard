@@ -26,16 +26,6 @@
           />
         </div>
         <div class="col-md-6">
-          <VTextarea
-            @validation="validate('description')"
-            :error="errorMessage('description')"
-            label="Description"
-            :rows="3"
-            v-model="payload.description"
-            placeholder="Please enter description"
-          />
-        </div>
-        <div class="col-md-6">
           <VSelect
             v-model="payload.license_mode"
             @validation="validate('license_mode')"
@@ -45,6 +35,26 @@
             track-label="label"
             track-by="id"
             label="License Mode"/>
+        </div>
+        <div class="col-md-6">
+          <VSelect
+            @validation="validate('data_fields')"
+            :error="errorMessage('data_fields')"
+            v-model="payload.data_fields"
+            label="Data Fields"
+            placeholder="Please add data fields"
+            :taggable="true"
+          />
+        </div>
+        <div class="col-md-6">
+          <VTextarea
+            @validation="validate('description')"
+            :error="errorMessage('description')"
+            label="Description"
+            :rows="3"
+            v-model="payload.description"
+            placeholder="Please enter description"
+          />
         </div>
       </div>
       <VBtn :loader="loaderRequest">SAVE</VBtn>
@@ -67,7 +77,8 @@ export default {
         title: '',
         slug: '',
         description: '',
-        license_mode: []
+        license_mode: [],
+        data_fields: []
       }
     };
   },
@@ -83,9 +94,10 @@ export default {
             slug: this.payload.slug,
             description: this.payload.description,
             license_mode_id: this.payload.license_mode.id,
+            data_fields: this.payload.data_fields,
           });
           this.stopLoading();
-          const err = this.handleError(this.$store.state.fieldName.error);
+          const err = this.handleError(this.$store.state.product.error);
           if (!err) {
             this.$toast.success("Product successfully created.");
             this.$router.push("/product");
@@ -109,6 +121,7 @@ export default {
         slug: Yup.string().required(),
         description: Yup.string().required(),
         license_mode: Yup.object().nullable().required(),
+        data_fields: Yup.array().nullable(),
       };
       return Yup.object(roles);
     },
