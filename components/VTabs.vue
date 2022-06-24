@@ -4,10 +4,7 @@
       <li
         class="c-tabs__item"
         v-for="(tab, index) in tabs"
-        @click="
-          $emit(tab.action);
-          changeTab(index);
-        "
+        @click="clickHandler(tab.action, index)"
         :key="tab.title"
         :class="{ 'is-active': index == selectedIndex }"
       >
@@ -48,9 +45,16 @@ export default {
   },
 
   methods: {
+    clickHandler(event, index) {
+      if (index != this.selectedIndex) {
+        this.$emit(event);
+        this.changeTab(index);
+      }
+    },
+
     changeTab(i) {
       if (i !== undefined) {
-        console.log("set: ", i);
+        console.log("set:", i);
         //Set query
         let query = { ...this.$route.query };
         query.tab = i;
@@ -58,7 +62,7 @@ export default {
       } else {
         //Get query
         i = this.$route.query.tab || 0;
-        console.log("get: ", i);
+        console.log("get:", i);
       }
 
       //change UI
