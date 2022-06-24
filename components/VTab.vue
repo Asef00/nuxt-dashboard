@@ -1,5 +1,5 @@
 <template>
-  <div class="c-tab__content" v-show="isActive">
+  <div class="c-tab__content" v-if="initiated" v-show="isActive">
     <slot></slot>
   </div>
 </template>
@@ -19,7 +19,8 @@ export default {
 
   data() {
     return {
-      isActive: true,
+      isActive: false,
+      initiated: false,
     };
   },
 };

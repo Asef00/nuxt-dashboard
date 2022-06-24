@@ -76,7 +76,12 @@ export default {
       this.selectedTab = key;
       // loop over all the tabs
       this.tabs.forEach((tab) => {
-        tab.isActive = tab.tabKey == key;
+        if (tab.tabKey == key) {
+          tab.isActive = true;
+          tab.initiated = true;
+        } else {
+          tab.isActive = false;
+        }
       });
     },
   },

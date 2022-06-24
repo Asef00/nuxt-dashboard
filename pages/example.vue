@@ -274,6 +274,9 @@
           nobis? Voluptatum quis officia voluptas tempore, pariatur perspiciatis
           quia assumenda iste aliquam quo a?
         </VTab>
+        <VTab title="test" tabKey="test">
+          <VTest />
+        </VTab>
       </VTabs>
     </VCard>
 
