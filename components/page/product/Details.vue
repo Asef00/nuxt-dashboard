@@ -17,6 +17,12 @@
       <label class="c-form__label">Description</label>
       <span class="u-text-secondary">{{ data.description }}</span>
     </div>
+    <div class="c-form__control c-form__control--inline">
+      <label class="c-form__label">Fields</label>
+      <span v-for="field in data.data_fields" class="c-badge u-bg-primary mr-0">
+        {{ field }}
+      </span>
+    </div>
     <div class="c-form__control c-form__control--inline mb-0">
       <label class="c-form__label">License mode</label>
       <span class="u-text-secondary">{{ data.license_mode.label }}</span>
