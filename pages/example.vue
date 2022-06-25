@@ -415,8 +415,13 @@ export default {
   },
 
   created() {
-    this.setTitle("Dashboard");
-    this.setBreadcrumb([]);
+    this.setTitle("Sample Page");
+    this.setBreadcrumb([
+      {
+        to: "/example",
+        name: "Samples",
+      },
+    ]);
     this.resetError();
   },
 };

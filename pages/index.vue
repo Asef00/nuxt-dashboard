@@ -120,5 +120,10 @@ export default {
       },
     };
   },
+
+  created() {
+    this.setTitle("Dashboard");
+    this.setBreadcrumb([]);
+  },
 };
 </script>
