@@ -72,9 +72,11 @@ export default {
         }
         // horizontal
         if (rect.bottom + 10 > window.innerHeight) {
-          console.log(rect.bottom, window.innerHeight);
-          // menu.style.top = "unset";
-          menu.style.top = -rect.bottom + window.innerHeight - 10 + "px";
+          // console.log(rect.bottom, window.innerHeight);
+          // menu.style.top = -rect.bottom + window.innerHeight - 10 + "px";
+          menu.classList.add('is-bottom');
+          menu.style.top = "unset";
+          menu.style.bottom = 0;
         }
       });
     },
