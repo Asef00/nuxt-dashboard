@@ -55,7 +55,7 @@
               </div>
               <div class="col-md-6">
                 <VInput
-                  :disabled="true"
+                  disabled
                   label="Email"
                   v-model="payload.email"
                   placeholder="Enter your Email"

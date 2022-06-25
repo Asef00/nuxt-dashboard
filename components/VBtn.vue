@@ -1,5 +1,15 @@
 <template>
+  <NuxtLink
+    v-if="to"
+    :class="['c-btn', classBtn]"
+    :to="to"
+    :event="disabled ? '' : 'click'"
+  >
+    <LoaderDots :color="colorLoader" v-if="loader"></LoaderDots>
+    <slot v-else />
+  </NuxtLink>
   <button
+    v-else
     @click="$emit('action')"
     :disabled="disabled"
     :type="type"
@@ -14,6 +24,10 @@
 export default {
   name: "VBtn",
   props: {
+    to: {
+      type: String,
+      default: "",
+    },
     type: {
       type: String,
       default: "submit",

@@ -8,20 +8,20 @@
           @validation="validate('tag')"
           :error="errorMessage('tag')"
           :multiple="true"
+          :list="options"
           placeholder="Please select tag"
           v-model="payload.tag"
-          :list="options"
           label="Tags"
         />
         <VSelect
-          :disabled="true"
           @validation="validate('tag')"
           :error="errorMessage('tag')"
           :multiple="true"
+          :list="options"
           placeholder="Please select tag"
           v-model="payload.tag"
-          :list="options"
           label="Tags"
+          disabled
         />
         <div class="row">
           <div class="col-md-6">
@@ -71,7 +71,7 @@
               label="Disabled"
               inputValue="foo"
               v-model="selectedOptions"
-              :disabled="true"
+              disabled
             />
           </div>
         </div>
@@ -287,14 +287,14 @@
         />
 
         <VSelect
-          :disabled="true"
           @validation="validate('tag')"
           :error="errorMessage('tag')"
           :multiple="true"
-          placeholder="Please select tag"
-          v-model="payload.tag"
           :list="options"
+          v-model="payload.tag"
+          placeholder="Please select tag"
           label="Tags"
+          disabled
         />
 
         <VInput
@@ -338,7 +338,7 @@
           label="Disabled"
           inputValue="foo"
           v-model="selectedOptions"
-          :disabled="true"
+          disabled
         />
 
         <p>
