@@ -1,7 +1,7 @@
 <template>
   <NuxtLink
     v-if="to"
-    :class="['c-btn', classBtn]"
+    :class="['c-btn', classBtn, disabled ? 'is-disabled' : '']"
     :to="to"
     :event="disabled ? '' : 'click'"
   >
