@@ -11,6 +11,9 @@ $btn-bg: #f4f4f5;
 }
 
 .c-btn {
+  position: relative;     //to fix
+  vertical-align: middle; //loader state
+
   min-width: 9em;
   height: 40px;
   border-radius: 3px;

@@ -5,7 +5,7 @@
     :type="type"
     :class="['c-btn', classBtn]"
   >
-    <span v-if="loader"><LoaderDots :color="colorLoader"></LoaderDots></span>
+    <LoaderDots :color="colorLoader" v-if="loader"></LoaderDots>
     <slot v-else />
   </button>
 </template>
@@ -86,5 +86,5 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 </style>
