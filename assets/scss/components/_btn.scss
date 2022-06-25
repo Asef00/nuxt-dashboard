@@ -10,8 +10,15 @@ $btn-bg: #f4f4f5;
   }
 }
 
+@mixin color-modifier($bg, $color) {
+  background-color: $bg;
+  color: $color;
+  border-color: $bg;
+  @include hover-color($bg);
+}
+
 .c-btn {
-  position: relative;     //to fix
+  position: relative; //to fix
   vertical-align: middle; //loader state
 
   min-width: 9em;
@@ -33,37 +40,23 @@ $btn-bg: #f4f4f5;
   }
 
   &--primary {
-    background-color: $primary-color;
-    color: #fff;
-    border-color: $primary-color;
-    @include hover-color($primary-color);
+    @include color-modifier($primary-color, #fff);
   }
 
   &--info {
-    background-color: $info-color;
-    color: #fff;
-    border-color: $info-color;
-    @include hover-color($info-color);
+    @include color-modifier($info-color, #fff);
   }
 
   &--danger {
-    background-color: $danger-color;
-    color: #fff;
-    border-color: $danger-color;
-    @include hover-color($danger-color);
+    @include color-modifier($danger-color, #fff);
   }
 
   &--success {
-    background-color: $success-color;
-    color: #fff;
-    border-color: $success-color;
-    @include hover-color($success-color);
+    @include color-modifier($success-color, #fff);
   }
 
   &--warn {
-    background-color: $warn-color;
-    border-color: $warn-color;
-    @include hover-color($warn-color);
+    @include color-modifier($warn-color, #fff);
   }
 
   &--dark {
