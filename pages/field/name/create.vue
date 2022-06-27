@@ -1,9 +1,7 @@
 <template>
   <VCard title="Create new Field Name">
     <template #header>
-      <VBtn to="/field/name" type="button" class="m-0 c-btn--small">
-        List
-      </VBtn>
+      <VBtn to="/field/name" class="m-0 c-btn--small"> List </VBtn>
     </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">

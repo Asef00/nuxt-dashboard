@@ -4,7 +4,6 @@
       <VBtn
         to="/license-mode/create"
         v-if="can('license-mode.store')"
-        type="button"
         class="m-0 c-btn--small"
       >
         Create

@@ -11,7 +11,6 @@
       <VBtn
         to="/person/create-cognito"
         v-if="can('person.cognito.store')"
-        type="button"
         class="m-0 c-btn--small"
       >
         Add form Cognito

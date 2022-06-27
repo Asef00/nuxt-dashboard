@@ -1,11 +1,10 @@
 <template>
   <VCard title="Create new Person">
     <template #header>
-      <VBtn to="/person" type="button" class="m-0 c-btn--small"> List </VBtn>
+      <VBtn to="/person" class="m-0 c-btn--small"> List </VBtn>
       <VBtn
         to="/person/create-cognito"
         v-if="can('person.cognito.store')"
-        type="button"
         class="m-0 c-btn--small"
       >
         Add form Cognito

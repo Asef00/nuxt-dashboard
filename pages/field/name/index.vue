@@ -4,7 +4,6 @@
       <VBtn
         to="/field/name/create"
         v-if="can('field-name.store')"
-        type="button"
         class="m-0 c-btn--small"
       >
         Create

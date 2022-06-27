@@ -4,7 +4,6 @@
       <VBtn
         to="/product/create"
         v-if="can('product.store')"
-        type="button"
         class="m-0 c-btn--small"
       >
         Create

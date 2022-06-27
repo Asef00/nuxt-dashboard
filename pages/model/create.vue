@@ -1,7 +1,7 @@
 <template>
   <VCard title="Create New Model">
     <template #header>
-      <VBtn to="/model" type="button" class="m-0 c-btn--small"> List </VBtn>
+      <VBtn to="/model" class="m-0 c-btn--small"> List </VBtn>
     </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">

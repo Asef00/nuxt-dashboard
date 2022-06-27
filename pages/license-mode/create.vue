@@ -1,9 +1,7 @@
 <template>
   <VCard title="Create New License Mode">
     <template #header>
-      <VBtn to="/license-mode" type="button" class="m-0 c-btn--small">
-        List
-      </VBtn>
+      <VBtn to="/license-mode" class="m-0 c-btn--small"> List </VBtn>
     </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">

@@ -1,15 +1,9 @@
 <template>
   <VCard title="Edit a Person">
     <template #header>
-      <VBtn to="/person" type="button" class="m-0 c-btn--small"> List </VBtn>
-      <VBtn :to="`/person/${id}`" type="button" class="m-0 c-btn--small">
-        Details
-      </VBtn>
-      <VBtn
-        :to="`/person-product/create/${id}`"
-        type="button"
-        class="m-0 c-btn--small"
-      >
+      <VBtn to="/person" class="m-0 c-btn--small"> List </VBtn>
+      <VBtn :to="`/person/${id}`" class="m-0 c-btn--small"> Details </VBtn>
+      <VBtn :to="`/person-product/create/${id}`" class="m-0 c-btn--small">
         Add Product
       </VBtn>
       <VBtn

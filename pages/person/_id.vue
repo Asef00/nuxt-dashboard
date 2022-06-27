@@ -2,11 +2,10 @@
   <div>
     <VCard :loader="loaderRequest" title="Person Details">
       <template #header>
-        <VBtn to="/person" type="button" class="m-0 c-btn--small"> List </VBtn>
+        <VBtn to="/person" class="m-0 c-btn--small"> List </VBtn>
         <VBtn
           :to="`/person/edit/${id}`"
           v-if="can('person.update')"
-          type="button"
           class="m-0 c-btn--small"
         >
           Edit
@@ -14,7 +13,6 @@
         <VBtn
           :to="`/person-product/create/${id}`"
           v-if="can('person.product.store')"
-          type="button"
           class="m-0 c-btn--small"
         >
           Add Product
@@ -123,7 +121,6 @@
         <VBtn
           :to="`/person-product/create/${id}`"
           v-if="can('person.product.store')"
-          type="button"
           class="m-0 c-btn--small"
         >
           Create

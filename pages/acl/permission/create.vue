@@ -1,9 +1,7 @@
 <template>
   <VCard title="Create new Permission">
     <template #header>
-      <VBtn to="/acl/permission" type="button" class="m-0 c-btn--small">
-        List
-      </VBtn>
+      <VBtn to="/acl/permission" class="m-0 c-btn--small"> List </VBtn>
     </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">

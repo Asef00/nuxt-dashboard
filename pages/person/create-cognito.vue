@@ -1,10 +1,8 @@
 <template>
   <VCard title="Search User Form Cognito">
     <template #header>
-      <VBtn to="/person/create" type="button" class="m-0 c-btn--small">
-        Create
-      </VBtn>
-      <VBtn to="/person" type="button" class="m-0 c-btn--small"> List </VBtn>
+      <VBtn to="/person/create" class="m-0 c-btn--small"> Create </VBtn>
+      <VBtn to="/person" class="m-0 c-btn--small"> List </VBtn>
     </template>
     <form @submit.prevent="search" class="c-form">
       <VAlert class="c-alert--danger mt-1 mb-2" v-show="hasError('username')">{{

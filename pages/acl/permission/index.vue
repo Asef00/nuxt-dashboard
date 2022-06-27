@@ -4,7 +4,6 @@
       <VBtn
         to="/acl/permission/create"
         v-if="can('permission.store')"
-        type="button"
         class="m-0 c-btn--small"
       >
         Create

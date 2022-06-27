@@ -1,7 +1,7 @@
 <template>
   <VCard title="Create new Product">
     <template #header>
-      <VBtn to="/product" type="button" class="m-0 c-btn--small"> List </VBtn>
+      <VBtn to="/product" class="m-0 c-btn--small"> List </VBtn>
     </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">

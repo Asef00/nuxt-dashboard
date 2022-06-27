@@ -4,7 +4,6 @@
       <VBtn
         to="/acl/role/create"
         v-if="can('role.store')"
-        type="button"
         class="m-0 c-btn--small"
       >
         Create

@@ -4,7 +4,6 @@
       <VBtn
         to="/model/create"
         v-if="can('model.store')"
-        type="button"
         class="m-0 c-btn--small"
       >
         Create
