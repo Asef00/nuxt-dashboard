@@ -1,13 +1,25 @@
 <template>
   <VCard :loader="loaderRequest" title="List Field Names">
     <template #header>
-      <VBtn v-if="can('field-name.store')" type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/field/name/create">Create</NuxtLink>
+      <VBtn
+        to="/field/name/create"
+        v-if="can('field-name.store')"
+        class="m-0 c-btn--small"
+      >
+        Create
       </VBtn>
     </template>
-    <VTable @actionDetails="detailsItem($event)" @actionDelete="deleteItem($event)" :table="table"/>
-    <VModal :showModal="showDetails" @close="showDetails =false" title="Field name details">
-      <Details :id="detailsItemId"/>
+    <VTable
+      @actionDetails="detailsItem($event)"
+      @actionDelete="deleteItem($event)"
+      :table="table"
+    />
+    <VModal
+      :showModal="showDetails"
+      @close="showDetails = false"
+      title="Field name details"
+    >
+      <Details :id="detailsItemId" />
     </VModal>
   </VCard>
 </template>
@@ -18,7 +30,7 @@ import Details from "@/components/page/field/name/Details";
 export default {
   name: "index",
   permission: "field-name.index",
-  components: {Details},
+  components: { Details },
   data() {
     let _this = this;
     return {
@@ -26,12 +38,16 @@ export default {
       detailsItemId: 0,
       table: {
         columns: [
-          {key: "id", label: "#"},
-          {key: "name", label: "Name",},
-          {key: "label", label: "Label",},
-          {key: "created_at", label: "Created At", class: "u-text-center"},
-          {key: "updated_at", label: "Updated At", class: "u-text-center"},
-          {key: "action", label: '<img src="/img/gear.svg" alt="" />', class: "u-text-center",},
+          { key: "id", label: "#" },
+          { key: "name", label: "Name" },
+          { key: "label", label: "Label" },
+          { key: "created_at", label: "Created At", class: "u-text-center" },
+          { key: "updated_at", label: "Updated At", class: "u-text-center" },
+          {
+            key: "action",
+            label: '<img src="/img/gear.svg" alt="" />',
+            class: "u-text-center",
+          },
         ],
         items: [],
         map: {
@@ -48,54 +64,52 @@ export default {
             return _this.dateFormat(item.updated_at);
           },
           //REQUIRED
-          rowClass() {
-          },
+          rowClass() {},
         },
       },
-    }
+    };
   },
   methods: {
     async list() {
-      this.startLoading()
-      this.$store.commit('fieldName/RESET_ERROR')
+      this.startLoading();
+      this.$store.commit("fieldName/RESET_ERROR");
       await this.$store.dispatch("fieldName/list");
       let err = this.handleError(this.$store.state.fieldName.error);
       if (!err) {
         this.table.items = this.$store.state.fieldName.list;
       }
-      this.stopLoading()
+      this.stopLoading();
     },
     async deleteItem(id) {
       if (confirm("Are you sure?")) {
-        this.startLoading()
-        this.$store.commit('fieldName/RESET_ERROR')
+        this.startLoading();
+        this.$store.commit("fieldName/RESET_ERROR");
         await this.$store.dispatch("fieldName/delete", id);
         let err = this.handleError(this.$store.state.fieldName.error);
         if (!err) {
-          this.$toast.success('Field name successfully deleted.');
+          this.$toast.success("Field name successfully deleted.");
           await this.list();
         }
-        this.stopLoading()
+        this.stopLoading();
       }
     },
     detailsItem(id) {
       this.detailsItemId = id;
       this.showDetails = true;
-    }
+    },
   },
   created() {
-    this.setTitle('Field Name')
+    this.setTitle("Field Name");
     this.setBreadcrumb([
       {
-        to: '/field/name',
-        name: 'Field Name'
-      }
-    ])
+        to: "/field/name",
+        name: "Field Name",
+      },
+    ]);
     this.list();
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

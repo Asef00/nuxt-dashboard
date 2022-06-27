@@ -1,9 +1,7 @@
 <template>
   <VCard title="Create New License Mode">
     <template #header>
-      <VBtn type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/license-mode">List</NuxtLink>
-      </VBtn>
+      <VBtn to="/license-mode" class="m-0 c-btn--small"> List </VBtn>
     </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">
@@ -40,16 +38,16 @@ export default {
   data() {
     return {
       payload: {
-        name: '',
-        label: '',
-      }
+        name: "",
+        label: "",
+      },
     };
   },
   methods: {
     create() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("licenseMode/create", this.payload);
@@ -72,30 +70,29 @@ export default {
       });
     },
     resetError() {
-      this.$store.commit('licenseMode/RESET_ERROR')
+      this.$store.commit("licenseMode/RESET_ERROR");
       this.errors = {
         name: "",
         label: "",
       };
-    }
+    },
   },
   created() {
-    this.setTitle('License Mode')
+    this.setTitle("License Mode");
     this.setBreadcrumb([
       {
-        to: '/license-mode',
-        name: 'License Mode'
+        to: "/license-mode",
+        name: "License Mode",
       },
       {
-        to: '/license-mode/create',
-        name: 'Create'
-      }
-    ])
-    this.resetError()
-  }
-}
+        to: "/license-mode/create",
+        name: "Create",
+      },
+    ]);
+    this.resetError();
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

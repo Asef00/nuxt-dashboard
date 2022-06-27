@@ -1,9 +1,7 @@
 <template>
   <VCard title="Create New Model">
     <template #header>
-      <VBtn type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/model">List</NuxtLink>
-      </VBtn>
+      <VBtn to="/model" class="m-0 c-btn--small"> List </VBtn>
     </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">
@@ -50,7 +48,7 @@ export default {
     create() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("model/create", this.payload);
@@ -73,12 +71,12 @@ export default {
       });
     },
     resetError() {
-      this.$store.commit('model/RESET_ERROR')
+      this.$store.commit("model/RESET_ERROR");
       this.errors = {
         name: "",
         fields: "",
       };
-    }
+    },
   },
   created() {
     this.setTitle("Model");

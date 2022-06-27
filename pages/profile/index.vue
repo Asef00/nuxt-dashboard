@@ -55,7 +55,7 @@
               </div>
               <div class="col-md-6">
                 <VInput
-                  :disabled="true"
+                  disabled
                   label="Email"
                   v-model="payload.email"
                   placeholder="Enter your Email"
@@ -106,7 +106,7 @@
     />
     <!--    <VCard :loader="loaderRequest" title="Product">-->
     <!--      <template #header>-->
-    <!--        <VBtn type="button" class="m-0 c-btn&#45;&#45;small">-->
+    <!--        <VBtn class="m-0 c-btn&#45;&#45;small">-->
     <!--          <NuxtLink :to="`/person-product/create/${id}`">Create</NuxtLink>-->
     <!--        </VBtn>-->
     <!--      </template>-->

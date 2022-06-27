@@ -1,11 +1,13 @@
 <template>
   <VCard title="Create new Person">
     <template #header>
-      <VBtn type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/person">List</NuxtLink>
-      </VBtn>
-      <VBtn v-if="can('person.cognito.store')" type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/person/create-cognito">Add form Cognito</NuxtLink>
+      <VBtn to="/person" class="m-0 c-btn--small"> List </VBtn>
+      <VBtn
+        to="/person/create-cognito"
+        v-if="can('person.cognito.store')"
+        class="m-0 c-btn--small"
+      >
+        Add form Cognito
       </VBtn>
     </template>
     <form @submit.prevent="create" class="c-form">
@@ -75,19 +77,19 @@ export default {
     return {
       setPassword: false,
       payload: {
-        name: '',
-        family_name: '',
-        username: '',
+        name: "",
+        family_name: "",
+        username: "",
         email_verified: false,
-        password: '',
-      }
+        password: "",
+      },
     };
   },
   methods: {
     create() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           let payload = {
@@ -121,38 +123,37 @@ export default {
         email_verified: Yup.bool().nullable(),
       };
       if (this.setPassword) {
-        roles = {...roles, password: Yup.string().nullable().required()}
+        roles = { ...roles, password: Yup.string().nullable().required() };
       }
       return Yup.object(roles);
     },
     resetError() {
-      this.$store.commit('person/RESET_ERROR')
+      this.$store.commit("person/RESET_ERROR");
       this.errors = {
-        name: '',
-        family_name: '',
-        username: '',
-        email_verified: '',
-        password: '',
+        name: "",
+        family_name: "",
+        username: "",
+        email_verified: "",
+        password: "",
       };
     },
   },
   created() {
-    this.resetError()
-    this.setTitle('Person')
+    this.resetError();
+    this.setTitle("Person");
     this.setBreadcrumb([
       {
-        to: '/person',
-        name: 'Person'
+        to: "/person",
+        name: "Person",
       },
       {
-        to: '/person/create',
-        name: 'Create'
-      }
-    ])
-  }
-}
+        to: "/person/create",
+        name: "Create",
+      },
+    ]);
+  },
+};
 </script>
 
 <style scoped>
-
 </style>
