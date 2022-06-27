@@ -1,15 +1,19 @@
 <template>
   <VCard :loader="loaderRequest" title="List Person">
     <template #header>
-      <VBtn v-if="can('person.store')" type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/person/create">Create</NuxtLink>
-      </VBtn>
       <VBtn
-        v-if="can('person.cognito.store')"
-        type="button"
+        to="/person/create"
+        v-if="can('person.store')"
         class="m-0 c-btn--small"
       >
-        <NuxtLink to="/person/create-cognito">Add form Cognito</NuxtLink>
+        Create
+      </VBtn>
+      <VBtn
+        to="/person/create-cognito"
+        v-if="can('person.cognito.store')"
+        class="m-0 c-btn--small"
+      >
+        Add form Cognito
       </VBtn>
     </template>
     <VTable

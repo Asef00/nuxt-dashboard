@@ -1,11 +1,19 @@
 <template>
   <VCard :loader="loaderRequest" title="List Field Types">
     <template #header>
-      <VBtn v-if="can('field-type.store')" type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/field/type/create">Create</NuxtLink>
+      <VBtn
+        to="/field/type/create"
+        v-if="can('field-type.store')"
+        class="m-0 c-btn--small"
+      >
+        Create
       </VBtn>
     </template>
-    <VTable @actionDetails="detailsItem($event)" @actionDelete="deleteItem($event)" :table="table"/>
+    <VTable
+      @actionDetails="detailsItem($event)"
+      @actionDelete="deleteItem($event)"
+      :table="table"
+    />
   </VCard>
 </template>
 
@@ -20,12 +28,16 @@ export default {
       detailsItemId: 0,
       table: {
         columns: [
-          {key: "id", label: "#"},
-          {key: "type", label: "Type",},
-          {key: "label", label: "Label",},
-          {key: "created_at", label: "Created At", class: "u-text-center"},
-          {key: "updated_at", label: "Updated At", class: "u-text-center"},
-          {key: "action", label: '<img src="/img/gear.svg" alt="" />', class: "u-text-center",},
+          { key: "id", label: "#" },
+          { key: "type", label: "Type" },
+          { key: "label", label: "Label" },
+          { key: "created_at", label: "Created At", class: "u-text-center" },
+          { key: "updated_at", label: "Updated At", class: "u-text-center" },
+          {
+            key: "action",
+            label: '<img src="/img/gear.svg" alt="" />',
+            class: "u-text-center",
+          },
         ],
         items: [],
         map: {
@@ -42,54 +54,52 @@ export default {
             return _this.dateFormat(item.updated_at);
           },
           //REQUIRED
-          rowClass() {
-          },
+          rowClass() {},
         },
       },
-    }
+    };
   },
   methods: {
     async list() {
-      this.startLoading()
-      this.$store.commit('fieldType/RESET_ERROR')
+      this.startLoading();
+      this.$store.commit("fieldType/RESET_ERROR");
       await this.$store.dispatch("fieldType/list");
       let err = this.handleError(this.$store.state.fieldType.error);
       if (!err) {
         this.table.items = this.$store.state.fieldType.list;
       }
-      this.stopLoading()
+      this.stopLoading();
     },
     async deleteItem(id) {
       if (confirm("Are you sure?")) {
-        this.startLoading()
-        this.$store.commit('fieldType/RESET_ERROR')
+        this.startLoading();
+        this.$store.commit("fieldType/RESET_ERROR");
         await this.$store.dispatch("fieldType/delete", id);
         let err = this.handleError(this.$store.state.fieldType.error);
         if (!err) {
-          this.$toast.success('Field type successfully deleted.');
+          this.$toast.success("Field type successfully deleted.");
           await this.list();
         }
-        this.stopLoading()
+        this.stopLoading();
       }
     },
     detailsItem(id) {
       this.detailsItemId = id;
       this.showDetails = true;
-    }
+    },
   },
   created() {
-    this.setTitle('Field Type')
+    this.setTitle("Field Type");
     this.setBreadcrumb([
       {
-        to: '/field/type',
-        name: 'Field Type'
-      }
-    ])
-    this.list()
-  }
-}
+        to: "/field/type",
+        name: "Field Type",
+      },
+    ]);
+    this.list();
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

@@ -1,13 +1,25 @@
 <template>
   <VCard :loader="loaderRequest" title="List Models">
     <template #header>
-      <VBtn v-if="can('model.store')" type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/model/create">Create</NuxtLink>
+      <VBtn
+        to="/model/create"
+        v-if="can('model.store')"
+        class="m-0 c-btn--small"
+      >
+        Create
       </VBtn>
     </template>
-    <VTable @actionDetails="detailsItem($event)" @actionDelete="deleteItem($event)" :table="table"/>
-    <VModal :showModal="showDetails" @close="showDetails =false" title="Model details">
-      <Details :id="detailsItemId"/>
+    <VTable
+      @actionDetails="detailsItem($event)"
+      @actionDelete="deleteItem($event)"
+      :table="table"
+    />
+    <VModal
+      :showModal="showDetails"
+      @close="showDetails = false"
+      title="Model details"
+    >
+      <Details :id="detailsItemId" />
     </VModal>
   </VCard>
 </template>
@@ -18,7 +30,7 @@ import Details from "@/components/page/model/Details";
 export default {
   name: "index",
   permission: "model.index",
-  components: {Details},
+  components: { Details },
   data() {
     let _this = this;
     return {
@@ -26,11 +38,15 @@ export default {
       detailsItemId: 0,
       table: {
         columns: [
-          {key: "id", label: "#"},
-          {key: "name", label: "Name",},
-          {key: "created_at", label: "Created At", class: "u-text-center"},
-          {key: "updated_at", label: "Updated At", class: "u-text-center"},
-          {key: "action", label: '<img src="/img/gear.svg" alt="" />', class: "u-text-center",},
+          { key: "id", label: "#" },
+          { key: "name", label: "Name" },
+          { key: "created_at", label: "Created At", class: "u-text-center" },
+          { key: "updated_at", label: "Updated At", class: "u-text-center" },
+          {
+            key: "action",
+            label: '<img src="/img/gear.svg" alt="" />',
+            class: "u-text-center",
+          },
         ],
         items: [],
         map: {
@@ -46,55 +62,52 @@ export default {
             return _this.dateFormat(item.updated_at);
           },
           //REQUIRED
-          rowClass() {
-          },
+          rowClass() {},
         },
       },
-    }
+    };
   },
   methods: {
     async list() {
-      this.startLoading()
-      this.$store.commit('model/RESET_ERROR')
+      this.startLoading();
+      this.$store.commit("model/RESET_ERROR");
       await this.$store.dispatch("model/list");
       let err = this.handleError(this.$store.state.model.error);
       if (!err) {
         this.table.items = this.$store.state.model.list;
       }
-      this.stopLoading()
+      this.stopLoading();
     },
     async deleteItem(id) {
       if (confirm("Are you sure?")) {
-        this.startLoading()
-        this.$store.commit('model/RESET_ERROR')
+        this.startLoading();
+        this.$store.commit("model/RESET_ERROR");
         await this.$store.dispatch("model/delete", id);
         let err = this.handleError(this.$store.state.model.error);
         if (!err) {
-          this.$toast.success('Model successfully deleted.');
+          this.$toast.success("Model successfully deleted.");
           await this.list();
         }
-        this.stopLoading()
+        this.stopLoading();
       }
     },
     detailsItem(id) {
       this.detailsItemId = id;
       this.showDetails = true;
-    }
+    },
   },
   created() {
-    this.setTitle('Model')
+    this.setTitle("Model");
     this.setBreadcrumb([
       {
         to: "/model",
-        name: "Model"
-      }
-    ])
-    this.list()
-  }
-}
-
+        name: "Model",
+      },
+    ]);
+    this.list();
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

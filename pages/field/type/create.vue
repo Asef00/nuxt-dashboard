@@ -1,9 +1,7 @@
 <template>
   <VCard title="Create New Field Type">
     <template #header>
-      <VBtn type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/field/type">List</NuxtLink>
-      </VBtn>
+      <VBtn to="/field/type" class="m-0 c-btn--small"> List </VBtn>
     </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">
@@ -40,16 +38,16 @@ export default {
   data() {
     return {
       payload: {
-        type: '',
-        label: '',
-      }
+        type: "",
+        label: "",
+      },
     };
   },
   methods: {
     create() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("fieldType/create", this.payload);
@@ -72,30 +70,29 @@ export default {
       });
     },
     resetError() {
-      this.$store.commit('fieldType/RESET_ERROR')
+      this.$store.commit("fieldType/RESET_ERROR");
       this.errors = {
         type: "",
         label: "",
       };
-    }
+    },
   },
   created() {
-    this.setTitle('Field Type')
+    this.setTitle("Field Type");
     this.setBreadcrumb([
       {
-        to: '/field/type',
-        name: 'Field Type'
+        to: "/field/type",
+        name: "Field Type",
       },
       {
-        to: '/field/type/create',
-        name: 'Create'
-      }
-    ])
-    this.resetError()
-  }
-}
+        to: "/field/type/create",
+        name: "Create",
+      },
+    ]);
+    this.resetError();
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

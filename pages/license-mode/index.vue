@@ -1,11 +1,19 @@
 <template>
   <VCard :loader="loaderRequest" title="List License Modes">
     <template #header>
-      <VBtn v-if="can('license-mode.store')" type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/license-mode/create">Create</NuxtLink>
+      <VBtn
+        to="/license-mode/create"
+        v-if="can('license-mode.store')"
+        class="m-0 c-btn--small"
+      >
+        Create
       </VBtn>
     </template>
-    <VTable @actionDetails="detailsItem($event)" @actionDelete="deleteItem($event)" :table="table"/>
+    <VTable
+      @actionDetails="detailsItem($event)"
+      @actionDelete="deleteItem($event)"
+      :table="table"
+    />
   </VCard>
 </template>
 
@@ -20,12 +28,16 @@ export default {
       detailsItemId: 0,
       table: {
         columns: [
-          {key: "id", label: "#"},
-          {key: "name", label: "Name",},
-          {key: "label", label: "Label",},
-          {key: "created_at", label: "Created At", class: "u-text-center"},
-          {key: "updated_at", label: "Updated At", class: "u-text-center"},
-          {key: "action", label: '<img src="/img/gear.svg" alt="" />', class: "u-text-center",},
+          { key: "id", label: "#" },
+          { key: "name", label: "Name" },
+          { key: "label", label: "Label" },
+          { key: "created_at", label: "Created At", class: "u-text-center" },
+          { key: "updated_at", label: "Updated At", class: "u-text-center" },
+          {
+            key: "action",
+            label: '<img src="/img/gear.svg" alt="" />',
+            class: "u-text-center",
+          },
         ],
         items: [],
         map: {
@@ -42,54 +54,52 @@ export default {
             return _this.dateFormat(item.updated_at);
           },
           //REQUIRED
-          rowClass() {
-          },
+          rowClass() {},
         },
       },
-    }
+    };
   },
   methods: {
     async list() {
-      this.startLoading()
-      this.$store.commit('licenseMode/RESET_ERROR')
+      this.startLoading();
+      this.$store.commit("licenseMode/RESET_ERROR");
       await this.$store.dispatch("licenseMode/list");
       let err = this.handleError(this.$store.state.licenseMode.error);
       if (!err) {
         this.table.items = this.$store.state.licenseMode.list;
       }
-      this.stopLoading()
+      this.stopLoading();
     },
     async deleteItem(id) {
       if (confirm("Are you sure?")) {
-        this.startLoading()
-        this.$store.commit('licenseMode/RESET_ERROR')
+        this.startLoading();
+        this.$store.commit("licenseMode/RESET_ERROR");
         await this.$store.dispatch("licenseMode/delete", id);
         let err = this.handleError(this.$store.state.licenseMode.error);
         if (!err) {
-          this.$toast.success('License mode successfully deleted.');
+          this.$toast.success("License mode successfully deleted.");
           await this.list();
         }
-        this.stopLoading()
+        this.stopLoading();
       }
     },
     detailsItem(id) {
       this.detailsItemId = id;
       this.showDetails = true;
-    }
+    },
   },
   created() {
-    this.setTitle('License Mode')
+    this.setTitle("License Mode");
     this.setBreadcrumb([
       {
-        to: '/license-mode',
-        name: 'License Mode'
-      }
-    ])
-    this.list()
-  }
-}
+        to: "/license-mode",
+        name: "License Mode",
+      },
+    ]);
+    this.list();
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

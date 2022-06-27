@@ -1,9 +1,7 @@
 <template>
   <VCard title="Edit a Product">
     <template #header>
-      <VBtn type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/product">List</NuxtLink>
-      </VBtn>
+      <VBtn to="/product" class="m-0 c-btn--small"> List </VBtn>
     </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">
@@ -34,7 +32,8 @@
             placeholder="Please enter license mode"
             track-label="label"
             track-by="id"
-            label="License Mode"/>
+            label="License Mode"
+          />
         </div>
         <div class="col-md-6">
           <VSelect
@@ -74,19 +73,19 @@ export default {
         license_mode: [],
       },
       payload: {
-        title: '',
-        slug: '',
-        description: '',
+        title: "",
+        slug: "",
+        description: "",
         license_mode: [],
-        data_fields: []
-      }
+        data_fields: [],
+      },
     };
   },
   methods: {
     update() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("product/update", {
@@ -97,7 +96,7 @@ export default {
               license_mode_id: this.payload.license_mode.id,
               data_fields: this.payload.data_fields,
             },
-            id: this.$route.params.id
+            id: this.$route.params.id,
           });
           this.stopLoading();
           const err = this.handleError(this.$store.state.product.error);
@@ -112,14 +111,14 @@ export default {
         });
     },
     async getLicenseMode() {
-      await this.$store.dispatch('licenseMode/list')
-      let err = this.handleError(this.$store.state.licenseMode.error)
+      await this.$store.dispatch("licenseMode/list");
+      let err = this.handleError(this.$store.state.licenseMode.error);
       if (!err) {
-        this.list.license_mode = this.$store.state.licenseMode.list
+        this.list.license_mode = this.$store.state.licenseMode.list;
       }
     },
     async show() {
-      this.startLoading()
+      this.startLoading();
       await this.$store.dispatch("product/show", this.$route.params.id);
       let err = this.handleError(this.$store.state.product.error);
       if (!err) {
@@ -130,7 +129,7 @@ export default {
         this.payload.license_mode = data.license_mode;
         this.payload.data_fields = data.data_fields;
       }
-      this.stopLoading()
+      this.stopLoading();
     },
     validation() {
       let roles = {
@@ -143,48 +142,47 @@ export default {
       return Yup.object(roles);
     },
     resetError() {
-      this.$store.commit('product/RESET_ERROR')
-      this.$store.commit('licenseMode/RESET_ERROR')
+      this.$store.commit("product/RESET_ERROR");
+      this.$store.commit("licenseMode/RESET_ERROR");
       this.errors = {
-        title: '',
-        slug: '',
-        description: '',
-        license_mode: ''
+        title: "",
+        slug: "",
+        description: "",
+        license_mode: "",
       };
     },
     convertToSlug(Text) {
       return Text.toLowerCase()
-        .replace(/ /g, '-')
-        .replace(/[^\w-]+/g, '');
-    }
+        .replace(/ /g, "-")
+        .replace(/[^\w-]+/g, "");
+    },
   },
   async created() {
-    this.resetError()
-    this.setTitle('Product')
+    this.resetError();
+    this.setTitle("Product");
     this.setBreadcrumb([
       {
-        to: '/product',
-        name: 'Product'
+        to: "/product",
+        name: "Product",
       },
       {
-        to: '/product/edit/' + this.$route.params.id,
-        name: 'Edit'
-      }
-    ])
-    await this.show()
-    this.getLicenseMode()
+        to: "/product/edit/" + this.$route.params.id,
+        name: "Edit",
+      },
+    ]);
+    await this.show();
+    this.getLicenseMode();
   },
   watch: {
     "payload.slug": {
       handler(val) {
-        this.payload.slug = this.convertToSlug(val)
+        this.payload.slug = this.convertToSlug(val);
       },
-      immediate: true
-    }
-  }
-}
+      immediate: true,
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

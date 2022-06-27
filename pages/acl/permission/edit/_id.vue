@@ -1,9 +1,7 @@
 <template>
   <VCard title="Edit a Permission">
     <template #header>
-      <VBtn type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/acl/permission">List</NuxtLink>
-      </VBtn>
+      <VBtn to="/acl/permission" class="m-0 c-btn--small"> List </VBtn>
     </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">
@@ -15,7 +13,8 @@
             :list="list.route"
             placeholder="Please select name"
             track-label="name"
-            label="Name (route name)"/>
+            label="Name (route name)"
+          />
         </div>
         <div class="col-md-6">
           <VInput
@@ -43,7 +42,8 @@
             :list="list.model"
             placeholder="Please select model"
             track-label="name"
-            label="Model"/>
+            label="Model"
+          />
         </div>
         <div v-if="checkSelectedModel" class="col-md-6">
           <VSelect
@@ -51,14 +51,23 @@
             v-model="payload.permission_model_fields"
             @validation="validate('permission_model_fields')"
             :error="errorMessage('permission_model_fields')"
-            :list="typeof(payload.permission_model_model.fields) == 'undefined' ? [] : payload.permission_model_model.fields"
+            :list="
+              typeof payload.permission_model_model.fields == 'undefined'
+                ? []
+                : payload.permission_model_model.fields
+            "
             placeholder="Please select fields"
-            label="Fields"/>
+            label="Fields"
+          />
         </div>
         <div v-if="checkSelectedModel" class="col-md-12 mb-4">
           <label class="c-form__label">Conditions</label>
-          <v-jsoneditor v-model="payload.permission_model_conditions" :plus="false" :options="optionsJson"
-                        height="250px"/>
+          <v-jsoneditor
+            v-model="payload.permission_model_conditions"
+            :plus="false"
+            :options="optionsJson"
+            height="250px"
+          />
         </div>
       </div>
       <VBtn :loader="loaderRequest">SAVE</VBtn>
@@ -73,50 +82,51 @@ import * as Yup from "yup";
 export default {
   name: "create",
   permission: "permission.update",
-  components: {Multiselect},
+  components: { Multiselect },
   data() {
     return {
       id: this.$route.params.id,
       hasFilter: false,
       optionsJson: {
-        mode: 'code'
+        mode: "code",
       },
       list: {
         route: [],
         model: [],
       },
       payload: {
-        name: '',
-        label: '',
+        name: "",
+        label: "",
         permission_model_model: [],
         permission_model_conditions: {},
         permission_model_fields: [],
-      }
+      },
     };
   },
   methods: {
     update() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           let payload = {
             name: this.payload.name.name,
             label: this.payload.label,
-          }
+          };
           if (this.hasFilter) {
             payload = {
-              ...payload, permission_model: {
+              ...payload,
+              permission_model: {
                 model_id: this.payload.permission_model_model.id,
                 conditions: this.payload.permission_model_conditions,
-                fields: this.payload.permission_model_fields
-              }
-            }
+                fields: this.payload.permission_model_fields,
+              },
+            };
           }
           await this.$store.dispatch("permission/update", {
             payload,
-            id: this.id
+            id: this.id,
           });
           this.stopLoading();
           const err = this.handleError(this.$store.state.permission.error);
@@ -131,36 +141,39 @@ export default {
         });
     },
     async getRouteList() {
-      await this.$store.dispatch('permission/routeList')
-      let err = this.handleError(this.$store.state.permission.error)
+      await this.$store.dispatch("permission/routeList");
+      let err = this.handleError(this.$store.state.permission.error);
       if (!err) {
-        this.list.route = this.$store.state.permission.routes
+        this.list.route = this.$store.state.permission.routes;
       }
     },
     async getModel() {
-      await this.$store.dispatch('model/list')
-      let err = this.handleError(this.$store.state.model.error)
+      await this.$store.dispatch("model/list");
+      let err = this.handleError(this.$store.state.model.error);
       if (!err) {
-        this.list.model = this.$store.state.model.list
+        this.list.model = this.$store.state.model.list;
       }
     },
     async show() {
-      this.startLoading()
+      this.startLoading();
       await this.$store.dispatch("permission/show", this.id);
       let err = this.handleError(this.$store.state.permission.error);
       if (!err) {
         let data = this.$store.state.permission.item;
-        this.payload.name = this.list.route.find(o => o.name === data.name)
+        this.payload.name = this.list.route.find((o) => o.name === data.name);
         this.payload.label = data.label;
         if (data.permission_model) {
-          await this.getModel()
+          await this.getModel();
           this.hasFilter = true;
-          this.payload.permission_model_model = this.list.model.find(o => o.id === data.permission_model.model_id)
-          this.payload.permission_model_conditions = data.permission_model.conditions
-          this.payload.permission_model_fields = data.permission_model.fields
+          this.payload.permission_model_model = this.list.model.find(
+            (o) => o.id === data.permission_model.model_id
+          );
+          this.payload.permission_model_conditions =
+            data.permission_model.conditions;
+          this.payload.permission_model_fields = data.permission_model.fields;
         }
       }
-      this.stopLoading()
+      this.stopLoading();
     },
     validation() {
       let roles = {
@@ -170,74 +183,73 @@ export default {
       if (this.hasFilter) {
         roles = {
           permission_model_model: Yup.object().nullable().required(),
-          permission_model_fields: Yup.array().nullable().min(3)
-          , ...roles
-        }
+          permission_model_fields: Yup.array().nullable().min(3),
+          ...roles,
+        };
       }
       return Yup.object(roles);
     },
     resetError() {
-      this.$store.commit('permission/RESET_ERROR')
+      this.$store.commit("permission/RESET_ERROR");
       this.errors = {
-        name: '',
-        label: '',
-        permission_model_model: '',
-        permission_model_fields: '',
+        name: "",
+        label: "",
+        permission_model_model: "",
+        permission_model_fields: "",
       };
     },
   },
   created() {
-    this.resetError()
-    this.getRouteList()
-    this.show()
-    this.setTitle('Permission')
+    this.resetError();
+    this.getRouteList();
+    this.show();
+    this.setTitle("Permission");
     this.setBreadcrumb([
       {
-        to: '/acl/permission',
-        name: 'Permission'
+        to: "/acl/permission",
+        name: "Permission",
       },
       {
-        to: '/acl/permission/edit/' + this.id,
-        name: 'Edit'
-      }
-    ])
+        to: "/acl/permission/edit/" + this.id,
+        name: "Edit",
+      },
+    ]);
   },
   watch: {
     hasFilter: {
       handler(v) {
         if (v) {
-          this.getModel()
+          this.getModel();
         } else {
           this.payload.permission_model_fields = [];
           this.payload.permission_model_model = [];
         }
       },
-      immediate: true
+      immediate: true,
     },
     "payload.permission_model_model": {
       handler(v) {
         if (!v?.fields) {
-          this.payload.permission_model_fields = []
+          this.payload.permission_model_fields = [];
         } else {
-          this.payload.permission_model_fields = []
-          this.payload.permission_model_fields = v.fields
+          this.payload.permission_model_fields = [];
+          this.payload.permission_model_fields = v.fields;
         }
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
   computed: {
     checkSelectedModel() {
       if (this.payload.permission_model_model == null) {
-        return false
+        return false;
       } else {
-        return this.payload.permission_model_model.length !== 0
+        return this.payload.permission_model_model.length !== 0;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

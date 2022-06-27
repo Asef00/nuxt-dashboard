@@ -1,11 +1,21 @@
 <template>
+  <NuxtLink
+    v-if="to"
+    :class="['c-btn', classBtn, disabled ? 'is-disabled' : '']"
+    :to="to"
+    :event="disabled ? '' : 'click'"
+  >
+    <LoaderDots :color="colorLoader" v-if="loader"></LoaderDots>
+    <slot v-else />
+  </NuxtLink>
   <button
+    v-else
     @click="$emit('action')"
     :disabled="disabled"
     :type="type"
     :class="['c-btn', classBtn]"
   >
-    <span v-if="loader"><LoaderDots :color="colorLoader"></LoaderDots></span>
+    <LoaderDots :color="colorLoader" v-if="loader"></LoaderDots>
     <slot v-else />
   </button>
 </template>
@@ -14,6 +24,10 @@
 export default {
   name: "VBtn",
   props: {
+    to: {
+      type: String,
+      default: "",
+    },
     type: {
       type: String,
       default: "submit",
@@ -86,5 +100,6 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss">
+@import "~/assets/scss/components/btn";
 </style>

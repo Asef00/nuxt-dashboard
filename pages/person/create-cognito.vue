@@ -2,12 +2,8 @@
   <div>
     <VCard title="Search User Form Cognito">
       <template #header>
-        <VBtn type="button" class="m-0 c-btn--small">
-          <NuxtLink to="/person/create">Create</NuxtLink>
-        </VBtn>
-        <VBtn type="button" class="m-0 c-btn--small">
-          <NuxtLink to="/person">List</NuxtLink>
-        </VBtn>
+        <VBtn to="/person/create" class="m-0 c-btn--small"> Create </VBtn>
+        <VBtn to="/person" class="m-0 c-btn--small"> List </VBtn>
       </template>
       <form @submit.prevent="search" class="c-form">
         <VAlert class="c-alert--danger mt-1 mb-2" v-show="hasError('username')">{{ errorMessage('username') }}</VAlert>
@@ -76,7 +72,6 @@ export default {
       this.validation()
         .validate(this.payload, {abortEarly: false})
         .then(async () => {
-          this.resetError();
           if (this.paginationToken == null) {
             this.table.items = []
           }
@@ -90,7 +85,6 @@ export default {
           const err = this.handleError(this.$store.state.person.error);
           if (!err) {
             this.table.items = this.table.items.concat(this.$store.state.person.cognitoUsers.data);
-            console.log(this.table.items)
             this.paginationToken = this.$store.state.person.cognitoUsers.pagination_token;
             if (this.table.items.length <= 0) {
               this.$toast.warning('No results found!');

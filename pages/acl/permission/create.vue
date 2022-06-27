@@ -1,9 +1,7 @@
 <template>
   <VCard title="Create new Permission">
     <template #header>
-      <VBtn type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/acl/permission">List</NuxtLink>
-      </VBtn>
+      <VBtn to="/acl/permission" class="m-0 c-btn--small"> List </VBtn>
     </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">
@@ -15,7 +13,8 @@
             :list="list.route"
             placeholder="Please select name"
             track-label="name"
-            label="Name (route name)"/>
+            label="Name (route name)"
+          />
         </div>
         <div class="col-md-6">
           <VInput
@@ -43,7 +42,8 @@
             :list="list.model"
             placeholder="Please select model"
             track-label="name"
-            label="Model"/>
+            label="Model"
+          />
         </div>
         <div v-if="checkSelectedModel" class="col-md-6">
           <VSelect
@@ -51,13 +51,23 @@
             v-model="payload.permission_model_fields"
             @validation="validate('permission_model_fields')"
             :error="errorMessage('permission_model_fields')"
-            :list="typeof(payload.permission_model_model.fields) == 'undefined' ? [] : payload.permission_model_model.fields"
+            :list="
+              typeof payload.permission_model_model.fields == 'undefined'
+                ? []
+                : payload.permission_model_model.fields
+            "
             placeholder="Please select fields"
-            label="Fields"/>
+            label="Fields"
+          />
         </div>
         <div v-if="checkSelectedModel" class="col-md-12 mb-4">
           <label class="c-form__label">Conditions</label>
-          <v-jsoneditor v-model="payload.permission_model_conditions" :plus="false" :options="options" height="250px"/>
+          <v-jsoneditor
+            v-model="payload.permission_model_conditions"
+            :plus="false"
+            :options="options"
+            height="250px"
+          />
         </div>
       </div>
       <!--            conditions-->
@@ -75,7 +85,9 @@
                 placeholder="Field"
               >
                 <template slot="caret">
-                  <div class="multiselect__select c-chevron c-chevron--bottom"></div>
+                  <div
+                    class="multiselect__select c-chevron c-chevron--bottom"
+                  ></div>
                 </template>
               </multiselect>
             </div>
@@ -93,21 +105,34 @@
                 label="label"
               >
                 <template slot="caret">
-                  <div class="multiselect__select c-chevron c-chevron--bottom"></div>
+                  <div
+                    class="multiselect__select c-chevron c-chevron--bottom"
+                  ></div>
                 </template>
               </multiselect>
             </div>
           </div>
           <div class="col-md-3">
-            <div class="c-form__control" v-show="data.conditions.condition.is_value">
-              <input v-model="data.conditions.value"
-                     placeholder="Value"
-                     class="c-form__input"/>
+            <div
+              class="c-form__control"
+              v-show="data.conditions.condition.is_value"
+            >
+              <input
+                v-model="data.conditions.value"
+                placeholder="Value"
+                class="c-form__input"
+              />
               <span>current_user = user logged in</span>
             </div>
           </div>
           <div class="col-md-3">
-            <VBtn type="button" @action="addCondition" btn="outline" :loader="loaderRequest">ADD</VBtn>
+            <VBtn
+              type="button"
+              @action="addCondition"
+              btn="outline"
+              :loader="loaderRequest"
+              >ADD</VBtn
+            >
           </div>
         </div>
       </div>
@@ -123,138 +148,155 @@ import * as Yup from "yup";
 export default {
   name: "create",
   permission: "permission.store",
-  components: {Multiselect},
+  components: { Multiselect },
   data() {
     return {
       hasFilter: false,
       options: {
-        mode: 'code'
+        mode: "code",
       },
       list: {
         route: [],
         model: [],
         conditions: [
           {
-            label: 'equal',
-            condition: '',
+            label: "equal",
+            condition: "",
             is_value: true,
           },
           {
-            label: 'in',
-            condition: '_in',
+            label: "in",
+            condition: "_in",
             is_value: true,
           },
           {
-            label: 'not in',
-            condition: '_notIn',
+            label: "not in",
+            condition: "_notIn",
             is_value: true,
-          }, {
-            label: 'is null',
-            condition: '_isNull',
+          },
+          {
+            label: "is null",
+            condition: "_isNull",
             is_value: true,
-          }, {
-            label: 'is not null',
-            condition: '_isNotNull',
+          },
+          {
+            label: "is not null",
+            condition: "_isNotNull",
             is_value: true,
-          }, {
-            label: 'like',
-            condition: '_like',
+          },
+          {
+            label: "like",
+            condition: "_like",
             is_value: true,
-          }, {
-            label: 'not',
-            condition: '_not',
+          },
+          {
+            label: "not",
+            condition: "_not",
             is_value: true,
-          }, {
-            label: 'between',
-            condition: '_between',
+          },
+          {
+            label: "between",
+            condition: "_between",
             is_value: true,
-          }, {
-            label: 'not between',
-            condition: '_notBetween',
+          },
+          {
+            label: "not between",
+            condition: "_notBetween",
             is_value: true,
-          }, {
-            label: 'date',
-            condition: '_date',
+          },
+          {
+            label: "date",
+            condition: "_date",
             is_value: true,
-          }, {
-            label: 'month',
-            condition: '_month',
+          },
+          {
+            label: "month",
+            condition: "_month",
             is_value: true,
-          }, {
-            label: 'day',
-            condition: '_day',
+          },
+          {
+            label: "day",
+            condition: "_day",
             is_value: true,
-          }, {
-            label: 'year',
-            condition: '_year',
+          },
+          {
+            label: "year",
+            condition: "_year",
             is_value: true,
-          }, {
-            label: 'time',
-            condition: '_time',
+          },
+          {
+            label: "time",
+            condition: "_time",
             is_value: true,
-          }, {
-            label: 'gt',
-            condition: '_gt',
+          },
+          {
+            label: "gt",
+            condition: "_gt",
             is_value: true,
-          }, {
-            label: 'lt',
-            condition: '_lt',
+          },
+          {
+            label: "lt",
+            condition: "_lt",
             is_value: true,
-          }, {
-            label: 'gte',
-            condition: '_gte',
+          },
+          {
+            label: "gte",
+            condition: "_gte",
             is_value: true,
-          }, {
-            label: 'lte',
-            condition: '_lte',
+          },
+          {
+            label: "lte",
+            condition: "_lte",
             is_value: true,
-          }, {
-            label: 'sort desc',
-            condition: 'desc',
-            is_value: false,
-          }, {
-            label: 'sort asc',
-            condition: 'asc',
+          },
+          {
+            label: "sort desc",
+            condition: "desc",
             is_value: false,
           },
-
-        ]
+          {
+            label: "sort asc",
+            condition: "asc",
+            is_value: false,
+          },
+        ],
       },
       data: {
         conditions: {
-          field: '',
-          condition: '',
-          value: ''
+          field: "",
+          condition: "",
+          value: "",
         },
       },
       payload: {
-        name: '',
-        label: '',
+        name: "",
+        label: "",
         permission_model_model: [],
         permission_model_conditions: {},
         permission_model_fields: [],
-      }
+      },
     };
   },
   methods: {
     create() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           let payload = {
             name: this.payload.name.name,
             label: this.payload.label,
-          }
+          };
           if (this.hasFilter) {
             payload = {
-              ...payload, permission_model: {
+              ...payload,
+              permission_model: {
                 model_id: this.payload.permission_model_model.id,
                 conditions: this.payload.permission_model_conditions,
-                fields: this.payload.permission_model_fields
-              }
-            }
+                fields: this.payload.permission_model_fields,
+              },
+            };
           }
           await this.$store.dispatch("permission/create", payload);
           this.stopLoading();
@@ -270,17 +312,17 @@ export default {
         });
     },
     async getRouteList() {
-      await this.$store.dispatch('permission/routeList')
-      let err = this.handleError(this.$store.state.permission.error)
+      await this.$store.dispatch("permission/routeList");
+      let err = this.handleError(this.$store.state.permission.error);
       if (!err) {
-        this.list.route = this.$store.state.permission.routes
+        this.list.route = this.$store.state.permission.routes;
       }
     },
     async getModel() {
-      await this.$store.dispatch('model/list')
-      let err = this.handleError(this.$store.state.model.error)
+      await this.$store.dispatch("model/list");
+      let err = this.handleError(this.$store.state.model.error);
       if (!err) {
-        this.list.model = this.$store.state.model.list
+        this.list.model = this.$store.state.model.list;
       }
     },
     validation() {
@@ -291,93 +333,95 @@ export default {
       if (this.hasFilter) {
         roles = {
           permission_model_model: Yup.object().nullable().required(),
-          permission_model_fields: Yup.array().nullable().min(3)
-          , ...roles
-        }
+          permission_model_fields: Yup.array().nullable().min(3),
+          ...roles,
+        };
       }
       return Yup.object(roles);
     },
     resetError() {
-      this.$store.commit('permission/RESET_ERROR')
+      this.$store.commit("permission/RESET_ERROR");
       this.errors = {
-        name: '',
-        label: '',
-        permission_model_model: '',
-        permission_model_fields: '',
+        name: "",
+        label: "",
+        permission_model_model: "",
+        permission_model_fields: "",
       };
     },
     addCondition() {
       Yup.object({
         field: Yup.string().nullable().required(),
         condition: Yup.object().nullable().required(),
-      }).validate(this.data.conditions, {abortEarly: false}).then(async () => {
-        this.payload.permission_model_conditions.push({
-          field: this.data.conditions.field,
-          condition: this.data.conditions.condition,
-          value: this.data.conditions.value,
+      })
+        .validate(this.data.conditions, { abortEarly: false })
+        .then(async () => {
+          this.payload.permission_model_conditions.push({
+            field: this.data.conditions.field,
+            condition: this.data.conditions.condition,
+            value: this.data.conditions.value,
+          });
+          this.data.conditions.field = "";
+          this.data.conditions.condition = "";
+          this.data.conditions.value = "";
+        })
+        .catch((err) => {
+          console.log(err.inner);
+          this.$toast.error("Please fill all field");
         });
-        this.data.conditions.field = ''
-        this.data.conditions.condition = ''
-        this.data.conditions.value = ''
-      }).catch((err) => {
-        console.log(err.inner)
-        this.$toast.error("Please fill all field");
-      });
     },
   },
   created() {
-    this.resetError()
-    this.setTitle('Permission')
+    this.resetError();
+    this.setTitle("Permission");
     this.setBreadcrumb([
       {
-        to: '/acl/permission',
-        name: 'Permission'
+        to: "/acl/permission",
+        name: "Permission",
       },
       {
-        to: '/acl/permission/create',
-        name: 'Create'
-      }
-    ])
+        to: "/acl/permission/create",
+        name: "Create",
+      },
+    ]);
   },
   mounted() {
-    this.getRouteList()
+    this.getRouteList();
   },
   watch: {
     hasFilter: {
       handler(v) {
         if (v) {
-          this.getModel()
+          this.getModel();
         } else {
           this.payload.permission_model_fields = [];
           this.payload.permission_model_model = [];
         }
       },
-      immediate: true
+      immediate: true,
     },
     "payload.permission_model_model": {
       handler(v) {
         if (!v?.fields) {
-          this.payload.permission_model_fields = []
+          this.payload.permission_model_fields = [];
         } else {
-          this.payload.permission_model_fields = []
-          this.payload.permission_model_fields = v.fields
+          this.payload.permission_model_fields = [];
+          this.payload.permission_model_fields = v.fields;
         }
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
   computed: {
     checkSelectedModel() {
       if (this.payload.permission_model_model == null) {
-        return false
+        return false;
       } else {
-        return this.payload.permission_model_model.length !== 0
+        return this.payload.permission_model_model.length !== 0;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

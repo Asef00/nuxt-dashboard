@@ -1,9 +1,7 @@
 <template>
   <VCard title="Edit a Field Name">
     <template #header>
-      <VBtn type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/field/name">List</NuxtLink>
-      </VBtn>
+      <VBtn to="/field/name" class="m-0 c-btn--small"> List </VBtn>
     </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">
@@ -24,7 +22,8 @@
             :list="list.field_type"
             placeholder="Please enter field type"
             track-label="label"
-            label="Field Type"/>
+            label="Field Type"
+          />
         </div>
         <div class="col-md-6">
           <VInput
@@ -70,7 +69,8 @@
             placeholder="Please enter data set"
             @validation="validate('data_set')"
             :error="errorMessage('data_set')"
-            label="Data Set"/>
+            label="Data Set"
+          />
         </div>
         <div class="col-md-6">
           <VSelect
@@ -80,7 +80,8 @@
             placeholder="Please enter default access"
             @validation="validate('default_access')"
             :error="errorMessage('default_access')"
-            label="Default Access"/>
+            label="Default Access"
+          />
         </div>
       </div>
       <VSwitch
@@ -106,34 +107,37 @@ export default {
       id: this.$route.params.id,
       list: {
         field_type: [],
-        default_access: ['edit', 'show']
+        default_access: ["edit", "show"],
       },
       data: {
-        data_set: ''
+        data_set: "",
       },
       payload: {
-        name: '',
-        label: '',
-        placeholder: '',
-        default_value: '',
+        name: "",
+        label: "",
+        placeholder: "",
+        default_value: "",
         length: 0,
         required: false,
         data_set: [],
         default_access: [],
-        field_type: []
-      }
+        field_type: [],
+      },
     };
   },
   methods: {
     update() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("fieldName/update", {
-            payload: {...this.payload, field_type_id: this.payload.field_type.id},
-            id: this.id
+            payload: {
+              ...this.payload,
+              field_type_id: this.payload.field_type.id,
+            },
+            id: this.id,
           });
           this.stopLoading();
           const err = this.handleError(this.$store.state.fieldName.error);
@@ -148,28 +152,30 @@ export default {
         });
     },
     async show() {
-      this.startLoading()
+      this.startLoading();
       await this.$store.dispatch("fieldName/show", this.id);
       let err = this.handleError(this.$store.state.fieldName.error);
       if (!err) {
         let data = this.$store.state.fieldName.item;
-        this.payload.name = data.name
-        this.payload.label = data.label
-        this.payload.placeholder = data.placeholder
-        this.payload.default_value = data.default_value
-        this.payload.length = data.length
-        this.payload.required = data.required
-        this.payload.data_set = data.data_set
-        this.payload.default_access = data.default_access
-        this.payload.field_type = this.list.field_type.find(o => o.id === data.field_type_id)
+        this.payload.name = data.name;
+        this.payload.label = data.label;
+        this.payload.placeholder = data.placeholder;
+        this.payload.default_value = data.default_value;
+        this.payload.length = data.length;
+        this.payload.required = data.required;
+        this.payload.data_set = data.data_set;
+        this.payload.default_access = data.default_access;
+        this.payload.field_type = this.list.field_type.find(
+          (o) => o.id === data.field_type_id
+        );
       }
-      this.stopLoading()
+      this.stopLoading();
     },
     async getFieldType() {
-      await this.$store.dispatch('fieldType/list')
-      let err = this.handleError(this.$store.state.fieldType.error)
+      await this.$store.dispatch("fieldType/list");
+      let err = this.handleError(this.$store.state.fieldType.error);
       if (!err) {
-        this.list.field_type = this.$store.state.fieldType.list
+        this.list.field_type = this.$store.state.fieldType.list;
       }
     },
     validation() {
@@ -184,58 +190,58 @@ export default {
         field_type: Yup.object().nullable().required(),
       };
       if (this.checkFieldTypeHasSelect) {
-        roles = {data_set: Yup.array().min(1), ...roles}
+        roles = { data_set: Yup.array().min(1), ...roles };
       }
       return Yup.object(roles);
     },
     resetError() {
-      this.$store.commit('fieldName/RESET_ERROR')
+      this.$store.commit("fieldName/RESET_ERROR");
       this.errors = {
-        name: '',
-        label: '',
-        placeholder: '',
-        default_value: '',
-        length: '',
-        required: '',
-        data_set: '',
-        default_access: '',
-        field_type: ''
+        name: "",
+        label: "",
+        placeholder: "",
+        default_value: "",
+        length: "",
+        required: "",
+        data_set: "",
+        default_access: "",
+        field_type: "",
       };
     },
   },
   async created() {
-    this.resetError()
-    this.setTitle('Field Name')
+    this.resetError();
+    this.setTitle("Field Name");
     this.setBreadcrumb([
       {
-        to: '/field/name',
-        name: 'Field Name'
-      }, {
-        to: '/field/name/edit/' + this.id,
-        name: 'Edit'
-      }
-    ])
-    await this.getFieldType()
-    this.show()
+        to: "/field/name",
+        name: "Field Name",
+      },
+      {
+        to: "/field/name/edit/" + this.id,
+        name: "Edit",
+      },
+    ]);
+    await this.getFieldType();
+    this.show();
   },
   computed: {
     checkFieldTypeHasSelect() {
       if (this.payload.field_type) {
-        return this.payload.field_type.type === 'select'
+        return this.payload.field_type.type === "select";
       }
       return false;
-    }
+    },
   },
   watch: {
     checkFieldTypeHasSelect(v) {
       if (!v) {
-        this.payload.data_set = []
+        this.payload.data_set = [];
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 </style>
