@@ -53,26 +53,34 @@
                     <a href="#" class="c-filter__control">Clear</a>
                   </header>
                   <div class="c-filter__options">
-                    <label href="#" class="c-filter__item">
-                      <input type="checkbox" name="" id="" />
-                      AKMLS
-                    </label>
-                    <label href="#" class="c-filter__item">
-                      <input type="checkbox" name="" id="" />
-                      bridgeMLS
-                    </label>
-                    <label href="#" class="c-filter__item">
-                      <input type="checkbox" name="" id="" />
-                      CLAW
-                    </label>
-                    <label href="#" class="c-filter__item">
-                      <input type="checkbox" name="" id="" />
-                      ITech MLS
-                    </label>
-                    <label href="#" class="c-filter__item">
-                      <input type="checkbox" name="" id="" />
-                      Kern River Lake Isabella Board
-                    </label>
+                    <VCheckbox
+                      class="c-filter__item"
+                      label="AKMLS"
+                      data="AKMLS"
+                      :list="selectedOptions"
+                      v-model="selected"
+                    />
+                    <VCheckbox
+                      class="c-filter__item"
+                      label="bridgeMLS"
+                      data="bridgeMLS"
+                      :list="selectedOptions"
+                      v-model="selected"
+                    />
+                    <VCheckbox
+                      class="c-filter__item"
+                      label="CLAW"
+                      data="CLAW"
+                      :list="selectedOptions"
+                      v-model="selected"
+                    />
+                    <VCheckbox
+                      class="c-filter__item"
+                      label="Kern River Lake Isabella Board"
+                      data="Kern"
+                      :list="selectedOptions"
+                      v-model="selected"
+                    />
                   </div>
                 </template>
               </VDropdown>
@@ -196,6 +204,9 @@ export default {
       preferredPerPage: 25,
       perPageArray: [25, 50, 100],
       sortColumn: "",
+
+      selected: "", //for checkbox
+      selectedOptions: [], //for checkbox
     };
   },
 
