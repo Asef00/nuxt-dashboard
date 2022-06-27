@@ -13,6 +13,7 @@
             label="Password"
             v-model="payload.password"
             placeholder="Please enter password"
+            type="password"
           />
           <VSwitch
             label="Force Password Change"
