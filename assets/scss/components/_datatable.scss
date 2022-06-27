@@ -1,5 +1,5 @@
 .c-datatable {
-  margin: -1.25em -1.56em; //based on card body padding
+  margin: (-$card-body-py) (-$card-body-px);
 }
 
 .c-datatable__header {

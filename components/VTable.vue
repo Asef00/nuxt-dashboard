@@ -267,5 +267,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import "~/assets/scss/components/datatable";
+@import "~/assets/scss/components/table";
 @import "~/assets/scss/components/pagination";
 </style>
