@@ -57,8 +57,6 @@ export default {
     if (paginationToken != null) {
       param = {pagination_token: paginationToken, ...param}
     }
-    console.log(param)
-    console.log(paginationToken)
     await this.$axios.get(`/person/cognito/search`, {params: param}).then((response) => {
       commit('SET_COGNITO_USERS', response.data)
     }).catch((error) => {
