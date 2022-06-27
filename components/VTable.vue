@@ -100,8 +100,8 @@
           </tr>
           <tr
             v-else
-            v-for="row in list"
-            :key="row.id"
+            v-for="(row,index) in list"
+            :key="index"
             :class="table.map['rowClass'](row)"
             class="c-table__row"
           >
