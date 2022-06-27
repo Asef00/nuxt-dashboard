@@ -1,13 +1,26 @@
 <template>
   <VCard :loader="loaderRequest" title="List Roles">
     <template #header>
-      <VBtn v-if="can('role.store')" type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/acl/role/create">Create</NuxtLink>
+      <VBtn
+        to="/acl/role/create"
+        v-if="can('role.store')"
+        type="button"
+        class="m-0 c-btn--small"
+      >
+        Create
       </VBtn>
     </template>
-    <VTable @actionDetails="detailsItem($event)" @actionDelete="deleteItem($event)" :table="table"/>
-    <VModal :showModal="showDetails" @close="showDetails =false" title="Role details">
-      <Details :id="detailsItemId"/>
+    <VTable
+      @actionDetails="detailsItem($event)"
+      @actionDelete="deleteItem($event)"
+      :table="table"
+    />
+    <VModal
+      :showModal="showDetails"
+      @close="showDetails = false"
+      title="Role details"
+    >
+      <Details :id="detailsItemId" />
     </VModal>
   </VCard>
 </template>
@@ -18,7 +31,7 @@ export default {
   name: "index",
   permission: "role.index",
   components: {
-    Details
+    Details,
   },
   data() {
     let _this = this;
@@ -27,12 +40,16 @@ export default {
       detailsItemId: 0,
       table: {
         columns: [
-          {key: "id", label: "#"},
-          {key: "name", label: "Name",},
-          {key: "label", label: "Label",},
-          {key: "created_at", label: "Created At", class: "u-text-center"},
-          {key: "updated_at", label: "Updated At", class: "u-text-center"},
-          {key: "action", label: '<img src="/img/gear.svg" alt="" />', class: "u-text-center",},
+          { key: "id", label: "#" },
+          { key: "name", label: "Name" },
+          { key: "label", label: "Label" },
+          { key: "created_at", label: "Created At", class: "u-text-center" },
+          { key: "updated_at", label: "Updated At", class: "u-text-center" },
+          {
+            key: "action",
+            label: '<img src="/img/gear.svg" alt="" />',
+            class: "u-text-center",
+          },
         ],
         items: [],
         map: {
@@ -48,54 +65,52 @@ export default {
             return _this.dateFormat(item.updated_at);
           },
           //REQUIRED
-          rowClass() {
-          },
+          rowClass() {},
         },
       },
-    }
+    };
   },
   methods: {
     async list() {
-      this.startLoading()
-      this.$store.commit('role/RESET_ERROR')
+      this.startLoading();
+      this.$store.commit("role/RESET_ERROR");
       await this.$store.dispatch("role/list");
       let err = this.handleError(this.$store.state.role.error);
       if (!err) {
         this.table.items = this.$store.state.role.list;
       }
-      this.stopLoading()
+      this.stopLoading();
     },
     async deleteItem(id) {
       if (confirm("Are you sure?")) {
-        this.startLoading()
-        this.$store.commit('role/RESET_ERROR')
+        this.startLoading();
+        this.$store.commit("role/RESET_ERROR");
         await this.$store.dispatch("role/delete", id);
         let err = this.handleError(this.$store.state.role.error);
         if (!err) {
-          this.$toast.success('Model successfully deleted.');
+          this.$toast.success("Model successfully deleted.");
           await this.list();
         }
-        this.stopLoading()
+        this.stopLoading();
       }
     },
     detailsItem(id) {
       this.detailsItemId = id;
       this.showDetails = true;
-    }
+    },
   },
   created() {
-    this.setTitle('Role')
+    this.setTitle("Role");
     this.setBreadcrumb([
       {
-        to: '/acl/role',
-        name: 'Role'
-      }
-    ])
-    this.list()
-  }
-}
+        to: "/acl/role",
+        name: "Role",
+      },
+    ]);
+    this.list();
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

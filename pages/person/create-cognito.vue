@@ -1,15 +1,15 @@
 <template>
   <VCard title="Search User Form Cognito">
     <template #header>
-      <VBtn type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/person/create">Create</NuxtLink>
+      <VBtn to="/person/create" type="button" class="m-0 c-btn--small">
+        Create
       </VBtn>
-      <VBtn type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/person">List</NuxtLink>
-      </VBtn>
+      <VBtn to="/person" type="button" class="m-0 c-btn--small"> List </VBtn>
     </template>
     <form @submit.prevent="search" class="c-form">
-      <VAlert class="c-alert--danger mt-1 mb-2" v-show="hasError('username')">{{ errorMessage('username') }}</VAlert>
+      <VAlert class="c-alert--danger mt-1 mb-2" v-show="hasError('username')">{{
+        errorMessage("username")
+      }}</VAlert>
       <div class="row">
         <div class="col-md-12">
           <VInput
@@ -20,14 +20,10 @@
           <VBtn :loader="loaderRequest">SEARCH</VBtn>
         </div>
       </div>
-      <div v-for="(user,index) in data.users" class="row">
+      <div v-for="(user, index) in data.users" class="row">
         <div class="col-md-3">
           <div class="c-form__control">
-            <input
-              :class="['c-form__input']"
-              disabled
-              :value="user.name"
-            />
+            <input :class="['c-form__input']" disabled :value="user.name" />
           </div>
         </div>
         <div class="col-md-3">
@@ -41,14 +37,15 @@
         </div>
         <div class="col-md-4">
           <div class="c-form__control">
-            <input
-              :class="['c-form__input']"
-              disabled
-              :value="user.email"
-            />
+            <input :class="['c-form__input']" disabled :value="user.email" />
           </div>
         </div>
-        <VBtn type="button" @action="addUser(user.email)" :loader="loaderRequest">ADD</VBtn>
+        <VBtn
+          type="button"
+          @action="addUser(user.email)"
+          :loader="loaderRequest"
+          >ADD</VBtn
+        >
       </div>
     </form>
   </VCard>
@@ -63,22 +60,22 @@ export default {
   data() {
     return {
       data: {
-        users: []
+        users: [],
       },
       payload: {
-        username: '',
-      }
+        username: "",
+      },
     };
   },
   methods: {
     search() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           let payload = {
-            key: 'email',
+            key: "email",
             value: this.payload.username,
           };
           await this.$store.dispatch("person/searchInCognito", payload);
@@ -87,7 +84,7 @@ export default {
           if (!err) {
             this.data.users = this.$store.state.person.cognitoUsers;
             if (this.data.users.length <= 0) {
-              this.$toast.warning('No results found!');
+              this.$toast.warning("No results found!");
             }
           }
         })
@@ -97,7 +94,9 @@ export default {
         });
     },
     async addUser(email) {
-      await this.$store.dispatch("person/createPersonFromCognito", {username: email});
+      await this.$store.dispatch("person/createPersonFromCognito", {
+        username: email,
+      });
       this.stopLoading();
       const err = this.handleError(this.$store.state.person.error);
       if (!err) {
@@ -113,29 +112,28 @@ export default {
       return Yup.object(roles);
     },
     resetError() {
-      this.$store.commit('person/RESET_ERROR')
+      this.$store.commit("person/RESET_ERROR");
       this.errors = {
-        username: '',
+        username: "",
       };
     },
   },
   created() {
-    this.resetError()
-    this.setTitle('Person')
+    this.resetError();
+    this.setTitle("Person");
     this.setBreadcrumb([
       {
-        to: '/person',
-        name: 'Person'
+        to: "/person",
+        name: "Person",
       },
       {
-        to: '/person/create-cognito',
-        name: 'Create Cognito'
-      }
-    ])
-  }
-}
+        to: "/person/create-cognito",
+        name: "Create Cognito",
+      },
+    ]);
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

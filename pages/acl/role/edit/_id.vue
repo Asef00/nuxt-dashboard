@@ -1,9 +1,7 @@
 <template>
   <VCard title="Edit a Role">
     <template #header>
-      <VBtn type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/acl/role">List</NuxtLink>
-      </VBtn>
+      <VBtn to="/acl/role" type="button" class="m-0 c-btn--small"> List </VBtn>
     </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">
@@ -36,7 +34,8 @@
             track-by="id"
             :multiple="true"
             :closeOnSelect="false"
-            label="Field Name"/>
+            label="Field Name"
+          />
         </div>
         <div class="col-md-6">
           <VSelect
@@ -49,7 +48,8 @@
             track-label="label"
             track-by="id"
             :closeOnSelect="false"
-            label="Permission"/>
+            label="Permission"
+          />
         </div>
       </div>
       <VBtn :loader="loaderRequest">SAVE</VBtn>
@@ -71,29 +71,29 @@ export default {
         permission: [],
       },
       payload: {
-        name: '',
-        label: '',
+        name: "",
+        label: "",
         field_name: [],
-        permission: []
-      }
+        permission: [],
+      },
     };
   },
   methods: {
     update() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           this.payload = {
             name: this.payload.name,
             label: this.payload.label,
-            permission_ids: this.payload.permission.map(a => a.id),
-            field_name_ids: this.payload.field_name.map(a => a.id)
+            permission_ids: this.payload.permission.map((a) => a.id),
+            field_name_ids: this.payload.field_name.map((a) => a.id),
           };
           await this.$store.dispatch("role/update", {
             id: this.id,
-            payload: this.payload
+            payload: this.payload,
           });
           this.stopLoading();
           const err = this.handleError(this.$store.state.fieldName.error);
@@ -108,7 +108,7 @@ export default {
         });
     },
     async show() {
-      this.startLoading()
+      this.startLoading();
       await this.$store.dispatch("role/show", this.id);
       let err = this.handleError(this.$store.state.role.error);
       if (!err) {
@@ -118,20 +118,20 @@ export default {
         this.payload.field_name = data.field_names;
         this.payload.permission = data.permissions;
       }
-      this.stopLoading()
+      this.stopLoading();
     },
     async getFieldName() {
-      await this.$store.dispatch('fieldName/list')
-      let err = this.handleError(this.$store.state.fieldName.error)
+      await this.$store.dispatch("fieldName/list");
+      let err = this.handleError(this.$store.state.fieldName.error);
       if (!err) {
-        this.list.field_name = this.$store.state.fieldName.list
+        this.list.field_name = this.$store.state.fieldName.list;
       }
     },
     async getPermission() {
-      await this.$store.dispatch('permission/list', {})
-      let err = this.handleError(this.$store.state.permission.error)
+      await this.$store.dispatch("permission/list", {});
+      let err = this.handleError(this.$store.state.permission.error);
       if (!err) {
-        this.list.permission = this.$store.state.permission.list
+        this.list.permission = this.$store.state.permission.list;
       }
     },
     validation() {
@@ -144,39 +144,37 @@ export default {
       return Yup.object(roles);
     },
     resetError() {
-      this.$store.commit('role/RESET_ERROR')
-      this.$store.commit('fieldName/RESET_ERROR')
-      this.$store.commit('permission/RESET_ERROR')
+      this.$store.commit("role/RESET_ERROR");
+      this.$store.commit("fieldName/RESET_ERROR");
+      this.$store.commit("permission/RESET_ERROR");
       this.errors = {
-        name: '',
-        label: '',
-        field_name: '',
-        permission: ''
+        name: "",
+        label: "",
+        field_name: "",
+        permission: "",
       };
     },
   },
   async created() {
-    this.resetError()
-    this.setTitle('Role')
+    this.resetError();
+    this.setTitle("Role");
     this.setBreadcrumb([
       {
-        to: '/acl/role',
-        name: 'Role'
+        to: "/acl/role",
+        name: "Role",
       },
       {
-        to: '/acl/role/edit/' + this.id,
-        name: 'Edit'
-      }
-    ])
-    await this.show()
-    this.getFieldName()
-    this.getPermission()
+        to: "/acl/role/edit/" + this.id,
+        name: "Edit",
+      },
+    ]);
+    await this.show();
+    this.getFieldName();
+    this.getPermission();
   },
-  mounted() {
-  },
-}
+  mounted() {},
+};
 </script>
 
 <style scoped>
-
 </style>

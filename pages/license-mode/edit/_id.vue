@@ -1,8 +1,8 @@
 <template>
   <VCard title="Edit a License Mode">
     <template #header>
-      <VBtn type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/license-mode">List</NuxtLink>
+      <VBtn to="/license-mode" type="button" class="m-0 c-btn--small">
+        List
       </VBtn>
     </template>
     <form @submit.prevent="update" class="c-form">
@@ -41,21 +41,21 @@ export default {
     return {
       id: this.$route.params.id,
       payload: {
-        name: '',
-        label: '',
-      }
+        name: "",
+        label: "",
+      },
     };
   },
   methods: {
     update() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("licenseMode/update", {
             payload: this.payload,
-            id: this.id
+            id: this.id,
           });
           this.stopLoading();
           const err = this.handleError(this.$store.state.licenseMode.error);
@@ -70,13 +70,13 @@ export default {
         });
     },
     async show() {
-      this.startLoading()
+      this.startLoading();
       await this.$store.dispatch("licenseMode/show", this.id);
       this.handleError(this.$store.state.licenseMode.error);
       let data = this.$store.state.licenseMode.item;
-      this.payload.label = data.label
-      this.payload.name = data.name
-      this.stopLoading()
+      this.payload.label = data.label;
+      this.payload.name = data.name;
+      this.stopLoading();
     },
     validation() {
       return Yup.object({
@@ -85,31 +85,30 @@ export default {
       });
     },
     resetError() {
-      this.$store.commit('licenseMode/RESET_ERROR')
+      this.$store.commit("licenseMode/RESET_ERROR");
       this.errors = {
         name: "",
         label: "",
       };
-    }
+    },
   },
   created() {
-    this.show()
-    this.setTitle('License Mode')
+    this.show();
+    this.setTitle("License Mode");
     this.setBreadcrumb([
       {
-        to: '/license-mode',
-        name: 'License Mode'
+        to: "/license-mode",
+        name: "License Mode",
       },
       {
-        to: '/license-mode/edit/' + this.id,
-        name: 'Edit'
-      }
-    ])
-    this.resetError()
-  }
-}
+        to: "/license-mode/edit/" + this.id,
+        name: "Edit",
+      },
+    ]);
+    this.resetError();
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

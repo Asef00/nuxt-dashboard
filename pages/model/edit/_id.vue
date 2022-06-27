@@ -1,9 +1,7 @@
 <template>
   <VCard title="Edit a Model">
     <template #header>
-      <VBtn type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/model">List</NuxtLink>
-      </VBtn>
+      <VBtn to="/model" type="button" class="m-0 c-btn--small"> List </VBtn>
     </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">
@@ -53,12 +51,12 @@ export default {
     update() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("model/update", {
             payload: this.payload,
-            id: this.id
+            id: this.id,
           });
           this.stopLoading();
           const err = this.handleError(this.$store.state.model.error);
@@ -73,15 +71,15 @@ export default {
         });
     },
     async show() {
-      this.startLoading()
+      this.startLoading();
       await this.$store.dispatch("model/show", this.id);
       let err = this.handleError(this.$store.state.model.error);
       if (!err) {
         let data = this.$store.state.model.item;
-        this.payload.fields = data.fields
-        this.payload.name = data.name
+        this.payload.fields = data.fields;
+        this.payload.name = data.name;
       }
-      this.stopLoading()
+      this.stopLoading();
     },
     validation() {
       return Yup.object({
@@ -90,12 +88,12 @@ export default {
       });
     },
     resetError() {
-      this.$store.commit('model/RESET_ERROR')
+      this.$store.commit("model/RESET_ERROR");
       this.errors = {
         name: "",
         fields: "",
       };
-    }
+    },
   },
   created() {
     this.setTitle("Model");
@@ -110,7 +108,7 @@ export default {
       },
     ]);
     this.resetError();
-    this.show()
+    this.show();
   },
 };
 </script>

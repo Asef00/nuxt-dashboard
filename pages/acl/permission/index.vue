@@ -1,17 +1,28 @@
 <template>
   <VCard :loader="loaderRequest" title="List Permissions">
     <template #header>
-      <VBtn v-if="can('permission.store')" type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/acl/permission/create">Create</NuxtLink>
+      <VBtn
+        to="/acl/permission/create"
+        v-if="can('permission.store')"
+        type="button"
+        class="m-0 c-btn--small"
+      >
+        Create
       </VBtn>
     </template>
-    <VTable @actionDetails="detailsItem($event)"
-            @changePage="changePage($event)"
-            @changePerPage="changePerPage($event)"
-            @actionDelete="deleteItem($event)"
-            :table="table"/>
-    <VModal :showModal="showDetails" @close="showDetails =false" title="Permission details">
-      <Details :id="detailsItemId"/>
+    <VTable
+      @actionDetails="detailsItem($event)"
+      @changePage="changePage($event)"
+      @changePerPage="changePerPage($event)"
+      @actionDelete="deleteItem($event)"
+      :table="table"
+    />
+    <VModal
+      :showModal="showDetails"
+      @close="showDetails = false"
+      title="Permission details"
+    >
+      <Details :id="detailsItemId" />
     </VModal>
   </VCard>
 </template>
@@ -32,12 +43,16 @@ export default {
       detailsItemId: 0,
       table: {
         columns: [
-          {key: "id", label: "#"},
-          {key: "name", label: "Name",},
-          {key: "label", label: "Label",},
-          {key: "created_at", label: "Created At", class: "u-text-center"},
-          {key: "updated_at", label: "Updated At", class: "u-text-center"},
-          {key: "action", label: '<img src="/img/gear.svg" alt="" />', class: "u-text-center",},
+          { key: "id", label: "#" },
+          { key: "name", label: "Name" },
+          { key: "label", label: "Label" },
+          { key: "created_at", label: "Created At", class: "u-text-center" },
+          { key: "updated_at", label: "Updated At", class: "u-text-center" },
+          {
+            key: "action",
+            label: '<img src="/img/gear.svg" alt="" />',
+            class: "u-text-center",
+          },
         ],
         items: [],
         map: {
@@ -54,38 +69,37 @@ export default {
             return _this.dateFormat(item.updated_at);
           },
           //REQUIRED
-          rowClass() {
-          },
+          rowClass() {},
         },
       },
-    }
+    };
   },
   methods: {
     async list(page = null, limit = null) {
       this.startLoading();
-      this.$store.commit('permission/RESET_ERROR')
+      this.$store.commit("permission/RESET_ERROR");
       await this.$store.dispatch("permission/list", {
         page: page ?? this.getPaginate(),
         limit: limit ?? this.getLimit(),
-        paginate: 1
+        paginate: 1,
       });
       let err = this.handleError(this.$store.state.permission.error);
       if (!err) {
         this.table.items = this.$store.state.permission.list;
       }
-      this.stopLoading()
+      this.stopLoading();
     },
     async deleteItem(id) {
       if (confirm("Are you sure?")) {
-        this.startLoading()
-        this.$store.commit('permission/RESET_ERROR')
+        this.startLoading();
+        this.$store.commit("permission/RESET_ERROR");
         await this.$store.dispatch("permission/delete", id);
         let err = this.handleError(this.$store.state.permission.error);
         if (!err) {
-          this.$toast.success('Permission successfully deleted.');
+          this.$toast.success("Permission successfully deleted.");
           await this.list();
         }
-        this.stopLoading()
+        this.stopLoading();
       }
     },
     detailsItem(id) {
@@ -103,18 +117,17 @@ export default {
     },
   },
   created() {
-    this.setTitle('Permission')
+    this.setTitle("Permission");
     this.setBreadcrumb([
       {
-        to: '/acl/permission',
-        name: 'Permission'
-      }
-    ])
+        to: "/acl/permission",
+        name: "Permission",
+      },
+    ]);
     this.list();
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

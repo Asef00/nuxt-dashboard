@@ -1,16 +1,22 @@
 <template>
   <VCard title="Edit a Person">
     <template #header>
-      <VBtn type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/person">List</NuxtLink>
+      <VBtn to="/person" type="button" class="m-0 c-btn--small"> List </VBtn>
+      <VBtn :to="`/person/${id}`" type="button" class="m-0 c-btn--small">
+        Details
       </VBtn>
-      <VBtn type="button" class="m-0 c-btn--small">
-        <NuxtLink :to="`/person/${id}`">Details</NuxtLink>
+      <VBtn
+        :to="`/person-product/create/${id}`"
+        type="button"
+        class="m-0 c-btn--small"
+      >
+        Add Product
       </VBtn>
-      <VBtn type="button" class="m-0 c-btn--small">
-        <NuxtLink :to="`/person-product/create/${id}`">Add Product</NuxtLink>
-      </VBtn>
-      <VBtn type="button" @action="showChangePasswordModal = true" class="m-0 c-btn--small">
+      <VBtn
+        type="button"
+        @action="showChangePasswordModal = true"
+        class="m-0 c-btn--small"
+      >
         Change password
       </VBtn>
     </template>
@@ -45,12 +51,17 @@
             track-label="label"
             track-by="id"
             :closeOnSelect="false"
-            label="Role"/>
+            label="Role"
+          />
         </div>
       </div>
       <VBtn :loader="loaderRequest">SAVE</VBtn>
     </form>
-    <ChangePassword @show="changePasswordModal($event)" :show="showChangePasswordModal" :id="id"/>
+    <ChangePassword
+      @show="changePasswordModal($event)"
+      :show="showChangePasswordModal"
+      :id="id"
+    />
   </VCard>
 </template>
 
@@ -62,20 +73,20 @@ export default {
   name: "edit",
   permission: "person.update",
   components: {
-    ChangePassword
+    ChangePassword,
   },
   data() {
     return {
       showChangePasswordModal: false,
       id: this.$route.params.id,
       list: {
-        role: []
+        role: [],
       },
       payload: {
-        name: '',
-        family_name: '',
+        name: "",
+        family_name: "",
         role: null,
-      }
+      },
     };
   },
   methods: {
@@ -85,15 +96,15 @@ export default {
     update() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           let payload = {
             name: this.payload.name,
             family_name: this.payload.family_name,
-            role_ids: this.payload.role.map(i => i.id),
+            role_ids: this.payload.role.map((i) => i.id),
           };
-          await this.$store.dispatch("person/update", {id: this.id, payload});
+          await this.$store.dispatch("person/update", { id: this.id, payload });
           this.stopLoading();
           const err = this.handleError(this.$store.state.person.error);
           if (!err) {
@@ -108,8 +119,8 @@ export default {
         });
     },
     async show() {
-      this.startLoading()
-      await this.$store.dispatch("person/show", {id: this.id});
+      this.startLoading();
+      await this.$store.dispatch("person/show", { id: this.id });
       let err = this.handleError(this.$store.state.person.error);
       if (!err) {
         let data = this.$store.state.person.item;
@@ -117,13 +128,13 @@ export default {
         this.payload.family_name = data.family_name;
         this.payload.role = data.roles;
       }
-      this.stopLoading()
+      this.stopLoading();
     },
     async getRole() {
-      await this.$store.dispatch('role/list')
-      let err = this.handleError(this.$store.state.role.error)
+      await this.$store.dispatch("role/list");
+      let err = this.handleError(this.$store.state.role.error);
       if (!err) {
-        this.list.role = this.$store.state.role.list
+        this.list.role = this.$store.state.role.list;
       }
     },
     validation() {
@@ -135,35 +146,33 @@ export default {
       return Yup.object(roles);
     },
     resetError() {
-      this.$store.commit('person/RESET_ERROR')
-      this.$store.commit('role/RESET_ERROR')
+      this.$store.commit("person/RESET_ERROR");
+      this.$store.commit("role/RESET_ERROR");
       this.errors = {
-        name: '',
-        family_name: '',
-        role: '',
+        name: "",
+        family_name: "",
+        role: "",
       };
     },
-
   },
   async created() {
-    this.resetError()
-    this.setTitle('Person')
+    this.resetError();
+    this.setTitle("Person");
     this.setBreadcrumb([
       {
-        to: '/person',
-        name: 'Person'
+        to: "/person",
+        name: "Person",
       },
       {
-        to: '/person/edit/' + this.id,
-        name: 'Edit'
-      }
-    ])
-    await this.show()
-    this.getRole()
-  }
-}
+        to: "/person/edit/" + this.id,
+        name: "Edit",
+      },
+    ]);
+    await this.show();
+    this.getRole();
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

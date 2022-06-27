@@ -1,9 +1,7 @@
 <template>
   <VCard title="Create new Product">
     <template #header>
-      <VBtn type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/product">List</NuxtLink>
-      </VBtn>
+      <VBtn to="/product" type="button" class="m-0 c-btn--small"> List </VBtn>
     </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">
@@ -34,7 +32,8 @@
             placeholder="Please enter license mode"
             track-label="label"
             track-by="id"
-            label="License Mode"/>
+            label="License Mode"
+          />
         </div>
         <div class="col-md-6">
           <VSelect
@@ -74,19 +73,19 @@ export default {
         license_mode: [],
       },
       payload: {
-        title: '',
-        slug: '',
-        description: '',
+        title: "",
+        slug: "",
+        description: "",
         license_mode: [],
-        data_fields: []
-      }
+        data_fields: [],
+      },
     };
   },
   methods: {
     create() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("product/create", {
@@ -109,10 +108,10 @@ export default {
         });
     },
     async getLicenseMode() {
-      await this.$store.dispatch('licenseMode/list')
-      let err = this.handleError(this.$store.state.licenseMode.error)
+      await this.$store.dispatch("licenseMode/list");
+      let err = this.handleError(this.$store.state.licenseMode.error);
       if (!err) {
-        this.list.license_mode = this.$store.state.licenseMode.list
+        this.list.license_mode = this.$store.state.licenseMode.list;
       }
     },
     validation() {
@@ -126,46 +125,45 @@ export default {
       return Yup.object(roles);
     },
     resetError() {
-      this.$store.commit('product/RESET_ERROR')
+      this.$store.commit("product/RESET_ERROR");
       this.errors = {
-        title: '',
-        slug: '',
-        description: '',
-        license_mode: ''
+        title: "",
+        slug: "",
+        description: "",
+        license_mode: "",
       };
     },
     convertToSlug(Text) {
       return Text.toLowerCase()
-        .replace(/ /g, '-')
-        .replace(/[^\w-]+/g, '');
-    }
+        .replace(/ /g, "-")
+        .replace(/[^\w-]+/g, "");
+    },
   },
   created() {
-    this.resetError()
-    this.setTitle('Product')
+    this.resetError();
+    this.setTitle("Product");
     this.setBreadcrumb([
       {
-        to: '/product',
-        name: 'Product'
+        to: "/product",
+        name: "Product",
       },
       {
-        to: '/product/create',
-        name: 'Create'
-      }
-    ])
-    this.getLicenseMode()
+        to: "/product/create",
+        name: "Create",
+      },
+    ]);
+    this.getLicenseMode();
   },
   watch: {
     "payload.slug": {
       handler(val) {
-        this.payload.slug = this.convertToSlug(val)
+        this.payload.slug = this.convertToSlug(val);
       },
-      immediate: true
-    }
-  }
-}
+      immediate: true,
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

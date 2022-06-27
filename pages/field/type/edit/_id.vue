@@ -1,8 +1,8 @@
 <template>
   <VCard title="Edit a Field Type">
     <template #header>
-      <VBtn type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/field/type">List</NuxtLink>
+      <VBtn to="/field/type" type="button" class="m-0 c-btn--small">
+        List
       </VBtn>
     </template>
     <form @submit.prevent="update" class="c-form">
@@ -41,21 +41,21 @@ export default {
     return {
       id: this.$route.params.id,
       payload: {
-        type: '',
-        label: '',
-      }
+        type: "",
+        label: "",
+      },
     };
   },
   methods: {
     update() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("fieldType/update", {
             payload: this.payload,
-            id: this.id
+            id: this.id,
           });
           this.stopLoading();
           const err = this.handleError(this.$store.state.fieldType.error);
@@ -70,15 +70,15 @@ export default {
         });
     },
     async show() {
-      this.startLoading()
+      this.startLoading();
       await this.$store.dispatch("fieldType/show", this.id);
       let err = this.handleError(this.$store.state.fieldType.error);
       if (!err) {
         let data = this.$store.state.fieldType.item;
-        this.payload.type = data.type
-        this.payload.label = data.label
+        this.payload.type = data.type;
+        this.payload.label = data.label;
       }
-      this.stopLoading()
+      this.stopLoading();
     },
     validation() {
       return Yup.object({
@@ -87,31 +87,30 @@ export default {
       });
     },
     resetError() {
-      this.$store.commit('fieldType/RESET_ERROR')
+      this.$store.commit("fieldType/RESET_ERROR");
       this.errors = {
         type: "",
         label: "",
       };
-    }
+    },
   },
   created() {
-    this.setTitle('Field Type')
+    this.setTitle("Field Type");
     this.setBreadcrumb([
       {
-        to: '/field/type',
-        name: 'Field Type'
+        to: "/field/type",
+        name: "Field Type",
       },
       {
-        to: '/field/type/edit/' + this.id,
-        name: 'Edit'
-      }
-    ])
-    this.resetError()
-    this.show()
-  }
-}
+        to: "/field/type/edit/" + this.id,
+        name: "Edit",
+      },
+    ]);
+    this.resetError();
+    this.show();
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

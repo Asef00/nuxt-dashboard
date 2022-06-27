@@ -1,8 +1,8 @@
 <template>
   <VCard title="Create new Field Name">
     <template #header>
-      <VBtn type="button" class="m-0 c-btn--small">
-        <NuxtLink to="/field/name">List</NuxtLink>
+      <VBtn to="/field/name" type="button" class="m-0 c-btn--small">
+        List
       </VBtn>
     </template>
     <form @submit.prevent="create" class="c-form">
@@ -24,7 +24,8 @@
             :list="list.field_type"
             placeholder="Please enter field type"
             track-label="label"
-            label="Field Type"/>
+            label="Field Type"
+          />
         </div>
         <div class="col-md-6">
           <VInput
@@ -70,7 +71,8 @@
             placeholder="Please enter data set"
             @validation="validate('data_set')"
             :error="errorMessage('data_set')"
-            label="Data Set"/>
+            label="Data Set"
+          />
         </div>
         <div class="col-md-6">
           <VSelect
@@ -80,7 +82,8 @@
             placeholder="Please enter default access"
             @validation="validate('default_access')"
             :error="errorMessage('default_access')"
-            label="Default Access"/>
+            label="Default Access"
+          />
         </div>
       </div>
       <VSwitch
@@ -104,32 +107,35 @@ export default {
     return {
       list: {
         field_type: [],
-        default_access: ['edit', 'show']
+        default_access: ["edit", "show"],
       },
       data: {
-        data_set: ''
+        data_set: "",
       },
       payload: {
-        name: '',
-        label: '',
-        placeholder: '',
-        default_value: '',
+        name: "",
+        label: "",
+        placeholder: "",
+        default_value: "",
         length: 0,
         required: false,
         data_set: [],
         default_access: [],
-        field_type: []
-      }
+        field_type: [],
+      },
     };
   },
   methods: {
     create() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
-          await this.$store.dispatch("fieldName/create", {...this.payload, field_type_id: this.payload.field_type.id});
+          await this.$store.dispatch("fieldName/create", {
+            ...this.payload,
+            field_type_id: this.payload.field_type.id,
+          });
           this.stopLoading();
           const err = this.handleError(this.$store.state.fieldName.error);
           if (!err) {
@@ -143,10 +149,10 @@ export default {
         });
     },
     async getFieldType() {
-      await this.$store.dispatch('fieldType/list')
-      let err = this.handleError(this.$store.state.fieldType.error)
+      await this.$store.dispatch("fieldType/list");
+      let err = this.handleError(this.$store.state.fieldType.error);
       if (!err) {
-        this.list.field_type = this.$store.state.fieldType.list
+        this.list.field_type = this.$store.state.fieldType.list;
       }
     },
     validation() {
@@ -161,53 +167,53 @@ export default {
         field_type: Yup.object().nullable().required(),
       };
       if (this.checkFieldTypeHasSelect) {
-        roles = {data_set: Yup.array().min(1), ...roles}
+        roles = { data_set: Yup.array().min(1), ...roles };
       }
       return Yup.object(roles);
     },
     resetError() {
-      this.$store.commit('fieldName/RESET_ERROR')
-      this.$store.commit('fieldType/RESET_ERROR')
+      this.$store.commit("fieldName/RESET_ERROR");
+      this.$store.commit("fieldType/RESET_ERROR");
       this.errors = {
-        name: '',
-        label: '',
-        placeholder: '',
-        default_value: '',
-        length: '',
-        required: '',
-        data_set: '',
-        default_access: '',
-        field_type: ''
+        name: "",
+        label: "",
+        placeholder: "",
+        default_value: "",
+        length: "",
+        required: "",
+        data_set: "",
+        default_access: "",
+        field_type: "",
       };
     },
   },
   created() {
-    this.resetError()
-    this.setTitle('Field Name')
+    this.resetError();
+    this.setTitle("Field Name");
     this.setBreadcrumb([
       {
-        to: '/field/name',
-        name: 'Field Name'
-      }, {
-        to: '/field/name/create',
-        name: 'Create'
-      }
-    ])
+        to: "/field/name",
+        name: "Field Name",
+      },
+      {
+        to: "/field/name/create",
+        name: "Create",
+      },
+    ]);
   },
   mounted() {
-    this.getFieldType()
+    this.getFieldType();
   },
   computed: {
     checkFieldTypeHasSelect() {
       if (this.payload.field_type) {
-        return this.payload.field_type.type === 'select'
+        return this.payload.field_type.type === "select";
       }
       return false;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 </style>
