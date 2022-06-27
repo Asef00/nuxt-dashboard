@@ -26,24 +26,23 @@
         <thead class="c-table__header">
           <tr class="c-table__row">
             <template v-for="col in table.columns">
-              <th
+              <VDropdown
+                isFilter
+                wrapper="th"
+                position="bottom"
                 v-if="col.filterable"
                 :key="col.key"
-                :class="col.class"
-                class="c-table__th c-filter"
-                data-dropdown="container"
+                :class="[col.class, 'c-table__th']"
               >
-                <button class="c-filter__btn" data-dropdown="btn">
+                <template #btn>
                   <!-- Filter icon -->
                   <VIcon
                     :icon="col == sortColumn ? 'filter.is-active' : 'filter'"
                   />
                   <span v-html="col.label"></span>
-                </button>
-                <div
-                  class="c-filter__menu c-filter__menu--bottom"
-                  data-dropdown="menu"
-                >
+                </template>
+
+                <template #menu>
                   <header class="c-filter__header">
                     <input
                       class="c-filter__search"
@@ -75,8 +74,8 @@
                       Kern River Lake Isabella Board
                     </label>
                   </div>
-                </div>
-              </th>
+                </template>
+              </VDropdown>
               <th
                 v-else
                 :key="col.key"

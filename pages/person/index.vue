@@ -32,10 +32,15 @@ export default {
       table: {
         columns: [
           { key: "id", label: "#" },
-          { key: "full_name", label: "Full Name" },
-          { key: "username", label: "Username" },
-          { key: "status", label: "Status" },
-          { key: "created_at", label: "Created At", class: "u-text-center" },
+          { key: "full_name", label: "Full Name", filterable: true },
+          { key: "username", label: "Username", filterable: true },
+          { key: "status", label: "Status", filterable: true },
+          {
+            key: "created_at",
+            label: "Created At",
+            class: "u-text-center",
+            filterable: true,
+          },
           { key: "updated_at", label: "Updated At", class: "u-text-center" },
           {
             key: "action",

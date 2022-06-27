@@ -2,13 +2,13 @@
   <!-- Dynamic Wrapper -->
   <component
     :is="wrapper"
-    :class="['c-dropdown', isActive ? 'is-active' : '']"
+    :class="[dropdownClass, isActive ? 'is-active' : '']"
     v-click-outside="blur"
   >
     <!-- Dropdown Button -->
     <button
       v-if="this.$slots.btn"
-      :class="[btnClass, 'c-dropdown__btn']"
+      :class="[btnClass, buttonClass]"
       @click="toggle"
     >
       <slot name="btn"></slot>
@@ -20,7 +20,7 @@
         ref="menu"
         v-if="this.$slots.menu"
         v-show="isActive"
-        :class="[menuClass, 'c-dropdown__menu']"
+        :class="menuClass"
       >
         <slot name="menu"></slot>
       </div>
@@ -31,6 +31,10 @@
 <script>
 export default {
   props: {
+    isFilter: {
+      type: Boolean,
+      default: false,
+    },
     btnClass: String,
     menuStyle: {
       type: String,
@@ -74,7 +78,7 @@ export default {
         if (rect.bottom + 10 > window.innerHeight) {
           // console.log(rect.bottom, window.innerHeight);
           // menu.style.top = -rect.bottom + window.innerHeight - 10 + "px";
-          menu.classList.add('is-bottom');
+          menu.classList.add("is-bottom");
           menu.style.top = "unset";
           menu.style.bottom = 0;
         }
@@ -83,8 +87,19 @@ export default {
   },
 
   computed: {
+    dropdownClass() {
+      if (this.isFilter) return "c-filter";
+      else return "c-dropdown";
+    },
+    buttonClass() {
+      if (this.isFilter) return "c-filter__btn";
+      else return "c-dropdown__btn";
+    },
     menuClass() {
-      return `c-dropdown__menu--${this.position} u-bg-${this.menuStyle}`;
+      if (this.isFilter)
+        return `c-filter__menu c-filter__menu--${this.position} u-bg-${this.menuStyle}`;
+      else
+        return `c-dropdown__menu c-dropdown__menu--${this.position} u-bg-${this.menuStyle}`;
     },
   },
 
