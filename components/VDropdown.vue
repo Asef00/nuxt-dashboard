@@ -62,12 +62,21 @@ export default {
     reposition() {
       // using nestTick to let the element show up
       this.$nextTick(() => {
-        if (
-          this.$refs.menu.getBoundingClientRect().right + 10 >
-          window.innerWidth
-        ) {
-          this.$refs.menu.style.left = "unset";
-          this.$refs.menu.style.right = 0;
+        let menu = this.$refs.menu;
+        let rect = menu.getBoundingClientRect();
+
+        // vertical
+        if (rect.right + 10 > window.innerWidth) {
+          menu.style.left = "unset";
+          menu.style.right = 0;
+        }
+        // horizontal
+        if (rect.bottom + 10 > window.innerHeight) {
+          // console.log(rect.bottom, window.innerHeight);
+          // menu.style.top = -rect.bottom + window.innerHeight - 10 + "px";
+          menu.classList.add('is-bottom');
+          menu.style.top = "unset";
+          menu.style.bottom = 0;
         }
       });
     },
