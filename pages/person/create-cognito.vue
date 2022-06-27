@@ -76,7 +76,6 @@ export default {
       this.validation()
         .validate(this.payload, {abortEarly: false})
         .then(async () => {
-          this.resetError();
           if (this.paginationToken == null) {
             this.table.items = []
           }
@@ -90,7 +89,6 @@ export default {
           const err = this.handleError(this.$store.state.person.error);
           if (!err) {
             this.table.items = this.table.items.concat(this.$store.state.person.cognitoUsers.data);
-            console.log(this.table.items)
             this.paginationToken = this.$store.state.person.cognitoUsers.pagination_token;
             if (this.table.items.length <= 0) {
               this.$toast.warning('No results found!');
