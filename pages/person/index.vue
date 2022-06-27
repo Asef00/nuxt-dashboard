@@ -5,7 +5,6 @@
         to="/person/create"
         v-if="can('person.store')"
         class="m-0 c-btn--small"
-        disabled
       >
         Create
       </VBtn>

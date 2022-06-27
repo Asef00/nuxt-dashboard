@@ -24,10 +24,13 @@ $btn-bg: #f4f4f5;
   min-width: 9em;
   height: 40px;
   border-radius: 3px;
+  font-family: inherit;
   @include font-size(14px);
   margin-right: 1em;
   margin-bottom: 1em;
+  padding: 1px 6px;
 
+  text-align: center;
   color: $text-color;
   background-color: $btn-bg;
   border: 1px solid $btn-bg;
