@@ -1,11 +1,13 @@
 <template>
   <div class="c-card">
-    <div class="c-card__header" v-if="title">
+    <!-- Title & Toolbar -->
+    <div v-if="title" class="c-card__header">
       <h2 class="c-card__title">{{ title }}</h2>
       <div class="c-card__toolbar" v-if="this.$slots.header">
         <slot name="header" />
       </div>
     </div>
+    <!-- Body -->
     <div :class="{ 'c-card__body': true, 'is-loading': loader }">
       <slot />
     </div>
@@ -15,6 +17,7 @@
 <script>
 export default {
   name: "VCard",
+
   props: {
     title: String,
     loader: {
@@ -22,6 +25,9 @@ export default {
       default: false,
     },
   },
-  methods: {},
 };
 </script>
+
+<style lang="scss">
+@import "~/assets/scss/components/card";
+</style>

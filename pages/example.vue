@@ -100,7 +100,8 @@
         </VBtn>
       </form>
     </VCard>
-    <VCard title="Alert">
+
+    <VCard title="Alerts">
       <VAlert class="c-alert--primary">
         A simple primary alert—check it out!
       </VAlert>
@@ -123,7 +124,7 @@
       <VAlert class="c-alert--dark"> A simple dark alert—check it out! </VAlert>
     </VCard>
 
-    <VCard title="MLS Information">
+    <VCard title="Inline Form Controls">
       <template #header>
         <VBtn class="m-0 c-btn--small" btn="info">Button</VBtn>
         <VBtn class="m-0 c-btn--small" btn="danger">Button</VBtn>
@@ -239,7 +240,7 @@
       <template #header>
         <VBtn class="m-0 c-btn--small" btn="success">Success</VBtn>
       </template>
-      <p>
+      <p class="mb-3">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam
         eligendi quis, assumenda corporis ut error molestiae totam hic facilis
         et, nostrum culpa expedita maiores cumque amet modi delectus earum enim!
@@ -248,6 +249,38 @@
       <VBtn @action="showFormModal = true" btn="info">Show Form Modal</VBtn>
     </VCard>
 
+    <VCard>
+      <VTabs
+        qKey="tabs1"
+        @tab1="calendarMethod()"
+        @tab2="historyMethod()"
+        @tab3="paymentrMethod()"
+      >
+        <VTab title="calendar" tabKey="tab1">
+          1. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+          Laudantium nostrum quis iusto perspiciatis magnam repudiandae, labore
+          nobis? Voluptatum quis officia voluptas tempore, pariatur perspiciatis
+          quia assumenda iste aliquam quo a?
+        </VTab>
+        <VTab title="history" tabKey="tab2">
+          2. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+          Laudantium nostrum quis iusto perspiciatis magnam repudiandae, labore
+          nobis? Voluptatum quis officia voluptas tempore, pariatur perspiciatis
+          quia assumenda iste aliquam quo a?
+        </VTab>
+        <VTab title="payment" tabKey="tab3" :noteCount="2" noteType="active">
+          3. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+          Laudantium nostrum quis iusto perspiciatis magnam repudiandae, labore
+          nobis? Voluptatum quis officia voluptas tempore, pariatur perspiciatis
+          quia assumenda iste aliquam quo a?
+        </VTab>
+        <VTab title="test" tabKey="test">
+          <VTest />
+        </VTab>
+      </VTabs>
+    </VCard>
+
+    <!-------- Modals --------->
     <VModal
       :showModal="showModal"
       @close="showModal = false"
@@ -384,6 +417,7 @@ export default {
         tag: "",
         summary: "",
       },
+
       options: ["list", "of", "options", "bla"],
       toggleActive: false,
       selected: "", //for checkbox
@@ -392,6 +426,16 @@ export default {
   },
 
   methods: {
+    calendarMethod() {
+      console.log("calendar tab!");
+    },
+    historyMethod() {
+      console.log("history tab!");
+    },
+    paymentrMethod() {
+      console.log("payment tab!");
+    },
+
     validation() {
       return Yup.object({
         name: Yup.string().required(),

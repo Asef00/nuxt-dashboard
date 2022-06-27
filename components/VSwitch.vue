@@ -75,5 +75,6 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+@import "~/assets/scss/components/switch";
 </style>
