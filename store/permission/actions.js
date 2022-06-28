@@ -41,4 +41,11 @@ export default {
       commit('SET_ERROR', error)
     })
   },
+  async modelList({commit}) {
+    await this.$axios.get(`list-model`).then((response) => {
+      commit('SET_MODELS', response.data)
+    }).catch((error) => {
+      commit('SET_ERROR', error)
+    })
+  },
 }

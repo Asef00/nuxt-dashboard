@@ -20,4 +20,7 @@ export default {
   SET_ROUTES(state, data) {
     state.routes = data
   },
+  SET_MODELS(state, data) {
+    state.models = data
+  },
 }
