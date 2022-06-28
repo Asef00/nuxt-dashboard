@@ -3,4 +3,5 @@ export default () => ({
   error: null,
   list: [],
   routes: [],
+  models: [],
 });

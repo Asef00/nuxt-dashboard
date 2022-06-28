@@ -15,42 +15,17 @@
         <span class="u-text-secondary">{{ data.label }}</span>
       </div>
       <div class=" col-md-12 c-form__control c-form__control--inline mb-0">
+        <label class="c-form__label">Conditions</label>
+        <span v-for="(key,value) in data.conditions"
+              class="u-text-secondary">{{ value }} : {{ key }}</span>
+      </div>
+      <div class=" col-md-12 c-form__control c-form__control--inline mb-0">
         <label class="c-form__label">Created At</label>
         <span class="u-text-secondary">{{ dateFormat(data.created_at) }}</span>
       </div>
       <div class=" col-md-12 c-form__control c-form__control--inline mb-0">
         <label class="c-form__label">Updated At</label>
         <span class="u-text-secondary">{{ dateFormat(data.updated_at) }}</span>
-      </div>
-    </div>
-    <h4 class="c-form__title mb-2 mt-2">Model Permission</h4>
-    <div class="row">
-      <div class=" col-md-12 c-form__control c-form__control--inline mb-0">
-        <label class="c-form__label">Id</label>
-        <span class="u-text-secondary">{{ data.permission_model ? data.permission_model.id : '' }}</span>
-      </div>
-      <div class=" col-md-12 c-form__control c-form__control--inline mb-0">
-        <label class="c-form__label">Model name</label>
-        <span class="u-text-secondary">{{ data.permission_model ? data.permission_model.model.name : '' }}</span>
-      </div>
-      <div class=" col-md-12 c-form__control c-form__control--inline mb-0">
-        <label class="c-form__label">Fields</label>
-        <span v-for="field in data.permission_model ? data.permission_model.fields : []"
-              class="c-badge u-bg-primary">{{ field }}</span>
-      </div>
-
-      <div class=" col-md-12 c-form__control c-form__control--inline mb-0">
-        <label class="c-form__label">Conditions</label>
-        <span v-for="(key,value) in data.permission_model?data.permission_model.conditions : []"
-              class="u-text-secondary">{{ value }} : {{ key }}</span>
-      </div>
-      <div class=" col-md-12 c-form__control c-form__control--inline mb-0">
-        <label class="c-form__label">Created At</label>
-        <span class="u-text-secondary">{{ data.permission_model? dateFormat(data.permission_model.created_at):'' }}</span>
-      </div>
-      <div class=" col-md-12 c-form__control c-form__control--inline mb-0">
-        <label class="c-form__label">Updated At</label>
-        <span class="u-text-secondary">{{ data.permission_model?dateFormat(data.permission_model.updated_at):'' }}</span>
       </div>
     </div>
   </form>
