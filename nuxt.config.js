@@ -41,7 +41,6 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     "@nuxtjs/fontawesome",
-    "@nuxtjs/google-fonts",
     "@nuxtjs/style-resources",
   ],
 
@@ -133,12 +132,6 @@ export default {
       brands: true,
     },
   },
-
-  // googleFonts: {
-  //   families: {
-  //     Montserrat: true,
-  //   },
-  // },
 
   router: {
     middleware: ["auth", "authenticated", "permission"],
