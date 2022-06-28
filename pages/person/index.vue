@@ -36,9 +36,9 @@ export default {
       table: {
         columns: [
           { key: "id", label: "#" },
-          { key: "full_name", label: "Full Name", filterable: true },
-          { key: "username", label: "Username", filterable: true },
-          { key: "status", label: "Status", filterable: true },
+          { key: "full_name", label: "Full Name" },
+          { key: "username", label: "Username" },
+          { key: "status", label: "Status" },
           {
             key: "created_at",
             label: "Created At",

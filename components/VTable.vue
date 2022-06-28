@@ -30,6 +30,7 @@
                 isFilter
                 wrapper="th"
                 position="bottom"
+                menuStyle="none"
                 v-if="col.filterable"
                 :key="col.key"
                 :class="[col.class, 'c-table__th']"
@@ -107,7 +108,7 @@
           </tr>
           <tr
             v-else
-            v-for="(row,index) in list"
+            v-for="(row, index) in list"
             :key="index"
             :class="table.map['rowClass'](row)"
             class="c-table__row"
