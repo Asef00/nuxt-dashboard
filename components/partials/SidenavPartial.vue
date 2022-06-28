@@ -88,12 +88,6 @@
             class="c-dropdown__item"
           >Field names
           </NuxtLink>
-          <NuxtLink
-            v-if="can('model.index')"
-            to="/model"
-            class="c-dropdown__item"
-          >Models
-          </NuxtLink>
         </template>
       </VDropdown>
     </ul>

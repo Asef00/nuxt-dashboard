@@ -1,7 +1,7 @@
 <template>
   <VCard title="Create new Permission">
     <template #header>
-      <VBtn to="/acl/permission" class="m-0 c-btn--small"> List </VBtn>
+      <VBtn to="/acl/permission" class="m-0 c-btn--small"> List</VBtn>
     </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">
@@ -36,41 +36,30 @@
       <div v-if="hasFilter" class="row">
         <div class="col-md-6">
           <VSelect
-            v-model="payload.permission_model_model"
-            @validation="validate('permission_model_model')"
-            :error="errorMessage('permission_model_model')"
+            v-model="payload.model"
             :list="list.model"
             placeholder="Please select model"
             track-label="name"
             label="Model"
           />
         </div>
-        <div v-if="checkSelectedModel" class="col-md-6">
-          <VSelect
-            :multiple="true"
-            v-model="payload.permission_model_fields"
-            @validation="validate('permission_model_fields')"
-            :error="errorMessage('permission_model_fields')"
-            :list="
-              typeof payload.permission_model_model.fields == 'undefined'
-                ? []
-                : payload.permission_model_model.fields
-            "
-            placeholder="Please select fields"
-            label="Fields"
-          />
+        <div class="col-md-6">
+          <div class=" c-form__control c-form__control--inline mb-5 ">
+            <label class="c-form__label">Fields :</label>
+            <span v-for="field in payload.fields" class="c-badge u-bg-primary">{{ field }}</span>
+          </div>
         </div>
-        <div v-if="checkSelectedModel" class="col-md-12 mb-4">
+        <div class="col-md-12 mb-4">
           <label class="c-form__label">Conditions</label>
           <v-jsoneditor
-            v-model="payload.permission_model_conditions"
+            v-model="payload.conditions"
             :plus="false"
             :options="options"
             height="250px"
           />
         </div>
       </div>
-      <!--            conditions-->
+      <!--conditions-->
       <div v-if="false">
         <label class="c-form__label">Conditions</label>
         <div v-if="checkSelectedModel" class="row">
@@ -131,7 +120,8 @@
               @action="addCondition"
               btn="outline"
               :loader="loaderRequest"
-              >ADD</VBtn
+            >ADD
+            </VBtn
             >
           </div>
         </div>
@@ -148,7 +138,7 @@ import * as Yup from "yup";
 export default {
   name: "create",
   permission: "permission.store",
-  components: { Multiselect },
+  components: {Multiselect},
   data() {
     return {
       hasFilter: false,
@@ -271,9 +261,9 @@ export default {
       payload: {
         name: "",
         label: "",
-        permission_model_model: [],
-        permission_model_conditions: {},
-        permission_model_fields: [],
+        model: null,
+        fields: null,
+        conditions: {},
       },
     };
   },
@@ -281,23 +271,14 @@ export default {
     create() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, { abortEarly: false })
+        .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
           let payload = {
             name: this.payload.name.name,
             label: this.payload.label,
+            conditions: this.payload.conditions,
           };
-          if (this.hasFilter) {
-            payload = {
-              ...payload,
-              permission_model: {
-                model_id: this.payload.permission_model_model.id,
-                conditions: this.payload.permission_model_conditions,
-                fields: this.payload.permission_model_fields,
-              },
-            };
-          }
           await this.$store.dispatch("permission/create", payload);
           this.stopLoading();
           const err = this.handleError(this.$store.state.permission.error);
@@ -319,24 +300,18 @@ export default {
       }
     },
     async getModel() {
-      await this.$store.dispatch("model/list");
-      let err = this.handleError(this.$store.state.model.error);
+      await this.$store.dispatch("permission/modelList");
+      let err = this.handleError(this.$store.state.permission.error);
       if (!err) {
-        this.list.model = this.$store.state.model.list;
+        this.list.model = this.$store.state.permission.models;
       }
     },
     validation() {
       let roles = {
         name: Yup.object().nullable().required(),
         label: Yup.string().required(),
+        conditions: Yup.object(),
       };
-      if (this.hasFilter) {
-        roles = {
-          permission_model_model: Yup.object().nullable().required(),
-          permission_model_fields: Yup.array().nullable().min(3),
-          ...roles,
-        };
-      }
       return Yup.object(roles);
     },
     resetError() {
@@ -344,8 +319,7 @@ export default {
       this.errors = {
         name: "",
         label: "",
-        permission_model_model: "",
-        permission_model_fields: "",
+        conditions: "",
       };
     },
     addCondition() {
@@ -353,7 +327,7 @@ export default {
         field: Yup.string().nullable().required(),
         condition: Yup.object().nullable().required(),
       })
-        .validate(this.data.conditions, { abortEarly: false })
+        .validate(this.data.conditions, {abortEarly: false})
         .then(async () => {
           this.payload.permission_model_conditions.push({
             field: this.data.conditions.field,
@@ -389,34 +363,23 @@ export default {
   },
   watch: {
     hasFilter: {
-      handler(v) {
+      async handler(v) {
         if (v) {
-          this.getModel();
+          await this.getModel();
         } else {
-          this.payload.permission_model_fields = [];
-          this.payload.permission_model_model = [];
+          this.payload.conditions = {};
+          this.list.model_fields = {};
         }
       },
       immediate: true,
     },
-    "payload.permission_model_model": {
+    "payload.model": {
       handler(v) {
-        if (!v?.fields) {
-          this.payload.permission_model_fields = [];
+        if (v == null) {
+          this.payload.fields = null
         } else {
-          this.payload.permission_model_fields = [];
-          this.payload.permission_model_fields = v.fields;
+          this.payload.fields = v.fields
         }
-      },
-      immediate: true,
-    },
-  },
-  computed: {
-    checkSelectedModel() {
-      if (this.payload.permission_model_model == null) {
-        return false;
-      } else {
-        return this.payload.permission_model_model.length !== 0;
       }
     },
   },
