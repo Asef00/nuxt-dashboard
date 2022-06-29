@@ -101,3 +101,10 @@ $min-width: 28px;
     background-color: $inactive-color;
   }
 }
+
+.c-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-row-gap: .5em;
+  align-items: center;
+}

@@ -44,7 +44,7 @@
                 </template>
 
                 <template #menu>
-                  <header class="c-filter__header">
+                  <header v-if="col.searchable" class="c-filter__header">
                     <input
                       class="c-filter__search"
                       type="text"
@@ -53,8 +53,25 @@
                     <a href="#" class="c-filter__control">Select All</a>
                     <a href="#" class="c-filter__control">Clear</a>
                   </header>
-                  <div class="c-filter__options">
-                    <VCheckbox
+                  <div v-if="col.filterable" class="c-filter__options">
+                    <div class="c-grid">
+                      <span>Start Date</span>
+                      <VInput
+                        type="date"
+                        @changeDate="changeDate()"
+                        placeholder="Enter"
+                        class="m-0"
+                      />
+                      <span>End Date</span>
+                      <VInput
+                        type="date"
+                        @changeDate="changeDate()"
+                        :value="Date.now()"
+                        class="m-0"
+                      />
+                    </div>
+
+                    <!-- <VCheckbox
                       class="c-filter__item"
                       label="AKMLS"
                       data="AKMLS"
@@ -81,7 +98,7 @@
                       data="Kern"
                       :list="selectedOptions"
                       v-model="selected"
-                    />
+                    /> -->
                   </div>
                 </template>
               </VDropdown>
@@ -208,10 +225,17 @@ export default {
 
       selected: "", //for checkbox
       selectedOptions: [], //for checkbox
+
+      startDate: "",
+      endDate: "",
     };
   },
 
   methods: {
+    changeDate() {
+      console.log("Date Changed!");
+    },
+
     showItem(row, col) {
       let key = col.key; //based on defined structure
       let map = this.table.map; //custom mapped data
@@ -231,18 +255,22 @@ export default {
         }</span>`;
       }
     },
+
     action(data, action) {
       this.$emit(`action${action}`, data);
     },
+
     changePage(target) {
       this.current_page = target;
       this.$emit("changePage", target);
     },
+
     applyPaginate() {
       this.totalPaginate = Math.ceil(this.total_pages / this.per_page);
       this.hasPreDots = this.current_page > 4;
       this.hasNextDots = this.current_page + 4 <= this.totalPaginate;
     },
+
     applyList(list) {
       if (list.hasOwnProperty("data")) {
         this.list = list.data;

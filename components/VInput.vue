@@ -1,11 +1,18 @@
 <template>
   <div class="c-form__control">
-    <label class="c-form__label">
-      {{ label }}
-      <slot name="label"></slot>
+    <label v-if="label || this.$slots.label" class="c-form__label">
+      <slot name="label">{{ label }}</slot>
     </label>
     <div class="d-flex align-items-center">
-      <input
+      <datepicker
+        v-if="type == 'date'"
+        @selected="$emit('changeDate')"
+        :placeholder="placeholder"
+        :value="value"
+        :disabled="disabled"
+        input-class="c-form__input"
+      ></datepicker>
+      <input  v-else
         @keyup="$emit('validation')"
         @blur="$emit('validation')"
         @keydown="$emit('validation')"
@@ -33,8 +40,14 @@
 </template>
 
 <script>
+import Datepicker from "vuejs-datepicker";
+
 export default {
   name: "VInput",
+
+  components: {
+    Datepicker,
+  },
 
   props: {
     value: [String, Number, Boolean],

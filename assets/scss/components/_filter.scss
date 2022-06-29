@@ -40,30 +40,15 @@
   border: solid 1px #e1e0ea;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
   z-index: 1;
-
-  // &.c-filter__menu--bl {
-  //   transform: translateY(-10px);
-  //   right: 0;
-  // }
-
-  // &.c-filter__menu--br {
-  //   transform: translateY(-10px);
-  //   left: 0;
-  // }
-
-  // &.c-filter__menu--bottom {
-  //   transform: translateY(-10px);
-  //   left: 0;
-  //   right: 0;
-  // }
-}
-
-.c-filter__options {
 }
 
 .c-filter__header {
   @include flex-between;
   gap: 12px;
+}
+
+.c-filter__options {
+  white-space: initial;
 }
 
 .c-filter__item {
