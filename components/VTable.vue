@@ -2,7 +2,7 @@
   <div class="c-datatable">
     <div class="c-datatable__header">
       <div class="c-datatable__title" v-if="title">{{ title }}</div>
-      <div class="c-perpage" v-else-if="per_page">
+      <div class="c-perpage" v-else-if="hasPaginate">
         Show
         <select
           class="c-perpage__input"
@@ -15,113 +15,113 @@
         </select>
         entries
       </div>
-
+      <div v-else></div>
       <div class="c-search">
-        <input class="c-search__input" type="text" placeholder="Search..." />
+        <input class="c-search__input" type="text" placeholder="Search..."/>
       </div>
     </div>
 
     <div class="c-datatable__body">
       <table class="c-table" ref="table">
         <thead class="c-table__header">
-          <tr class="c-table__row">
-            <template v-for="col in table.columns">
-              <th
-                v-if="col.filterable"
-                :key="col.key"
-                :class="col.class"
-                class="c-table__th c-filter"
-                data-dropdown="container"
+        <tr class="c-table__row">
+          <template v-for="col in table.columns">
+            <th
+              v-if="col.filterable"
+              :key="col.key"
+              :class="col.class"
+              class="c-table__th c-filter"
+              data-dropdown="container"
+            >
+              <button class="c-filter__btn" data-dropdown="btn">
+                <!-- Filter icon -->
+                <VIcon
+                  :icon="col == sortColumn ? 'filter.is-active' : 'filter'"
+                />
+                <span v-html="col.label"></span>
+              </button>
+              <div
+                class="c-filter__menu c-filter__menu--bottom"
+                data-dropdown="menu"
               >
-                <button class="c-filter__btn" data-dropdown="btn">
-                  <!-- Filter icon -->
-                  <VIcon
-                    :icon="col == sortColumn ? 'filter.is-active' : 'filter'"
+                <header class="c-filter__header">
+                  <input
+                    class="c-filter__search"
+                    type="text"
+                    placeholder="Search..."
                   />
-                  <span v-html="col.label"></span>
-                </button>
-                <div
-                  class="c-filter__menu c-filter__menu--bottom"
-                  data-dropdown="menu"
-                >
-                  <header class="c-filter__header">
-                    <input
-                      class="c-filter__search"
-                      type="text"
-                      placeholder="Search..."
-                    />
-                    <a href="#" class="c-filter__control">Select All</a>
-                    <a href="#" class="c-filter__control">Clear</a>
-                  </header>
-                  <div class="c-filter__options">
-                    <label href="#" class="c-filter__item">
-                      <input type="checkbox" name="" id="" />
-                      AKMLS
-                    </label>
-                    <label href="#" class="c-filter__item">
-                      <input type="checkbox" name="" id="" />
-                      bridgeMLS
-                    </label>
-                    <label href="#" class="c-filter__item">
-                      <input type="checkbox" name="" id="" />
-                      CLAW
-                    </label>
-                    <label href="#" class="c-filter__item">
-                      <input type="checkbox" name="" id="" />
-                      ITech MLS
-                    </label>
-                    <label href="#" class="c-filter__item">
-                      <input type="checkbox" name="" id="" />
-                      Kern River Lake Isabella Board
-                    </label>
-                  </div>
+                  <a href="#" class="c-filter__control">Select All</a>
+                  <a href="#" class="c-filter__control">Clear</a>
+                </header>
+                <div class="c-filter__options">
+                  <label href="#" class="c-filter__item">
+                    <input type="checkbox" name="" id=""/>
+                    AKMLS
+                  </label>
+                  <label href="#" class="c-filter__item">
+                    <input type="checkbox" name="" id=""/>
+                    bridgeMLS
+                  </label>
+                  <label href="#" class="c-filter__item">
+                    <input type="checkbox" name="" id=""/>
+                    CLAW
+                  </label>
+                  <label href="#" class="c-filter__item">
+                    <input type="checkbox" name="" id=""/>
+                    ITech MLS
+                  </label>
+                  <label href="#" class="c-filter__item">
+                    <input type="checkbox" name="" id=""/>
+                    Kern River Lake Isabella Board
+                  </label>
                 </div>
-              </th>
-              <th
-                v-else
-                :key="col.key"
-                v-html="col.label"
-                class="c-table__th"
-                :class="col.class"
-              ></th>
-            </template>
-          </tr>
+              </div>
+            </th>
+            <th
+              v-else
+              :key="col.key"
+              v-html="col.label"
+              class="c-table__th"
+              :class="col.class"
+            ></th>
+          </template>
+        </tr>
         </thead>
         <tbody class="c-table__body">
-          <!-- if no data -->
-          <tr v-if="!list || !list.length">
-            <td
-              colspan="100%"
-              style="height: 10em; font-size: 16px"
-              class="u-text-center"
-            >
-              No Data Available
-            </td>
-          </tr>
-          <tr
-            v-else
-            v-for="(row,index) in list"
-            :key="index"
-            :class="table.map['rowClass'](row)"
-            class="c-table__row"
+        <!-- if no data -->
+        <tr v-if="!list || !list.length">
+          <td
+            colspan="100%"
+            style="height: 10em; font-size: 16px"
+            class="u-text-center"
           >
-            <td
-              v-for="col in table.columns"
-              :key="col.key"
-              class="c-table__cell"
-              :class="col.class"
-            >
-              <v-runtime-template
-                :template="String(showItem(row, col))"
-              ></v-runtime-template>
-            </td>
-          </tr>
+            No Data Available
+          </td>
+        </tr>
+        <tr
+          v-else
+          v-for="(row,index) in list"
+          :key="index"
+          :class="table.map['rowClass'](row)"
+          class="c-table__row"
+        >
+          <td
+            v-for="col in table.columns"
+            :key="col.key"
+            class="c-table__cell"
+            :class="col.class"
+          >
+            <v-runtime-template
+              :template="String(showItem(row, col))"
+            ></v-runtime-template>
+          </td>
+        </tr>
         </tbody>
       </table>
     </div>
 
-    <div class="c-datatable__footer">
-      <div class="c-pagination" v-if="hasPaginate">
+    <div class="c-datatable__footer" v-if="hasPaginate">
+      <div class="c-pagination">
         <!-- prev btn -->
         <span
           :class="current_page === 1 ? 'is-disabled' : ''"
@@ -231,12 +231,11 @@ export default {
       this.totalPaginate = Math.ceil(this.total_pages / this.per_page);
       this.hasPreDots = this.current_page > 4;
       this.hasNextDots = this.current_page + 4 <= this.totalPaginate;
+      this.hasPaginate = this.totalPaginate > 1;
     },
     applyList(list) {
       if (list.hasOwnProperty("data")) {
         this.list = list.data;
-        //is paginated
-        this.hasPaginate = true;
         //get payload data
         this.per_page = list.per_page;
         this.current_page = list.current_page;
