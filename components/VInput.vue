@@ -50,10 +50,9 @@ export default {
   },
 
   props: {
-    value: [String, Number, Boolean],
+    value: [String, Number, Boolean, Date],
     label: {
       type: [String, Number],
-      required: true,
     },
     type: {
       type: String,
