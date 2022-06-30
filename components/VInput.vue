@@ -10,11 +10,13 @@
         :placeholder="placeholder"
         :value="value"
         :disabled="disabled"
+        :format="datePickerFormat"
         input-class="c-form__input"
         calendar-class="c-calendar"
       ></datepicker>
 
-      <input  v-else
+      <input
+        v-else
         @keyup="$emit('validation')"
         @blur="$emit('validation')"
         @keydown="$emit('validation')"
@@ -53,7 +55,10 @@ export default {
   },
 
   props: {
-    value: [String, Number, Boolean, Date],
+    value: {
+      type: [String, Number, Boolean, Date],
+      default: "",
+    },
     label: {
       type: [String, Number],
     },
@@ -71,6 +76,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false,
+    },
+    datePickerFormat: {
+      type: String,
+      default: "dd/MM/yyyy",
     },
   },
 
