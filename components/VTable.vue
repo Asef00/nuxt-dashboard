@@ -2,7 +2,7 @@
   <div class="c-datatable">
     <div class="c-datatable__header">
       <div class="c-datatable__title" v-if="title">{{ title }}</div>
-      <div class="c-perpage" v-else-if="per_page">
+      <div class="c-perpage" v-else-if="hasPaginate">
         Show
         <select
           class="c-perpage__input"
@@ -15,7 +15,7 @@
         </select>
         entries
       </div>
-
+      <div v-else></div>
       <div class="c-search">
         <input class="c-search__input" type="text" placeholder="Search..." />
       </div>
@@ -145,8 +145,8 @@
       </table>
     </div>
 
-    <div class="c-datatable__footer">
-      <div class="c-pagination" v-if="hasPaginate">
+    <div class="c-datatable__footer" v-if="hasPaginate">
+      <div class="c-pagination">
         <!-- prev btn -->
         <span
           :class="current_page === 1 ? 'is-disabled' : ''"
@@ -269,13 +269,12 @@ export default {
       this.totalPaginate = Math.ceil(this.total_pages / this.per_page);
       this.hasPreDots = this.current_page > 4;
       this.hasNextDots = this.current_page + 4 <= this.totalPaginate;
+      this.hasPaginate = this.totalPaginate > 1;
     },
 
     applyList(list) {
       if (list.hasOwnProperty("data")) {
         this.list = list.data;
-        //is paginated
-        this.hasPaginate = true;
         //get payload data
         this.per_page = list.per_page;
         this.current_page = list.current_page;

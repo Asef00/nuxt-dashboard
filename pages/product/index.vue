@@ -12,6 +12,8 @@
     <VTable
       @actionDetails="detailsItem($event)"
       @actionDelete="deleteItem($event)"
+      @changePage="changePage($event)"
+      @changePerPage="changePerPage($event)"
       :table="table"
     />
     <VModal
@@ -19,13 +21,14 @@
       @close="showDetails = false"
       title="Product details"
     >
-      <Details :id="detailsItemId" />
+      <Details :id="detailsItemId"/>
     </VModal>
   </VCard>
 </template>
 
 <script>
 import Details from "@/components/page/product/Details";
+
 export default {
   name: "index",
   permission: "product.index",
@@ -39,11 +42,11 @@ export default {
       detailsItemId: 0,
       table: {
         columns: [
-          { key: "id", label: "#" },
-          { key: "title", label: "Title" },
-          { key: "slug", label: "Slug" },
-          { key: "created_at", label: "Created At", class: "u-text-center" },
-          { key: "updated_at", label: "Updated At", class: "u-text-center" },
+          {key: "id", label: "#"},
+          {key: "title", label: "Title"},
+          {key: "slug", label: "Slug"},
+          {key: "created_at", label: "Created At", class: "u-text-center"},
+          {key: "updated_at", label: "Updated At", class: "u-text-center"},
           {
             key: "action",
             label: '<img src="/img/gear.svg" alt="" />',
@@ -64,16 +67,20 @@ export default {
             return _this.dateFormat(item.updated_at);
           },
           //REQUIRED
-          rowClass() {},
+          rowClass() {
+          },
         },
       },
     };
   },
   methods: {
-    async list() {
+    async list(page = null, limit = null) {
       this.startLoading();
       this.$store.commit("product/RESET_ERROR");
-      await this.$store.dispatch("product/list");
+      await this.$store.dispatch("product/list", {
+        page: page ?? this.getPaginate(),
+        limit: limit ?? this.getLimit(),
+      });
       let err = this.handleError(this.$store.state.product.error);
       if (!err) {
         this.table.items = this.$store.state.product.list;
@@ -96,6 +103,15 @@ export default {
     detailsItem(id) {
       this.detailsItemId = id;
       this.showDetails = true;
+    },
+    changePage(val) {
+      this.setPaginate(val);
+      this.list(val, this.getLimit());
+    },
+    changePerPage(val) {
+      this.setLimit(val);
+      this.setPaginate(1);
+      this.list(1, val);
     },
   },
   created() {

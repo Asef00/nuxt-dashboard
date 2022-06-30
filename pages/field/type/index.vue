@@ -12,6 +12,8 @@
     <VTable
       @actionDetails="detailsItem($event)"
       @actionDelete="deleteItem($event)"
+      @changePage="changePage($event)"
+      @changePerPage="changePerPage($event)"
       :table="table"
     />
   </VCard>
@@ -60,10 +62,13 @@ export default {
     };
   },
   methods: {
-    async list() {
+    async list(page = null, limit = null) {
       this.startLoading();
       this.$store.commit("fieldType/RESET_ERROR");
-      await this.$store.dispatch("fieldType/list");
+      await this.$store.dispatch("fieldType/list",{
+        page: page ?? this.getPaginate(),
+        limit: limit ?? this.getLimit(),
+      });
       let err = this.handleError(this.$store.state.fieldType.error);
       if (!err) {
         this.table.items = this.$store.state.fieldType.list;
@@ -86,6 +91,15 @@ export default {
     detailsItem(id) {
       this.detailsItemId = id;
       this.showDetails = true;
+    },
+    changePage(val) {
+      this.setPaginate(val);
+      this.list(val, this.getLimit());
+    },
+    changePerPage(val) {
+      this.setLimit(val);
+      this.setPaginate(1);
+      this.list(1, val);
     },
   },
   created() {

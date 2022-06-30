@@ -1,6 +1,6 @@
 export default {
-  async list({commit}) {
-    await this.$axios.get('field-type').then((response) => {
+  async list({commit}, {page = 1, limit = 25}) {
+    await this.$axios.get(`field-type?page=${page}&limit=${limit}`).then((response) => {
       commit('SET_LIST', response.data)
     }).catch((error) => {
       commit('SET_ERROR', error)
