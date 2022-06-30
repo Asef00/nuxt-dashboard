@@ -201,13 +201,11 @@
 <script>
 import VRuntimeTemplate from "v-runtime-template";
 import VuePerfectScrollbar from "vue-perfect-scrollbar";
-import vuescroll from "vuescroll";
 
 export default {
   components: {
     VRuntimeTemplate,
     VuePerfectScrollbar,
-    vuescroll,
   },
 
   props: {
