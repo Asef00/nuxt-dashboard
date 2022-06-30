@@ -6,6 +6,13 @@ export default {
       commit('SET_ERROR', error)
     })
   },
+  async listTitle({commit}) {
+    await this.$axios.get(`product/list-title`).then((response) => {
+      commit('SET_LIST', response.data)
+    }).catch((error) => {
+      commit('SET_ERROR', error)
+    })
+  },
   async show({commit}, id) {
     await this.$axios.get(`product/${id}`).then((response) => {
       commit('SET_ITEM', response.data)

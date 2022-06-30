@@ -1,9 +1,9 @@
 <template>
-  <VCard :loader="loaderRequest" title="List Permissions">
+  <VCard :loader="loaderRequest" title="List Groups">
     <template #header>
       <VBtn
-        to="/acl/permission/create"
-        v-if="can('permission.store')"
+        to="/group/create"
+        v-if="can('group.store')"
         class="m-0 c-btn--small"
       >
         Create
@@ -11,29 +11,29 @@
     </template>
     <VTable
       @actionDetails="detailsItem($event)"
+      @actionDelete="deleteItem($event)"
       @changePage="changePage($event)"
       @changePerPage="changePerPage($event)"
-      @actionDelete="deleteItem($event)"
       :table="table"
     />
     <VModal
       :showModal="showDetails"
       @close="showDetails = false"
-      title="Permission details"
+      title="Role details"
     >
-      <Details :id="detailsItemId" />
+      <Details :id="detailsItemId"/>
     </VModal>
   </VCard>
 </template>
 
 <script>
-import Details from "@/components/page/acl/permission/Details";
+import Details from '@/components/page/group/Details'
 
 export default {
   name: "index",
-  permission: "permission.index",
+  permission: "group.index",
   components: {
-    Details,
+    Details
   },
   data() {
     let _this = this;
@@ -42,11 +42,11 @@ export default {
       detailsItemId: 0,
       table: {
         columns: [
-          { key: "id", label: "#" },
-          { key: "name", label: "Name" },
-          { key: "label", label: "Label" },
-          { key: "created_at", label: "Created At", class: "u-text-center" },
-          { key: "updated_at", label: "Updated At", class: "u-text-center" },
+          {key: "id", label: "#"},
+          {key: "name", label: "Name"},
+          {key: "label", label: "Label"},
+          {key: "created_at", label: "Created At", class: "u-text-center"},
+          {key: "updated_at", label: "Updated At", class: "u-text-center"},
           {
             key: "action",
             label: '<img src="/img/gear.svg" alt="" />',
@@ -56,10 +56,9 @@ export default {
         items: [],
         map: {
           action(item) {
-            return `<NuxtLink v-if="can('permission.update')" to="/acl/permission/edit/${item.id}" class="c-badge u-bg-info">Edit</NuxtLink> |
-            <span v-if="can('permission.destroy')" v-on:click="action(${item.id},'Delete')" class="c-badge--hover c-badge u-bg-danger">Delete</span> |
-            <span v-if="can('permission.show')" v-on:click="action(${item.id},'Details')" class="c-badge--hover c-badge u-bg-primary">Details</span>
-`;
+            return `<NuxtLink v-if="can('group.update')" to="/group/edit/${item.id}" class=" c-badge u-bg-info">Edit</NuxtLink>|
+            <span v-if="can('group.destroy')" v-on:click="action(${item.id},'Delete')" class="c-badge--hover c-badge u-bg-danger">Delete</span>|
+      <span v-if="can('group.show')" v-on:click="action(${item.id},'Details')" class="c-badge--hover c-badge u-bg-primary">Details</span>`;
           },
           created_at(item) {
             return _this.dateFormat(item.created_at);
@@ -68,7 +67,8 @@ export default {
             return _this.dateFormat(item.updated_at);
           },
           //REQUIRED
-          rowClass() {},
+          rowClass() {
+          },
         },
       },
     };
@@ -76,25 +76,25 @@ export default {
   methods: {
     async list(page = null, limit = null) {
       this.startLoading();
-      this.$store.commit("permission/RESET_ERROR");
-      await this.$store.dispatch("permission/list", {
+      this.$store.commit("group/RESET_ERROR");
+      await this.$store.dispatch("group/list", {
         page: page ?? this.getPaginate(),
         limit: limit ?? this.getLimit(),
       });
-      let err = this.handleError(this.$store.state.permission.error);
+      let err = this.handleError(this.$store.state.group.error);
       if (!err) {
-        this.table.items = this.$store.state.permission.list;
+        this.table.items = this.$store.state.group.list;
       }
       this.stopLoading();
     },
     async deleteItem(id) {
       if (confirm("Are you sure?")) {
         this.startLoading();
-        this.$store.commit("permission/RESET_ERROR");
-        await this.$store.dispatch("permission/delete", id);
-        let err = this.handleError(this.$store.state.permission.error);
+        this.$store.commit("group/RESET_ERROR");
+        await this.$store.dispatch("group/delete", id);
+        let err = this.handleError(this.$store.state.group.error);
         if (!err) {
-          this.$toast.success("Permission successfully deleted.");
+          this.$toast.success("Group successfully deleted.");
           await this.list();
         }
         this.stopLoading();
@@ -115,11 +115,11 @@ export default {
     },
   },
   created() {
-    this.setTitle("Permission");
+    this.setTitle("Group");
     this.setBreadcrumb([
       {
-        to: "/acl/permission",
-        name: "Permission",
+        to: "/group",
+        name: "Group",
       },
     ]);
     this.list();

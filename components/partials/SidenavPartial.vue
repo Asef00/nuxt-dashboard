@@ -65,6 +65,12 @@
           >License modes
           </NuxtLink>
           <NuxtLink
+            v-if="can('group.index')"
+            to="/group"
+            class="c-dropdown__item"
+          >Groups
+          </NuxtLink>
+          <NuxtLink
             v-if="can('role.index')"
             to="/acl/role"
             class="c-dropdown__item"

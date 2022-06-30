@@ -22,9 +22,9 @@
         <label class="c-form__label">Updated At</label>
         <span class="u-text-secondary">{{ dateFormat(data.updated_at) }}</span>
       </div>
-      <div class=" col-md-12 c-form__control c-form__control--inline mb-0">
-        <label class="c-form__label">Permissions</label>
-        <span v-for="item in data.permissions"
+      <div class=" col-md-12 c-form__control c-form__control--inline mb-0 pt-2">
+        <label class="c-form__label">Fields</label>
+        <span v-for="item in data.field_names"
               class="c-badge u-bg-primary">{{ item.label }}</span>
       </div>
     </div>
@@ -48,16 +48,16 @@ export default {
   methods: {
     async show() {
       this.startLoading()
-      this.$store.commit('role/RESET_ERROR')
-      let list = this.$store.state.role.list;
-      let item = list.data.find(item => item.id === this.id);
+      this.$store.commit('group/RESET_ERROR')
+      let list = this.$store.state.group.list;
+      let item = list.find(item => item.id === this.id);
       if (item !== undefined) {
         this.data = item;
       } else {
-        await this.$store.dispatch("role/show", this.id);
-        let err = this.handleError(this.$store.state.role.error);
+        await this.$store.dispatch("group/show", this.id);
+        let err = this.handleError(this.$store.state.group.error);
         if (!err) {
-          this.data = this.$store.state.role.item;
+          this.data = this.$store.state.group.item;
         }
       }
       this.stopLoading()

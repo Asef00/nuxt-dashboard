@@ -108,7 +108,7 @@ export default {
       }
     },
     async getProduct() {
-      await this.$store.dispatch('product/list')
+      await this.$store.dispatch('product/listTitle')
       let err = this.handleError(this.$store.state.product.error)
       if (!err) {
         this.list.product = this.$store.state.product.list
