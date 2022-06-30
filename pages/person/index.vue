@@ -80,7 +80,6 @@ export default {
       await this.$store.dispatch("person/list", {
         page: page ?? this.getPaginate(),
         limit: limit ?? this.getLimit(),
-        paginate: 1,
       });
       let err = this.handleError(this.$store.state.person.error);
       if (!err) {

@@ -111,7 +111,7 @@ export default {
         });
     },
     async getLicenseMode() {
-      await this.$store.dispatch("licenseMode/list");
+      await this.$store.dispatch("licenseMode/listLabel");
       let err = this.handleError(this.$store.state.licenseMode.error);
       if (!err) {
         this.list.license_mode = this.$store.state.licenseMode.list;

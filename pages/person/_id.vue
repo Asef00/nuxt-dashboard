@@ -61,6 +61,14 @@
               >{{ role.label }}</span
             >
           </div>
+          <div class="col-md-6 c-form__control c-form__control--inline mb-0">
+            <label class="c-form__label">Groups</label>
+            <span
+              v-for="group in data.person.groups"
+              class="c-badge u-bg-primary"
+              >{{ group.label }}</span
+            >
+          </div>
         </div>
         <div class="row mt-3 mb-3">
           <div class="col-md-6 c-form__control c-form__control--inline mb-0">

@@ -57,7 +57,7 @@ export default {
       this.startLoading();
       this.$store.commit("product/RESET_ERROR");
       let list = this.$store.state.product.list;
-      let item = list.find((item) => item.id === this.id);
+      let item = list.data.find((item) => item.id === this.id);
       if (item !== undefined) {
         this.data = item;
       } else {

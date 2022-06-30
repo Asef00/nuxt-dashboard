@@ -1,7 +1,7 @@
 <template>
-  <VCard title="Edit a Role">
+  <VCard title="Edit a Group">
     <template #header>
-      <VBtn to="/acl/role" class="m-0 c-btn--small"> List </VBtn>
+      <VBtn to="/group" class="m-0 c-btn--small"> List </VBtn>
     </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">
@@ -25,16 +25,16 @@
         </div>
         <div class="col-md-6">
           <VSelect
-            v-model="payload.permission"
-            @validation="validate('permission')"
-            :error="errorMessage('permission')"
-            :list="list.permission"
-            :multiple="true"
-            placeholder="Please enter permission"
+            v-model="payload.field_name"
+            @validation="validate('field_name')"
+            :error="errorMessage('field_name')"
+            :list="list.field_name"
+            placeholder="Please enter field name"
             track-label="label"
             track-by="id"
+            :multiple="true"
             :closeOnSelect="false"
-            label="Permission"
+            label="Field Name"
           />
         </div>
       </div>
@@ -48,17 +48,17 @@ import * as Yup from "yup";
 
 export default {
   name: "edit",
-  permission: "role.update",
+  permission: "group.update",
   data() {
     return {
       id: this.$route.params.id,
       list: {
-        permission: [],
+        field_name: [],
       },
       payload: {
         name: "",
         label: "",
-        permission: [],
+        field_name: [],
       },
     };
   },
@@ -69,20 +69,19 @@ export default {
         .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
-          this.payload = {
-            name: this.payload.name,
-            label: this.payload.label,
-            permission_ids: this.payload.permission.map((a) => a.id),
-          };
-          await this.$store.dispatch("role/update", {
+          await this.$store.dispatch("group/update", {
+            payload: {
+              name: this.payload.name,
+              label: this.payload.label,
+              field_name_ids: this.payload.field_name.map((a) => a.id),
+            },
             id: this.id,
-            payload: this.payload,
           });
           this.stopLoading();
-          const err = this.handleError(this.$store.state.fieldName.error);
+          const err = this.handleError(this.$store.state.group.error);
           if (!err) {
-            this.$toast.success("Role successfully updated.");
-            this.$router.push("/acl/role");
+            this.$toast.success("Group successfully updated.");
+            this.$router.push("/group");
           }
         })
         .catch((err) => {
@@ -92,59 +91,53 @@ export default {
     },
     async show() {
       this.startLoading();
-      await this.$store.dispatch("role/show", this.id);
-      let err = this.handleError(this.$store.state.role.error);
-      if (!err) {
-        let data = this.$store.state.role.item;
-        this.payload.name = data.name;
-        this.payload.label = data.label;
-        this.payload.permission = data.permissions;
-      }
+      await this.$store.dispatch("group/show", this.id);
+      this.handleError(this.$store.state.group.error);
+      let data = this.$store.state.group.item;
+      this.payload.label = data.label;
+      this.payload.name = data.name;
+      this.payload.field_name = data.field_names;
       this.stopLoading();
     },
-    async getPermission() {
-      await this.$store.dispatch("permission/listLabel", {});
-      let err = this.handleError(this.$store.state.permission.error);
+    async getFieldName() {
+      await this.$store.dispatch("fieldName/listLabel");
+      let err = this.handleError(this.$store.state.fieldName.error);
       if (!err) {
-        this.list.permission = this.$store.state.permission.list;
+        this.list.field_name = this.$store.state.fieldName.list;
       }
     },
     validation() {
-      let roles = {
+      return Yup.object({
         name: Yup.string().required(),
         label: Yup.string().required(),
-        permission: Yup.array().min(1),
-      };
-      return Yup.object(roles);
+        field_name: Yup.array(),
+      });
     },
     resetError() {
-      this.$store.commit("role/RESET_ERROR");
-      this.$store.commit("fieldName/RESET_ERROR");
-      this.$store.commit("permission/RESET_ERROR");
+      this.$store.commit("group/RESET_ERROR");
       this.errors = {
         name: "",
         label: "",
-        permission: "",
+        field_name: "",
       };
     },
   },
-  async created() {
-    this.resetError();
-    this.setTitle("Role");
+  created() {
+    this.show();
+    this.setTitle("Group");
     this.setBreadcrumb([
       {
-        to: "/acl/role",
-        name: "Role",
+        to: "/group",
+        name: "Group",
       },
       {
-        to: "/acl/role/edit/" + this.id,
+        to: "/group/edit/" + this.id,
         name: "Edit",
       },
     ]);
-    await this.show();
-    this.getPermission();
+    this.resetError();
+    this.getFieldName();
   },
-  mounted() {},
 };
 </script>
 
