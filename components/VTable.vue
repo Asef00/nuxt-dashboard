@@ -109,10 +109,8 @@
               <th v-else :key="col.key" class="c-table__th" :class="col.class">
                 <span v-html="col.label"></span>
                 <span v-if="col.sortable" class="c-sort">
-                  <!-- <span class="c-chevron" @click="test()"></span> -->
-                  <fa icon="chevron-up" />
-                  <fa icon="chevron-down" />
-                  
+                  <VChevron dir="up" />
+                  <VChevron dir="down" />
                 </span>
               </th>
             </template>
@@ -156,11 +154,13 @@
     <div class="c-datatable__footer" v-if="hasPaginate">
       <div class="c-pagination">
         <!-- prev btn -->
-        <span
+        <VChevron
           :class="current_page === 1 ? 'is-disabled' : ''"
-          class="c-pagination__arrow c-chevron c-chevron--left"
+          class="c-pagination__arrow"
           @click="changePage(current_page - 1)"
-        ></span>
+          type="chevron"
+          dir="left"
+        />
 
         <!-- prev page dots -->
         <template v-if="hasPreDots">
@@ -190,11 +190,13 @@
         </template>
 
         <!-- next btn -->
-        <span
+        <VChevron
           :class="current_page === totalPaginate ? 'is-disabled' : ''"
-          class="c-pagination__arrow c-chevron c-chevron--right"
+          class="c-pagination__arrow"
           @click="changePage(current_page + 1)"
-        ></span>
+          type="chevron"
+          dir="right"
+        />
       </div>
     </div>
   </div>
