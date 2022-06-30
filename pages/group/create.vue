@@ -1,7 +1,7 @@
 <template>
-  <VCard title="Create new Role">
+  <VCard title="Create New Group">
     <template #header>
-      <VBtn to="/acl/role" class="m-0 c-btn--small"> List </VBtn>
+      <VBtn to="/group" class="m-0 c-btn--small"> List</VBtn>
     </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">
@@ -25,16 +25,16 @@
         </div>
         <div class="col-md-6">
           <VSelect
-            v-model="payload.permission"
-            @validation="validate('permission')"
-            :error="errorMessage('permission')"
-            :list="list.permission"
-            :multiple="true"
-            placeholder="Please enter permission"
+            v-model="payload.field_name"
+            @validation="validate('field_name')"
+            :error="errorMessage('field_name')"
+            :list="list.field_name"
+            placeholder="Please enter field name"
             track-label="label"
             track-by="id"
+            :multiple="true"
             :closeOnSelect="false"
-            label="Permission"
+            label="Field Name"
           />
         </div>
       </div>
@@ -48,16 +48,16 @@ import * as Yup from "yup";
 
 export default {
   name: "create",
-  permission: "role.store",
+  permission: "group.store",
   data() {
     return {
       list: {
-        permission: [],
+        field_name: [],
       },
       payload: {
         name: "",
         label: "",
-        permission: [],
+        field_name: [],
       },
     };
   },
@@ -65,19 +65,19 @@ export default {
     create() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, { abortEarly: false })
+        .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
-          await this.$store.dispatch("role/create", {
+          await this.$store.dispatch("group/create", {
             name: this.payload.name,
             label: this.payload.label,
-            permission_ids: this.payload.permission.map((a) => a.id),
+            field_name_ids: this.payload.field_name.map((a) => a.id),
           });
           this.stopLoading();
-          const err = this.handleError(this.$store.state.fieldName.error);
+          const err = this.handleError(this.$store.state.group.error);
           if (!err) {
-            this.$toast.success("Role successfully created.");
-            this.$router.push("/acl/role");
+            this.$toast.success("Group successfully created.");
+            this.$router.push("/group");
           }
         })
         .catch((err) => {
@@ -85,48 +85,44 @@ export default {
           this.stopLoading();
         });
     },
-    async getPermission() {
-      await this.$store.dispatch("permission/listLabel", {});
-      let err = this.handleError(this.$store.state.permission.error);
-      if (!err) {
-        this.list.permission = this.$store.state.permission.list;
-      }
-    },
     validation() {
-      let roles = {
+      return Yup.object({
         name: Yup.string().required(),
         label: Yup.string().required(),
-        permission: Yup.array().min(1),
-      };
-      return Yup.object(roles);
+        field_name: Yup.array(),
+      });
     },
     resetError() {
-      this.$store.commit("role/RESET_ERROR");
-      this.$store.commit("fieldName/RESET_ERROR");
-      this.$store.commit("permission/RESET_ERROR");
+      this.$store.commit("group/RESET_ERROR");
       this.errors = {
         name: "",
         label: "",
-        permission: "",
+        field_name: "",
       };
+    },
+    async getFieldName() {
+      await this.$store.dispatch("fieldName/listLabel");
+      let err = this.handleError(this.$store.state.fieldName.error);
+      if (!err) {
+        this.list.field_name = this.$store.state.fieldName.list;
+      }
     },
   },
   created() {
-    this.resetError();
-    this.setTitle("Role");
+    this.setTitle("Group");
     this.setBreadcrumb([
       {
-        to: "/acl/role",
-        name: "Role",
+        to: "/group",
+        name: "Group",
       },
       {
-        to: "/acl/role/create",
+        to: "/group/create",
         name: "Create",
       },
     ]);
-    this.getPermission();
+    this.resetError();
+    this.getFieldName();
   },
-  mounted() {},
 };
 </script>
 

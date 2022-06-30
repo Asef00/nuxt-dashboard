@@ -48,6 +48,20 @@
             label="Role"
           />
         </div>
+        <div class="col-md-6">
+          <VSelect
+            v-model="payload.group"
+            @validation="validate('group')"
+            :error="errorMessage('group')"
+            :list="list.group"
+            :multiple="true"
+            placeholder="Please select group"
+            track-label="label"
+            track-by="id"
+            :closeOnSelect="false"
+            label="Group"
+          />
+        </div>
       </div>
       <VBtn :loader="loaderRequest">SAVE</VBtn>
     </form>
@@ -75,11 +89,13 @@ export default {
       id: this.$route.params.id,
       list: {
         role: [],
+        group: [],
       },
       payload: {
         name: "",
         family_name: "",
         role: null,
+        group: null,
       },
     };
   },
@@ -97,6 +113,7 @@ export default {
             name: this.payload.name,
             family_name: this.payload.family_name,
             role_ids: this.payload.role.map((i) => i.id),
+            group_ids: this.payload.group.map((i) => i.id),
           };
           await this.$store.dispatch("person/update", { id: this.id, payload });
           this.stopLoading();
@@ -121,14 +138,22 @@ export default {
         this.payload.name = data.name;
         this.payload.family_name = data.family_name;
         this.payload.role = data.roles;
+        this.payload.group = data.groups;
       }
       this.stopLoading();
     },
     async getRole() {
-      await this.$store.dispatch("role/list");
+      await this.$store.dispatch("role/listLabel");
       let err = this.handleError(this.$store.state.role.error);
       if (!err) {
         this.list.role = this.$store.state.role.list;
+      }
+    },
+    async getGroup() {
+      await this.$store.dispatch("group/list");
+      let err = this.handleError(this.$store.state.group.error);
+      if (!err) {
+        this.list.group = this.$store.state.group.list;
       }
     },
     validation() {
@@ -136,16 +161,19 @@ export default {
         name: Yup.string().required(),
         family_name: Yup.string().required(),
         role: Yup.array().nullable().min(1),
+        group: Yup.array().nullable(),
       };
       return Yup.object(roles);
     },
     resetError() {
       this.$store.commit("person/RESET_ERROR");
       this.$store.commit("role/RESET_ERROR");
+      this.$store.commit("group/RESET_ERROR");
       this.errors = {
         name: "",
         family_name: "",
         role: "",
+        group: "",
       };
     },
   },
@@ -164,6 +192,7 @@ export default {
     ]);
     await this.show();
     this.getRole();
+    this.getGroup();
   },
 };
 </script>

@@ -147,7 +147,7 @@ export default {
         });
     },
     async getFieldType() {
-      await this.$store.dispatch("fieldType/list");
+      await this.$store.dispatch("fieldType/listLabel");
       let err = this.handleError(this.$store.state.fieldType.error);
       if (!err) {
         this.list.field_type = this.$store.state.fieldType.list;

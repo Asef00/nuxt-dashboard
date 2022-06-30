@@ -30,7 +30,7 @@ export default {
       let list = this.$store.state.person.product.list;
       let item = undefined;
       if (list != null) {
-        item = list.find((item) => item.id === this.id);
+        item = list.data.find((item) => item.id === this.id);
       }
       if (item !== undefined) {
         this.data = item;
