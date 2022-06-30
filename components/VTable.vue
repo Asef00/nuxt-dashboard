@@ -21,15 +21,13 @@
       </div>
     </div>
 
-    <div
-      class="c-datatable__body"
-      ref="dataTable__body"
-    >
+    <div class="c-datatable__body" ref="dataTable__body">
       <!-- <VuePerfectScrollbar> -->
       <table class="c-table" ref="table">
         <thead class="c-table__header">
           <tr class="c-table__row">
             <template v-for="col in table.columns">
+              <!-- if filterable -->
               <VDropdown
                 isFilter
                 wrapper="th"
@@ -107,13 +105,16 @@
                   </div>
                 </template>
               </VDropdown>
-              <th
-                v-else
-                :key="col.key"
-                v-html="col.label"
-                class="c-table__th"
-                :class="col.class"
-              ></th>
+              <!-- else -->
+              <th v-else :key="col.key" class="c-table__th" :class="col.class">
+                <span v-html="col.label"></span>
+                <span v-if="col.sortable" class="c-sort">
+                  <!-- <span class="c-chevron" @click="test()"></span> -->
+                  <fa icon="chevron-up" />
+                  <fa icon="chevron-down" />
+                  
+                </span>
+              </th>
             </template>
           </tr>
         </thead>
@@ -128,6 +129,7 @@
               No Data Available
             </td>
           </tr>
+          <!-- else -->
           <tr
             v-else
             v-for="(row, index) in list"

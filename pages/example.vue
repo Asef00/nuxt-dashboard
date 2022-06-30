@@ -436,7 +436,7 @@ export default {
       table: {
         columns: [
           { key: "id", label: "#" },
-          { key: "full_name", label: "Full Name" },
+          { key: "full_name", label: "Full Name", sortable: true },
           { key: "username", label: "Username" },
           { key: "status", label: "Status" },
           {
