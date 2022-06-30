@@ -11,7 +11,9 @@
         :value="value"
         :disabled="disabled"
         input-class="c-form__input"
+        calendar-class="c-calendar"
       ></datepicker>
+
       <input  v-else
         @keyup="$emit('validation')"
         @blur="$emit('validation')"
@@ -27,6 +29,7 @@
         :disabled="disabled"
         class="c-form__input"
       />
+
       <span
         v-if="type == 'password'"
         @click="togglePassword()"

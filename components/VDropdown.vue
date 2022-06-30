@@ -96,21 +96,20 @@ export default {
     },
 
     HRepos(m) {
-      console.log("Horizontal reposition");
+      // console.log("Horizontal reposition");
       m.classList.add("is-bottom");
       m.style.top = "unset";
       m.style.bottom = 0;
     },
 
     VRepos(m) {
-      console.log("Vertical reposition");
+      // console.log("Vertical reposition");
       m.style.left = "unset";
       m.style.right = 0;
     },
 
     FRepos(m, pos) {
-      console.log("Filter reposition");
-      console.log(pos);
+      // console.log("Filter reposition");
       m.style.top = `${pos}px`;
       m.style.bottom = "unset";
     },

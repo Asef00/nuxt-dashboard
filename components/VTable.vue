@@ -64,14 +64,14 @@
                       <VInput
                         type="date"
                         @changeDate="changeDate()"
-                        placeholder="Enter"
+                        placeholder="Start Point"
                         class="m-0"
                       />
                       <span>End Date</span>
                       <VInput
                         type="date"
                         @changeDate="changeDate()"
-                        :value="Date.now()"
+                        placeholder="End point"
                         class="m-0"
                       />
                     </div>
