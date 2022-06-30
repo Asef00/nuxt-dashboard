@@ -21,7 +21,11 @@
       </div>
     </div>
 
-    <div class="c-datatable__body">
+    <div
+      class="c-datatable__body"
+      ref="dataTable__body"
+    >
+      <!-- <VuePerfectScrollbar> -->
       <table class="c-table" ref="table">
         <thead class="c-table__header">
           <tr class="c-table__row">
@@ -34,6 +38,7 @@
                 v-if="col.filterable"
                 :key="col.key"
                 :class="[col.class, 'c-table__th']"
+                @toggleShow="fix()"
               >
                 <template #btn>
                   <!-- Filter icon -->
@@ -143,6 +148,7 @@
           </tr>
         </tbody>
       </table>
+      <!-- </VuePerfectScrollbar> -->
     </div>
 
     <div class="c-datatable__footer" v-if="hasPaginate">
@@ -194,10 +200,14 @@
 
 <script>
 import VRuntimeTemplate from "v-runtime-template";
+import VuePerfectScrollbar from "vue-perfect-scrollbar";
+import vuescroll from "vuescroll";
 
 export default {
   components: {
     VRuntimeTemplate,
+    VuePerfectScrollbar,
+    vuescroll,
   },
 
   props: {
@@ -228,10 +238,18 @@ export default {
 
       startDate: "",
       endDate: "",
+
+      dropdownIsActive: false,
     };
   },
 
   methods: {
+    fix() {
+      this.$nextTick(() => {
+        this.dropdownIsActive = !this.dropdownIsActive;
+      });
+    },
+
     changeDate() {
       console.log("Date Changed!");
     },

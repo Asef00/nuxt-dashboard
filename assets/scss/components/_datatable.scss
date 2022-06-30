@@ -19,6 +19,9 @@
 
 .c-datatable__body {
   overflow-x: auto;
+  // &::-webkit-scrollbar {
+  //   display: none;
+  // }
 }
 
 .c-datatable__footer {
