@@ -11,7 +11,7 @@
             class="m-0 c-btn--small"
           >
             Edit Profile
-            <fa icon="pen-to-square"/>
+            <fa icon="pen-to-square" />
           </VBtn>
         </transition>
         <VBtn
@@ -26,7 +26,7 @@
       <div class="row">
         <div class="col-md-3 col-12">
           <div class="c-avatar">
-            <VIcon icon="avatar" width="300" height="300"/>
+            <VIcon icon="avatar" width="300" height="300" />
           </div>
         </div>
         <div class="col-md-9 col-12">
@@ -77,47 +77,73 @@
                   @action="sendVerifyCode"
                   v-if="!payload.is_verified"
                   btn="success"
-                >Verify Email
+                  >Verify Email
                 </VBtn>
               </div>
             </div>
-            <h4 v-if="user.fields.length" class="c-form__title">More Info</h4>
-            <div class="row">
-              <template v-for="field in user.fields">
-                <div class="col-md-6" v-if="field.field_type.type == 'varchar'">
-                  <VInput
-                    @validation="validate(field.name)"
-                    :error="errorMessage(field.name)"
-                    :disabled="!editMode"
-                    :label="field.label"
-                    v-model="payload[field.name]"
-                    :placeholder="field.placeholder == null ? `Enter your ${field.label.toLowerCase()}`:field.placeholder"
-                  />
-                </div>
-                <div class="col-md-6" v-if="field.field_type.type == 'date_time'">
-                  <VInput
-                    type="date"
-                    @validation="validate(field.name)"
-                    :error="errorMessage(field.name)"
-                    :disabled="!editMode"
-                    :label="field.label"
-                    v-model="payload[field.name]"
-                    :placeholder="field.placeholder == null ? `Enter your ${field.label.toLowerCase()}`:field.placeholder"
-                  />
-                </div>
-                <div class="col-md-6" v-if="field.field_type.type == 'select'">
-                  <VSelect
-                    v-model="payload[field.name]"
-                    @validation="validate(field.name)"
-                    :error="errorMessage(field.name)"
-                    :list="field.data_set"
-                    :disabled="!editMode"
-                    :placeholder="field.placeholder == null ? `Select your ${field.label.toLowerCase()}`:field.placeholder"
-                    :label="field.label"
-                  />
-                </div>
-              </template>
-            </div>
+            <template v-if="user.fields.length">
+              <h4 class="c-form__title">More Info</h4>
+              <div class="row">
+                <template v-for="(field, index) in user.fields">
+                  <div
+                    :key="index"
+                    class="col-md-6"
+                    v-if="field.field_type.type == 'varchar'"
+                  >
+                    <VInput
+                      @validation="validate(field.name)"
+                      :error="errorMessage(field.name)"
+                      :disabled="!editMode"
+                      :label="field.label"
+                      v-model="payload[field.name]"
+                      :placeholder="
+                        field.placeholder == null
+                          ? `Enter your ${field.label.toLowerCase()}`
+                          : field.placeholder
+                      "
+                    />
+                  </div>
+                  <div
+                    :key="index"
+                    class="col-md-6"
+                    v-if="field.field_type.type == 'date_time'"
+                  >
+                    <VInput
+                      type="date"
+                      @validation="validate(field.name)"
+                      :error="errorMessage(field.name)"
+                      :disabled="!editMode"
+                      :label="field.label"
+                      v-model="payload[field.name]"
+                      :placeholder="
+                        field.placeholder == null
+                          ? `Enter your ${field.label.toLowerCase()}`
+                          : field.placeholder
+                      "
+                    />
+                  </div>
+                  <div
+                    :key="index"
+                    class="col-md-6"
+                    v-if="field.field_type.type == 'select'"
+                  >
+                    <VSelect
+                      v-model="payload[field.name]"
+                      @validation="validate(field.name)"
+                      :error="errorMessage(field.name)"
+                      :list="field.data_set"
+                      :disabled="!editMode"
+                      :placeholder="
+                        field.placeholder == null
+                          ? `Select your ${field.label.toLowerCase()}`
+                          : field.placeholder
+                      "
+                      :label="field.label"
+                    />
+                  </div>
+                </template>
+              </div>
+            </template>
             <transition>
               <!-- Shouldn't use template with transition -->
               <div v-if="editMode">
@@ -206,14 +232,16 @@ export default {
         family_name: Yup.string().required(),
       };
       for (let field of this.user.fields) {
-        roles[field.name] = field.required ? Yup.string().nullable().required() : Yup.string().nullable()
+        roles[field.name] = field.required
+          ? Yup.string().nullable().required()
+          : Yup.string().nullable();
       }
       return Yup.object(roles);
     },
     update() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           let fields = [];
