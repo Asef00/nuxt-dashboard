@@ -49,6 +49,16 @@
             <VInput
               @validation="validate('name')"
               :error="errorMessage('name')"
+              label="Name"
+              v-model="payload.name"
+              placeholder="Please enter name"
+              disabled
+            />
+          </div>
+          <div class="col-md-6">
+            <VInput
+              @validation="validate('name')"
+              :error="errorMessage('name')"
               label="DatePicker"
               type="date"
               v-model="payload.name"
@@ -64,7 +74,15 @@
               placeholder="Please enter summary"
             />
           </div>
-          <div class="col-md-6">
+
+          <div class="col-md-1">
+            <VSwitch
+              :defaultState="true"
+              @change="triggerToggleEvent"
+              :labelText="'Validate Response'"
+            />
+          </div>
+          <div class="col-md-1">
             <VSwitch
               :defaultState="true"
               @change="triggerToggleEvent"
@@ -72,6 +90,31 @@
               type="danger"
             />
           </div>
+          <div class="col-md-1">
+            <VSwitch
+              :defaultState="true"
+              @change="triggerToggleEvent"
+              :labelText="'Validate Response'"
+              type="warn"
+            />
+          </div>
+          <div class="col-md-1">
+            <VSwitch
+              :defaultState="true"
+              @change="triggerToggleEvent"
+              :labelText="'Validate Response'"
+              type="info"
+            />
+          </div>
+          <div class="col-md-1">
+            <VSwitch
+              :defaultState="true"
+              @change="triggerToggleEvent"
+              :labelText="'Validate Response'"
+              type="success"
+            />
+          </div>
+
           <div class="col-md-6">
             <VCheckbox
               label="Ali"
