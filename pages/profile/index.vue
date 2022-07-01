@@ -56,11 +56,11 @@
               <div class="col-md-6">
                 <VInput
                   disabled
-                  label="Email"
                   v-model="payload.email"
                   placeholder="Enter your Email"
                 >
                   <template #label>
+                    Email
                     <span
                       v-if="payload.is_verified"
                       class="c-badge u-bg-success"

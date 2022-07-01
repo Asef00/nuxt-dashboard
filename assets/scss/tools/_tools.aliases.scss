@@ -31,6 +31,10 @@ $global-line-height: 24px;
   display: flex;
   flex-direction: column;
 }
+@mixin flex-column-inline {
+  display: inline-flex;
+  flex-direction: column;
+}
 
 // UTILITY
 @mixin box-shadow($inset: '') {

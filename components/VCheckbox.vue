@@ -1,5 +1,4 @@
 <template>
-  <div class="c-form__control">
     <label class="c-checkbox" :class="{ 'is-active': internalValue }">
       <input
         type="checkbox"
@@ -11,7 +10,6 @@
       {{ label }}
       <span class="c-checkbox__icon"></span>
     </label>
-  </div>
 </template>
 
 <script>

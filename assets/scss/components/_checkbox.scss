@@ -2,10 +2,9 @@ $checkbox-size: 16.3px;
 
 .c-checkbox {
   position: relative;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   padding-left: $checkbox-size + 5;
-  margin-bottom: 12px;
 
   cursor: pointer;
   user-select: none;

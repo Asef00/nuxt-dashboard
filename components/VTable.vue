@@ -17,117 +17,156 @@
       </div>
       <div v-else></div>
       <div class="c-search">
-        <input class="c-search__input" type="text" placeholder="Search..."/>
+        <input class="c-search__input" type="text" placeholder="Search..." />
       </div>
     </div>
 
-    <div class="c-datatable__body">
+    <div class="c-datatable__body" ref="dataTable__body">
+      <!-- <VuePerfectScrollbar> -->
       <table class="c-table" ref="table">
         <thead class="c-table__header">
-        <tr class="c-table__row">
-          <template v-for="col in table.columns">
-            <th
-              v-if="col.filterable"
-              :key="col.key"
-              :class="col.class"
-              class="c-table__th c-filter"
-              data-dropdown="container"
-            >
-              <button class="c-filter__btn" data-dropdown="btn">
-                <!-- Filter icon -->
-                <VIcon
-                  :icon="col == sortColumn ? 'filter.is-active' : 'filter'"
-                />
-                <span v-html="col.label"></span>
-              </button>
-              <div
-                class="c-filter__menu c-filter__menu--bottom"
-                data-dropdown="menu"
-              >
-                <header class="c-filter__header">
-                  <input
-                    class="c-filter__search"
-                    type="text"
-                    placeholder="Search..."
-                  />
-                  <a href="#" class="c-filter__control">Select All</a>
-                  <a href="#" class="c-filter__control">Clear</a>
-                </header>
-                <div class="c-filter__options">
-                  <label href="#" class="c-filter__item">
-                    <input type="checkbox" name="" id=""/>
-                    AKMLS
-                  </label>
-                  <label href="#" class="c-filter__item">
-                    <input type="checkbox" name="" id=""/>
-                    bridgeMLS
-                  </label>
-                  <label href="#" class="c-filter__item">
-                    <input type="checkbox" name="" id=""/>
-                    CLAW
-                  </label>
-                  <label href="#" class="c-filter__item">
-                    <input type="checkbox" name="" id=""/>
-                    ITech MLS
-                  </label>
-                  <label href="#" class="c-filter__item">
-                    <input type="checkbox" name="" id=""/>
-                    Kern River Lake Isabella Board
-                  </label>
+          <tr class="c-table__row">
+            <template v-for="col in table.columns">
+              <th :key="col.key" class="c-table__th" :class="col.class">
+                <div class="c-table__th-wrapper">
+                  <!-- if filterable -->
+                  <VDropdown
+                    isFilter
+                    wrapper="span"
+                    position="bottom"
+                    menuStyle="none"
+                    v-if="col.filterable"
+                    :key="col.key"
+                    :class="col.class"
+                    @toggleShow="fix()"
+                  >
+                    <template #btn>
+                      <!-- Filter icon -->
+                      <VIcon
+                        :icon="
+                          col == sortColumn ? 'filter.is-active' : 'filter'
+                        "
+                      />
+                      <!-- <span v-html="col.label"></span>
+                    <span v-if="col.sortable" class="c-sort">
+                      <VChevron class="c-sort__item" dir="up" />
+                      <VChevron class="c-sort__item" dir="down" />
+                    </span> -->
+                    </template>
+                    <template #menu>
+                      <header v-if="col.searchable" class="c-filter__header">
+                        <input
+                          class="c-filter__search"
+                          type="text"
+                          placeholder="Search..."
+                        />
+                        <a href="#" class="c-filter__control">Select All</a>
+                        <a href="#" class="c-filter__control">Clear</a>
+                      </header>
+                      <div v-if="col.filterable" class="c-filter__options">
+                        <div class="c-grid">
+                          <span>Start Date</span>
+                          <VInput
+                            type="date"
+                            @changeDate="changeDate()"
+                            placeholder="Start Point"
+                            class="m-0"
+                          />
+                          <span>End Date</span>
+                          <VInput
+                            type="date"
+                            @changeDate="changeDate()"
+                            placeholder="End point"
+                            class="m-0"
+                          />
+                        </div>
+                        <!-- <VCheckbox
+                        class="c-filter__item"
+                        label="AKMLS"
+                        data="AKMLS"
+                        :list="selectedOptions"
+                        v-model="selected"
+                      />
+                      <VCheckbox
+                        class="c-filter__item"
+                        label="bridgeMLS"
+                        data="bridgeMLS"
+                        :list="selectedOptions"
+                        v-model="selected"
+                      />
+                      <VCheckbox
+                        class="c-filter__item"
+                        label="CLAW"
+                        data="CLAW"
+                        :list="selectedOptions"
+                        v-model="selected"
+                      />
+                      <VCheckbox
+                        class="c-filter__item"
+                        label="Kern River Lake Isabella Board"
+                        data="Kern"
+                        :list="selectedOptions"
+                        v-model="selected"
+                      /> -->
+                      </div>
+                    </template>
+                  </VDropdown>
+                  <!-- else -->
+                  <span v-html="col.label"></span>
+                  <span v-if="col.sortable" class="c-sort">
+                    <VChevron class="c-sort__item" dir="up" />
+                    <VChevron class="c-sort__item" dir="down" />
+                  </span>
                 </div>
-              </div>
-            </th>
-            <th
-              v-else
-              :key="col.key"
-              v-html="col.label"
-              class="c-table__th"
-              :class="col.class"
-            ></th>
-          </template>
-        </tr>
+              </th>
+            </template>
+          </tr>
         </thead>
         <tbody class="c-table__body">
-        <!-- if no data -->
-        <tr v-if="!list || !list.length">
-          <td
-            colspan="100%"
-            style="height: 10em; font-size: 16px"
-            class="u-text-center"
+          <!-- if no data -->
+          <tr v-if="!list || !list.length">
+            <td
+              colspan="100%"
+              style="height: 10em; font-size: 16px"
+              class="u-text-center"
+            >
+              No Data Available
+            </td>
+          </tr>
+          <!-- else -->
+          <tr
+            v-else
+            v-for="(row, index) in list"
+            :key="index"
+            :class="table.map['rowClass'](row)"
+            class="c-table__row"
           >
-            No Data Available
-          </td>
-        </tr>
-        <tr
-          v-else
-          v-for="(row,index) in list"
-          :key="index"
-          :class="table.map['rowClass'](row)"
-          class="c-table__row"
-        >
-          <td
-            v-for="col in table.columns"
-            :key="col.key"
-            class="c-table__cell"
-            :class="col.class"
-          >
-            <v-runtime-template
-              :template="String(showItem(row, col))"
-            ></v-runtime-template>
-          </td>
-        </tr>
+            <td
+              v-for="col in table.columns"
+              :key="col.key"
+              class="c-table__cell"
+              :class="col.class"
+            >
+              <v-runtime-template
+                :template="String(showItem(row, col))"
+              ></v-runtime-template>
+            </td>
+          </tr>
         </tbody>
       </table>
+      <!-- </VuePerfectScrollbar> -->
     </div>
 
     <div class="c-datatable__footer" v-if="hasPaginate">
       <div class="c-pagination">
         <!-- prev btn -->
-        <span
+        <VChevron
           :class="current_page === 1 ? 'is-disabled' : ''"
-          class="c-pagination__arrow c-chevron c-chevron--left"
+          class="c-pagination__arrow"
           @click="changePage(current_page - 1)"
-        ></span>
+          type="chevron"
+          dir="left"
+        />
 
         <!-- prev page dots -->
         <template v-if="hasPreDots">
@@ -157,11 +196,13 @@
         </template>
 
         <!-- next btn -->
-        <span
+        <VChevron
           :class="current_page === totalPaginate ? 'is-disabled' : ''"
-          class="c-pagination__arrow c-chevron c-chevron--right"
+          class="c-pagination__arrow"
           @click="changePage(current_page + 1)"
-        ></span>
+          type="chevron"
+          dir="right"
+        />
       </div>
     </div>
   </div>
@@ -169,10 +210,12 @@
 
 <script>
 import VRuntimeTemplate from "v-runtime-template";
+import VuePerfectScrollbar from "vue-perfect-scrollbar";
 
 export default {
   components: {
     VRuntimeTemplate,
+    VuePerfectScrollbar,
   },
 
   props: {
@@ -197,10 +240,28 @@ export default {
       preferredPerPage: 25,
       perPageArray: [25, 50, 100],
       sortColumn: "",
+
+      selected: "", //for checkbox
+      selectedOptions: [], //for checkbox
+
+      startDate: "",
+      endDate: "",
+
+      dropdownIsActive: false,
     };
   },
 
   methods: {
+    fix() {
+      this.$nextTick(() => {
+        this.dropdownIsActive = !this.dropdownIsActive;
+      });
+    },
+
+    changeDate() {
+      console.log("Date Changed!");
+    },
+
     showItem(row, col) {
       let key = col.key; //based on defined structure
       let map = this.table.map; //custom mapped data
@@ -220,19 +281,23 @@ export default {
         }</span>`;
       }
     },
+
     action(data, action) {
       this.$emit(`action${action}`, data);
     },
+
     changePage(target) {
       this.current_page = target;
       this.$emit("changePage", target);
     },
+
     applyPaginate() {
       this.totalPaginate = Math.ceil(this.total_pages / this.per_page);
       this.hasPreDots = this.current_page > 4;
       this.hasNextDots = this.current_page + 4 <= this.totalPaginate;
       this.hasPaginate = this.totalPaginate > 1;
     },
+
     applyList(list) {
       if (list.hasOwnProperty("data")) {
         this.list = list.data;

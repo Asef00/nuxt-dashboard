@@ -39,7 +39,12 @@ export default {
           { key: "full_name", label: "Full Name" },
           { key: "username", label: "Username" },
           { key: "status", label: "Status" },
-          { key: "created_at", label: "Created At", class: "u-text-center" },
+          {
+            key: "created_at",
+            label: "Created At",
+            class: "u-text-center",
+            filterable: true,
+          },
           { key: "updated_at", label: "Updated At", class: "u-text-center" },
           {
             key: "action",
