@@ -207,10 +207,14 @@ export default {
 
       if (this.editMode) {
         this.scrollToElement(this.$refs.form);
+      } else {
+        this.me()
+        this.resetError()
       }
     },
     //current user
     me() {
+      this.$auth.fetchUser()
       this.user = this.$auth.user;
       this.id = this.user.id;
       this.payload.name = this.user.name;
@@ -219,7 +223,7 @@ export default {
       this.payload.is_verified = this.user.cognito.email_verified;
       for (let field of this.user.fields) {
         this.errors[field.name] = "";
-        this.payload[field.name] = field.value;
+        this.payload[field.name] = field.value != null ? field.value.value : field.value;
       }
     },
     validation() {
@@ -240,10 +244,17 @@ export default {
         .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
+          let fields = [];
+          for (let field of this.user.fields) {
+            fields.push({
+              field_name_id: field.id,
+              value: this.payload[field.name] instanceof Date ? this.payload[field.name].toLocaleDateString() : this.payload[field.name]
+            })
+          }
           await this.$store.dispatch("me/update", {
             name: this.payload.name,
             family_name: this.payload.family_name,
-            fields: [],
+            fields: fields,
           });
           this.stopLoading();
           const err = this.handleError(this.$store.state.me.error);

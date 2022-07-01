@@ -6,7 +6,7 @@
     <div class="d-flex align-items-center">
       <datepicker
         v-if="type == 'date'"
-        @selected="selectedDate"
+        @selected="selectedDate($event)"
         :placeholder="placeholder"
         :value="value"
         :disabled="disabled"
@@ -101,9 +101,10 @@ export default {
     hasError() {
       return this.error !== "";
     },
-    selectedDate() {
-      this.$emit("changeDate");
-      this.$emit("validation");
+    selectedDate(v) {
+      this.$emit('input', v)
+      this.$emit('changeDate')
+      this.$emit('validation')
     },
 
     //toggle visibility
