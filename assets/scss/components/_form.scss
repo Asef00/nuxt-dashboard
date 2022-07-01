@@ -44,6 +44,10 @@
     // for safari
     opacity: 1;
     -webkit-text-fill-color: $text-color;
+
+    &::placeholder {
+      opacity: 0.5;
+    }
   }
 
   &::placeholder {
