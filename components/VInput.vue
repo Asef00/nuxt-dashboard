@@ -6,7 +6,7 @@
     <div class="d-flex align-items-center">
       <datepicker
         v-if="type == 'date'"
-        @selected="$emit('changeDate')"
+        @selected="selectedDate"
         :placeholder="placeholder"
         :value="value"
         :disabled="disabled"
@@ -37,7 +37,7 @@
         @click="togglePassword()"
         class="c-form__visiblity"
       >
-        <fa :icon="showPassword ? 'eye' : 'eye-slash'" />
+        <fa :icon="showPassword ? 'eye' : 'eye-slash'"/>
       </span>
     </div>
     <span v-if="hasError()" class="c-form__error">{{ error }}</span>
@@ -99,6 +99,10 @@ export default {
   methods: {
     hasError() {
       return this.error !== "";
+    },
+    selectedDate() {
+      this.$emit('changeDate')
+      this.$emit('validation')
     },
 
     //toggle visibility
