@@ -104,6 +104,7 @@
                     />
                   </div>
                   <div
+                    :key="index"
                     class="col-md-6"
                     v-if="field.field_type.type == 'date_time'"
                   >
@@ -122,6 +123,7 @@
                     />
                   </div>
                   <div
+                    :key="index"
                     class="col-md-6"
                     v-if="field.field_type.type == 'select'"
                   >
