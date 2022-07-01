@@ -11,7 +11,7 @@
             class="m-0 c-btn--small"
           >
             Edit Profile
-            <fa icon="pen-to-square" />
+            <fa icon="pen-to-square"/>
           </VBtn>
         </transition>
         <VBtn
@@ -26,7 +26,7 @@
       <div class="row">
         <div class="col-md-3 col-12">
           <div class="c-avatar">
-            <VIcon icon="avatar" width="300" height="300" />
+            <VIcon icon="avatar" width="300" height="300"/>
           </div>
         </div>
         <div class="col-md-9 col-12">
@@ -77,9 +77,46 @@
                   @action="sendVerifyCode"
                   v-if="!payload.is_verified"
                   btn="success"
-                  >Verify Email
+                >Verify Email
                 </VBtn>
               </div>
+            </div>
+            <h4 v-if="user.fields.length" class="c-form__title">More Info</h4>
+            <div class="row">
+              <template  v-for="field in user.fields">
+                <div class="col-md-6" v-if="field.field_type.type == 'varchar'">
+                  <VInput
+                    @validation="validate(field.name)"
+                    :error="errorMessage(field.name)"
+                    :disabled="!editMode"
+                    :label="field.label"
+                    v-model="payload[field.name]"
+                    :placeholder="field.placeholder == null ? `Enter your ${field.label.toLowerCase()}`:field.placeholder"
+                  />
+                </div>
+                <div class="col-md-6" v-if="field.field_type.type == 'date_time'">
+                  <VInput
+                    type="date"
+                    @validation="validate(field.name)"
+                    :error="errorMessage(field.name)"
+                    :disabled="!editMode"
+                    :label="field.label"
+                    v-model="payload[field.name]"
+                    :placeholder="field.placeholder == null ? `Enter your ${field.label.toLowerCase()}`:field.placeholder"
+                  />
+                </div>
+                <div class="col-md-6" v-if="field.field_type.type == 'select'">
+                  <VSelect
+                    v-model="payload[field.name]"
+                    @validation="validate(field.name)"
+                    :error="errorMessage(field.name)"
+                    :list="field.data_set"
+                    :disabled="!editMode"
+                    :placeholder="field.placeholder == null ? `Select your ${field.label.toLowerCase()}`:field.placeholder"
+                    :label="field.label"
+                  />
+                </div>
+              </template>
             </div>
             <transition>
               <!-- Shouldn't use template with transition -->
@@ -104,17 +141,6 @@
       @show="verifyEmailModal($event)"
       :show="showModalVerifyEmail"
     />
-    <!--    <VCard :loader="loaderRequest" title="Product">-->
-    <!--      <template #header>-->
-    <!--        <VBtn class="m-0 c-btn&#45;&#45;small">-->
-    <!--          <NuxtLink :to="`/person-product/create/${id}`">Create</NuxtLink>-->
-    <!--        </VBtn>-->
-    <!--      </template>-->
-    <!--      <VTable @actionDetails="detailsItem($event)" @actionDelete="deleteItem($event)" :table="table"/>-->
-    <!--      <VModal :showModal="showDetails" @close="showDetails =false" title="Product details">-->
-    <!--        <Detail :id="detailsItemId"/>-->
-    <!--      </VModal>-->
-    <!--    </VCard>-->
   </div>
 </template>
 
@@ -139,41 +165,7 @@ export default {
       editMode: false,
       showDetails: false,
       id: 0,
-      table: {
-        columns: [
-          { key: "id", label: "#" },
-          { key: "product_title", label: "Product Title" },
-          { key: "status", label: "Status" },
-          { key: "site", label: "Site" },
-          { key: "version", label: "Version" },
-          { key: "created_at", label: "Created At", class: "u-text-center" },
-          { key: "updated_at", label: "Updated At", class: "u-text-center" },
-          {
-            key: "action",
-            label: '<img src="/img/gear.svg" alt="" />',
-            class: "u-text-center",
-          },
-        ],
-        items: [],
-        map: {
-          action(item) {
-            return `<NuxtLink to="/person-product/edit/${item.id}" class="c-badge u-bg-info">Edit</NuxtLink> |
-            <span v-on:click="action(${item.id},'Delete')" class="c-badge--hover c-badge u-bg-danger">Delete</span> |
-            <span v-on:click="action(${item.id},'Details')" class="c-badge--hover c-badge u-bg-primary">Details</span>`;
-          },
-          created_at(item) {
-            return _this.dateFormat(item.created_at);
-          },
-          updated_at(item) {
-            return _this.dateFormat(item.updated_at);
-          },
-          product_title(item) {
-            return item.product.title;
-          },
-          //REQUIRED
-          rowClass() {},
-        },
-      },
+      user: {},
       payload: {
         name: "",
         family_name: "",
@@ -193,23 +185,31 @@ export default {
     },
     //current user
     me() {
-      this.id = this.$auth.user.id;
-      this.payload.name = this.$auth.user.name;
-      this.payload.family_name = this.$auth.user.family_name;
-      this.payload.email = this.$auth.user.username;
-      this.payload.is_verified = this.$auth.user.cognito.email_verified;
-      // this.table.items = this.$auth.user.products;
+      this.user = this.$auth.user;
+      this.id = this.user.id;
+      this.payload.name = this.user.name;
+      this.payload.family_name = this.user.family_name;
+      this.payload.email = this.user.username;
+      this.payload.is_verified = this.user.cognito.email_verified;
+      for (let field of this.user.fields) {
+        this.errors[field.name] = "";
+        this.payload[field.name] = field.value;
+      }
     },
     validation() {
-      return Yup.object({
+      let roles = {
         name: Yup.string().required(),
         family_name: Yup.string().required(),
-      });
+      };
+      for (let field of this.user.fields) {
+        roles[field.name] = field.required ? Yup.string().nullable().required() : Yup.string().nullable()
+      }
+      return Yup.object(roles);
     },
     update() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, { abortEarly: false })
+        .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("me/update", {
