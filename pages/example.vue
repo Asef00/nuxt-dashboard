@@ -49,7 +49,7 @@
             <VInput
               @validation="validate('name')"
               :error="errorMessage('name')"
-              label="Name"
+              label="DatePicker"
               type="date"
               v-model="payload.name"
               placeholder="Pick up a day"

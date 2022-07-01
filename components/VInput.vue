@@ -12,7 +12,8 @@
         :disabled="disabled"
         :format="datePickerFormat"
         :input-class="['c-form__input', hasError() ? 'is-invalid' : '']"
-        calendar-class="c-calendar"
+        wrapper-class="c-datepicker"
+        calendar-class="c-datepicker__calendar"
       ></datepicker>
 
       <input
