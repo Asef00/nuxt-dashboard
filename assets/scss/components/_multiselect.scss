@@ -44,6 +44,10 @@ $text-color: #212529;
     }
   }
 
+  .multiselect__single {
+    background-color: transparent;
+  }
+
   .multiselect__input,
   .multiselect__single {
     @include font-size(14px);
