@@ -437,15 +437,21 @@ export default {
         columns: [
           { key: "id", label: "#" },
           { key: "full_name", label: "Full Name", sortable: true },
-          { key: "username", label: "Username" },
-          { key: "status", label: "Status" },
+          { key: "username", label: "Username", sortable: true },
+          { key: "status", label: "Status", sortable: true },
           {
             key: "created_at",
             label: "Created At",
             class: "u-text-center",
             filterable: true,
+            sortable: true,
           },
-          { key: "updated_at", label: "Updated At", class: "u-text-center" },
+          {
+            key: "updated_at",
+            label: "Updated At",
+            class: "u-text-center",
+            sortable: true,
+          },
           {
             key: "action",
             label: '<img src="/img/gear.svg" alt="" />',

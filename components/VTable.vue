@@ -27,91 +27,97 @@
         <thead class="c-table__header">
           <tr class="c-table__row">
             <template v-for="col in table.columns">
-              <!-- if filterable -->
-              <VDropdown
-                isFilter
-                wrapper="th"
-                position="bottom"
-                menuStyle="none"
-                v-if="col.filterable"
-                :key="col.key"
-                :class="[col.class, 'c-table__th']"
-                @toggleShow="fix()"
-              >
-                <template #btn>
-                  <!-- Filter icon -->
-                  <VIcon
-                    :icon="col == sortColumn ? 'filter.is-active' : 'filter'"
-                  />
+              <th :key="col.key" class="c-table__th" :class="col.class">
+                <div class="c-table__th-wrapper">
+                  <!-- if filterable -->
+                  <VDropdown
+                    isFilter
+                    wrapper="span"
+                    position="bottom"
+                    menuStyle="none"
+                    v-if="col.filterable"
+                    :key="col.key"
+                    :class="col.class"
+                    @toggleShow="fix()"
+                  >
+                    <template #btn>
+                      <!-- Filter icon -->
+                      <VIcon
+                        :icon="
+                          col == sortColumn ? 'filter.is-active' : 'filter'
+                        "
+                      />
+                      <!-- <span v-html="col.label"></span>
+                    <span v-if="col.sortable" class="c-sort">
+                      <VChevron class="c-sort__item" dir="up" />
+                      <VChevron class="c-sort__item" dir="down" />
+                    </span> -->
+                    </template>
+                    <template #menu>
+                      <header v-if="col.searchable" class="c-filter__header">
+                        <input
+                          class="c-filter__search"
+                          type="text"
+                          placeholder="Search..."
+                        />
+                        <a href="#" class="c-filter__control">Select All</a>
+                        <a href="#" class="c-filter__control">Clear</a>
+                      </header>
+                      <div v-if="col.filterable" class="c-filter__options">
+                        <div class="c-grid">
+                          <span>Start Date</span>
+                          <VInput
+                            type="date"
+                            @changeDate="changeDate()"
+                            placeholder="Start Point"
+                            class="m-0"
+                          />
+                          <span>End Date</span>
+                          <VInput
+                            type="date"
+                            @changeDate="changeDate()"
+                            placeholder="End point"
+                            class="m-0"
+                          />
+                        </div>
+                        <!-- <VCheckbox
+                        class="c-filter__item"
+                        label="AKMLS"
+                        data="AKMLS"
+                        :list="selectedOptions"
+                        v-model="selected"
+                      />
+                      <VCheckbox
+                        class="c-filter__item"
+                        label="bridgeMLS"
+                        data="bridgeMLS"
+                        :list="selectedOptions"
+                        v-model="selected"
+                      />
+                      <VCheckbox
+                        class="c-filter__item"
+                        label="CLAW"
+                        data="CLAW"
+                        :list="selectedOptions"
+                        v-model="selected"
+                      />
+                      <VCheckbox
+                        class="c-filter__item"
+                        label="Kern River Lake Isabella Board"
+                        data="Kern"
+                        :list="selectedOptions"
+                        v-model="selected"
+                      /> -->
+                      </div>
+                    </template>
+                  </VDropdown>
+                  <!-- else -->
                   <span v-html="col.label"></span>
-                </template>
-
-                <template #menu>
-                  <header v-if="col.searchable" class="c-filter__header">
-                    <input
-                      class="c-filter__search"
-                      type="text"
-                      placeholder="Search..."
-                    />
-                    <a href="#" class="c-filter__control">Select All</a>
-                    <a href="#" class="c-filter__control">Clear</a>
-                  </header>
-                  <div v-if="col.filterable" class="c-filter__options">
-                    <div class="c-grid">
-                      <span>Start Date</span>
-                      <VInput
-                        type="date"
-                        @changeDate="changeDate()"
-                        placeholder="Start Point"
-                        class="m-0"
-                      />
-                      <span>End Date</span>
-                      <VInput
-                        type="date"
-                        @changeDate="changeDate()"
-                        placeholder="End point"
-                        class="m-0"
-                      />
-                    </div>
-
-                    <!-- <VCheckbox
-                      class="c-filter__item"
-                      label="AKMLS"
-                      data="AKMLS"
-                      :list="selectedOptions"
-                      v-model="selected"
-                    />
-                    <VCheckbox
-                      class="c-filter__item"
-                      label="bridgeMLS"
-                      data="bridgeMLS"
-                      :list="selectedOptions"
-                      v-model="selected"
-                    />
-                    <VCheckbox
-                      class="c-filter__item"
-                      label="CLAW"
-                      data="CLAW"
-                      :list="selectedOptions"
-                      v-model="selected"
-                    />
-                    <VCheckbox
-                      class="c-filter__item"
-                      label="Kern River Lake Isabella Board"
-                      data="Kern"
-                      :list="selectedOptions"
-                      v-model="selected"
-                    /> -->
-                  </div>
-                </template>
-              </VDropdown>
-              <!-- else -->
-              <th v-else :key="col.key" class="c-table__th" :class="col.class">
-                <span v-html="col.label"></span>
-                <span v-if="col.sortable" class="c-sort">
-                  <VChevron dir="up" />
-                  <VChevron dir="down" />
-                </span>
+                  <span v-if="col.sortable" class="c-sort">
+                    <VChevron class="c-sort__item" dir="up" />
+                    <VChevron class="c-sort__item" dir="down" />
+                  </span>
+                </div>
               </th>
             </template>
           </tr>
