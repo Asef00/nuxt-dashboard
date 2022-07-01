@@ -12,26 +12,30 @@
       <template #header> </template>
       <form action="" class="c-form">
         <h4 class="c-form__title">Sync Accounts</h4>
-        <VSelect
-          @validation="validate('tag')"
-          :error="errorMessage('tag')"
-          :multiple="true"
-          :list="options"
-          placeholder="Please select tag"
-          v-model="payload.tag"
-          label="Tags"
-        />
-        <VSelect
-          @validation="validate('tag')"
-          :error="errorMessage('tag')"
-          :multiple="true"
-          :list="options"
-          placeholder="Please select tag"
-          v-model="payload.tag"
-          label="Tags"
-          disabled
-        />
         <div class="row">
+          <div class="col-md-6">
+            <VSelect
+              @validation="validate('tag')"
+              :error="errorMessage('tag')"
+              :multiple="true"
+              :list="options"
+              placeholder="Please select tag"
+              v-model="payload.tag"
+              label="Tags"
+            />
+          </div>
+          <div class="col-md-6">
+            <VSelect
+              @validation="validate('tag')"
+              :error="errorMessage('tag')"
+              :multiple="true"
+              :list="options"
+              placeholder="Please select tag"
+              v-model="payload.tag"
+              label="Tags"
+              disabled
+            />
+          </div>
           <div class="col-md-6">
             <VInput
               @validation="validate('name')"
@@ -39,6 +43,16 @@
               label="Name"
               v-model="payload.name"
               placeholder="Please enter name"
+            />
+          </div>
+          <div class="col-md-6">
+            <VInput
+              @validation="validate('name')"
+              :error="errorMessage('name')"
+              label="Name"
+              type="date"
+              v-model="payload.name"
+              placeholder="Pick up a day"
             />
           </div>
           <div class="col-md-6">
@@ -50,9 +64,7 @@
               placeholder="Please enter summary"
             />
           </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
+          <div class="col-md-6">
             <VSwitch
               :defaultState="true"
               @change="triggerToggleEvent"
@@ -60,7 +72,7 @@
               type="danger"
             />
           </div>
-          <div class="col-12">
+          <div class="col-md-6">
             <VCheckbox
               label="Ali"
               data="Ali"
@@ -73,8 +85,6 @@
               :list="selectedOptions"
               v-model="selected"
             />
-          </div>
-          <div class="col-12">
             <VCheckbox
               label="Disabled"
               inputValue="foo"

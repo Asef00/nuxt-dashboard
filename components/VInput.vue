@@ -11,7 +11,7 @@
         :value="value"
         :disabled="disabled"
         :format="datePickerFormat"
-        input-class="c-form__input"
+        :input-class="['c-form__input', hasError() ? 'is-invalid' : '']"
         calendar-class="c-calendar"
       ></datepicker>
 
@@ -37,7 +37,7 @@
         @click="togglePassword()"
         class="c-form__visiblity"
       >
-        <fa :icon="showPassword ? 'eye' : 'eye-slash'"/>
+        <fa :icon="showPassword ? 'eye' : 'eye-slash'" />
       </span>
     </div>
     <span v-if="hasError()" class="c-form__error">{{ error }}</span>
@@ -101,8 +101,8 @@ export default {
       return this.error !== "";
     },
     selectedDate() {
-      this.$emit('changeDate')
-      this.$emit('validation')
+      this.$emit("changeDate");
+      this.$emit("validation");
     },
 
     //toggle visibility
