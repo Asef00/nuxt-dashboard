@@ -21,7 +21,7 @@
     </VCard>
     <VCard :loader="loaderRequest" title="Result" v-if="!this.table.items.length <= 0">
       <VTable @actionAdd="addUser($event)" @actionDetails="detailsItem($event)" :table="table"/>
-      <VBtn v-if="paginationToken" class="c-btn--block" @action="search" type="button" btn="outline">Load more users
+      <VBtn v-if="paginationToken" class="c-btn--block mt-5" @action="search" type="button" btn="outline">Load more users
       </VBtn>
     </VCard>
     <VModal :showModal="showDetails" @close="showDetails =false" title="User details">
