@@ -9,6 +9,7 @@
         @selected="selectedDate($event)"
         :placeholder="placeholder"
         :value="value"
+        :inline="inline"
         :disabled="disabled"
         :format="datePickerFormat"
         :input-class="['c-form__input', hasError() ? 'is-invalid' : '']"
@@ -82,6 +83,7 @@ export default {
       type: String,
       default: "dd/MM/yyyy",
     },
+    inline: Boolean,
   },
 
   data() {
@@ -102,9 +104,9 @@ export default {
       return this.error !== "";
     },
     selectedDate(v) {
-      this.$emit('input', v)
-      this.$emit('changeDate')
-      this.$emit('validation')
+      this.$emit("input", v);
+      this.$emit("changeDate");
+      this.$emit("validation");
     },
 
     //toggle visibility
