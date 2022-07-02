@@ -22,7 +22,7 @@
     </div>
 
     <div class="c-datatable__body" ref="dataTable__body">
-      <!-- <VuePerfectScrollbar> -->
+      <!-- <vue-custom-scrollbar> -->
       <table class="c-table" ref="table">
         <thead class="c-table__header">
           <tr class="c-table__row">
@@ -154,7 +154,7 @@
           </tr>
         </tbody>
       </table>
-      <!-- </VuePerfectScrollbar> -->
+      <!-- </vue-custom-scrollbar> -->
     </div>
 
     <div class="c-datatable__footer" v-if="hasPaginate">
@@ -210,12 +210,10 @@
 
 <script>
 import VRuntimeTemplate from "v-runtime-template";
-import VuePerfectScrollbar from "vue-perfect-scrollbar";
 
 export default {
   components: {
     VRuntimeTemplate,
-    VuePerfectScrollbar,
   },
 
   props: {

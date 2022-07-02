@@ -63,6 +63,7 @@
               type="date"
               v-model="payload.name"
               placeholder="Pick up a day"
+              inline
             />
           </div>
           <div class="col-md-6">

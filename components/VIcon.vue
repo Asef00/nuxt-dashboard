@@ -1,8 +1,8 @@
 <template>
   <img
     @click="$emit('action')"
-    :src="[`/img/${icon}.svg`]"
-    :alt="[`${icon} icon`]"
+    :src="src ? src : `/img/${icon}.svg`"
+    :alt="alt ? alt : `${icon} icon`"
   />
 </template>
 
@@ -10,6 +10,14 @@
 export default {
   props: {
     icon: {
+      type: String,
+      default: "",
+    },
+    src: {
+      type: String,
+      default: "",
+    },
+    alt: {
       type: String,
       default: "",
     },
