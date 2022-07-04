@@ -1,4 +1,5 @@
 <template>
+  <!-- if "to" provided -->
   <NuxtLink
     v-if="to"
     :class="['c-btn', classBtn, disabled ? 'is-disabled' : '']"
@@ -8,6 +9,8 @@
     <LoaderDots :color="colorLoader" v-if="loader"></LoaderDots>
     <slot v-else />
   </NuxtLink>
+
+  <!-- else -->
   <button
     v-else
     @click="$emit('action')"
