@@ -16,7 +16,7 @@
         entries
       </div>
       <div v-else></div>
-      <div class="c-search">
+      <div v-if="isSearchable" class="c-search">
         <input class="c-search__input" type="text" placeholder="Search..." />
       </div>
     </div>
@@ -222,6 +222,10 @@ export default {
       columns: Array,
       items: Array,
       map: Object,
+    },
+    isSearchable: {
+      type: Boolean,
+      default: true,
     },
   },
 
