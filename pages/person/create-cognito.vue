@@ -6,12 +6,13 @@
         <VBtn to="/person" class="m-0 c-btn--small"> List</VBtn>
       </template>
       <form @submit.prevent="search" class="c-form">
-        <VAlert class="c-alert--danger mt-1 mb-2" v-show="hasError('username')">{{ errorMessage('username') }}</VAlert>
         <div class="row">
           <div class="col-md-12">
             <VInput
               label="Email (username)"
               v-model="payload.username"
+              @validation="validate('username')"
+              :error="errorMessage('username')"
               placeholder="Please enter email"
             />
             <VBtn @action="resetError" :loader="loaderRequest">SEARCH</VBtn>
