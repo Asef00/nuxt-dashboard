@@ -1,7 +1,14 @@
+$size: 30px;
+@mixin border-radius {
+  border-radius: 3px;
+}
+
 .c-datepicker.c-datepicker {
   width: 100%;
 
   header {
+    @include flex-center;
+
     .prev:after,
     .next:after {
       content: "";
@@ -26,6 +33,13 @@
     .next:after {
       transform: rotate(45deg);
     }
+
+    .prev,
+    .next {
+      @include border-radius;
+      height: 30px;
+      width: 30px;
+    }
   }
 
   .vdp-datepicker__calendar .cell.selected {
@@ -35,16 +49,42 @@
 }
 
 .c-datepicker__calendar.c-datepicker__calendar {
-  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  width: 236px;
+  @include border-radius;
+  @include font-size(13px, $size);
+  padding: 5px;
+
+  &:nth-child(3) {
+    text-align: center;
+  }
+
+  .day__month_btn {
+    @include border-radius;
+  }
 
   .cell:not(.blank):not(.disabled).day,
   .cell:not(.blank):not(.disabled).month,
   .cell:not(.blank):not(.disabled).year {
     transition: 0.2s;
-    border-radius: 3px;
+    @include border-radius;
 
     &:hover {
       border: 1px solid $primary-color;
     }
+  }
+
+  .cell {
+    padding: 0;
+    margin: 1px;
+    height: $size;
+    line-height: $size;
+    width: $size;
+  }
+
+  .month,
+  .year {
+    width: 32%;
   }
 }

@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import Datepicker from "vuejs-datepicker";
+import Datepicker from "vuejs-datepicker3";
 
 export default {
   name: "VInput",
