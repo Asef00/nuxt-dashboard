@@ -94,6 +94,53 @@
 }
 
 //datepicker container
-.c-datepicker {
+.c-datepicker.c-datepicker {
   width: 100%;
+
+  header {
+    .prev:after,
+    .next:after {
+      content: "";
+      width: 10px;
+      height: 10px;
+      display: inline-block;
+
+      border-color: $primary-color;
+      border-style: solid;
+      border-width: 0.15em 0.15em 0 0;
+      border-radius: 1px;
+
+      position: absolute;
+      top: calc(50% - 5px);
+      left: calc(50% - 5px);
+      margin: 0;
+    }
+
+    .prev:after {
+      transform: rotate(-135deg);
+    }
+    .next:after {
+      transform: rotate(45deg);
+    }
+  }
+
+  .vdp-datepicker__calendar .cell.selected {
+    background-color: $primary-color;
+    color: #fff;
+  }
+}
+
+.c-datepicker__calendar {
+  border-radius: 3px;
+
+  .cell:not(.blank):not(.disabled).day,
+  .cell:not(.blank):not(.disabled).month,
+  .cell:not(.blank):not(.disabled).year {
+    transition: 0.2s;
+    border-radius: 3px;
+
+    &:hover {
+      border: 1px solid $primary-color;
+    }
+  }
 }
