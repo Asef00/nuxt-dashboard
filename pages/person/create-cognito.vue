@@ -2,8 +2,8 @@
   <div>
     <VCard title="Search User Form Cognito">
       <template #header>
-        <VBtn to="/person/create" class="m-0 c-btn--small"> Create </VBtn>
-        <VBtn to="/person" class="m-0 c-btn--small"> List </VBtn>
+        <VBtn to="/person/create" class="m-0 c-btn--small"> Create</VBtn>
+        <VBtn to="/person" class="m-0 c-btn--small"> List</VBtn>
       </template>
       <form @submit.prevent="search" class="c-form">
         <VAlert class="c-alert--danger mt-1 mb-2" v-show="hasError('username')">{{ errorMessage('username') }}</VAlert>
@@ -21,7 +21,8 @@
     </VCard>
     <VCard :loader="loaderRequest" title="Result" v-if="!this.table.items.length <= 0">
       <VTable @actionAdd="addUser($event)" @actionDetails="detailsItem($event)" :table="table"/>
-      <VBtn v-if="paginationToken" class="c-btn--block mt-5" @action="search" type="button" btn="outline">Load more users
+      <VBtn v-if="paginationToken" class="c-btn--block mt-5" @action="search" type="button" btn="outline">Load more
+        users
       </VBtn>
     </VCard>
     <VModal :showModal="showDetails" @close="showDetails =false" title="User details">
@@ -53,7 +54,7 @@ export default {
         items: [],
         map: {
           action(item) {
-            return `<span v-on:click="action('${item.id}','Add')" class="c-badge--hover c-badge u-bg-info">Add</span> |
+            return `<span v-on:click="action('${item.email}','Add')" class="c-badge--hover c-badge u-bg-info">Add</span> |
             <span v-on:click="action('${item.id}','Details')" class="c-badge--hover c-badge u-bg-primary">Details</span>`;
           },
           //REQUIRED
@@ -98,6 +99,7 @@ export default {
     },
     async addUser(email) {
       this.startLoading()
+      this.$store.commit('person/RESET_ERROR')
       await this.$store.dispatch("person/createPersonFromCognito", {username: email});
       this.stopLoading();
       const err = this.handleError(this.$store.state.person.error);
