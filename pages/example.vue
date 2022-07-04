@@ -4,6 +4,7 @@
       <VTable
         @changePage="changePage($event)"
         @changePerPage="changePerPage($event)"
+        @search="tableSearch"
         :table="table"
       />
     </VCard>
@@ -594,6 +595,10 @@ export default {
       this.setLimit(val);
       this.setPaginate(1);
       this.list(1, val);
+    },
+
+    tableSearch(val) {
+      console.log("tableSearch:", val);
     },
   },
 

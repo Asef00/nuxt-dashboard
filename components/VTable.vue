@@ -17,8 +17,17 @@
       </div>
       <div v-else></div>
       <div v-if="isSearchable" class="c-search">
-        <VInput inputClass="c-search__input" placeholder="Search..." class="m-0">
-          <template #btn><VBtn class="c-btn--small c-search__btn">Filter</VBtn></template>
+        <VInput
+          inputClass="c-search__input"
+          placeholder="Search..."
+          class="m-0"
+          v-model="searchVal"
+        >
+          <template #btn>
+            <VBtn class="c-btn--small c-search__btn" @action="filter">
+              Filter
+            </VBtn>
+          </template>
         </VInput>
       </div>
     </div>
@@ -252,6 +261,7 @@ export default {
       endDate: "",
 
       dropdownIsActive: false,
+      searchVal: "",
     };
   },
 
@@ -313,6 +323,11 @@ export default {
       } else {
         this.list = list;
       }
+    },
+
+    //search filter
+    filter() {
+      this.$emit("search", this.searchVal);
     },
   },
 
