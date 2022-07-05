@@ -73,13 +73,10 @@ export default {
     };
   },
   methods: {
-    async list(page = null, limit = null) {
+    async list() {
       this.startLoading();
       this.$store.commit("fieldName/RESET_ERROR");
-      await this.$store.dispatch("fieldName/list", {
-        page: page ?? this.getPaginate(),
-        limit: limit ?? this.getLimit(),
-      });
+      await this.$store.dispatch("fieldName/list");
       let err = this.handleError(this.$store.state.fieldName.error);
       if (!err) {
         this.table.items = this.$store.state.fieldName.list;
@@ -105,12 +102,12 @@ export default {
     },
     changePage(val) {
       this.setPaginate(val);
-      this.list(val, this.getLimit());
+      this.list();
     },
     changePerPage(val) {
       this.setLimit(val);
       this.setPaginate(1);
-      this.list(1, val);
+      this.list();
     },
   },
   created() {
@@ -121,6 +118,7 @@ export default {
         name: "Field Name",
       },
     ]);
+    this.resetAxiosParams()
     this.list();
   },
 };

@@ -1,6 +1,6 @@
 export default {
-  async list({commit}, {page = 1, limit = 25}) {
-    await this.$axios.get(`/person?page=${page}&limit=${limit}`).then((response) => {
+  async list({commit, rootState}) {
+    await this.$axios.get(`/person`, {params: rootState.axiosParams}).then((response) => {
       commit('SET_LIST', response.data)
     }).catch((error) => {
       commit('SET_ERROR', error)

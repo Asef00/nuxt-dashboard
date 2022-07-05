@@ -22,7 +22,7 @@
       <li v-if="can('person.index')" class="c-sidenav__item">
         <NuxtLink to="/person" class="c-sidenav__link">
           <VIcon icon="users" />
-          <span>Person</span>
+          <span>Persons</span>
         </NuxtLink>
       </li>
       <li v-if="can('person.product.index')" class="c-sidenav__item">

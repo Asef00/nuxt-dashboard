@@ -20,13 +20,14 @@ $btn-bg: #f4f4f5;
 .c-btn {
   position: relative; //to fix
   vertical-align: middle; //loader state
-
+  @include flex-inline-center;
+  gap: 0.1em;
   min-width: 9em;
   height: 40px;
   border-radius: 3px;
   font-family: inherit;
   @include font-size(14px);
-  margin-right: 1em;
+  margin-right: 0.5em;
   margin-bottom: 1em;
   padding: 1px 6px;
 

@@ -1,37 +1,35 @@
 <template>
-  <VCard title="Edit a Person">
+  <VCard title="Edit Details">
     <template #header>
-      <VBtn to="/person" class="m-0 c-btn--small"> List</VBtn>
-      <VBtn :to="`/person/${id}`" class="m-0 c-btn--small"> Details</VBtn>
-      <VBtn :to="`/person-product/create/${id}`" class="m-0 c-btn--small">
-        Add Product
-      </VBtn>
-      <VBtn
-        type="button"
+      <VBtn type="button"
         @action="showChangePasswordModal = true"
-        class="m-0 c-btn--small"
-      >
-        Change password
+        class="m-0 c-btn--small">
+        Change Password
       </VBtn>
+      <VBtn :to="`/person/${id}`" class="m-0 c-btn--small"> View Details </VBtn>
+      <VBtn :to="`/person-product/create/${id}`" class="m-0 c-btn--small">
+        Assign Product
+      </VBtn>
+      <VBtn to="/person" class="m-0 c-btn--small"> List Persons </VBtn>
     </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">
         <div class="col-md-6">
           <VInput
-            @validation="validate('name')"
-            :error="errorMessage('name')"
-            label="Name"
-            v-model="payload.name"
-            placeholder="Please enter name"
+            @validation="validate('first_name')"
+            :error="errorMessage('first_name')"
+            label="First Name"
+            v-model="payload.first_name"
+            placeholder="Please enter first name"
           />
         </div>
         <div class="col-md-6">
           <VInput
-            @validation="validate('family_name')"
-            :error="errorMessage('family_name')"
-            label="Family Name"
-            v-model="payload.family_name"
-            placeholder="Please enter family name"
+            @validation="validate('last_name')"
+            :error="errorMessage('last_name')"
+            label="Last Name"
+            v-model="payload.last_name"
+            placeholder="Please enter last name"
           />
         </div>
         <div class="col-md-6">
@@ -62,6 +60,26 @@
             label="Group"
           />
         </div>
+       <div class="container-fluid">
+         <div class="row mt-2">
+           <div class="col-auto">
+             <VSwitch
+               label="Email Verified"
+               v-model="payload.email_verified"
+               :checked="payload.email_verified"
+               inline
+             />
+           </div>
+           <div class="col-auto">
+             <VSwitch
+               label="Enabled"
+               v-model="payload.enable"
+               :checked="payload.enable"
+               inline
+             />
+           </div>
+         </div>
+       </div>
       </div>
       <template v-if="list.fields.length">
         <h4 class="c-form__title">More Info</h4>
@@ -123,7 +141,10 @@
           </template>
         </div>
       </template>
-      <VBtn :loader="loaderRequest">SAVE</VBtn>
+      <div class="mt-5">
+        <VBtn :loader="loaderRequest">SAVE</VBtn>
+        <VBtn btn="danger" to="/person" :loader="loaderRequest">CANCEL</VBtn>
+      </div>
     </form>
     <ChangePassword
       @show="changePasswordModal($event)"
@@ -153,8 +174,10 @@ export default {
         fields: [],
       },
       payload: {
-        name: "",
-        family_name: "",
+        first_name: "",
+        last_name: "",
+        email_verified: false,
+        enable: false,
         role: null,
         group: null,
       },
@@ -179,8 +202,10 @@ export default {
             })
           }
           let payload = {
-            name: this.payload.name,
-            family_name: this.payload.family_name,
+            name: this.payload.first_name,
+            family_name: this.payload.last_name,
+            email_verified:this.payload.email_verified,
+            enabled:this.payload.enable,
             role_ids: this.payload.role.map((i) => i.id),
             group_ids: this.payload.group.map((i) => i.id),
             fields: fields,
@@ -205,8 +230,10 @@ export default {
       let err = this.handleError(this.$store.state.person.error);
       if (!err) {
         let data = this.$store.state.person.item;
-        this.payload.name = data.name;
-        this.payload.family_name = data.family_name;
+        this.payload.first_name = data.name;
+        this.payload.last_name = data.family_name;
+        this.payload.enable = data.enabled;
+        this.payload.email_verified = data.cognito.email_verified;
         this.payload.role = data.roles;
         this.payload.group = data.groups;
         this.list.fields = data.fields;
@@ -233,10 +260,12 @@ export default {
     },
     validation() {
       let roles = {
-        name: Yup.string().required(),
-        family_name: Yup.string().required(),
+        first_name: Yup.string().required(),
+        last_name: Yup.string().required(),
         role: Yup.array().nullable().min(1),
         group: Yup.array().nullable(),
+        email_verified: Yup.boolean().nullable(),
+        enable: Yup.boolean().nullable(),
       };
       for (let field of this.list.fields) {
         roles[field.name] = field.required
@@ -250,8 +279,10 @@ export default {
       this.$store.commit("role/RESET_ERROR");
       this.$store.commit("group/RESET_ERROR");
       this.errors = {
-        name: "",
-        family_name: "",
+        first_name: "",
+        last_name: "",
+        email_verified: "",
+        enable: "",
         role: "",
         group: "",
       };
@@ -259,7 +290,7 @@ export default {
   },
   async created() {
     this.resetError();
-    this.setTitle("Person");
+    this.setTitle("Manage Persons");
     this.setBreadcrumb([
       {
         to: "/person",

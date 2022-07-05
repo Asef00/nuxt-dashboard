@@ -1,8 +1,7 @@
 <template>
   <div>
-    <VCard :loader="loaderRequest" title="Person Details">
+    <VCard :loader="loaderRequest" title="View Details">
       <template #header>
-        <VBtn to="/person" class="m-0 c-btn--small"> List </VBtn>
         <VBtn
           :to="`/person/edit/${id}`"
           v-if="can('person.update')"
@@ -15,7 +14,7 @@
           v-if="can('person.product.store')"
           class="m-0 c-btn--small"
         >
-          Add Product
+          Assign Product
         </VBtn>
         <VBtn
           v-if="can('person.change-password')"
@@ -23,23 +22,36 @@
           @action="showChangePasswordModal = true"
           class="m-0 c-btn--small"
         >
-          Change password
+          Change Password
         </VBtn>
+        <VBtn to="/person" class="m-0 c-btn--small"> List Persons </VBtn>
       </template>
       <form action="" class="c-form">
         <h4 class="c-form__title mb-2">Details</h4>
-        <div class="row">
+        <div class="row mb-3">
           <div class="col-md-6 c-form__control c-form__control--inline mb-0">
-            <label class="c-form__label">Name</label>
+            <label class="c-form__label">First Name</label>
             <span class="u-text-secondary">{{ data.person.name }}</span>
           </div>
           <div class="col-md-6 c-form__control c-form__control--inline mb-0">
-            <label class="c-form__label">Family Name</label>
+            <label class="c-form__label">Last Name</label>
             <span class="u-text-secondary">{{ data.person.family_name }}</span>
           </div>
           <div class="col-md-6 c-form__control c-form__control--inline mb-0">
             <label class="c-form__label">Email</label>
             <span class="u-text-secondary">{{ data.person.username }}</span>
+          </div>
+          <div class="col-md-6 c-form__control c-form__control--inline mb-0">
+            <label class="c-form__label">Email Verified</label>
+            <VBadge
+              :type="data.cognito.email_verified ? 'success' : 'danger'"
+            >{{ data.cognito.email_verified ? "Verified" : "Not Verified" }}</VBadge>
+          </div>
+          <div class="col-md-6 c-form__control c-form__control--inline mb-0">
+            <label class="c-form__label">Enabled</label>
+            <VBadge :type="data.person.enabled ? 'success' : 'danger'">
+              {{ data.person.enabled ? "Enabled" : "Disabled" }}
+            </VBadge>
           </div>
           <div class="col-md-6 c-form__control c-form__control--inline mb-0">
             <label class="c-form__label">Created At</label>
@@ -66,38 +78,14 @@
             <span
               v-for="group in data.person.groups"
               class="c-badge u-bg-primary"
-              >{{ group.label }}</span
-            >
+              >{{ group.label }}</span>
           </div>
         </div>
-        <div class="row mt-3 mb-3">
-          <div class="col-md-6 c-form__control c-form__control--inline mb-0">
-            <label class="c-form__label">Email Verified</label>
-            <VBtn
-              v-if="can('person.toggle.verify-email')"
-              :loader="loaderRequest"
-              @action="toggleVerifyEmail"
-              type="button"
-              class="c-btn--small"
-              :btn="data.cognito.email_verified ? 'success' : 'danger'"
-            >
-              {{ data.cognito.email_verified ? "Verified" : "Not Verified" }}
-            </VBtn>
-            <span class="u-text-secondary">(Click to Change)</span>
-          </div>
-          <div class="col-md-6 c-form__control c-form__control--inline mb-0">
-            <label class="c-form__label">Enabled</label>
-            <VBtn
-              v-if="can('person.toggle.enable')"
-              :loader="loaderRequest"
-              @action="toggleEnabled"
-              type="button"
-              class="c-btn--small"
-              :btn="data.person.enabled ? 'success' : 'danger'"
-            >
-              {{ data.person.enabled ? "Enabled" : "Disabled" }}
-            </VBtn>
-            <span class="u-text-secondary">(Click to Change)</span>
+        <h4 v-if="data.person.fields ? data.person.fields.length:false" class="c-form__title mb-2">More Info</h4>
+        <div v-if="data.person.fields ? data.person.fields.length : false" class="row mb-3">
+          <div v-for="field in data.person.fields" class="col-md-6 c-form__control c-form__control--inline mb-0">
+            <label class="c-form__label">{{ field.label }}</label>
+            <span class="u-text-secondary">{{ field.value != null ? field.value.value : '' }}</span>
           </div>
         </div>
         <h4 class="c-form__title mb-2">Cognito Details</h4>
@@ -124,14 +112,14 @@
         :id="id"
       />
     </VCard>
-    <VCard :loader="loaderRequest" title="Product">
+    <VCard :loader="loaderRequest" title="Assigned Products">
       <template #header>
         <VBtn
           :to="`/person-product/create/${id}`"
           v-if="can('person.product.store')"
           class="m-0 c-btn--small"
         >
-          Create
+          Assign Product
         </VBtn>
       </template>
       <VTable
@@ -262,7 +250,7 @@ export default {
   },
   created() {
     this.resetError();
-    this.setTitle("Person");
+    this.setTitle("Manage Persons");
     this.show();
     this.setBreadcrumb([
       {

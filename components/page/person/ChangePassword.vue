@@ -22,7 +22,10 @@
           />
         </div>
       </div>
-      <VBtn :loader="loaderRequest">Change Password</VBtn>
+      <div class="mt-1">
+        <VBtn :loader="loaderRequest">Change Password</VBtn>
+        <VBtn btn="danger" @action="show = false" :loader="loaderRequest">CANCEL</VBtn>
+      </div>
     </form>
   </VModal>
 </template>
