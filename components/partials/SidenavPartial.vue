@@ -1,6 +1,6 @@
 <template>
   <div class="c-sidenav js-sidenav">
-    <!-- <vue-custom-scrollbar> -->
+    <vue-custom-scrollbar>
     <ul class="c-sidenav__list" role="presentation">
       <li class="c-sidenav__header">
         <NuxtLink to="/" class="c-logo">
@@ -47,6 +47,7 @@
         btnClass="c-sidenav__link"
         position="right"
         wrapper="li"
+        fixed
       >
         <template #btn>
           <VIcon width="24" height="23" icon="note-1" />
@@ -98,7 +99,7 @@
         </template>
       </VDropdown>
     </ul>
-    <!-- </vue-custom-scrollbar> -->
+    </vue-custom-scrollbar>
   </div>
 </template>
 

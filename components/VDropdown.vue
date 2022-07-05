@@ -2,7 +2,7 @@
   <!-- Dynamic Wrapper -->
   <component
     :is="wrapper"
-    :class="[dropdownClass, isActive ? 'is-active' : '']"
+    :class="[dropdownClass, { 'is-active': isActive }]"
     v-click-outside="blur"
   >
     <!-- Dropdown Button -->
@@ -21,7 +21,7 @@
         ref="menu"
         v-if="this.$slots.menu"
         v-show="isActive"
-        :class="menuClass"
+        :class="[menuClass, { 'u-position-fixed': fixed }]"
       >
         <slot name="menu"></slot>
       </div>
@@ -46,6 +46,10 @@ export default {
       type: String,
       default: "div",
     },
+    fixed: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   data() {
@@ -57,7 +61,7 @@ export default {
   methods: {
     //close filter dropdown on scroll
     handleScroll() {
-      if (this.isFilter) this.isActive = false;
+      if (this.fixed) this.isActive = false;
     },
 
     toggle() {
@@ -72,46 +76,93 @@ export default {
       }
     },
 
-    // handle dropdown close to the edge + filter menu position
+    // handle dropdown close to the edge + fixed menu position
     reposition() {
+      // console.log("repositioning!");
       // using nestTick to let the element show up
       this.$nextTick(() => {
         let menu = this.$refs.menu;
-        let rect = menu.getBoundingClientRect();
-        let btnBottom = this.$refs.btn.getBoundingClientRect().bottom;
+        let menuRect = menu.getBoundingClientRect();
+        let btn = {
+          rect: this.$refs.btn.getBoundingClientRect(),
+          top: function () {
+            return this.rect.top;
+          },
+          right: function () {
+            return this.rect.right;
+          },
+          bottom: function () {
+            return this.rect.bottom;
+          },
+          left: function () {
+            return this.rect.left;
+          },
+        };
 
+        //handle fixed position
+        if (this.fixed) {
+          this.FRepos(menu, btn);
+        }
         // vertical
-        if (rect.right + 10 > window.innerWidth) {
+        if (menuRect.right + 10 > window.innerWidth) {
           this.VRepos(menu);
         }
         // horizontal
-        if (rect.bottom + 10 > window.innerHeight) {
+        if (menuRect.bottom + 10 > window.innerHeight) {
           this.HRepos(menu);
-        }
-        //handle filter fixed position
-        if (this.isFilter) {
-          this.FRepos(menu, btnBottom);
         }
       });
     },
 
     HRepos(m) {
       // console.log("Horizontal reposition");
-      m.classList.add("is-bottom");
-      m.style.top = "unset";
-      m.style.bottom = 0;
+      if (this.fixed) {
+        //do nothing
+      } else {
+        m.classList.add("is-bottom");
+        m.style.top = "unset";
+        m.style.bottom = 0;
+      }
     },
 
     VRepos(m) {
       // console.log("Vertical reposition");
-      m.style.left = "unset";
-      m.style.right = 0;
+      if (this.fixed) {
+        //do nothing
+      } else {
+        m.style.left = "unset";
+        m.style.right = 0;
+      }
     },
 
-    FRepos(m, pos) {
-      // console.log("Filter reposition");
-      m.style.top = `${pos}px`;
-      m.style.bottom = "unset";
+    FRepos(m, btn) {
+      // console.log("Fixed reposition");
+      let margin = 10;
+      switch (this.position) {
+        case "right":
+          {
+            //left = btn.rightPosition + margin
+            m.style.left = `${btn.right() + margin}px`;
+            //right = "unset"
+            m.style.right = "unset";
+            //top = btn.topPosition
+            m.style.top = `${btn.top()}px`;
+            //bottom = unset
+            m.style.bottom = "unset";
+          }
+          break;
+        case "bottom": {
+          //left = btn.leftPosition
+          m.style.left = `${btn.left()}px`;
+          //right = "unset"
+          m.style.right = "unset";
+          //top = btn.bottomPosition + margin
+          m.style.top = `${btn.bottom() + margin}px`;
+          //bottom = unset
+          m.style.bottom = "unset";
+        }
+      }
+      // console.log(btn.top(), btn.right(), btn.bottom(), btn.left());
     },
   },
 

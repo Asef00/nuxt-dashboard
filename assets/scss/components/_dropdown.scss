@@ -32,8 +32,8 @@ $arrow-y-pos: 20px;
   //----Positioning----
   //right
   &.c-dropdown__menu--right {
-    left: calc(100% + 15px);
-    top: 0;
+    // left: calc(100% + 15px);
+    // top: 0;
 
     @include mq(lg) {
       &::before {
