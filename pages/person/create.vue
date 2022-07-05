@@ -1,33 +1,33 @@
 <template>
-  <VCard title="Create new Person">
+  <VCard title="Create New">
     <template #header>
-      <VBtn to="/person" class="m-0 c-btn--small"> List </VBtn>
+      <VBtn to="/person" class="m-0 c-btn--small"> List Persons</VBtn>
       <VBtn
         to="/person/create-cognito"
         v-if="can('person.cognito.store')"
         class="m-0 c-btn--small"
       >
-        Add form Cognito
+        Add From Cognito
       </VBtn>
     </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">
         <div class="col-md-6">
           <VInput
-            @validation="validate('name')"
-            :error="errorMessage('name')"
-            label="Name"
-            v-model="payload.name"
-            placeholder="Please enter name"
+            @validation="validate('first_name')"
+            :error="errorMessage('first_name')"
+            label="First Name"
+            v-model="payload.first_name"
+            placeholder="Please enter first name"
           />
         </div>
         <div class="col-md-6">
           <VInput
-            @validation="validate('family_name')"
-            :error="errorMessage('family_name')"
-            label="Family Name"
-            v-model="payload.family_name"
-            placeholder="Please enter family name"
+            @validation="validate('last_name')"
+            :error="errorMessage('last_name')"
+            label="Last Name"
+            v-model="payload.last_name"
+            placeholder="Please enter last name"
           />
         </div>
         <div class="col-md-6">
@@ -38,16 +38,32 @@
             v-model="payload.username"
             placeholder="Please enter email"
           />
-          <VSwitch
-            label="Email Verified"
-            v-model="payload.email_verified"
-            :checked="payload.email_verified"
-          />
-          <VSwitch
-            label="Set Password"
-            v-model="setPassword"
-            :checked="setPassword"
-          />
+          <div class="row mt-4">
+            <div class="col">
+              <VSwitch
+                label="Email Verified"
+                v-model="payload.email_verified"
+                :checked="payload.email_verified"
+                inline
+              />
+            </div>
+            <div class="col">
+              <VSwitch
+                label="Set Password"
+                v-model="setPassword"
+                :checked="setPassword"
+                inline
+              />
+            </div>
+            <div class="col">
+              <VSwitch
+                label="Enabled"
+                v-model="payload.enable"
+                :checked="payload.enable"
+                inline
+              />
+            </div>
+          </div>
         </div>
         <div class="col-md-6">
           <transition>
@@ -56,13 +72,17 @@
               @validation="validate('password')"
               :error="errorMessage('password')"
               label="Password"
+              type="password"
               v-model="payload.password"
               placeholder="Please enter password"
             />
           </transition>
         </div>
       </div>
-      <VBtn :loader="loaderRequest">SAVE</VBtn>
+      <div class="mt-5">
+        <VBtn :loader="loaderRequest">SAVE</VBtn>
+        <VBtn btn="danger" to="/person" :loader="loaderRequest">CANCEL</VBtn>
+      </div>
     </form>
   </VCard>
 </template>
@@ -77,11 +97,12 @@ export default {
     return {
       setPassword: false,
       payload: {
-        name: "",
-        family_name: "",
+        first_name: "",
+        last_name: "",
         username: "",
         email_verified: false,
         password: "",
+        enable: true,
       },
     };
   },
@@ -89,14 +110,15 @@ export default {
     create() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, { abortEarly: false })
+        .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
           let payload = {
-            name: this.payload.name,
-            family_name: this.payload.family_name,
+            name: this.payload.first_name,
+            family_name: this.payload.last_name,
             username: this.payload.username,
             email_verified: this.payload.email_verified,
+            enabled: this.payload.enable,
           };
           if (this.setPassword) {
             payload.password = this.payload.password;
@@ -117,30 +139,32 @@ export default {
     },
     validation() {
       let roles = {
-        name: Yup.string().required(),
-        family_name: Yup.string().required(),
+        first_name: Yup.string().required(),
+        last_name: Yup.string().required(),
         username: Yup.string().email().required(),
         email_verified: Yup.bool().nullable(),
+        enable: Yup.bool().nullable(),
       };
       if (this.setPassword) {
-        roles = { ...roles, password: Yup.string().nullable().required() };
+        roles = {...roles, password: Yup.string().nullable().required()};
       }
       return Yup.object(roles);
     },
     resetError() {
       this.$store.commit("person/RESET_ERROR");
       this.errors = {
-        name: "",
-        family_name: "",
+        first_name: "",
+        last_name: "",
         username: "",
         email_verified: "",
         password: "",
+        enable: "",
       };
     },
   },
   created() {
     this.resetError();
-    this.setTitle("Person");
+    this.setTitle("Manage Persons");
     this.setBreadcrumb([
       {
         to: "/person",

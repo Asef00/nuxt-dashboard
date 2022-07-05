@@ -171,19 +171,35 @@ const mixin = {
       return false;
     },
     setPaginate(page) {
-      this.$router.push({ query: { ...this.$route.query, page: page } });
-      return this.getPaginate();
+      this.$store.commit('SET_AXIOS_PARAMS', {page: page});
     },
     setLimit(limit) {
-      this.$router.push({ query: { ...this.$route.query, limit: limit } });
-      return this.getLimit();
+      this.$store.commit('SET_AXIOS_PARAMS', {limit: limit});
     },
-    getPaginate() {
-      return this.$route.query.page ?? 1;
+    setWith(relation) {
+      if (relation instanceof Array) {
+        let r = ''
+        for (let i of relation) {
+          if (r === '') {
+            r += i
+          } else {
+            r += ',' + i
+          }
+        }
+        this.$store.commit('SET_AXIOS_PARAMS', {with: r});
+      } else {
+        this.$store.commit('SET_AXIOS_PARAMS', {with: relation});
+      }
     },
-    getLimit() {
-      return this.$route.query.limit ?? 25;
+    setAxiosParams(param) {
+      return this.$store.commit('SET_AXIOS_PARAMS', param)
     },
+    getAxiosParams() {
+      return this.$store.state.axiosParams
+    },
+    resetAxiosParams() {
+      return this.$store.commit('RESET_AXIOS_PARAMS')
+    }
   },
 };
 
