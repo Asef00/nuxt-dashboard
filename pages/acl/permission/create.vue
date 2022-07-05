@@ -339,7 +339,6 @@ export default {
           this.data.conditions.value = "";
         })
         .catch((err) => {
-          console.log(err.inner);
           this.$toast.error("Please fill all field");
         });
     },

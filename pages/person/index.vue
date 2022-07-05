@@ -1,19 +1,19 @@
 <template>
-  <VCard :loader="loaderRequest" title="List Person">
+  <VCard :loader="loaderRequest" title="List Persons">
     <template #header>
       <VBtn
         to="/person/create"
         v-if="can('person.store')"
         class="m-0 c-btn--small"
       >
-        Create
+        Create New
       </VBtn>
       <VBtn
         to="/person/create-cognito"
         v-if="can('person.cognito.store')"
         class="m-0 c-btn--small"
       >
-        Add form Cognito
+        Add From Cognito
       </VBtn>
     </template>
     <VTable
@@ -35,17 +35,18 @@ export default {
       detailsItemId: 0,
       table: {
         columns: [
-          { key: "id", label: "#" },
-          { key: "full_name", label: "Full Name" },
-          { key: "username", label: "Username" },
-          { key: "status", label: "Status" },
+          {key: "id", label: "#"},
+          {key: "full_name", label: "Full Name"},
+          {key: "username", label: "Username"},
+          {key: "status", label: "Status"},
+          {key: "roles", label: "Roles"},
           {
             key: "created_at",
             label: "Created At",
-            class: "u-text-center",
+            // class: "u-text-center",
             filterable: true,
           },
-          { key: "updated_at", label: "Updated At", class: "u-text-center" },
+          {key: "updated_at", label: "Updated At", class: "u-text-center"},
           {
             key: "action",
             label: '<img src="/img/gear.svg" alt="" />',
@@ -72,20 +73,26 @@ export default {
               ? `<span class="c-badge u-bg-success">Enable</span>`
               : `<span class="c-badge u-bg-danger">Disable</span>`;
           },
+          roles(item) {
+            let data = ''
+            for (let role of item.roles) {
+              data += '<span class="c-badge u-bg-primary mr-1">'+role.label+'</span>'
+            }
+            return data;
+          },
           //REQUIRED
-          rowClass() {},
+          rowClass() {
+          },
         },
       },
     };
   },
   methods: {
-    async list(page = null, limit = null) {
+    async list() {
       this.startLoading();
+      this.setWith('roles')
       this.$store.commit("person/RESET_ERROR");
-      await this.$store.dispatch("person/list", {
-        page: page ?? this.getPaginate(),
-        limit: limit ?? this.getLimit(),
-      });
+      await this.$store.dispatch("person/list");
       let err = this.handleError(this.$store.state.person.error);
       if (!err) {
         this.table.items = this.$store.state.person.list;
@@ -94,22 +101,23 @@ export default {
     },
     changePage(val) {
       this.setPaginate(val);
-      this.list(val, this.getLimit());
+      this.list();
     },
     changePerPage(val) {
       this.setLimit(val);
       this.setPaginate(1);
-      this.list(1, val);
+      this.list();
     },
   },
   created() {
-    this.setTitle("Person");
+    this.setTitle("Manage Persons");
     this.setBreadcrumb([
       {
         to: "/person",
         name: "Person",
       },
     ]);
+    this.resetAxiosParams();
     this.list();
   },
 };

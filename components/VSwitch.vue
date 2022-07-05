@@ -1,5 +1,5 @@
 <template>
-  <div class="c-form__control">
+  <div :class="['c-form__control', { 'c-form__control--inline': inline }]">
     <label
       :class="[
         `c-switch`,
@@ -30,7 +30,10 @@ export default {
       type: Boolean,
       default: false,
     },
-
+    inline: {
+      type: Boolean,
+      default: false
+    },
     label: {
       type: String,
     },

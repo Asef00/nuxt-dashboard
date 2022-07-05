@@ -3,6 +3,7 @@ export const state = () => ({
   error: null,
   pageHeaderTitle: '',
   pageHeaderBreadcrumb: [],
+  axiosParams: {}
 })
 
 export const getters = {
@@ -14,6 +15,9 @@ export const getters = {
   },
   pageHeaderBreadcrumb(state) {
     return state.pageHeaderBreadcrumb
+  },
+  axiosParams(state) {
+    return state.axiosParams
   }
 }
 
@@ -35,5 +39,11 @@ export const mutations = {
   },
   SET_PAGE_HEADER_BREADCRUMB(state, data) {
     state.pageHeaderBreadcrumb = data
-  }
+  },
+  RESET_AXIOS_PARAMS(state) {
+    state.axiosParams = {}
+  },
+  SET_AXIOS_PARAMS(state, data) {
+    state.axiosParams = {...state.axiosParams, ...data}
+  },
 }
