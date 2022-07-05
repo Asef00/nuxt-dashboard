@@ -1,8 +1,10 @@
+$height: 28px;
+
 .c-search {
 }
 
 .c-search__input {
-  height: 28px;
+  height: $height;
   padding: 0 1em;
   @include input-border;
   @include font-size(13px);
@@ -20,4 +22,12 @@
   @include mq(lg) {
     // width: 20em;
   }
+}
+
+.c-search__btn {
+  height: $height;
+  min-width: auto;
+  padding: 0 1em;
+  margin: 0;
+  margin-left: 0.5em;
 }

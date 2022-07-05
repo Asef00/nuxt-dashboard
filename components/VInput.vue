@@ -1,9 +1,12 @@
 <template>
   <div class="c-form__control">
+    <!-- input label -->
     <label v-if="label || this.$slots.label" class="c-form__label">
       <slot name="label">{{ label }}</slot>
     </label>
+
     <div class="d-flex align-items-center">
+      <!-- if date type -->
       <datepicker
         v-if="type == 'date'"
         @selected="selectedDate($event)"
@@ -17,6 +20,7 @@
         calendar-class="c-datepicker__calendar"
       ></datepicker>
 
+      <!-- else -->
       <input
         v-else
         @keyup="$emit('validation')"
@@ -26,14 +30,17 @@
         :value="value"
         :type="isPassword ? computedType : type"
         :placeholder="placeholder"
-        :class="{
-          'is-invalid': hasError(),
-          'c-form__password': isPassword,
-        }"
+        :class="[
+          inputClass,
+          {
+            'is-invalid': hasError(),
+            'c-form__password': isPassword,
+          },
+        ]"
         :disabled="disabled"
-        class="c-form__input"
       />
 
+      <!-- if password type -->
       <span
         v-if="type == 'password'"
         @click="togglePassword()"
@@ -41,6 +48,8 @@
       >
         <fa :icon="showPassword ? 'eye' : 'eye-slash'" />
       </span>
+
+      <slot name="btn"></slot>
     </div>
     <span v-if="hasError()" class="c-form__error">{{ error }}</span>
   </div>
@@ -83,7 +92,14 @@ export default {
       type: String,
       default: "dd/MM/yyyy",
     },
-    inline: Boolean,
+    inline: {
+      type: Boolean,
+      default: false,
+    },
+    inputClass: {
+      type: String,
+      default: "c-form__input",
+    },
   },
 
   data() {

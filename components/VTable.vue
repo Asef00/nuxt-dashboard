@@ -17,7 +17,18 @@
       </div>
       <div v-else></div>
       <div v-if="isSearchable" class="c-search">
-        <input class="c-search__input" type="text" placeholder="Search..."/>
+        <VInput
+          inputClass="c-search__input"
+          placeholder="Search..."
+          class="m-0"
+          v-model="searchVal"
+        >
+          <template #btn>
+            <VBtn class="c-btn--small c-search__btn" @action="filter">
+              Filter
+            </VBtn>
+          </template>
+        </VInput>
       </div>
     </div>
 
@@ -250,6 +261,7 @@ export default {
       endDate: "",
 
       dropdownIsActive: false,
+      searchVal: "",
     };
   },
 
@@ -312,6 +324,11 @@ export default {
         this.list = list;
       }
     },
+
+    //search filter
+    filter() {
+      this.$emit("search", this.searchVal);
+    },
   },
 
   watch: {
@@ -336,4 +353,5 @@ export default {
 @import "~/assets/scss/components/datatable";
 @import "~/assets/scss/components/table";
 @import "~/assets/scss/components/pagination";
+@import "~/assets/scss/components/search";
 </style>
