@@ -1,7 +1,7 @@
 <template>
   <NuxtLink
     v-if="to"
-    :class="['c-btn', classBtn, disabled ? 'is-disabled' : '']"
+    :class="['c-btn', classBtn, { 'is-disabled': isDisabled }]"
     :to="to"
     :event="disabled ? '' : 'click'"
   >
@@ -11,7 +11,7 @@
   <button
     v-else
     @click="$emit('action')"
-    :disabled="disabled"
+    :disabled="isDisabled"
     :type="type"
     :class="['c-btn', classBtn]"
   >
@@ -45,11 +45,14 @@ export default {
       default: false,
     },
   },
+
   data() {
     return {
       colorLoader: "#fff",
+      isDisabled: this.disabled,
     };
   },
+
   computed: {
     classBtn() {
       switch (this.btn) {
@@ -92,9 +95,10 @@ export default {
       }
     },
   },
+
   watch: {
     loader(value) {
-      this.disabled = value;
+      this.isDisabled = value;
     },
   },
 };
