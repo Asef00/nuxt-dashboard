@@ -41,6 +41,10 @@ export default {
       type: String,
       default: "light",
     },
+    menuGap: {
+      type: Number,
+      default: 10,
+    },
     position: String,
     wrapper: {
       type: String,
@@ -55,11 +59,14 @@ export default {
   data() {
     return {
       isActive: false,
+      btn: {},
+      menu: {},
+      menuRect: {},
     };
   },
 
   methods: {
-    //close filter dropdown on scroll
+    //close fixed dropdown on scroll
     handleScroll() {
       if (this.fixed) this.isActive = false;
     },
@@ -76,93 +83,92 @@ export default {
       }
     },
 
-    // handle dropdown close to the edge + fixed menu position
+    //handle dropdown close to the edge + fixed menu position
     reposition() {
-      // console.log("repositioning!");
-      // using nestTick to let the element show up
+      //using nestTick to let the element show up
       this.$nextTick(() => {
-        let menu = this.$refs.menu;
-        let menuRect = menu.getBoundingClientRect();
-        let btn = {
-          rect: this.$refs.btn.getBoundingClientRect(),
-          top: function () {
-            return this.rect.top;
-          },
-          right: function () {
-            return this.rect.right;
-          },
-          bottom: function () {
-            return this.rect.bottom;
-          },
-          left: function () {
-            return this.rect.left;
-          },
-        };
+        //update data variables
+        this.getData();
 
         //handle fixed position
         if (this.fixed) {
-          this.FRepos(menu, btn);
+          this.FRepos();
         }
-        // vertical
-        if (menuRect.right + 10 > window.innerWidth) {
-          this.VRepos(menu);
+
+        //vertical
+        console.log("vertical", this.menuRect.bottom + 10, window.innerHeight);
+        if (this.menuRect.bottom + 10 > window.innerHeight) {
+          this.VRepos();
         }
-        // horizontal
-        if (menuRect.bottom + 10 > window.innerHeight) {
-          this.HRepos(menu);
+
+        //horizontal
+        console.log("horizontal", this.menuRect.right + 10, window.innerWidth);
+        if (this.menuRect.right + 10 > window.innerWidth) {
+          this.HRepos();
         }
       });
     },
 
-    HRepos(m) {
-      // console.log("Horizontal reposition");
+    VRepos() {
+      this.menu.classList.add("is-bottom"); //to change arrow position (CSS)
+
       if (this.fixed) {
-        //do nothing
+        // console.log(this.btn.bottom(), this.menu.offsetHeight);
+        this.menu.style.top = `${this.btn.bottom() - this.menu.offsetHeight}px`;
+        this.menu.style.bottom = "unset";
       } else {
-        m.classList.add("is-bottom");
-        m.style.top = "unset";
-        m.style.bottom = 0;
+        this.menu.style.top = "unset";
+        this.menu.style.bottom = 0;
       }
     },
 
-    VRepos(m) {
-      // console.log("Vertical reposition");
+    HRepos() {
+      this.menu.style.left = "unset";
+
       if (this.fixed) {
-        //do nothing
+        this.menu.style.right = this.btn.right();
       } else {
-        m.style.left = "unset";
-        m.style.right = 0;
+        this.menu.style.right = 0;
       }
     },
 
-    FRepos(m, btn) {
-      // console.log("Fixed reposition");
-      let margin = 10;
+    FRepos() {
       switch (this.position) {
         case "right":
           {
-            //left = btn.rightPosition + margin
-            m.style.left = `${btn.right() + margin}px`;
-            //right = "unset"
-            m.style.right = "unset";
-            //top = btn.topPosition
-            m.style.top = `${btn.top()}px`;
-            //bottom = unset
-            m.style.bottom = "unset";
+            this.menu.style.left = `${this.btn.right() + this.menuGap}px`;
+            this.menu.style.right = "unset";
+            this.menu.style.top = `${this.btn.top()}px`;
+            this.menu.style.bottom = "unset";
           }
           break;
         case "bottom": {
-          //left = btn.leftPosition
-          m.style.left = `${btn.left()}px`;
-          //right = "unset"
-          m.style.right = "unset";
-          //top = btn.bottomPosition + margin
-          m.style.top = `${btn.bottom() + margin}px`;
-          //bottom = unset
-          m.style.bottom = "unset";
+          this.menu.style.left = `${this.btn.left()}px`;
+          this.menu.style.right = "unset";
+          this.menu.style.top = `${this.btn.bottom() + this.menuGap}px`;
+          this.menu.style.bottom = "unset";
         }
       }
-      // console.log(btn.top(), btn.right(), btn.bottom(), btn.left());
+    },
+
+    getData() {
+      this.menu = this.$refs.menu;
+      this.menuRect = this.menu.getBoundingClientRect();
+      this.btn = {
+        rect: this.$refs.btn.getBoundingClientRect(),
+        top: function () {
+          return this.rect.top;
+        },
+        right: function () {
+          return this.rect.right;
+        },
+        bottom: function () {
+          return this.rect.bottom;
+        },
+        left: function () {
+          return this.rect.left;
+        },
+      };
     },
   },
 
@@ -199,6 +205,16 @@ export default {
 
   created: function () {
     window.addEventListener("scroll", this.handleScroll);
+
+    //using nestTick to let the element show up
+    this.$nextTick(() => {
+      //init data variables
+      this.getData();
+      //handle fixed position
+      if (this.fixed) {
+        this.FRepos();
+      }
+    });
   },
 
   destroyed: function () {
