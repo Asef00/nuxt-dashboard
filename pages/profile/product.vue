@@ -66,9 +66,7 @@ export default {
     this.list()
   },
   mounted() {
-    console.log(this.$route.meta);
-    console.log(this.$route.meta.permission);
-    console.log(this.$auth.user.permission_names);
+
   }
 }
 </script>

@@ -30,6 +30,7 @@ $switch-width: 36px;
   color: #2e2e33;
   display: block;
   @include font-size(14px);
+  white-space: nowrap;
 }
 
 .c-switch__slider {

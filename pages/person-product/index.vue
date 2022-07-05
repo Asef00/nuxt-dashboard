@@ -56,13 +56,10 @@ export default {
     }
   },
   methods: {
-    async list(page = null, limit = null) {
+    async list() {
       this.startLoading();
       this.$store.commit('person/product/RESET_LIST')
-      await this.$store.dispatch("person/product/list", {
-        page: page ?? this.getPaginate(),
-        limit: limit ?? this.getLimit(),
-      });
+      await this.$store.dispatch("person/product/list");
       let err = this.handleError(this.$store.state.person.product.error);
       if (!err) {
         this.table.items = this.$store.state.person.product.list;
@@ -75,16 +72,17 @@ export default {
     },
     changePage(val) {
       this.setPaginate(val);
-      this.list(val, this.getLimit());
+      this.list();
     },
     changePerPage(val) {
       this.setLimit(val);
       this.setPaginate(1);
-      this.list(1, val);
+      this.list();
     },
   },
   created() {
-    this.list(this.getPaginate(), this.getLimit())
+    this.resetAxiosParams();
+    this.list()
     this.setTitle('Person Product')
     this.setBreadcrumb([
       {
