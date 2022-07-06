@@ -189,8 +189,8 @@
 
     <VCard title="Inline Form Controls">
       <template #header>
-        <VBtn class="m-0 c-btn--small" btn="info">Button</VBtn>
-        <VBtn class="m-0 c-btn--small" btn="danger">Button</VBtn>
+        <VBtn size="sm" class="m-0" btn="info">Button</VBtn>
+        <VBtn size="sm" class="m-0" btn="danger">Button</VBtn>
       </template>
       <form action="" class="c-form">
         <div class="row mb-3">
@@ -301,7 +301,7 @@
 
     <VCard title="Card Long Title Sample">
       <template #header>
-        <VBtn class="m-0 c-btn--small" btn="success">Success</VBtn>
+        <VBtn size="sm" class="m-0" btn="success">Success</VBtn>
       </template>
       <p class="mb-3">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam
@@ -499,7 +499,7 @@ export default {
             sortable: true,
             filterType: "select",
           },
-          { key: "roles", label: "Roles", filterType: 'multiselect' },
+          { key: "roles", label: "Roles", filterType: "multiselect" },
           {
             key: "created_at",
             label: "Created At",
@@ -511,6 +511,7 @@ export default {
             key: "updated_at",
             label: "Updated At",
             class: "u-text-center",
+            filterType: "date",
             sortable: true,
           },
           {

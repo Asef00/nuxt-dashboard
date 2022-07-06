@@ -1,11 +1,12 @@
 <template>
   <VCard title="Create New">
     <template #header>
-      <VBtn to="/person" class="m-0 c-btn--small"> List Persons</VBtn>
+      <VBtn to="/person" size="sm" class="m-0"> List Persons</VBtn>
       <VBtn
         to="/person/create-cognito"
         v-if="can('person.cognito.store')"
-        class="m-0 c-btn--small"
+        size="sm"
+        class="m-0"
       >
         Add From Cognito
       </VBtn>
@@ -110,7 +111,7 @@ export default {
     create() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           let payload = {
@@ -146,7 +147,7 @@ export default {
         enable: Yup.bool().nullable(),
       };
       if (this.setPassword) {
-        roles = {...roles, password: Yup.string().nullable().required()};
+        roles = { ...roles, password: Yup.string().nullable().required() };
       }
       return Yup.object(roles);
     },

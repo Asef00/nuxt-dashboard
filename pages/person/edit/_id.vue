@@ -1,16 +1,19 @@
 <template>
   <VCard title="Edit Details">
     <template #header>
-      <VBtn type="button"
+      <VBtn
+        type="button"
         @action="showChangePasswordModal = true"
-        class="m-0 c-btn--small">
+        size="sm"
+        class="m-0"
+      >
         Change Password
       </VBtn>
-      <VBtn :to="`/person/${id}`" class="m-0 c-btn--small"> View Details </VBtn>
-      <VBtn :to="`/person-product/create/${id}`" class="m-0 c-btn--small">
+      <VBtn :to="`/person/${id}`" size="sm" class="m-0"> View Details </VBtn>
+      <VBtn :to="`/person-product/create/${id}`" size="sm" class="m-0">
         Assign Product
       </VBtn>
-      <VBtn to="/person" class="m-0 c-btn--small"> List Persons </VBtn>
+      <VBtn to="/person" size="sm" class="m-0"> List Persons </VBtn>
     </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">
@@ -60,26 +63,26 @@
             label="Group"
           />
         </div>
-       <div class="container-fluid">
-         <div class="row mt-2">
-           <div class="col-auto">
-             <VSwitch
-               label="Email Verified"
-               v-model="payload.email_verified"
-               :checked="payload.email_verified"
-               inline
-             />
-           </div>
-           <div class="col-auto">
-             <VSwitch
-               label="Enabled"
-               v-model="payload.enable"
-               :checked="payload.enable"
-               inline
-             />
-           </div>
-         </div>
-       </div>
+        <div class="container-fluid">
+          <div class="row mt-2">
+            <div class="col-auto">
+              <VSwitch
+                label="Email Verified"
+                v-model="payload.email_verified"
+                :checked="payload.email_verified"
+                inline
+              />
+            </div>
+            <div class="col-auto">
+              <VSwitch
+                label="Enabled"
+                v-model="payload.enable"
+                :checked="payload.enable"
+                inline
+              />
+            </div>
+          </div>
+        </div>
       </div>
       <template v-if="list.fields.length">
         <h4 class="c-form__title">More Info</h4>
@@ -96,10 +99,10 @@
                 :label="field.label"
                 v-model="payload[field.name]"
                 :placeholder="
-                        field.placeholder == null
-                          ? `Enter your ${field.label.toLowerCase()}`
-                          : field.placeholder
-                      "
+                  field.placeholder == null
+                    ? `Enter your ${field.label.toLowerCase()}`
+                    : field.placeholder
+                "
               />
             </div>
             <div
@@ -114,10 +117,10 @@
                 :label="field.label"
                 v-model="payload[field.name]"
                 :placeholder="
-                        field.placeholder == null
-                          ? `Enter your ${field.label.toLowerCase()}`
-                          : field.placeholder
-                      "
+                  field.placeholder == null
+                    ? `Enter your ${field.label.toLowerCase()}`
+                    : field.placeholder
+                "
               />
             </div>
             <div
@@ -131,10 +134,10 @@
                 :error="errorMessage(field.name)"
                 :list="field.data_set"
                 :placeholder="
-                        field.placeholder == null
-                          ? `Select your ${field.label.toLowerCase()}`
-                          : field.placeholder
-                      "
+                  field.placeholder == null
+                    ? `Select your ${field.label.toLowerCase()}`
+                    : field.placeholder
+                "
                 :label="field.label"
               />
             </div>
@@ -190,27 +193,31 @@ export default {
     update() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           let fields = [];
           for (let field of this.list.fields) {
             fields.push({
               field_name_id: field.id,
-              access: field.value == null ? field.default_access : field.value.access,
-              value: this.payload[field.name] instanceof Date ? this.payload[field.name].toLocaleDateString() : this.payload[field.name]
-            })
+              access:
+                field.value == null ? field.default_access : field.value.access,
+              value:
+                this.payload[field.name] instanceof Date
+                  ? this.payload[field.name].toLocaleDateString()
+                  : this.payload[field.name],
+            });
           }
           let payload = {
             name: this.payload.first_name,
             family_name: this.payload.last_name,
-            email_verified:this.payload.email_verified,
-            enabled:this.payload.enable,
+            email_verified: this.payload.email_verified,
+            enabled: this.payload.enable,
             role_ids: this.payload.role.map((i) => i.id),
             group_ids: this.payload.group.map((i) => i.id),
             fields: fields,
           };
-          await this.$store.dispatch("person/update", {id: this.id, payload});
+          await this.$store.dispatch("person/update", { id: this.id, payload });
           this.stopLoading();
           const err = this.handleError(this.$store.state.person.error);
           if (!err) {
@@ -226,7 +233,7 @@ export default {
     },
     async show() {
       this.startLoading();
-      await this.$store.dispatch("person/show", {id: this.id});
+      await this.$store.dispatch("person/show", { id: this.id });
       let err = this.handleError(this.$store.state.person.error);
       if (!err) {
         let data = this.$store.state.person.item;
@@ -239,7 +246,8 @@ export default {
         this.list.fields = data.fields;
         for (let field of this.list.fields) {
           this.errors[field.name] = "";
-          this.payload[field.name] = field.value != null ? field.value.value : field.value;
+          this.payload[field.name] =
+            field.value != null ? field.value.value : field.value;
         }
       }
       this.stopLoading();

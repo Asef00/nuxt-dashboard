@@ -4,7 +4,8 @@
       <VBtn
         to="/acl/role/create"
         v-if="can('role.store')"
-        class="m-0 c-btn--small"
+        size="sm"
+        class="m-0"
       >
         Create
       </VBtn>
@@ -21,7 +22,7 @@
       @close="showDetails = false"
       title="Role details"
     >
-      <Details :id="detailsItemId"/>
+      <Details :id="detailsItemId" />
     </VModal>
   </VCard>
 </template>
@@ -42,11 +43,11 @@ export default {
       detailsItemId: 0,
       table: {
         columns: [
-          {key: "id", label: "#"},
-          {key: "name", label: "Name"},
-          {key: "label", label: "Label"},
-          {key: "created_at", label: "Created At"},
-          {key: "updated_at", label: "Updated At"},
+          { key: "id", label: "#" },
+          { key: "name", label: "Name" },
+          { key: "label", label: "Label" },
+          { key: "created_at", label: "Created At" },
+          { key: "updated_at", label: "Updated At" },
           {
             key: "action",
             label: '<img src="/img/gear.svg" alt="" />',
@@ -67,8 +68,7 @@ export default {
             return _this.dateFormat(item.updated_at);
           },
           //REQUIRED
-          rowClass() {
-          },
+          rowClass() {},
         },
       },
     };

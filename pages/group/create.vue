@@ -1,7 +1,7 @@
 <template>
   <VCard title="Create New Group">
     <template #header>
-      <VBtn to="/group" class="m-0 c-btn--small"> List</VBtn>
+      <VBtn to="/group" size="sm" class="m-0"> List</VBtn>
     </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">
@@ -65,7 +65,7 @@ export default {
     create() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("group/create", {

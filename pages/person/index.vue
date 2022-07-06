@@ -4,14 +4,16 @@
       <VBtn
         to="/person/create"
         v-if="can('person.store')"
-        class="m-0 c-btn--small"
+        size="sm"
+        class="m-0"
       >
         Create New
       </VBtn>
       <VBtn
         to="/person/create-cognito"
         v-if="can('person.cognito.store')"
-        class="m-0 c-btn--small"
+        size="sm"
+        class="m-0"
       >
         Add From Cognito
       </VBtn>
@@ -89,7 +91,7 @@ export default {
       },
     };
   },
-  
+
   methods: {
     async list() {
       this.startLoading();

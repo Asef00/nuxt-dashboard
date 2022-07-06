@@ -2,7 +2,7 @@
   <!-- if "to" provided -->
   <NuxtLink
     v-if="to"
-    :class="['c-btn', classBtn, { 'is-disabled': isDisabled }]"
+    :class="['c-btn', btnClass, sizeClass, { 'is-disabled': isDisabled }]"
     :to="to"
     :event="disabled ? '' : 'click'"
   >
@@ -16,7 +16,7 @@
     @click="$emit('action')"
     :disabled="isDisabled"
     :type="type"
-    :class="['c-btn', classBtn]"
+    :class="['c-btn', btnClass, sizeClass]"
   >
     <LoaderDots :color="colorLoader" v-if="loader"></LoaderDots>
     <slot v-else />
@@ -47,6 +47,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    size: {
+      type: String,
+      default: "",
+    },
   },
 
   data() {
@@ -57,7 +61,7 @@ export default {
   },
 
   computed: {
-    classBtn() {
+    btnClass() {
       switch (this.btn) {
         case "success": {
           this.colorLoader = "#fff";
@@ -95,6 +99,12 @@ export default {
           this.colorLoader = "#fff";
           return "c-btn--primary";
         }
+      }
+    },
+    sizeClass() {
+      switch (this.size) {
+        case "sm":
+          return "c-btn--small";
       }
     },
   },

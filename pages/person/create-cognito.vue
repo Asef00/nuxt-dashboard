@@ -2,8 +2,8 @@
   <div>
     <VCard title="Search User Form Cognito">
       <template #header>
-        <VBtn to="/person/create" class="m-0 c-btn--small"> Create</VBtn>
-        <VBtn to="/person" class="m-0 c-btn--small"> List</VBtn>
+        <VBtn to="/person/create" size="sm" class="m-0"> Create</VBtn>
+        <VBtn to="/person" size="sm" class="m-0"> List</VBtn>
       </template>
       <form @submit.prevent="search" class="c-form">
         <div class="row">
@@ -20,14 +20,31 @@
         </div>
       </form>
     </VCard>
-    <VCard :loader="loaderRequest" title="Result" v-if="!this.table.items.length <= 0">
-      <VTable @actionAdd="addUser($event)" @actionDetails="detailsItem($event)" :table="table"/>
-      <VBtn v-if="paginationToken" class="c-btn--block mt-5" @action="search" type="button" btn="outline">Load more
-        users
+    <VCard
+      :loader="loaderRequest"
+      title="Result"
+      v-if="!this.table.items.length <= 0"
+    >
+      <VTable
+        @actionAdd="addUser($event)"
+        @actionDetails="detailsItem($event)"
+        :table="table"
+      />
+      <VBtn
+        v-if="paginationToken"
+        class="c-btn--block mt-5"
+        @action="search"
+        type="button"
+        btn="outline"
+        >Load more users
       </VBtn>
     </VCard>
-    <VModal :showModal="showDetails" @close="showDetails =false" title="User details">
-      <Details :data="detailsData"/>
+    <VModal
+      :showModal="showDetails"
+      @close="showDetails = false"
+      title="User details"
+    >
+      <Details :data="detailsData" />
     </VModal>
   </div>
 </template>
@@ -39,7 +56,7 @@ import Details from "@/components/page/person/DetailsUserCognito";
 export default {
   name: "create",
   permission: "person.cognito.store",
-  components: {Details},
+  components: { Details },
   data() {
     return {
       paginationToken: null,
@@ -47,10 +64,14 @@ export default {
       detailsData: {},
       table: {
         columns: [
-          {key: "name", label: "Name",},
-          {key: "family_name", label: "Family Name",},
-          {key: "email", label: "Email"},
-          {key: "action", label: '<img src="/img/gear.svg" alt="" />', class: "u-text-center",},
+          { key: "name", label: "Name" },
+          { key: "family_name", label: "Family Name" },
+          { key: "email", label: "Email" },
+          {
+            key: "action",
+            label: '<img src="/img/gear.svg" alt="" />',
+            class: "u-text-center",
+          },
         ],
         items: [],
         map: {
@@ -59,26 +80,25 @@ export default {
             <span v-on:click="action('${item.id}','Details')" class="c-badge--hover c-badge u-bg-primary">Details</span>`;
           },
           //REQUIRED
-          rowClass() {
-          },
+          rowClass() {},
         },
       },
       payload: {
-        username: '',
-      }
+        username: "",
+      },
     };
   },
   methods: {
     search() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           if (this.paginationToken == null) {
-            this.table.items = []
+            this.table.items = [];
           }
           let payload = {
-            key: 'email',
+            key: "email",
             value: this.payload.username,
             paginationToken: this.paginationToken,
           };
@@ -86,10 +106,13 @@ export default {
           this.stopLoading();
           const err = this.handleError(this.$store.state.person.error);
           if (!err) {
-            this.table.items = this.table.items.concat(this.$store.state.person.cognitoUsers.data);
-            this.paginationToken = this.$store.state.person.cognitoUsers.pagination_token;
+            this.table.items = this.table.items.concat(
+              this.$store.state.person.cognitoUsers.data
+            );
+            this.paginationToken =
+              this.$store.state.person.cognitoUsers.pagination_token;
             if (this.table.items.length <= 0) {
-              this.$toast.warning('No results found!');
+              this.$toast.warning("No results found!");
             }
           }
         })
@@ -99,9 +122,11 @@ export default {
         });
     },
     async addUser(email) {
-      this.startLoading()
-      this.$store.commit('person/RESET_ERROR')
-      await this.$store.dispatch("person/createPersonFromCognito", {username: email});
+      this.startLoading();
+      this.$store.commit("person/RESET_ERROR");
+      await this.$store.dispatch("person/createPersonFromCognito", {
+        username: email,
+      });
       this.stopLoading();
       const err = this.handleError(this.$store.state.person.error);
       if (!err) {
@@ -109,12 +134,12 @@ export default {
         this.$toast.success("Person successfully created.");
         this.$router.push("/person/" + data.id);
       } else {
-        this.scrollToElement(document.getElementsByTagName('form')[0]);
+        this.scrollToElement(document.getElementsByTagName("form")[0]);
       }
     },
     detailsItem(id) {
-      this.detailsData = this.table.items.find((item) => item.id === id)
-      this.showDetails = true
+      this.detailsData = this.table.items.find((item) => item.id === id);
+      this.showDetails = true;
     },
     validation() {
       let roles = {
@@ -123,31 +148,30 @@ export default {
       return Yup.object(roles);
     },
     resetError() {
-      this.$store.commit('person/RESET_ERROR')
-      this.table.items = []
-      this.paginationToken = null
+      this.$store.commit("person/RESET_ERROR");
+      this.table.items = [];
+      this.paginationToken = null;
       this.errors = {
-        username: '',
+        username: "",
       };
     },
   },
   created() {
-    this.resetError()
-    this.setTitle('Person')
+    this.resetError();
+    this.setTitle("Person");
     this.setBreadcrumb([
       {
-        to: '/person',
-        name: 'Person'
+        to: "/person",
+        name: "Person",
       },
       {
-        to: '/person/create-cognito',
-        name: 'Create Cognito'
-      }
-    ])
-  }
-}
+        to: "/person/create-cognito",
+        name: "Create Cognito",
+      },
+    ]);
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

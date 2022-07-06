@@ -1,7 +1,7 @@
 <template>
   <VCard title="Create new Role">
     <template #header>
-      <VBtn to="/acl/role" class="m-0 c-btn--small"> List </VBtn>
+      <VBtn to="/acl/role" size="sm" class="m-0"> List </VBtn>
     </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">

@@ -28,7 +28,7 @@
           @enter="filter"
         >
           <template #btn>
-            <VBtn class="c-btn--small c-search__btn" @action="filter">
+            <VBtn size="sm" class="c-search__btn" @action="filter">
               Filter
             </VBtn>
           </template>
@@ -99,6 +99,18 @@
                             placeholder="End point"
                             class="m-0"
                           />
+                        </div>
+
+                        <div
+                          class="
+                            align-items-center
+                            d-flex
+                            justify-content-center
+                            mt-3
+                          "
+                        >
+                          <VBtn size="sm">Cancel</VBtn>
+                          <VBtn size="sm">Filter</VBtn>
                         </div>
                       </div>
                       <!-- else -->

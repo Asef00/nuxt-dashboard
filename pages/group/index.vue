@@ -1,11 +1,7 @@
 <template>
   <VCard :loader="loaderRequest" title="List Groups">
     <template #header>
-      <VBtn
-        to="/group/create"
-        v-if="can('group.store')"
-        class="m-0 c-btn--small"
-      >
+      <VBtn to="/group/create" v-if="can('group.store')" size="sm" class="m-0">
         Create
       </VBtn>
     </template>
@@ -21,19 +17,19 @@
       @close="showDetails = false"
       title="Role details"
     >
-      <Details :id="detailsItemId"/>
+      <Details :id="detailsItemId" />
     </VModal>
   </VCard>
 </template>
 
 <script>
-import Details from '@/components/page/group/Details'
+import Details from "@/components/page/group/Details";
 
 export default {
   name: "index",
   permission: "group.index",
   components: {
-    Details
+    Details,
   },
   data() {
     let _this = this;
@@ -42,11 +38,11 @@ export default {
       detailsItemId: 0,
       table: {
         columns: [
-          {key: "id", label: "#"},
-          {key: "name", label: "Name"},
-          {key: "label", label: "Label"},
-          {key: "created_at", label: "Created At", },
-          {key: "updated_at", label: "Updated At", },
+          { key: "id", label: "#" },
+          { key: "name", label: "Name" },
+          { key: "label", label: "Label" },
+          { key: "created_at", label: "Created At" },
+          { key: "updated_at", label: "Updated At" },
           {
             key: "action",
             label: '<img src="/img/gear.svg" alt="" />',
@@ -67,8 +63,7 @@ export default {
             return _this.dateFormat(item.updated_at);
           },
           //REQUIRED
-          rowClass() {
-          },
+          rowClass() {},
         },
       },
     };

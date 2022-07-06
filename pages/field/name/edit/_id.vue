@@ -1,7 +1,7 @@
 <template>
   <VCard title="Edit a Field Name">
     <template #header>
-      <VBtn to="/field/name" class="m-0 c-btn--small"> List </VBtn>
+      <VBtn to="/field/name" size="sm" class="m-0"> List </VBtn>
     </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">
