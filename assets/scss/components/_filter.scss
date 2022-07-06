@@ -43,15 +43,6 @@
   z-index: 1;
 }
 
-.c-filter__header {
-  @include flex-between;
-  gap: 12px;
-}
-
-.c-filter__options {
-  white-space: initial;
-}
-
 .c-filter__item {
   color: $placeholder-color;
 }

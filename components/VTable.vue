@@ -52,7 +52,10 @@
                     menuStyle="none"
                     v-if="col.filterType"
                     :key="col.key"
-                    :class="col.class"
+                    :class="[
+                      col.class,
+                      { 'u-width-auto': col.filterType == 'number' },
+                    ]"
                     @toggleShow="fix()"
                   >
                     <!-- Filter icon -->
@@ -66,23 +69,22 @@
 
                     <template #menu>
                       <!-- if number type -->
-                      <header
-                        v-if="col.filterType == 'number'"
-                        class="c-filter__header"
-                      >
+                      <template v-if="col.filterType == 'number'">
                         <input
                           class="c-filter__search"
                           type="text"
                           placeholder="Search..."
                         />
-                        <a href="#" class="c-filter__control">Filter</a>
-                      </header>
+                        <div class="c-filter__buttons">
+                          <VBtn btn="simple" size="sm" class="m-0">Clear</VBtn>
+                          <VBtn size="sm" class="m-0">Filter</VBtn>
+                        </div>
+                        <!-- <a href="#" class="c-filter__control">Clear</a>
+                        <a href="#" class="c-filter__control">Filter</a> -->
+                      </template>
                       <!-- else -->
                       <!-- if date type -->
-                      <div
-                        v-else-if="col.filterType == 'date'"
-                        class="c-filter__options"
-                      >
+                      <template v-else-if="col.filterType == 'date'">
                         <div class="c-grid">
                           <span>Start Date</span>
                           <VInput
@@ -101,82 +103,87 @@
                           />
                         </div>
 
-                        <div
-                          class="
-                            align-items-center
-                            d-flex
-                            justify-content-center
-                            mt-3
-                          "
-                        >
+                        <div class="c-filter__buttons">
                           <VBtn btn="simple" size="sm" class="mb-0">
-                            Cancel
+                            Claer
                           </VBtn>
                           <VBtn size="sm" class="mb-0">Filter</VBtn>
                         </div>
-                      </div>
+                      </template>
                       <!-- else -->
                       <!-- if multiselect type -->
-                      <div
-                        v-else-if="col.filterType == 'multiselect'"
-                        class="c-filter__options"
-                      >
-                        <VCheckbox
-                          class="c-filter__item"
-                          label="Admin"
-                          data="admin"
-                          :list="selectedOptions"
-                          v-model="selected"
-                        />
-                        <VCheckbox
-                          class="c-filter__item"
-                          label="Developer"
-                          data="developer"
-                          :list="selectedOptions"
-                          v-model="selected"
-                        />
-                        <VCheckbox
-                          class="c-filter__item"
-                          label="Staff"
-                          data="staff"
-                          :list="selectedOptions"
-                          v-model="selected"
-                        />
-                      </div>
+                      <template v-else-if="col.filterType == 'multiselect'">
+                        <div>
+                          <VCheckbox
+                            class="c-filter__item"
+                            label="Admin"
+                            data="admin"
+                            :list="selectedOptions"
+                            v-model="selected"
+                          />
+                          <VCheckbox
+                            class="c-filter__item"
+                            label="Developer"
+                            data="developer"
+                            :list="selectedOptions"
+                            v-model="selected"
+                          />
+                          <VCheckbox
+                            class="c-filter__item"
+                            label="Staff"
+                            data="staff"
+                            :list="selectedOptions"
+                            v-model="selected"
+                          />
+                        </div>
+
+                        <div class="c-filter__buttons">
+                          <VBtn btn="simple" size="sm" class="mb-0">
+                            Claer
+                          </VBtn>
+                          <VBtn size="sm" class="mb-0">Filter</VBtn>
+                        </div>
+                      </template>
                       <!-- else -->
                       <!-- if select type -->
-                      <div
-                        v-else-if="col.filterType == 'select'"
-                        class="c-filter__options"
-                      >
-                        <label class="c-radio c-filter__item">
-                          <input
-                            class="c-radio__input"
-                            type="radio"
-                            name="radio1"
-                            value="all"
-                          />
-                          All
-                        </label>
-                        <label class="c-radio c-filter__item">
-                          <input
-                            class="c-radio__input"
-                            type="radio"
-                            name="radio1"
-                            value="enabled"
-                          />
-                          Enable
-                        </label>
-                        <label class="c-radio c-filter__item">
-                          <input
-                            class="c-radio__input"
-                            type="radio"
-                            name="radio1"
-                            value="disabled"
-                          />
-                          Disable
-                        </label>
-                      </div>
+                      <template v-else-if="col.filterType == 'select'">
+                        <div>
+                          <label class="c-radio c-filter__item">
+                            <input
+                              class="c-radio__input"
+                              type="radio"
+                              name="radio1"
+                              value="all"
+                              checked
+                            />
+                            All
+                          </label>
+                          <label class="c-radio c-filter__item">
+                            <input
+                              class="c-radio__input"
+                              type="radio"
+                              name="radio1"
+                              value="enabled"
+                            />
+                            Enable
+                          </label>
+                          <label class="c-radio c-filter__item">
+                            <input
+                              class="c-radio__input"
+                              type="radio"
+                              name="radio1"
+                              value="disabled"
+                            />
+                            Disable
+                          </label>
+                        </div>
+
+                        <div class="c-filter__buttons">
+                          <VBtn btn="simple" size="sm" class="mb-0">
+                            Reset
+                          </VBtn>
+                        </div>
+                      </template>
                     </template>
                   </VDropdown>
 
