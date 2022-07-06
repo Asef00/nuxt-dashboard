@@ -50,7 +50,7 @@ export default {
           {key: "name", label: "Name",},
           {key: "family_name", label: "Family Name",},
           {key: "email", label: "Email"},
-          {key: "action", label: '<img src="/img/gear.svg" alt="" />', class: "u-text-center",},
+          {key: "action", label: '<img src="/img/gear.svg" alt="" />', class: "u-table--center",},
         ],
         items: [],
         map: {

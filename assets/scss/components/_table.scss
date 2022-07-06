@@ -132,3 +132,10 @@ $min-width: 28px;
   align-items: center;
   gap: 0.5em;
 }
+
+//HACK: a class to center 
+//both th(flex) and td(non flex)
+.u-table--center {
+  text-align: center;
+  justify-content: center;
+}
