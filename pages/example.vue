@@ -494,11 +494,12 @@ export default {
           { key: "full_name", label: "Full Name", sortable: true },
           { key: "username", label: "Username", sortable: true },
           { key: "status", label: "Status", sortable: true },
+          { key: "roles", label: "Roles" },
           {
             key: "created_at",
             label: "Created At",
             class: "u-text-center",
-            filterable: true,
+            filterType: "date",
             sortable: true,
           },
           {
@@ -532,6 +533,16 @@ export default {
             return item.enabled
               ? `<span class="c-badge u-bg-success">Enable</span>`
               : `<span class="c-badge u-bg-danger">Disable</span>`;
+          },
+          roles(item) {
+            let data = "";
+            for (let role of item.roles) {
+              data +=
+                '<span class="c-badge u-bg-primary mr-1">' +
+                role.label +
+                "</span>";
+            }
+            return data;
           },
           //REQUIRED
           rowClass() {},
@@ -573,14 +584,11 @@ export default {
     },
 
     //sample table methods
-    async list(page = null, limit = null) {
+    async list() {
       this.startLoading();
+      this.setWith("roles");
       this.$store.commit("person/RESET_ERROR");
-      await this.$store.dispatch("person/list", {
-        page: page ?? this.getPaginate(),
-        limit: limit ?? this.getLimit(),
-        paginate: 1,
-      });
+      await this.$store.dispatch("person/list");
       let err = this.handleError(this.$store.state.person.error);
       if (!err) {
         this.table.items = this.$store.state.person.list;
@@ -589,16 +597,19 @@ export default {
     },
     changePage(val) {
       this.setPaginate(val);
-      this.list(val, this.getLimit());
+      this.list();
     },
     changePerPage(val) {
       this.setLimit(val);
       this.setPaginate(1);
-      this.list(1, val);
+      this.list();
     },
 
     tableSearch(val) {
       console.log("tableSearch:", val);
+      this.resetAxiosParams();
+      this.setAxiosParams(val);
+      this.list();
     },
   },
 
