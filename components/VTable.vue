@@ -22,6 +22,7 @@
           placeholder="Search..."
           class="m-0"
           v-model="searchVal"
+          @enter="filter"
         >
           <template #btn>
             <VBtn class="c-btn--small c-search__btn" @action="filter">
@@ -46,7 +47,7 @@
                   wrapper="span"
                   position="bottom"
                   menuStyle="none"
-                  v-if="col.filterable"
+                  v-if="col.filterableDate || col.filterableNumber"
                   :key="col.key"
                   :class="col.class"
                   @toggleShow="fix()"
@@ -65,7 +66,7 @@
                   </span> -->
                   </template>
                   <template #menu>
-                    <header v-if="col.searchable" class="c-filter__header">
+                    <header v-if="col.filterableNumber" class="c-filter__header">
                       <input
                         class="c-filter__search"
                         type="text"
@@ -74,7 +75,7 @@
                       <a href="#" class="c-filter__control">Select All</a>
                       <a href="#" class="c-filter__control">Clear</a>
                     </header>
-                    <div v-if="col.filterable" class="c-filter__options">
+                    <div v-if="col.filterableDate" class="c-filter__options">
                       <div class="c-grid">
                         <span>Start Date</span>
                         <VInput
@@ -233,6 +234,7 @@ export default {
       columns: Array,
       items: Array,
       map: Object,
+      searchKeys: Array
     },
     isSearchable: {
       type: Boolean,
@@ -271,11 +273,6 @@ export default {
         this.dropdownIsActive = !this.dropdownIsActive;
       });
     },
-
-    changeDate() {
-      console.log("Date Changed!");
-    },
-
     showItem(row, col) {
       let key = col.key; //based on defined structure
       let map = this.table.map; //custom mapped data
@@ -295,23 +292,19 @@ export default {
         }</span>`;
       }
     },
-
     action(data, action) {
       this.$emit(`action${action}`, data);
     },
-
     changePage(target) {
       this.current_page = target;
       this.$emit("changePage", target);
     },
-
     applyPaginate() {
       this.totalPaginate = Math.ceil(this.total_pages / this.per_page);
       this.hasPreDots = this.current_page > 4;
       this.hasNextDots = this.current_page + 4 <= this.totalPaginate;
       this.hasPaginate = this.totalPaginate > 1;
     },
-
     applyList(list) {
       if (list.hasOwnProperty("data")) {
         this.list = list.data;
@@ -324,10 +317,16 @@ export default {
         this.list = list;
       }
     },
-
     //search filter
     filter() {
-      this.$emit("search", this.searchVal);
+      let search = {}
+      for (let item of this.table.searchKeys) {
+        search[item + '_like'] = this.searchVal
+      }
+      this.$emit("search", search);
+    },
+    changeDate() {
+      console.log("Date Changed!");
     },
   },
 

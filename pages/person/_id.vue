@@ -126,6 +126,7 @@
         @actionDetails="detailsItem($event)"
         @actionDelete="deleteItem($event)"
         :table="table"
+        :isSearchable="false"
       />
       <VModal
         :showModal="showDetails"
@@ -164,8 +165,8 @@ export default {
           { key: "status", label: "Status" },
           { key: "site", label: "Site" },
           { key: "version", label: "Version" },
-          { key: "created_at", label: "Created At", class: "u-text-center" },
-          { key: "updated_at", label: "Updated At", class: "u-text-center" },
+          { key: "created_at", label: "Created At",},
+          { key: "updated_at", label: "Updated At",},
           {
             key: "action",
             label: '<img src="/img/gear.svg" alt="" />',

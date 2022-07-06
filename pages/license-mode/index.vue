@@ -33,8 +33,8 @@ export default {
           {key: "id", label: "#"},
           {key: "name", label: "Name"},
           {key: "label", label: "Label"},
-          {key: "created_at", label: "Created At", class: "u-text-center"},
-          {key: "updated_at", label: "Updated At", class: "u-text-center"},
+          {key: "created_at", label: "Created At", },
+          {key: "updated_at", label: "Updated At", },
           {
             key: "action",
             label: '<img src="/img/gear.svg" alt="" />',

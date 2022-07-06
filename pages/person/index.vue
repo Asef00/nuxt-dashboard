@@ -19,6 +19,7 @@
     <VTable
       @changePage="changePage($event)"
       @changePerPage="changePerPage($event)"
+      @search="search($event)"
       :table="table"
     />
   </VCard>
@@ -43,10 +44,8 @@ export default {
           {
             key: "created_at",
             label: "Created At",
-            // class: "u-text-center",
-            filterable: true,
           },
-          {key: "updated_at", label: "Updated At", class: "u-text-center"},
+          {key: "updated_at", label: "Updated At",},
           {
             key: "action",
             label: '<img src="/img/gear.svg" alt="" />',
@@ -76,7 +75,7 @@ export default {
           roles(item) {
             let data = ''
             for (let role of item.roles) {
-              data += '<span class="c-badge u-bg-primary mr-1">'+role.label+'</span>'
+              data += '<span class="c-badge u-bg-primary mr-1">' + role.label + '</span>'
             }
             return data;
           },
@@ -84,6 +83,7 @@ export default {
           rowClass() {
           },
         },
+        searchKeys: ['name', 'family_name', 'username']
       },
     };
   },
@@ -108,6 +108,11 @@ export default {
       this.setPaginate(1);
       this.list();
     },
+    search(val) {
+      this.resetAxiosParams()
+      this.setAxiosParams(val)
+      this.list()
+    }
   },
   created() {
     this.setTitle("Manage Persons");

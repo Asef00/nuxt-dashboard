@@ -24,6 +24,7 @@
       <input
         v-else
         @keyup="$emit('validation')"
+        @keyup.enter="$emit('enter')"
         @blur="$emit('validation')"
         @keydown="$emit('validation')"
         @input="$emit('input', $event.target.value)"
