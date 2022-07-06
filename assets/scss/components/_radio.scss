@@ -1,0 +1,10 @@
+.c-radio {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  cursor: pointer;
+}
+
+.c-radio__input {
+  accent-color: $primary-color;
+}

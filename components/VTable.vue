@@ -135,27 +135,33 @@
                         v-else-if="col.filterType == 'select'"
                         class="c-filter__options"
                       >
-                        <VCheckbox
-                          class="c-filter__item"
-                          label="All"
-                          data="all"
-                          :list="selectedOptions"
-                          v-model="selected"
-                        />
-                        <VCheckbox
-                          class="c-filter__item"
-                          label="Enabled"
-                          data="enabled"
-                          :list="selectedOptions"
-                          v-model="selected"
-                        />
-                        <VCheckbox
-                          class="c-filter__item"
-                          label="Disabled"
-                          data="disabled"
-                          :list="selectedOptions"
-                          v-model="selected"
-                        />
+                        <label class="c-radio c-filter__item">
+                          <input
+                            class="c-radio__input"
+                            type="radio"
+                            name="radio1"
+                            value="all"
+                          />
+                          All
+                        </label>
+                        <label class="c-radio c-filter__item">
+                          <input
+                            class="c-radio__input"
+                            type="radio"
+                            name="radio1"
+                            value="enabled"
+                          />
+                          Enable
+                        </label>
+                        <label class="c-radio c-filter__item">
+                          <input
+                            class="c-radio__input"
+                            type="radio"
+                            name="radio1"
+                            value="disabled"
+                          />
+                          Disable
+                        </label>
                       </div>
                     </template>
                   </VDropdown>
@@ -390,4 +396,5 @@ export default {
 @import "~/assets/scss/components/table";
 @import "~/assets/scss/components/pagination";
 @import "~/assets/scss/components/search";
+@import "~/assets/scss/components/radio";
 </style>
