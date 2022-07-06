@@ -109,8 +109,10 @@
                             mt-3
                           "
                         >
-                          <VBtn size="sm">Cancel</VBtn>
-                          <VBtn size="sm">Filter</VBtn>
+                          <VBtn btn="simple" size="sm" class="mb-0">
+                            Cancel
+                          </VBtn>
+                          <VBtn size="sm" class="mb-0">Filter</VBtn>
                         </div>
                       </div>
                       <!-- else -->
