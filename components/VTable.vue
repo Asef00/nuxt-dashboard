@@ -102,71 +102,57 @@
                         </div>
                       </div>
                       <!-- else -->
-                      <!-- if checkbox type -->
+                      <!-- if multiselect type -->
                       <div
-                        v-else-if="col.filterType == 'checkbox'"
+                        v-else-if="col.filterType == 'multiselect'"
                         class="c-filter__options"
                       >
                         <VCheckbox
                           class="c-filter__item"
-                          label="AKMLS"
-                          data="AKMLS"
+                          label="Admin"
+                          data="admin"
                           :list="selectedOptions"
                           v-model="selected"
                         />
                         <VCheckbox
                           class="c-filter__item"
-                          label="bridgeMLS"
-                          data="bridgeMLS"
+                          label="Developer"
+                          data="developer"
                           :list="selectedOptions"
                           v-model="selected"
                         />
                         <VCheckbox
                           class="c-filter__item"
-                          label="CLAW"
-                          data="CLAW"
-                          :list="selectedOptions"
-                          v-model="selected"
-                        />
-                        <VCheckbox
-                          class="c-filter__item"
-                          label="Kern River Lake Isabella Board"
-                          data="Kern"
+                          label="Staff"
+                          data="staff"
                           :list="selectedOptions"
                           v-model="selected"
                         />
                       </div>
                       <!-- else -->
-                      <!-- if radio type -->
+                      <!-- if select type -->
                       <div
-                        v-else-if="col.filterType == 'radio'"
+                        v-else-if="col.filterType == 'select'"
                         class="c-filter__options"
                       >
                         <VCheckbox
                           class="c-filter__item"
-                          label="AKMLS"
-                          data="AKMLS"
+                          label="All"
+                          data="all"
                           :list="selectedOptions"
                           v-model="selected"
                         />
                         <VCheckbox
                           class="c-filter__item"
-                          label="bridgeMLS"
-                          data="bridgeMLS"
+                          label="Enabled"
+                          data="enabled"
                           :list="selectedOptions"
                           v-model="selected"
                         />
                         <VCheckbox
                           class="c-filter__item"
-                          label="CLAW"
-                          data="CLAW"
-                          :list="selectedOptions"
-                          v-model="selected"
-                        />
-                        <VCheckbox
-                          class="c-filter__item"
-                          label="Kern River Lake Isabella Board"
-                          data="Kern"
+                          label="Disabled"
+                          data="disabled"
                           :list="selectedOptions"
                           v-model="selected"
                         />

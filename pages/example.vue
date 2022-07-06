@@ -490,11 +490,16 @@ export default {
 
       table: {
         columns: [
-          { key: "id", label: "#" },
+          { key: "id", label: "#", filterType: "number" },
           { key: "full_name", label: "Full Name", sortable: true },
           { key: "username", label: "Username", sortable: true },
-          { key: "status", label: "Status", sortable: true },
-          { key: "roles", label: "Roles" },
+          {
+            key: "status",
+            label: "Status",
+            sortable: true,
+            filterType: "select",
+          },
+          { key: "roles", label: "Roles", filterType: 'multiselect' },
           {
             key: "created_at",
             label: "Created At",
