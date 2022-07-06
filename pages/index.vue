@@ -94,12 +94,12 @@ export default {
       table: {
         columns: [
           { key: "client", label: "Client" },
-          { key: "last_update", label: "Last Update", class: "u-text-center" },
+          { key: "last_update", label: "Last Update", class: "u-table--center" },
           { key: "status", label: "Status" },
           {
             key: "action",
             label: '<VIcon icon="gear" />',
-            class: "u-text-center",
+            class: "u-table--center",
           },
         ],
         items: json,

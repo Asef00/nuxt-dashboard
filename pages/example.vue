@@ -497,20 +497,20 @@ export default {
           {
             key: "created_at",
             label: "Created At",
-            class: "u-text-center",
+            class: "u-table--center",
             filterable: true,
             sortable: true,
           },
           {
             key: "updated_at",
             label: "Updated At",
-            class: "u-text-center",
+            class: "u-table--center",
             sortable: true,
           },
           {
             key: "action",
             label: '<img src="/img/gear.svg" alt="" />',
-            class: "u-text-center",
+            class: "u-table--center",
           },
         ],
         items: [],
