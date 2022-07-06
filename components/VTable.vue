@@ -42,8 +42,8 @@
         <thead class="c-table__header">
           <tr class="c-table__row">
             <template v-for="col in table.columns">
-              <th :key="col.key" class="c-table__th" :class="col.class">
-                <div class="c-table__th-wrapper">
+              <th :key="col.key" class="c-table__th">
+                <div :class="['c-table__th-wrapper', col.class]">
                   <!-- if filterable -->
                   <VDropdown
                     isFilter
