@@ -15,13 +15,13 @@
         type="date"
         placeholder="End point"
         class="m-0"
-        disabled
+        :disabled="endDateDisabled"
       />
     </div>
 
     <div class="c-filter__buttons">
       <VBtn btn="simple" size="sm" class="mb-0" @action="reset()">Claer</VBtn>
-      <VBtn size="sm" class="mb-0" @action="changeDate()">Filter</VBtn>
+      <VBtn size="sm" class="mb-0" @action="filter()">Filter</VBtn>
     </div>
   </div>
 </template>
@@ -32,17 +32,30 @@ export default {
     return {
       startDate: "",
       endDate: "",
+      endDateDisabled: true,
     };
   },
 
   methods: {
-    changeDate() {
+    toggle() {
+      console.log("toggle");
+    },
+
+    filter() {
       console.log(this.startDate, this.endDate);
     },
 
     reset() {
       this.startDate = "";
       this.endDate = "";
+    //   this.endDateDisabled = true;
+    },
+  },
+
+  watch: {
+    startDate(val) {
+      if (val) this.endDateDisabled = false;
+      else this.endDateDisabled = true;
     },
   },
 };
