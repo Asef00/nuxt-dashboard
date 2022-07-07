@@ -106,7 +106,7 @@ export default {
         map: {
           action(item) {
             return `<NuxtLink v-if="can('person.update')" to="/person/edit/${item.id}">
-              <fa icon="ellipsis-vertical" size="lg" />
+              <fa icon="eye" size="lg" />
             </NuxtLink>`;
           },
           status(item) {
