@@ -40,136 +40,136 @@
       <!-- <vue-custom-scrollbar> -->
       <table class="c-table" ref="table">
         <thead class="c-table__header">
-          <tr class="c-table__row">
-            <template v-for="col in table.columns">
-              <th :key="col.key" class="c-table__th">
-                <div :class="['c-table__th-wrapper', col.class]">
-                  <!-- if filterable -->
-                  <VDropdown
-                    isFilter
-                    wrapper="span"
-                    position="bottom"
-                    menuStyle="none"
-                    v-if="col.filterableDate || col.filterableNumber"
-                    :key="col.key"
-                    :class="col.class"
-                    @toggleShow="fix()"
-                  >
-                    <template #btn>
-                      <!-- Filter icon -->
-                      <VIcon
-                        :icon="
+        <tr class="c-table__row">
+          <template v-for="col in table.columns">
+            <th :key="col.key" class="c-table__th">
+              <div :class="['c-table__th-wrapper', col.class]">
+                <!-- if filterable -->
+                <VDropdown
+                  isFilter
+                  wrapper="span"
+                  position="bottom"
+                  menuStyle="none"
+                  v-if="col.filterableDate || col.filterableNumber"
+                  :key="col.key"
+                  :class="col.class"
+                  @toggleShow="fix()"
+                >
+                  <template #btn>
+                    <!-- Filter icon -->
+                    <VIcon
+                      :icon="
                           col == sortColumn ? 'filter.is-active' : 'filter'
                         "
+                    />
+                    <!-- <span v-html="col.label"></span>
+                <span v-if="col.sortable" class="c-sort">
+                  <VChevron class="c-sort__item" dir="up" />
+                  <VChevron class="c-sort__item" dir="down" />
+                </span> -->
+                  </template>
+                  <template #menu>
+                    <header
+                      v-if="col.filterableNumber"
+                      class="c-filter__header"
+                    >
+                      <input
+                        class="c-filter__search"
+                        type="text"
+                        placeholder="Search..."
                       />
-                      <!-- <span v-html="col.label"></span>
-                  <span v-if="col.sortable" class="c-sort">
-                    <VChevron class="c-sort__item" dir="up" />
-                    <VChevron class="c-sort__item" dir="down" />
-                  </span> -->
-                    </template>
-                    <template #menu>
-                      <header
-                        v-if="col.filterableNumber"
-                        class="c-filter__header"
-                      >
-                        <input
-                          class="c-filter__search"
-                          type="text"
-                          placeholder="Search..."
+                      <a href="#" class="c-filter__control">Select All</a>
+                      <a href="#" class="c-filter__control">Clear</a>
+                    </header>
+                    <div v-if="col.filterableDate" class="c-filter__options">
+                      <div class="c-grid">
+                        <span>Start Date</span>
+                        <VInput
+                          type="date"
+                          @changeDate="changeDate()"
+                          placeholder="Start Point"
+                          class="m-0"
                         />
-                        <a href="#" class="c-filter__control">Select All</a>
-                        <a href="#" class="c-filter__control">Clear</a>
-                      </header>
-                      <div v-if="col.filterableDate" class="c-filter__options">
-                        <div class="c-grid">
-                          <span>Start Date</span>
-                          <VInput
-                            type="date"
-                            @changeDate="changeDate()"
-                            placeholder="Start Point"
-                            class="m-0"
-                          />
-                          <span>End Date</span>
-                          <VInput
-                            type="date"
-                            @changeDate="changeDate()"
-                            placeholder="End point"
-                            class="m-0"
-                          />
-                        </div>
-                        <!-- <VCheckbox
-                      class="c-filter__item"
-                      label="AKMLS"
-                      data="AKMLS"
-                      :list="selectedOptions"
-                      v-model="selected"
-                    />
-                    <VCheckbox
-                      class="c-filter__item"
-                      label="bridgeMLS"
-                      data="bridgeMLS"
-                      :list="selectedOptions"
-                      v-model="selected"
-                    />
-                    <VCheckbox
-                      class="c-filter__item"
-                      label="CLAW"
-                      data="CLAW"
-                      :list="selectedOptions"
-                      v-model="selected"
-                    />
-                    <VCheckbox
-                      class="c-filter__item"
-                      label="Kern River Lake Isabella Board"
-                      data="Kern"
-                      :list="selectedOptions"
-                      v-model="selected"
-                    /> -->
+                        <span>End Date</span>
+                        <VInput
+                          type="date"
+                          @changeDate="changeDate()"
+                          placeholder="End point"
+                          class="m-0"
+                        />
                       </div>
-                    </template>
-                  </VDropdown>
-                  <!-- else -->
-                  <span v-html="col.label"></span>
-                  <span v-if="col.sortable" class="c-sort">
-                    <VChevron class="c-sort__item" dir="up" />
-                    <VChevron class="c-sort__item" dir="down" />
+                      <!-- <VCheckbox
+                    class="c-filter__item"
+                    label="AKMLS"
+                    data="AKMLS"
+                    :list="selectedOptions"
+                    v-model="selected"
+                  />
+                  <VCheckbox
+                    class="c-filter__item"
+                    label="bridgeMLS"
+                    data="bridgeMLS"
+                    :list="selectedOptions"
+                    v-model="selected"
+                  />
+                  <VCheckbox
+                    class="c-filter__item"
+                    label="CLAW"
+                    data="CLAW"
+                    :list="selectedOptions"
+                    v-model="selected"
+                  />
+                  <VCheckbox
+                    class="c-filter__item"
+                    label="Kern River Lake Isabella Board"
+                    data="Kern"
+                    :list="selectedOptions"
+                    v-model="selected"
+                  /> -->
+                    </div>
+                  </template>
+                </VDropdown>
+                <!-- else -->
+                <span v-html="col.label"></span>
+                <span v-if="col.sortable" class="c-sort">
+                    <VChevron class="c-sort__item" dir="up"/>
+                    <VChevron class="c-sort__item" dir="down"/>
                   </span>
-                </div>
-              </th>
-            </template>
-          </tr>
+              </div>
+            </th>
+          </template>
+        </tr>
         </thead>
         <tbody class="c-table__body">
-          <!-- if no data -->
-          <tr v-if="!list || !list.length">
-            <td
-              colspan="100%"
-              style="height: 10em; font-size: 16px"
-              class="u-text-center"
-            >
-              No Data Available
-            </td>
-          </tr>
-          <!-- else -->
-          <tr
-            v-else
-            v-for="(row, index) in list"
-            :key="index"
-            :class="table.map['rowClass'](row)"
-            class="c-table__row"
+        <!-- if no data -->
+        <tr v-if="!list || !list.length">
+          <td
+            colspan="100%"
+            style="height: 10em; font-size: 16px"
+            class="u-text-center"
           >
-            <td
-              v-for="col in table.columns"
-              :key="col.key"
-              class="c-table__cell"
-              :class="col.class"
-            >
-              <v-runtime-template
-                :template="String(showItem(row, col))"
-              ></v-runtime-template>
-            </td>
-          </tr>
+            No Data Available
+          </td>
+        </tr>
+        <!-- else -->
+        <tr
+          v-else
+          v-for="(row, index) in list"
+          :key="index"
+          :class="table.map['rowClass'](row)"
+          class="c-table__row"
+        >
+          <td
+            v-for="col in table.columns"
+            :key="col.key"
+            class="c-table__cell"
+            :class="col.class"
+          >
+            <v-runtime-template
+              :template="String(showItem(row, col))"
+            ></v-runtime-template>
+          </td>
+        </tr>
         </tbody>
       </table>
       <!-- </vue-custom-scrollbar> -->
@@ -244,7 +244,7 @@ export default {
     },
     isSearchable: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
 
@@ -325,11 +325,13 @@ export default {
     },
     //search filter
     filter() {
-      let search = {};
-      for (let item of this.table.searchKeys) {
-        search[item + "_like"] = this.searchVal;
+      if (this.table.searchKeys !== undefined) {
+          let search = {};
+          for (let item of this.table.searchKeys) {
+            search[item + "_like"] = this.searchVal;
+          }
+          this.$emit("search", search);
       }
-      this.$emit("search", search);
     },
     changeDate() {
       console.log("Date Changed!");
