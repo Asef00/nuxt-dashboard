@@ -30,25 +30,24 @@
 export default {
   data() {
     return {
-      startDate: "",
-      endDate: "",
+      startDate: null,
+      endDate: null,
       endDateDisabled: true,
     };
   },
 
   methods: {
-    toggle() {
-      console.log("toggle");
-    },
-
     filter() {
-      console.log(this.startDate, this.endDate);
+      // using filter to exclude empty end-date
+      this.$emit(
+        "filter",
+        [this.startDate, this.endDate].filter(Boolean).join(",")
+      );
     },
 
     reset() {
       this.startDate = "";
       this.endDate = "";
-    //   this.endDateDisabled = true;
     },
   },
 

@@ -92,6 +92,12 @@
                       <!-- if date type -->
                       <DateFilter
                         v-else-if="col.filterType == 'date'"
+                        @filter="
+                          filterDate(
+                            $event,
+                            col.filterKey ? col.filterKey : col.key
+                          )
+                        "
                       ></DateFilter>
                       <!-- else -->
                       <!-- if multiselect type -->
@@ -322,6 +328,7 @@ export default {
         this.dropdownIsActive = !this.dropdownIsActive;
       });
     },
+
     showItem(row, col) {
       let key = col.key; //based on defined structure
       let map = this.table.map; //custom mapped data
@@ -341,19 +348,23 @@ export default {
         }</span>`;
       }
     },
+
     action(data, action) {
       this.$emit(`action${action}`, data);
     },
+
     changePage(target) {
       this.current_page = target;
       this.$emit("changePage", target);
     },
+
     applyPaginate() {
       this.totalPaginate = Math.ceil(this.total_pages / this.per_page);
       this.hasPreDots = this.current_page > 4;
       this.hasNextDots = this.current_page + 4 <= this.totalPaginate;
       this.hasPaginate = this.totalPaginate > 1;
     },
+
     applyList(list) {
       if (list.hasOwnProperty("data")) {
         this.list = list.data;
@@ -366,6 +377,7 @@ export default {
         this.list = list;
       }
     },
+
     //search filter
     filter() {
       if (this.table.searchKeys !== undefined) {
@@ -376,8 +388,10 @@ export default {
         this.$emit("search", search);
       }
     },
-    changeDate() {
-      console.log("Date Changed!");
+
+    ////////column filters/////////
+    filterDate(val, key) {
+      console.log(key, val);
     },
   },
 
