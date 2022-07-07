@@ -28,6 +28,7 @@
   justify-content: center;
   padding: 12px;
   gap: 10px;
+  text-align: initial;
 
   background-color: #fff;
   font-weight: 400;
@@ -57,17 +58,39 @@
   }
 }
 
-.c-filter__search {
+.c-filter__number {
+  @include flex-between;
   height: 28px;
-  padding: 0 8px;
   border: none;
   border-radius: 3px;
-  @include input-search-bg;
   @include input-transition;
-  background-color: $filled-color;
+  @include input-border;
 
-  &:focus {
+  &:focus-within {
     @include input-focus;
+  }
+
+  select,
+  input[type="text"] {
+    border: none;
+    background-color: transparent;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  input[type="text"] {
+    // @include input-search-bg;
+    padding: 0 8px;
+    flex: 1;
+  }
+
+  select {
+    cursor: pointer;
+    height: 100%;
+    background-color: $filled-color;
+    border-left: solid 1px #e1e0ea;
   }
 }
 

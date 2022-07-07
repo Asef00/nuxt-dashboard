@@ -70,11 +70,17 @@
                     <template #menu>
                       <!-- if number type -->
                       <template v-if="col.filterType == 'number'">
-                        <input
-                          class="c-filter__search"
-                          type="text"
-                          placeholder="Search..."
-                        />
+                        <div class="c-filter__number">
+                          <input type="text" placeholder="Search..." />
+                          <select>
+                            <option value="=" selected>=</option>
+                            <option value="<" selected>&lt;</option>
+                            <option value=">" selected>&gt;</option>
+                            <option value="=<" selected>=&lt;</option>
+                            <option value="=>" selected>=&gt;</option>
+                            <option value="!=" selected>!=</option>
+                          </select>
+                        </div>
                         <div class="c-filter__buttons">
                           <VBtn btn="simple" size="sm" class="m-0">Clear</VBtn>
                           <VBtn size="sm" class="m-0">Filter</VBtn>
