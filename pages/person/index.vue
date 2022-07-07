@@ -23,6 +23,7 @@
       @changePerPage="changePerPage($event)"
       @search="search($event)"
       :table="table"
+      isSearchable
     />
   </VCard>
 </template>

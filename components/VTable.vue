@@ -302,7 +302,7 @@ export default {
     },
     isSearchable: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
 
@@ -383,11 +383,13 @@ export default {
     },
     //search filter
     filter() {
-      let search = {};
-      for (let item of this.table.searchKeys) {
-        search[item + "_like"] = this.searchVal;
+      if (this.table.searchKeys !== undefined) {
+        let search = {};
+        for (let item of this.table.searchKeys) {
+          search[item + "_like"] = this.searchVal;
+        }
+        this.$emit("search", search);
       }
-      this.$emit("search", search);
     },
     changeDate() {
       console.log("Date Changed!");
