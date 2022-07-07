@@ -48,6 +48,7 @@ export default {
     reset() {
       this.startDate = "";
       this.endDate = "";
+      this.filter();
     },
   },
 
