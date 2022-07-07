@@ -68,28 +68,18 @@
                     </template>
 
                     <template #menu>
-                      <!-- if number type -->
-                      <template v-if="col.filterType == 'number'">
-                        <div class="c-filter__number">
-                          <input type="text" placeholder="Search..." />
-                          <select>
-                            <option value="=" selected>=</option>
-                            <option value="<">&lt;</option>
-                            <option value=">">&gt;</option>
-                            <option value="=<">=&lt;</option>
-                            <option value="=>">=&gt;</option>
-                            <option value="!=">!=</option>
-                          </select>
-                        </div>
-                        <div class="c-filter__buttons">
-                          <VBtn btn="simple" size="sm" class="m-0">Clear</VBtn>
-                          <VBtn size="sm" class="m-0">Filter</VBtn>
-                        </div>
-                        <!-- <a href="#" class="c-filter__control">Clear</a>
-                        <a href="#" class="c-filter__control">Filter</a> -->
-                      </template>
-                      <!-- else -->
-                      <!-- if date type -->
+                      <!-- switch (filter-type)-->
+                      <!-- case "number": -->
+                      <NumberFilter
+                        v-if="col.filterType == 'number'"
+                        @filter="
+                          filterNumber(
+                            $event,
+                            col.filterKey ? col.filterKey : col.key
+                          )
+                        "
+                      ></NumberFilter>
+                      <!-- case "date": -->
                       <DateFilter
                         v-else-if="col.filterType == 'date'"
                         @filter="
@@ -99,8 +89,7 @@
                           )
                         "
                       ></DateFilter>
-                      <!-- else -->
-                      <!-- if multiselect type -->
+                      <!-- case "multiselect": -->
                       <template v-else-if="col.filterType == 'multiselect'">
                         <div>
                           <VCheckbox
@@ -133,8 +122,7 @@
                           <VBtn size="sm" class="mb-0">Filter</VBtn>
                         </div>
                       </template>
-                      <!-- else -->
-                      <!-- if select type -->
+                      <!-- case "select": -->
                       <template v-else-if="col.filterType == 'select'">
                         <div>
                           <label class="c-radio c-filter__item">
@@ -276,11 +264,13 @@
 <script>
 import VRuntimeTemplate from "v-runtime-template";
 import DateFilter from "./filter/DateFilter.vue";
+import NumberFilter from "./filter/NumberFilter.vue";
 
 export default {
   components: {
     VRuntimeTemplate,
     DateFilter,
+    NumberFilter,
   },
 
   props: {
@@ -391,6 +381,9 @@ export default {
 
     ////////column filters/////////
     filterDate(val, key) {
+      console.log(key, val);
+    },
+    filterNumber(val, key) {
       console.log(key, val);
     },
   },
