@@ -102,13 +102,6 @@ $min-width: 28px;
   }
 }
 
-.c-grid {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-row-gap: 0.5em;
-  align-items: center;
-}
-
 .c-sort {
   @include flex-column-inline;
   vertical-align: middle;

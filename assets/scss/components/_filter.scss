@@ -23,11 +23,7 @@
 
 .c-filter__menu {
   position: fixed;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   padding: 12px;
-  gap: 10px;
   text-align: initial;
 
   background-color: #fff;
@@ -44,6 +40,12 @@
   z-index: 1;
 }
 
+.c-filter__container {
+  @include flex-column;
+  justify-content: center;
+  gap: 10px;
+}
+
 .c-filter__item {
   color: $placeholder-color;
 }
@@ -58,6 +60,7 @@
   }
 }
 
+//filter types
 .c-filter__number {
   @include flex-between;
   height: 28px;
@@ -92,6 +95,13 @@
     background-color: $filled-color;
     border-left: solid 1px #e1e0ea;
   }
+}
+
+.c-filter__date {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-row-gap: 0.5em;
+  align-items: center;
 }
 
 //transition

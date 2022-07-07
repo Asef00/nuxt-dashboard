@@ -90,32 +90,9 @@
                       </template>
                       <!-- else -->
                       <!-- if date type -->
-                      <template v-else-if="col.filterType == 'date'">
-                        <div class="c-grid">
-                          <span>Start Date</span>
-                          <VInput
-                            type="date"
-                            @changeDate="changeDate()"
-                            placeholder="Start Point"
-                            class="m-0"
-                          />
-
-                          <span>End Date</span>
-                          <VInput
-                            type="date"
-                            @changeDate="changeDate()"
-                            placeholder="End point"
-                            class="m-0"
-                          />
-                        </div>
-
-                        <div class="c-filter__buttons">
-                          <VBtn btn="simple" size="sm" class="mb-0">
-                            Claer
-                          </VBtn>
-                          <VBtn size="sm" class="mb-0">Filter</VBtn>
-                        </div>
-                      </template>
+                      <DateFilter
+                        v-else-if="col.filterType == 'date'"
+                      ></DateFilter>
                       <!-- else -->
                       <!-- if multiselect type -->
                       <template v-else-if="col.filterType == 'multiselect'">
@@ -292,10 +269,12 @@
 
 <script>
 import VRuntimeTemplate from "v-runtime-template";
+import DateFilter from "./filter/DateFilter.vue";
 
 export default {
   components: {
     VRuntimeTemplate,
+    DateFilter,
   },
 
   props: {
