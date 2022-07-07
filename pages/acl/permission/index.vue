@@ -1,12 +1,12 @@
 <template>
-  <VCard :loader="loaderRequest" title="List Permissions">
+  <VCard :loader="loaderRequest" title="Defined Permissions">
     <template #header>
       <VBtn
         to="/acl/permission/create"
         v-if="can('permission.store')"
         class="m-0 c-btn--small"
       >
-        Create
+        Define New Permission
       </VBtn>
     </template>
     <VTable
@@ -112,11 +112,11 @@ export default {
     },
   },
   created() {
-    this.setTitle("Permission");
+    this.setTitle("Definitions");
     this.setBreadcrumb([
       {
         to: "/acl/permission",
-        name: "Permission",
+        name: "Definitions / Permission",
       },
     ]);
     this.resetAxiosParams();

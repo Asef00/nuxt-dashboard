@@ -1,7 +1,7 @@
 <template>
-  <VCard title="Create new Product">
+  <VCard title="Define New Product">
     <template #header>
-      <VBtn to="/product" class="m-0 c-btn--small"> List </VBtn>
+      <VBtn to="/product" class="m-0 c-btn--small"> Defined Products </VBtn>
     </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">
@@ -56,7 +56,10 @@
           />
         </div>
       </div>
-      <VBtn :loader="loaderRequest">SAVE</VBtn>
+      <div class="mt-5">
+        <VBtn :loader="loaderRequest">SAVE</VBtn>
+        <VBtn btn="danger" to="/product" :loader="loaderRequest">CANCEL</VBtn>
+      </div>
     </form>
   </VCard>
 </template>
@@ -141,11 +144,11 @@ export default {
   },
   created() {
     this.resetError();
-    this.setTitle("Product");
+    this.setTitle("Definitions");
     this.setBreadcrumb([
       {
         to: "/product",
-        name: "Product",
+        name: "Definitions / Product",
       },
       {
         to: "/product/create",

@@ -1,7 +1,7 @@
 <template>
-  <VCard title="Create new Permission">
+  <VCard title="Define New Permission">
     <template #header>
-      <VBtn to="/acl/permission" class="m-0 c-btn--small"> List</VBtn>
+      <VBtn to="/acl/permission" class="m-0 c-btn--small"> Defined Permissions</VBtn>
     </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">
@@ -13,7 +13,7 @@
             :list="list.route"
             placeholder="Please select name"
             track-label="name"
-            label="Name (route name)"
+            label="Name (Route Name)"
           />
         </div>
         <div class="col-md-6">
@@ -126,7 +126,10 @@
           </div>
         </div>
       </div>
-      <VBtn :loader="loaderRequest">SAVE</VBtn>
+      <div class="mt-5">
+        <VBtn :loader="loaderRequest">SAVE</VBtn>
+        <VBtn btn="danger" to="/acl/permission" :loader="loaderRequest">CANCEL</VBtn>
+      </div>
     </form>
   </VCard>
 </template>
@@ -345,11 +348,11 @@ export default {
   },
   created() {
     this.resetError();
-    this.setTitle("Permission");
+    this.setTitle("Definitions");
     this.setBreadcrumb([
       {
         to: "/acl/permission",
-        name: "Permission",
+        name: "Definitions / Permission",
       },
       {
         to: "/acl/permission/create",

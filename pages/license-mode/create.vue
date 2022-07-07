@@ -1,7 +1,7 @@
 <template>
-  <VCard title="Create New License Mode">
+  <VCard title="Define New License Mode">
     <template #header>
-      <VBtn to="/license-mode" class="m-0 c-btn--small"> List </VBtn>
+      <VBtn to="/license-mode" class="m-0 c-btn--small"> Defined License Modes </VBtn>
     </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">
@@ -24,7 +24,10 @@
           />
         </div>
       </div>
-      <VBtn :loader="loaderRequest">SAVE</VBtn>
+      <div class="mt-5">
+        <VBtn :loader="loaderRequest">SAVE</VBtn>
+        <VBtn btn="danger" to="/license-mode" :loader="loaderRequest">CANCEL</VBtn>
+      </div>
     </form>
   </VCard>
 </template>
@@ -78,11 +81,11 @@ export default {
     },
   },
   created() {
-    this.setTitle("License Mode");
+    this.setTitle("Definitions");
     this.setBreadcrumb([
       {
         to: "/license-mode",
-        name: "License Mode",
+        name: "Definitions / License Mode",
       },
       {
         to: "/license-mode/create",

@@ -1,12 +1,12 @@
 <template>
-  <VCard :loader="loaderRequest" title="List License Modes">
+  <VCard :loader="loaderRequest" title="Defined License Modes">
     <template #header>
       <VBtn
         to="/license-mode/create"
         v-if="can('license-mode.store')"
         class="m-0 c-btn--small"
       >
-        Create
+        Define New License Mode
       </VBtn>
     </template>
     <VTable
@@ -101,11 +101,11 @@ export default {
     },
   },
   created() {
-    this.setTitle("License Mode");
+    this.setTitle("Definitions");
     this.setBreadcrumb([
       {
         to: "/license-mode",
-        name: "License Mode",
+        name: "Definitions / License Mode",
       },
     ]);
     this.resetAxiosParams();

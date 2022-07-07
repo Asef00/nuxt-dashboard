@@ -1,6 +1,6 @@
 <template>
   <div>
-    <VCard title="Profile">
+    <VCard :title="user.name != null ? user.name+`'s Profile`:`Profile`">
       <template #header>
         <transition>
           <VBtn
@@ -303,7 +303,7 @@ export default {
   },
 
   created() {
-    this.setTitle("Profile");
+    this.setTitle("Manage Profile");
     this.setBreadcrumb([
       {
         to: "/profile",
