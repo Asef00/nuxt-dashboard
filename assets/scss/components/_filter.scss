@@ -72,6 +72,7 @@
 
   select,
   input[type="text"] {
+    padding: 0 8px;
     border: none;
     background-color: transparent;
 
@@ -82,7 +83,6 @@
 
   input[type="text"] {
     // @include input-search-bg;
-    padding: 0 8px;
     flex: 1;
   }
 
