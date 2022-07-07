@@ -74,11 +74,11 @@
                           <input type="text" placeholder="Search..." />
                           <select>
                             <option value="=" selected>=</option>
-                            <option value="<" selected>&lt;</option>
-                            <option value=">" selected>&gt;</option>
-                            <option value="=<" selected>=&lt;</option>
-                            <option value="=>" selected>=&gt;</option>
-                            <option value="!=" selected>!=</option>
+                            <option value="<">&lt;</option>
+                            <option value=">">&gt;</option>
+                            <option value="=<">=&lt;</option>
+                            <option value="=>">=&gt;</option>
+                            <option value="!=">!=</option>
                           </select>
                         </div>
                         <div class="c-filter__buttons">
