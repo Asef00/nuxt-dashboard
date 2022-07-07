@@ -34,10 +34,28 @@ export default {
     type: {
       type: String,
       default: "submit",
+      validator(value) {
+        // must match one of these strings
+        return ["button", "submit", "reset"].includes(value);
+      },
     },
     btn: {
       type: String,
       default: "primary",
+      validator(value) {
+        // must match one of these strings
+        return [
+          "primary",
+          "success",
+          "danger",
+          "warn",
+          "info",
+          "dark",
+          "simple",
+          "outline",
+          "block",
+        ].includes(value);
+      },
     },
     loader: {
       type: Boolean,
