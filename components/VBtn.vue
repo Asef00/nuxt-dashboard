@@ -67,7 +67,16 @@ export default {
     },
     size: {
       type: String,
-      default: "",
+      default: "md",
+      validator(value) {
+        // must match one of these strings
+        return [
+          "xs",
+          "sm",
+          "md",
+          "lg",
+        ].includes(value);
+      },
     },
   },
 
