@@ -1,5 +1,5 @@
 <template>
-  <VCard :loader="loaderRequest" title="List Field Names">
+  <VCard :loader="loaderRequest" title="Defined Fields">
     <template #header>
       <VBtn
         to="/field/name/create"
@@ -7,7 +7,7 @@
         size="sm"
         class="m-0"
       >
-        Create
+        Define New Field
       </VBtn>
     </template>
     <VTable
@@ -111,11 +111,11 @@ export default {
     },
   },
   created() {
-    this.setTitle("Field Name");
+    this.setTitle("Definitions");
     this.setBreadcrumb([
       {
         to: "/field/name",
-        name: "Field Name",
+        name: "Definitions / Field Name",
       },
     ]);
     this.resetAxiosParams();

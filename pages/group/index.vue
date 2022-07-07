@@ -1,8 +1,8 @@
 <template>
-  <VCard :loader="loaderRequest" title="List Groups">
+  <VCard :loader="loaderRequest" title="Defined Groups">
     <template #header>
       <VBtn to="/group/create" v-if="can('group.store')" size="sm" class="m-0">
-        Create
+        Define New Group
       </VBtn>
     </template>
     <VTable
@@ -107,11 +107,11 @@ export default {
     },
   },
   created() {
-    this.setTitle("Group");
+    this.setTitle("Definitions");
     this.setBreadcrumb([
       {
         to: "/group",
-        name: "Group",
+        name: "Definitions / Group",
       },
     ]);
     this.resetAxiosParams();

@@ -1,7 +1,7 @@
 <template>
-  <VCard title="Edit a Permission">
+  <VCard title="Edit Permission">
     <template #header>
-      <VBtn to="/acl/permission" size="sm" class="m-0"> List</VBtn>
+      <VBtn to="/acl/permission" size="sm" class="m-0"> Defined Permissions </VBtn>
     </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">
@@ -13,7 +13,7 @@
             :list="list.route"
             placeholder="Please select name"
             track-label="name"
-            label="Name (route name)"
+            label="Name (Route Name)"
           />
         </div>
         <div class="col-md-6">
@@ -63,7 +63,10 @@
           />
         </div>
       </div>
-      <VBtn :loader="loaderRequest">SAVE</VBtn>
+      <div class="mt-5">
+        <VBtn :loader="loaderRequest">SAVE</VBtn>
+        <VBtn btn="danger" to="/acl/permission" :loader="loaderRequest">CANCEL</VBtn>
+      </div>
     </form>
   </VCard>
 </template>
@@ -148,8 +151,10 @@ export default {
         this.payload.name = this.list.route.find((o) => o.name === data.name);
         this.payload.label = data.label;
         if (data.conditions != null) {
-          this.hasFilter = true;
-          this.payload.conditions = data.conditions;
+          if (Object.keys(data.conditions).length){
+            this.hasFilter = true;
+          }
+          this.payload.conditions = data.conditions
         }
       }
       this.stopLoading();
@@ -175,11 +180,11 @@ export default {
     this.resetError();
     this.getRouteList();
     this.show();
-    this.setTitle("Permission");
+    this.setTitle("Definitions");
     this.setBreadcrumb([
       {
         to: "/acl/permission",
-        name: "Permission",
+        name: "Definitions / Permission",
       },
       {
         to: "/acl/permission/edit/" + this.id,

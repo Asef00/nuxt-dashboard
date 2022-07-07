@@ -1,7 +1,7 @@
 <template>
-  <VCard title="Edit a License Mode">
+  <VCard title="Edit License Mode">
     <template #header>
-      <VBtn to="/license-mode" size="sm" class="m-0"> List </VBtn>
+      <VBtn to="/license-mode" size="sm" class="m-0"> Defined Products </VBtn>
     </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">
@@ -24,7 +24,10 @@
           />
         </div>
       </div>
-      <VBtn :loader="loaderRequest">SAVE</VBtn>
+      <div class="mt-5">
+        <VBtn :loader="loaderRequest">SAVE</VBtn>
+        <VBtn btn="danger" to="/license-mode" :loader="loaderRequest">CANCEL</VBtn>
+      </div>
     </form>
   </VCard>
 </template>
@@ -48,7 +51,7 @@ export default {
     update() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, { abortEarly: false })
+        .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("licenseMode/update", {
@@ -92,11 +95,11 @@ export default {
   },
   created() {
     this.show();
-    this.setTitle("License Mode");
+    this.setTitle("Definitions");
     this.setBreadcrumb([
       {
         to: "/license-mode",
-        name: "License Mode",
+        name: "Definitions / License Mode",
       },
       {
         to: "/license-mode/edit/" + this.id,

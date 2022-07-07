@@ -1,5 +1,5 @@
 <template>
-  <VCard :loader="loaderRequest" title="List Products">
+  <VCard :loader="loaderRequest" title="Defined Products">
     <template #header>
       <VBtn
         to="/product/create"
@@ -7,7 +7,7 @@
         size="sm"
         class="m-0"
       >
-        Create
+        Define New Product
       </VBtn>
     </template>
     <VTable
@@ -112,11 +112,11 @@ export default {
     },
   },
   created() {
-    this.setTitle("Product");
+    this.setTitle("Definitions");
     this.setBreadcrumb([
       {
         to: "/product",
-        name: "Product",
+        name: "Definitions / Product",
       },
     ]);
     this.resetAxiosParams();

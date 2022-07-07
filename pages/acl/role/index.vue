@@ -1,5 +1,5 @@
 <template>
-  <VCard :loader="loaderRequest" title="List Roles">
+  <VCard :loader="loaderRequest" title="Defined Roles">
     <template #header>
       <VBtn
         to="/acl/role/create"
@@ -7,7 +7,7 @@
         size="sm"
         class="m-0"
       >
-        Create
+        Define New Role
       </VBtn>
     </template>
     <VTable
@@ -112,11 +112,11 @@ export default {
     },
   },
   created() {
-    this.setTitle("Role");
+    this.setTitle("Definitions");
     this.setBreadcrumb([
       {
         to: "/acl/role",
-        name: "Role",
+        name: "Definitions / Role",
       },
     ]);
     this.resetAxiosParams();
