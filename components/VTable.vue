@@ -78,7 +78,7 @@
                             col.filterKey ? col.filterKey : col.key
                           )
                         "
-                      ></NumberFilter>
+                      />
                       <!-- case "date": -->
                       <DateFilter
                         v-else-if="col.filterType == 'date'"
@@ -88,7 +88,7 @@
                             col.filterKey ? col.filterKey : col.key
                           )
                         "
-                      ></DateFilter>
+                      />
                       <!-- case "multiselect": -->
                       <MultiselectFilter
                         v-else-if="col.filterType == 'multiselect'"
@@ -98,47 +98,17 @@
                             col.filterKey ? col.filterKey : col.key
                           )
                         "
-                      >
-                      </MultiselectFilter>
+                      />
                       <!-- case "select": -->
-                      <template v-else-if="col.filterType == 'select'">
-                        <div>
-                          <label class="c-radio c-filter__item">
-                            <input
-                              class="c-radio__input"
-                              type="radio"
-                              name="radio1"
-                              value="all"
-                              checked
-                            />
-                            All
-                          </label>
-                          <label class="c-radio c-filter__item">
-                            <input
-                              class="c-radio__input"
-                              type="radio"
-                              name="radio1"
-                              value="enabled"
-                            />
-                            Enable
-                          </label>
-                          <label class="c-radio c-filter__item">
-                            <input
-                              class="c-radio__input"
-                              type="radio"
-                              name="radio1"
-                              value="disabled"
-                            />
-                            Disable
-                          </label>
-                        </div>
-
-                        <div class="c-filter__buttons">
-                          <VBtn btn="simple" size="sm" class="mb-0">
-                            Reset
-                          </VBtn>
-                        </div>
-                      </template>
+                      <SelectFilter
+                        v-else-if="col.filterType == 'select'"
+                        @filter="
+                          filterNumber(
+                            $event,
+                            col.filterKey ? col.filterKey : col.key
+                          )
+                        "
+                      />
                     </template>
                   </VDropdown>
 
@@ -244,6 +214,7 @@ import VRuntimeTemplate from "v-runtime-template";
 import DateFilter from "./filter/DateFilter.vue";
 import NumberFilter from "./filter/NumberFilter.vue";
 import MultiselectFilter from "./filter/MultiselectFilter.vue";
+import SelectFilter from "./filter/SelectFilter.vue";
 
 export default {
   components: {
@@ -251,6 +222,7 @@ export default {
     DateFilter,
     NumberFilter,
     MultiselectFilter,
+    SelectFilter,
   },
 
   props: {

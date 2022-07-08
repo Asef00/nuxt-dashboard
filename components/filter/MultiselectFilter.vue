@@ -37,7 +37,6 @@ export default {
 
   methods: {
     filter() {
-      // using filter to exclude empty end-date
       this.$emit("filter", this.selectedOptions.join(","));
     },
 
