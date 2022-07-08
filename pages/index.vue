@@ -94,7 +94,11 @@ export default {
       table: {
         columns: [
           { key: "client", label: "Client" },
-          { key: "last_update", label: "Last Update", class: "u-table--center" },
+          {
+            key: "last_update",
+            label: "Last Update",
+            class: "u-table--center",
+          },
           { key: "status", label: "Status" },
           {
             key: "action",
@@ -105,7 +109,8 @@ export default {
         items: json,
         map: {
           action(item) {
-            return `<NuxtLink v-if="can('person.update')" to="/person/edit/${item.id}">
+            return `
+            <NuxtLink v-if="can('person.update')" to="/person/edit/${item.id}" title="View Details">
               <fa icon="eye" size="lg" />
             </NuxtLink>`;
           },
