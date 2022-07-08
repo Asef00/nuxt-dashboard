@@ -96,7 +96,7 @@ export default {
             return item.product.title;
           },
           action(item) {
-            return `<span v-on:click="action(${item.id},'Details')" class="c-badge--hover">
+            return `<span title="Show Data" v-on:click="action(${item.id},'Details')" class="c-badge--hover">
               <fa icon="eye" size="lg" />
             </span>`;
           },
