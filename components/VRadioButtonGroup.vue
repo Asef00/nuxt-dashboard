@@ -1,0 +1,29 @@
+<template>
+  <div class="c-radio-group">
+    <template v-for="option in options">
+      <VRadioButton :key="option.index" :radio="option" :name="name">
+        {{ option.label }}
+      </VRadioButton>
+    </template>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "RadioButtonGroup",
+
+  props: {
+    options: {
+      type: Array,
+      required: true,
+      default: [],
+    },
+
+    name: {
+      required: true,
+      type: String,
+    },
+  },
+};
+</script>
+
