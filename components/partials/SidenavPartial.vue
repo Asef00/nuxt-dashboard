@@ -13,7 +13,7 @@
       <li class="c-sidenav__item pr-3 pl-3">
         <input type="text" class="c-sidenav__search" placeholder="Search ..."/>
       </li>
-      <li class="c-sidenav__item">
+      <li v-if="can('dashboard')" class="c-sidenav__item">
         <NuxtLink to="/" class="c-sidenav__link">
           <VIcon icon="dashboard"/>
           <span>Dashboard</span>
