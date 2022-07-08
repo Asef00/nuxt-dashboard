@@ -36,13 +36,14 @@ export default {
   },
 
   methods: {
-    reset() {
-      console.log("reset!");
-      this.selectedOptions = [];
+    filter() {
+      // using filter to exclude empty end-date
+      this.$emit("filter", this.selectedOptions.join(","));
     },
 
-    filter() {
-      console.log("filter!");
+    reset() {
+      this.selectedOptions = [];
+      this.filter();
     },
   },
 };
