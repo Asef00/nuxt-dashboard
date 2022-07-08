@@ -5,7 +5,7 @@
       class="c-checkbox__input"
       :value="inputValue"
       :disabled="disabled"
-      v-model="isChecked"
+      v-model="model"
     />
     {{ label }}
     <span class="c-checkbox__icon"></span>
@@ -24,6 +24,7 @@ export default {
 
     //v-model: selected items list
     value: Array,
+
     inputValue: {
       type: [String, Number],
     },
@@ -46,14 +47,20 @@ export default {
     };
   },
 
+  computed: {
+    model: {
+      get() {
+        return this.value;
+      },
+      set(value) {
+        this.$emit("input", value);
+      },
+    },
+  },
+
   watch: {
-    isChecked(checked) {
-      // push or remove from selected list
-      if (checked) {
-        this.value.push(this.inputValue);
-      } else {
-        this.value.remove(this.inputValue);
-      }
+    model(val) {
+      this.isChecked = val.includes(this.inputValue);
     },
   },
 };
