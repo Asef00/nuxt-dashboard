@@ -1,6 +1,6 @@
 <template>
   <div>
-    <VCard :title="user.name != null ? user.name+`'s Profile`:`Profile`">
+    <VCard :title="user.name != null ? user.name + `'s Profile` : `Profile`">
       <template #header>
         <transition>
           <VBtn
@@ -26,12 +26,13 @@
         </VBtn>
       </template>
       <div class="row">
-        <div class="col-md-3 col-12">
+        <div class="col-12 u-text-center">
           <div class="c-avatar">
-            <VIcon icon="avatar" width="300" height="300" />
+            <VIcon icon="avatar" width="150" height="150" />
           </div>
         </div>
-        <div class="col-md-9 col-12">
+
+        <div class="col-12">
           <form ref="form" @submit.prevent="update" class="c-form">
             <h4 class="c-form__title">Profile Info</h4>
             <div class="row">
@@ -227,6 +228,7 @@ export default {
         this.resetError();
       }
     },
+
     //current user
     me() {
       this.$auth.fetchUser();
@@ -242,6 +244,7 @@ export default {
           field.value != null ? field.value.value : field.value;
       }
     },
+
     validation() {
       let roles = {
         name: Yup.string().required(),
@@ -254,6 +257,7 @@ export default {
       }
       return Yup.object(roles);
     },
+
     update() {
       this.startLoading();
       this.validation()
@@ -287,6 +291,7 @@ export default {
           this.stopLoading();
         });
     },
+
     resetError() {
       this.$store.commit("me/RESET_ERROR");
       this.errors = {
@@ -294,15 +299,18 @@ export default {
         family_name: "",
       };
     },
+
     changePasswordModal(show) {
       this.showModalChangePassword = show;
     },
+
     verifyEmailModal(show) {
       this.showModalVerifyEmail = show;
       if (!show) {
         this.me();
       }
     },
+
     sendVerifyCode() {
       this.showModalVerifyEmail = true;
       this.startLoading();
@@ -314,6 +322,7 @@ export default {
         }
       });
     },
+
     detailsItem(id) {
       this.detailsItemId = id;
       this.showDetails = true;
