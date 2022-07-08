@@ -10,7 +10,6 @@
       :checked="radio.selected"
     />
     <slot />
-    <span class="c-checkbox__icon"></span>
   </label>
 </template>
 
