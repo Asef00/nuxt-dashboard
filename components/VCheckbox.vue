@@ -1,11 +1,11 @@
 <template>
-  <label class="c-checkbox" :class="{ 'is-active': internalValue }">
+  <label :class="['c-checkbox', { 'is-active': isChecked }]">
     <input
       type="checkbox"
       class="c-checkbox__input"
-      :value="data"
+      :value="inputValue"
       :disabled="disabled"
-      v-model="internalValue"
+      v-model="isChecked"
     />
     {{ label }}
     <span class="c-checkbox__icon"></span>
@@ -15,18 +15,25 @@
 <script>
 export default {
   name: "Checkbox",
+
   props: {
-    label: String,
-    data: {
+    label: {
+      type: String,
+      default: "",
+    },
+
+    //v-model: selected items list
+    value: Array,
+    inputValue: {
       type: [String, Number],
     },
-    list: {
-      type: [Array, Object],
-    },
+
+    //initial checked
     checked: {
       type: Boolean,
       default: false,
     },
+
     disabled: {
       type: Boolean,
       default: false,
@@ -35,21 +42,17 @@ export default {
 
   data() {
     return {
-      internalValue: "",
+      isChecked: this.checked,
     };
   },
 
   watch: {
-    internalValue(v) {
-      let d = this.data;
-      if (typeof d === "undefined") {
-        this.$emit("input", v);
+    isChecked(checked) {
+      // push or remove from selected list
+      if (checked) {
+        this.value.push(this.inputValue);
       } else {
-        if (v) {
-          this.list.push(d);
-        } else {
-          this.list.remove(d);
-        }
+        this.value.remove(this.inputValue);
       }
     },
   },

@@ -11,14 +11,13 @@ $checkbox-size: 16.3px;
   @include font-size(14px);
 }
 
-.c-checkbox__input {
-  position: absolute;
-  height: 0;
-  width: 0;
+// .c-checkbox__input {
+//   position: absolute;
+//   height: 0;
+//   width: 0;
 
-  opacity: 0;
-  cursor: pointer;
-}
+//   opacity: 0;
+// }
 
 .c-checkbox__icon {
   position: absolute;

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- table sample -->
     <VCard :loader="loaderRequest" title="Sample Table">
       <VTable
         @changePage="changePage($event)"
@@ -8,7 +9,7 @@
         :table="table"
       />
     </VCard>
-
+    <!-- form control samples -->
     <VCard title="Dashboard">
       <template #header> </template>
       <form action="" class="c-form">
@@ -76,7 +77,7 @@
               placeholder="Please enter summary"
             />
           </div>
-
+          <!-- switch samples -->
           <div class="col-md-1">
             <VSwitch
               :defaultState="true"
@@ -116,19 +117,13 @@
               type="success"
             />
           </div>
-
+          <!-- checkbox samples -->
           <div class="col-md-6">
-            <VCheckbox
-              label="Ali"
-              data="Ali"
-              :list="selectedOptions"
-              v-model="selected"
-            />
+            <VCheckbox label="Ali" inputValue="Ali" v-model="selectedOptions" />
             <VCheckbox
               label="Reza"
-              data="Reza"
-              :list="selectedOptions"
-              v-model="selected"
+              inputValue="Reza"
+              v-model="selectedOptions"
             />
             <VCheckbox
               label="Disabled"
@@ -138,6 +133,7 @@
             />
           </div>
         </div>
+        <!-- button samples -->
         <VBtn
           @action="startLoading"
           :loader="loaderRequest"
@@ -163,7 +159,7 @@
         </VBtn>
       </form>
     </VCard>
-
+    <!-- alert samples -->
     <VCard title="Alerts">
       <VAlert class="c-alert--primary">
         A simple primary alert—check it out!
@@ -186,7 +182,7 @@
       </VAlert>
       <VAlert class="c-alert--dark"> A simple dark alert—check it out! </VAlert>
     </VCard>
-
+    <!-- inline form-control samples -->
     <VCard title="Inline Form Controls">
       <template #header>
         <VBtn size="sm" class="m-0" btn="info">Button</VBtn>
@@ -298,7 +294,7 @@
         <span class="c-badge u-bg-dark">success</span>
       </form>
     </VCard>
-
+    <!-- modal samples -->
     <VCard title="Card Long Title Sample">
       <template #header>
         <VBtn size="sm" class="m-0" btn="success">Success</VBtn>
@@ -311,7 +307,7 @@
       <VBtn @action="showModal = true">Show Modal</VBtn>
       <VBtn @action="showFormModal = true" btn="info">Show Form Modal</VBtn>
     </VCard>
-
+    <!-- tab samples -->
     <VCard>
       <VTabs
         qKey="tabs1"
@@ -363,7 +359,6 @@
       </p>
       <template #footer>Modal footer</template>
     </VModal>
-
     <VModal
       :showModal="showFormModal"
       @close="showFormModal = false"
@@ -416,19 +411,9 @@
           type="success"
         />
 
-        <VCheckbox
-          label="Ali"
-          data="Ali"
-          :list="selectedOptions"
-          v-model="selected"
-        />
+        <VCheckbox label="Ali" inputValue="Ali" v-model="selectedOptions" />
 
-        <VCheckbox
-          label="Reza"
-          data="Reza"
-          :list="selectedOptions"
-          v-model="selected"
-        />
+        <VCheckbox label="Reza" inputValue="Reza" v-model="selectedOptions" />
 
         <VCheckbox
           label="Disabled"
