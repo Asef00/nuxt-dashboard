@@ -90,38 +90,16 @@
                         "
                       ></DateFilter>
                       <!-- case "multiselect": -->
-                      <template v-else-if="col.filterType == 'multiselect'">
-                        <div>
-                          <VCheckbox
-                            class="c-filter__item"
-                            label="Admin"
-                            data="admin"
-                            :list="selectedOptions"
-                            v-model="selected"
-                          />
-                          <VCheckbox
-                            class="c-filter__item"
-                            label="Developer"
-                            data="developer"
-                            :list="selectedOptions"
-                            v-model="selected"
-                          />
-                          <VCheckbox
-                            class="c-filter__item"
-                            label="Staff"
-                            data="staff"
-                            :list="selectedOptions"
-                            v-model="selected"
-                          />
-                        </div>
-
-                        <div class="c-filter__buttons">
-                          <VBtn btn="simple" size="sm" class="mb-0">
-                            Claer
-                          </VBtn>
-                          <VBtn size="sm" class="mb-0">Filter</VBtn>
-                        </div>
-                      </template>
+                      <MultiselectFilter
+                        v-else-if="col.filterType == 'multiselect'"
+                        @filter="
+                          filterMultiselect(
+                            $event,
+                            col.filterKey ? col.filterKey : col.key
+                          )
+                        "
+                      >
+                      </MultiselectFilter>
                       <!-- case "select": -->
                       <template v-else-if="col.filterType == 'select'">
                         <div>
@@ -265,12 +243,14 @@
 import VRuntimeTemplate from "v-runtime-template";
 import DateFilter from "./filter/DateFilter.vue";
 import NumberFilter from "./filter/NumberFilter.vue";
+import MultiselectFilter from "./filter/MultiselectFilter.vue";
 
 export default {
   components: {
     VRuntimeTemplate,
     DateFilter,
     NumberFilter,
+    MultiselectFilter,
   },
 
   props: {
@@ -384,6 +364,9 @@ export default {
       console.log(key, val);
     },
     filterNumber(val, key) {
+      console.log(key, val);
+    },
+    filterMultiselect(val, key) {
       console.log(key, val);
     },
   },
