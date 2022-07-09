@@ -98,6 +98,7 @@
                             col.filterKey ? col.filterKey : col.key
                           )
                         "
+                        :items="col.filterItems"
                       />
                       <!-- case "select": -->
                       <SelectFilter

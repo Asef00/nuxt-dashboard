@@ -23,14 +23,15 @@
 export default {
   name: "MultiselectFilter",
 
+  props: {
+    items: {
+      type: Array,
+      default: [],
+    },
+  },
+
   data() {
     return {
-      items: [
-        { label: "Admin", value: "admin" },
-        { label: "Developer", value: "developer" },
-        { label: "Staff", value: "staff" },
-      ],
-
       selectedOptions: [],
     };
   },

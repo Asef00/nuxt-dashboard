@@ -45,7 +45,7 @@ export default {
         "filter",
         [this.inputValue, this.selectedOperator].filter(Boolean).join(",")
       );
-    //   console.log(this.selectedOperator);
+      //console.log(this.selectedOperator);
     },
 
     reset() {

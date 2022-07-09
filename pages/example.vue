@@ -489,7 +489,16 @@ export default {
               { label: "Disable", value: "disabled" },
             ],
           },
-          { key: "roles", label: "Roles", filterType: "multiselect" },
+          {
+            key: "roles",
+            label: "Roles",
+            filterType: "multiselect",
+            filterItems: [
+              { label: "Admin", value: "admin" },
+              { label: "Developer", value: "developer" },
+              { label: "Staff", value: "staff" },
+            ],
+          },
           {
             key: "created_at",
             label: "Created At",
