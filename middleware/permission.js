@@ -4,7 +4,7 @@ export default function (context) {
       let result = context.$auth.user.permission_names.includes(context.route.meta[0].permission);
       if (!result) {
         console.log('No permission :)')
-        context.redirect('/');
+        context.redirect('/profile');
       }
     } else {
       return true;
