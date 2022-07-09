@@ -1,7 +1,7 @@
 <template>
   <div class="c-radio-group">
     <template v-for="option in options">
-      <VRadioButton :key="option.index" :radio="option" :name="name">
+      <VRadioButton :key="option.index" :radio="option" :name="name" v-model="value">
         {{ option.label }}
       </VRadioButton>
     </template>
@@ -13,6 +13,7 @@ export default {
   name: "RadioButtonGroup",
 
   props: {
+    value: String,
     options: {
       type: Array,
       required: true,

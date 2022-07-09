@@ -7,7 +7,7 @@
       :name="name"
       :disabled="radio.disabled"
       @change="$parent.$emit('input', $event.target.value)"
-      :checked="radio.selected"
+      :checked="isChecked"
     />
     <slot />
   </label>
@@ -18,6 +18,8 @@ export default {
   name: "Radio",
 
   props: {
+    value: String,
+
     radio: {
       required: true,
       type: Object,
@@ -38,15 +40,22 @@ export default {
       type: String,
     },
 
-    //initial checked
-    checked: {
-      type: Boolean,
-      default: false,
-    },
-
     disabled: {
       type: Boolean,
       default: false,
+    },
+  },
+
+  data() {
+    return {
+      //initial checked
+      isChecked: this.radio.selected,
+    };
+  },
+
+  watch: {
+    value() {
+      this.isChecked = this.value == this.radio.value;
     },
   },
 };

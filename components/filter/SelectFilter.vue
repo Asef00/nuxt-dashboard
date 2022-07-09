@@ -29,7 +29,16 @@ export default {
     return {
       selectedOption: "",
       defaultOption: "",
+      key: 0,
     };
+  },
+
+  mounted() {
+    //set default value from provided list
+    let result = this.items.filter((obj) => {
+      return obj.selected == true;
+    });
+    this.defaultOption = result[0].value;
   },
 
   methods: {
@@ -38,7 +47,7 @@ export default {
     },
 
     reset() {
-      this.selectedOption = "";
+      this.selectedOption = this.defaultOption;
     },
   },
 
