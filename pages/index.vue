@@ -111,8 +111,8 @@ export default {
       tablePerson: {
         columns: [
           {key: "full_name", label: "Name",},
-          {key: "activity", label: "Activity",},
           {key: "created_at", label: "Logged At",},
+          {key: "activity", label: "Activity",},
         ],
         items: [],
         map: {
@@ -120,10 +120,10 @@ export default {
             return `${item.causer.name} ${item.causer.family_name}`;
           },
           created_at(item) {
-            return new Date(item.created_at).toLocaleString();
+            return _this.dateFormat(item.created_at,"MM/dd/yyyy",true);
           },
           activity(item) {
-            return item.description
+            return _this.toTitleCase(item.description.replace('Get token with','').replace('_',' '))
           },
           //REQUIRED
           rowClass() {

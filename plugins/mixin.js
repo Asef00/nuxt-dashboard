@@ -108,7 +108,7 @@ const mixin = {
         }
       }
     },
-    dateFormat(inputDate, format = "MM-dd-yyyy") {
+    dateFormat(inputDate, format = "MM/dd/yyyy" ,withTime = false) {
       //parse the input date
       const date = new Date(inputDate);
 
@@ -129,7 +129,9 @@ const mixin = {
 
       //replace the day
       format = format.replace("dd", day.toString().padStart(2, "0"));
-
+      if (withTime){
+        return format+' '+`${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+      }
       return format;
     },
     hasError(field) {
@@ -194,11 +196,13 @@ const mixin = {
     setAxiosParams(param) {
       return this.$store.commit('SET_AXIOS_PARAMS', param)
     },
-    getAxiosParams() {
-      return this.$store.state.axiosParams
-    },
     resetAxiosParams() {
       return this.$store.commit('RESET_AXIOS_PARAMS')
+    },
+    toTitleCase(str) {
+      return str.replace(/\w\S*/g, function(txt){
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      });
     }
   },
 };
