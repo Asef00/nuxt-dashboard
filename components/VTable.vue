@@ -56,7 +56,6 @@
                       col.class,
                       { 'u-width-auto': col.filterType == 'number' },
                     ]"
-                    @toggleShow="fix()"
                   >
                     <!-- Filter icon -->
                     <template #btn>
@@ -213,6 +212,7 @@
 
 <script>
 import VRuntimeTemplate from "v-runtime-template";
+// filter components
 import DateFilter from "./filter/DateFilter.vue";
 import NumberFilter from "./filter/NumberFilter.vue";
 import MultiselectFilter from "./filter/MultiselectFilter.vue";
@@ -255,24 +255,11 @@ export default {
       perPageArray: [25, 50, 100],
       filterColumn: "",
 
-      selected: "", //for checkbox
-      selectedOptions: [], //for checkbox
-
-      startDate: "",
-      endDate: "",
-
-      dropdownIsActive: false,
       searchVal: "",
     };
   },
 
   methods: {
-    fix() {
-      this.$nextTick(() => {
-        this.dropdownIsActive = !this.dropdownIsActive;
-      });
-    },
-
     showItem(row, col) {
       let key = col.key; //based on defined structure
       let map = this.table.map; //custom mapped data
