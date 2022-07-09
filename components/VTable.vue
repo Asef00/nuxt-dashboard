@@ -108,6 +108,7 @@
                             col.filterKey ? col.filterKey : col.key
                           )
                         "
+                        :items="col.filterItems"
                       />
                     </template>
                   </VDropdown>

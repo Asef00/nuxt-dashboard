@@ -21,18 +21,14 @@ export default {
   props: {
     items: {
       type: Array,
-      default: () => [
-        { label: "All", value: "all", selected: true },
-        { label: "Enable", value: "enabled" },
-        { label: "Disable", value: "disabled" },
-      ],
+      default: [],
     },
   },
 
   data() {
     return {
       selectedOption: "",
-      defaultOption: ""
+      defaultOption: "",
     };
   },
 

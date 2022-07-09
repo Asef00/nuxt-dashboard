@@ -483,6 +483,11 @@ export default {
             label: "Status",
             sortable: true,
             filterType: "select",
+            filterItems: [
+              { label: "All", value: "all", selected: true },
+              { label: "Enable", value: "enabled" },
+              { label: "Disable", value: "disabled" },
+            ],
           },
           { key: "roles", label: "Roles", filterType: "multiselect" },
           {
