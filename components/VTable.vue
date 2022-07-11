@@ -66,9 +66,7 @@
                         <!-- we only check first key as convention  -->
                         <VIcon
                           :icon="
-                            activeFilters.includes(
-                              col.filterKey ? col.filterKey[0] : col.key
-                            )
+                            activeFilters.includes(getSortKey(col))
                               ? 'filter.is-active'
                               : 'filter'
                           "
@@ -80,43 +78,23 @@
                         <!-- case "number": -->
                         <NumberFilter
                           v-if="col.filterType == 'number'"
-                          @filter="
-                            filterNumber(
-                              $event,
-                              col.filterKey ? col.filterKey : col.key
-                            )
-                          "
+                          @filter="filterNumber($event, getFilterKey(col))"
                         />
                         <!-- case "date": -->
                         <DateFilter
                           v-else-if="col.filterType == 'date'"
-                          @filter="
-                            filterDate(
-                              $event,
-                              col.filterKey ? col.filterKey : col.key
-                            )
-                          "
+                          @filter="filterDate($event, getFilterKey(col))"
                         />
                         <!-- case "multiselect": -->
                         <MultiselectFilter
                           v-else-if="col.filterType == 'multiselect'"
-                          @filter="
-                            filterMultiselect(
-                              $event,
-                              col.filterKey ? col.filterKey : col.key
-                            )
-                          "
+                          @filter="filterMultiselect($event, getFilterKey(col))"
                           :items="col.filterItems"
                         />
                         <!-- case "select": -->
                         <SelectFilter
                           v-else-if="col.filterType == 'select'"
-                          @filter="
-                            filterSelect(
-                              $event,
-                              col.filterKey ? col.filterKey : col.key
-                            )
-                          "
+                          @filter="filterSelect($event, getFilterKey(col))"
                           :items="col.filterItems"
                         />
                       </template>
@@ -136,7 +114,7 @@
                         },
                       ]"
                       dir="up"
-                      @click="toggleSort(col.key, 'asc')"
+                      @click="toggleSort(getSortKey(col), 'asc')"
                     />
                     <VChevron
                       :class="[
@@ -148,7 +126,7 @@
                         },
                       ]"
                       dir="down"
-                      @click="toggleSort(col.key, 'desc')"
+                      @click="toggleSort(getSortKey(col), 'desc')"
                     />
                   </span>
                 </div>
@@ -408,6 +386,9 @@ export default {
       }
       return result;
     },
+    getFilterKey(col) {
+      return col.filterKey ? col.filterKey : col.key;
+    },
     // front-line filter method
     filter(arr) {
       console.log(arr);
@@ -425,6 +406,7 @@ export default {
       this.hideDropdown();
     },
 
+    // sort methods
     toggleSort(k, o) {
       if (this.activeSort.key == k && this.activeSort.order == o) {
         this.activeSort.key = "";
@@ -434,6 +416,9 @@ export default {
         this.activeSort.order = o;
       }
       console.log(this.activeSort);
+    },
+    getSortKey(col) {
+      return col.filterKey ? col.filterKey[0] : col.key;
     },
   },
 
