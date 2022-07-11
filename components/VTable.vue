@@ -109,7 +109,7 @@
                         'c-sort__item',
                         {
                           'is-active':
-                            activeSort.key == col.key &&
+                            activeSort.key == getSortKey(col) &&
                             activeSort.order == 'asc',
                         },
                       ]"
@@ -121,7 +121,7 @@
                         'c-sort__item',
                         {
                           'is-active':
-                            activeSort.key == col.key &&
+                            activeSort.key == getSortKey(col) &&
                             activeSort.order == 'desc',
                         },
                       ]"
