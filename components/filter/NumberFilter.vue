@@ -43,7 +43,7 @@ export default {
       // using filter to exclude empty end-date
       this.$emit(
         "filter",
-        [this.inputValue, this.selectedOperator].filter(Boolean).join(",")
+        { val: this.inputValue, op: this.selectedOperator }
       );
       //console.log(this.selectedOperator);
     },

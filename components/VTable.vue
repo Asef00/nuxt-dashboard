@@ -331,30 +331,55 @@ export default {
         this.$emit("search", search);
       }
     },
-
     ////////column filters/////////
-    filterDate(val, key) {
-      console.log(key, val);
-      //process the value here
-      this.filter();
+    filterNumber({ val, op }, k) {
+      this.filter(this.getFilterResult(val, k, { operator: op }));
     },
-    filterNumber(val, key) {
-      console.log(key, val);
+    filterDate(val, k) {
       //process the value here
-      this.filter();
+      this.filter(this.getFilterResult(val, k));
     },
-    filterSelect(val, key) {
-      console.log(key, val);
+    filterSelect(val, k) {
       //process the value here
-      this.filter();
+      this.filter(this.getFilterResult(val, k));
     },
-    filterMultiselect(val, key) {
-      console.log(key, val);
+    filterMultiselect(val, k) {
       //process the value here
-      this.filter();
+      this.filter(this.getFilterResult(val, k));
     },
-    // main filter method
-    filter() {
+    getFilterResult(val, k, obj = {}) {
+      let result = [];
+      // if multiple keys
+      if (Array.isArray(k)) {
+        for (let item of k) {
+          result.push(
+            Object.assign(
+              {
+                key: item,
+                value: val,
+              },
+              obj
+            )
+          );
+        }
+      }
+      // else
+      else {
+        result.push(
+          Object.assign(
+            {
+              key: k,
+              value: val,
+            },
+            obj
+          )
+        );
+      }
+      return result;
+    },
+    // front-line filter method
+    filter(obj) {
+      console.log(obj);
       this.hideDropdown();
     },
   },
