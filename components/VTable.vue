@@ -126,8 +126,30 @@
                   <span v-html="col.label"></span>
 
                   <span v-if="col.sortable" class="c-sort">
-                    <VChevron class="c-sort__item" dir="up" />
-                    <VChevron class="c-sort__item" dir="down" />
+                    <VChevron
+                      :class="[
+                        'c-sort__item',
+                        {
+                          'is-active':
+                            activeSort.key == col.key &&
+                            activeSort.order == 'asc',
+                        },
+                      ]"
+                      dir="up"
+                      @click="toggleSort(col.key, 'asc')"
+                    />
+                    <VChevron
+                      :class="[
+                        'c-sort__item',
+                        {
+                          'is-active':
+                            activeSort.key == col.key &&
+                            activeSort.order == 'desc',
+                        },
+                      ]"
+                      dir="down"
+                      @click="toggleSort(col.key, 'desc')"
+                    />
                   </span>
                 </div>
               </th>
@@ -264,6 +286,10 @@ export default {
       preferredPerPage: 25,
       perPageArray: [25, 50, 100],
       activeFilters: [],
+      activeSort: {
+        key: "",
+        order: "",
+      },
 
       searchVal: "",
       //a key to watch in VDropdown
@@ -386,7 +412,8 @@ export default {
     filter(arr) {
       console.log(arr);
       // to check activeness:
-      // we only check first key as convention
+      /// we only check first key as convention
+
       // if at least one value has been set
       if (arr.some((obj) => obj.value)) {
         this.activeFilters.push(arr[0].key);
@@ -396,6 +423,17 @@ export default {
         );
       }
       this.hideDropdown();
+    },
+
+    toggleSort(k, o) {
+      if (this.activeSort.key == k && this.activeSort.order == o) {
+        this.activeSort.key = "";
+        this.activeSort.order = "";
+      } else {
+        this.activeSort.key = k;
+        this.activeSort.order = o;
+      }
+      console.log(this.activeSort);
     },
   },
 
@@ -420,6 +458,7 @@ export default {
 <style lang="scss">
 @import "~/assets/scss/components/datatable";
 @import "~/assets/scss/components/table";
+@import "~/assets/scss/components/sort";
 @import "~/assets/scss/components/pagination";
 @import "~/assets/scss/components/search";
 @import "~/assets/scss/components/radio";
