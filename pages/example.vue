@@ -476,7 +476,18 @@ export default {
       table: {
         columns: [
           { key: "id", label: "#", filterType: "number" },
-          { key: "full_name", label: "Full Name", sortable: true },
+          {
+            key: "full_name",
+            label: "Full Name",
+            sortable: true,
+            filterType: "multiselect",
+            filterKey: ["name", "family_name"],
+            filterItems: [
+              { label: "Alan Walker", value: "Alan", selected: true },
+              { label: "Peter Parker", value: "Peter" },
+              { label: "Jesus Christ", value: "Jesus" },
+            ],
+          },
           { key: "username", label: "Username", sortable: true },
           {
             key: "status",
