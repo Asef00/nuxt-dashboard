@@ -1,7 +1,7 @@
 <template>
   <VCard title="Edit Permission">
     <template #header>
-      <VBtn to="/acl/permission" class="m-0 c-btn--small"> Defined Permissions</VBtn>
+      <VBtn to="/acl/permission" size="sm" class="m-0"> Defined Permissions </VBtn>
     </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">
@@ -44,9 +44,13 @@
           />
         </div>
         <div class="col-md-6">
-          <div class=" c-form__control c-form__control--inline mb-5 ">
+          <div class="c-form__control c-form__control--inline mb-5">
             <label class="c-form__label">Fields :</label>
-            <span v-for="field in payload.fields" class="c-badge u-bg-primary">{{ field }}</span>
+            <span
+              v-for="field in payload.fields"
+              class="c-badge u-bg-primary"
+              >{{ field }}</span
+            >
           </div>
         </div>
         <div class="col-md-12 mb-4">
@@ -74,7 +78,7 @@ import * as Yup from "yup";
 export default {
   name: "create",
   permission: "permission.update",
-  components: {Multiselect},
+  components: { Multiselect },
   data() {
     return {
       id: this.$route.params.id,
@@ -100,7 +104,7 @@ export default {
     update() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           let payload = {
@@ -203,11 +207,11 @@ export default {
     "payload.model": {
       handler(v) {
         if (v == null) {
-          this.payload.fields = null
+          this.payload.fields = null;
         } else {
-          this.payload.fields = v.fields
+          this.payload.fields = v.fields;
         }
-      }
+      },
     },
   },
 };

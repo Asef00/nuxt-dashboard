@@ -1,7 +1,7 @@
 <template>
   <VCard title="Edit Field">
     <template #header>
-      <VBtn to="/field/name" class="m-0 c-btn--small"> Defined Fields</VBtn>
+      <VBtn to="/field/name" size="sm" class="m-0"> Defined Fields </VBtn>
     </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">

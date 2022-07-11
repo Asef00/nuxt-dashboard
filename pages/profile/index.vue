@@ -8,7 +8,8 @@
             @action="editModeToggle"
             btn="info"
             type="button"
-            class="m-0 c-btn--small"
+            size="sm"
+            class="m-0"
           >
             Edit Profile
             <fa icon="pen-to-square" />
@@ -18,7 +19,8 @@
           @action="showModalChangePassword = true"
           btn="warn"
           type="button"
-          class="m-0 c-btn--small"
+          size="sm"
+          class="m-0"
         >
           Change Password
         </VBtn>

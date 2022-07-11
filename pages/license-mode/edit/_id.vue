@@ -1,7 +1,7 @@
 <template>
   <VCard title="Edit License Mode">
     <template #header>
-      <VBtn to="/license-mode" class="m-0 c-btn--small"> Defined Products </VBtn>
+      <VBtn to="/license-mode" size="sm" class="m-0"> Defined Products </VBtn>
     </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">

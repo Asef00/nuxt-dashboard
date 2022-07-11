@@ -55,6 +55,7 @@ $size: 30px;
   @include border-radius;
   @include font-size(13px, $size);
   padding: 5px;
+  white-space: initial;
 
   &:nth-child(3) {
     text-align: center;

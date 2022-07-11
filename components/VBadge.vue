@@ -10,6 +10,20 @@ export default {
     type: {
       type: String,
       default: "",
+      validator(value) {
+        // must match one of these strings
+        return [
+          "primary",
+          "success",
+          "danger",
+          "warn",
+          "info",
+          "dark",
+          "light",
+          "active",
+          "inactive",
+        ].includes(value);
+      },
     },
   },
 

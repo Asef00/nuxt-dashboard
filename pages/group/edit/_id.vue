@@ -1,7 +1,7 @@
 <template>
   <VCard title="Edit Group">
     <template #header>
-      <VBtn to="/group" class="m-0 c-btn--small"> Defined Groups </VBtn>
+      <VBtn to="/group" size="sm" class="m-0"> Defined Groups </VBtn>
     </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">

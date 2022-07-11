@@ -1,7 +1,7 @@
 <template>
   <VCard title="Edit Role">
     <template #header>
-      <VBtn to="/acl/role" class="m-0 c-btn--small"> Defined Roles </VBtn>
+      <VBtn to="/acl/role" size="sm" class="m-0"> Defined Roles </VBtn>
     </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">
