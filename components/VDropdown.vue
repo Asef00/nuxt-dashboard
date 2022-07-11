@@ -9,7 +9,7 @@
     <button
       v-if="this.$slots.btn"
       :class="[btnClass, buttonClass]"
-      @click="toggle"
+      @click="toggle()"
       ref="btn"
     >
       <slot name="btn"></slot>
@@ -36,15 +36,25 @@ export default {
       type: Boolean,
       default: false,
     },
+
     btnClass: String,
+
     menuStyle: {
       type: String,
       default: "light",
     },
+
     position: String,
+
     wrapper: {
       type: String,
       default: "div",
+    },
+
+    //a key to hide the menu from parent
+    hideKey: {
+      type: Number,
+      default: 0,
     },
   },
 
@@ -60,15 +70,19 @@ export default {
       if (this.isFilter) this.isActive = false;
     },
 
-    toggle() {
-      this.isActive = !this.isActive;
+    toggle(hide = false) {
+      if (hide) {
+        this.isActive = false;
+      } else {
+        this.isActive = !this.isActive;
+      }
+
       this.$emit("toggleShow");
     },
 
     blur() {
       if (this.isActive) {
-        this.isActive = false;
-        this.$emit("toggleShow");
+        this.toggle(true);
       }
     },
 
@@ -136,13 +150,17 @@ export default {
 
   watch: {
     $route() {
-      this.isActive = false;
+      this.toggle(true);
     },
 
     isActive() {
       if (this.isActive) {
         this.reposition();
       }
+    },
+
+    hideKey() {
+      this.toggle(true);
     },
   },
 

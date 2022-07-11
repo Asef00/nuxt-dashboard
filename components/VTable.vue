@@ -1,7 +1,11 @@
 <template>
   <div class="c-datatable">
+    <!-- Header -->
     <div class="c-datatable__header">
+      <!-- Title -->
       <div class="c-datatable__title" v-if="title">{{ title }}</div>
+
+      <!-- Perpage -->
       <div
         class="c-perpage"
         v-else-if="preferredPerPage === 25 ? hasPaginate : true"
@@ -18,24 +22,27 @@
         </select>
         entries
       </div>
+      <!-- Hack to fix flex box -->
       <div v-else></div>
+
+      <!-- Search -->
       <div v-if="isSearchable" class="c-search">
         <VInput
           inputClass="c-search__input"
           placeholder="Search..."
           class="m-0"
           v-model="searchVal"
-          @enter="filter"
+          @enter="filterSearch()"
         >
           <template #btn>
-            <VBtn size="sm" class="c-search__btn" @action="filter">
+            <VBtn size="sm" class="c-search__btn" @action="filterSearch()">
               Filter
             </VBtn>
           </template>
         </VInput>
       </div>
     </div>
-
+    <!-- Body -->
     <div class="c-datatable__body" ref="dataTable__body">
       <!-- <vue-custom-scrollbar> -->
       <table class="c-table" ref="table">
@@ -45,73 +52,71 @@
               <th :key="col.key" class="c-table__th">
                 <div :class="['c-table__th-wrapper', col.class]">
                   <!-- if filterable -->
-                  <VDropdown
-                    isFilter
-                    wrapper="span"
-                    position="bottom"
-                    menuStyle="none"
-                    v-if="col.filterType"
-                    :key="col.key"
-                    :class="[
-                      col.class,
-                      { 'u-width-auto': col.filterType == 'number' },
-                    ]"
-                  >
-                    <!-- Filter icon -->
-                    <template #btn>
-                      <VIcon
-                        :icon="
-                          col == filterColumn ? 'filter.is-active' : 'filter'
-                        "
-                      />
-                    </template>
+                  <template v-if="col.filterType">
+                    <VDropdown
+                      isFilter
+                      wrapper="span"
+                      position="bottom"
+                      menuStyle="none"
+                      :class="col.class"
+                      :hideKey="dropdownHideKey"
+                    >
+                      <!-- Filter icon -->
+                      <template #btn>
+                        <VIcon
+                          :icon="
+                            col == filterColumn ? 'filter.is-active' : 'filter'
+                          "
+                        />
+                      </template>
 
-                    <template #menu>
-                      <!-- switch (filter-type)-->
-                      <!-- case "number": -->
-                      <NumberFilter
-                        v-if="col.filterType == 'number'"
-                        @filter="
-                          filterNumber(
-                            $event,
-                            col.filterKey ? col.filterKey : col.key
-                          )
-                        "
-                      />
-                      <!-- case "date": -->
-                      <DateFilter
-                        v-else-if="col.filterType == 'date'"
-                        @filter="
-                          filterDate(
-                            $event,
-                            col.filterKey ? col.filterKey : col.key
-                          )
-                        "
-                      />
-                      <!-- case "multiselect": -->
-                      <MultiselectFilter
-                        v-else-if="col.filterType == 'multiselect'"
-                        @filter="
-                          filterMultiselect(
-                            $event,
-                            col.filterKey ? col.filterKey : col.key
-                          )
-                        "
-                        :items="col.filterItems"
-                      />
-                      <!-- case "select": -->
-                      <SelectFilter
-                        v-else-if="col.filterType == 'select'"
-                        @filter="
-                          filterNumber(
-                            $event,
-                            col.filterKey ? col.filterKey : col.key
-                          )
-                        "
-                        :items="col.filterItems"
-                      />
-                    </template>
-                  </VDropdown>
+                      <template #menu>
+                        <!-- switch (filter-type)-->
+                        <!-- case "number": -->
+                        <NumberFilter
+                          v-if="col.filterType == 'number'"
+                          @filter="
+                            filterNumber(
+                              $event,
+                              col.filterKey ? col.filterKey : col.key
+                            )
+                          "
+                        />
+                        <!-- case "date": -->
+                        <DateFilter
+                          v-else-if="col.filterType == 'date'"
+                          @filter="
+                            filterDate(
+                              $event,
+                              col.filterKey ? col.filterKey : col.key
+                            )
+                          "
+                        />
+                        <!-- case "multiselect": -->
+                        <MultiselectFilter
+                          v-else-if="col.filterType == 'multiselect'"
+                          @filter="
+                            filterMultiselect(
+                              $event,
+                              col.filterKey ? col.filterKey : col.key
+                            )
+                          "
+                          :items="col.filterItems"
+                        />
+                        <!-- case "select": -->
+                        <SelectFilter
+                          v-else-if="col.filterType == 'select'"
+                          @filter="
+                            filterSelect(
+                              $event,
+                              col.filterKey ? col.filterKey : col.key
+                            )
+                          "
+                          :items="col.filterItems"
+                        />
+                      </template>
+                    </VDropdown>
+                  </template>
 
                   <span v-html="col.label"></span>
 
@@ -158,7 +163,7 @@
       </table>
       <!-- </vue-custom-scrollbar> -->
     </div>
-
+    <!-- Footer -->
     <div class="c-datatable__footer" v-if="hasPaginate">
       <div class="c-pagination">
         <!-- prev btn -->
@@ -256,6 +261,8 @@ export default {
       filterColumn: "",
 
       searchVal: "",
+      //a key to watch in VDropdown
+      dropdownHideKey: 0,
     };
   },
 
@@ -309,8 +316,13 @@ export default {
       }
     },
 
+    hideDropdown() {
+      //change the key to trigger watch in VDropdown
+      this.dropdownHideKey++;
+    },
+
     //search filter
-    filter() {
+    filterSearch() {
       if (this.table.searchKeys !== undefined) {
         let search = {};
         for (let item of this.table.searchKeys) {
@@ -323,12 +335,27 @@ export default {
     ////////column filters/////////
     filterDate(val, key) {
       console.log(key, val);
+      //process the value here
+      this.filter();
     },
     filterNumber(val, key) {
       console.log(key, val);
+      //process the value here
+      this.filter();
+    },
+    filterSelect(val, key) {
+      console.log(key, val);
+      //process the value here
+      this.filter();
     },
     filterMultiselect(val, key) {
       console.log(key, val);
+      //process the value here
+      this.filter();
+    },
+    // main filter method
+    filter() {
+      this.hideDropdown();
     },
   },
 
