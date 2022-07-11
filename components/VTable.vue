@@ -63,9 +63,14 @@
                     >
                       <!-- Filter icon -->
                       <template #btn>
+                        <!-- we only check first key as convention  -->
                         <VIcon
                           :icon="
-                            col == filterColumn ? 'filter.is-active' : 'filter'
+                            activeFilters.includes(
+                              col.filterKey ? col.filterKey[0] : col.key
+                            )
+                              ? 'filter.is-active'
+                              : 'filter'
                           "
                         />
                       </template>
@@ -258,7 +263,7 @@ export default {
       hasNextDots: false,
       preferredPerPage: 25,
       perPageArray: [25, 50, 100],
-      filterColumn: "",
+      activeFilters: [],
 
       searchVal: "",
       //a key to watch in VDropdown
@@ -378,8 +383,18 @@ export default {
       return result;
     },
     // front-line filter method
-    filter(obj) {
-      console.log(obj);
+    filter(arr) {
+      console.log(arr);
+      // to check activeness:
+      // we only check first key as convention
+      // if at least one value has been set
+      if (arr.some((obj) => obj.value)) {
+        this.activeFilters.push(arr[0].key);
+      } else {
+        this.activeFilters = this.activeFilters.filter(
+          (item) => item !== arr[0].key
+        );
+      }
       this.hideDropdown();
     },
   },

@@ -494,8 +494,9 @@ export default {
             label: "Status",
             sortable: true,
             filterType: "select",
+            // NOTE: default item's value should be empty
             filterItems: [
-              { label: "All", value: "all", selected: true },
+              { label: "All", value: "", selected: true },
               { label: "Enable", value: "enabled" },
               { label: "Disable", value: "disabled" },
             ],

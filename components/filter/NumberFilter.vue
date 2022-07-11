@@ -40,16 +40,12 @@ export default {
 
   methods: {
     filter() {
-      // using filter to exclude empty end-date
-      this.$emit(
-        "filter",
-        { val: this.inputValue, op: this.selectedOperator }
-      );
-      //console.log(this.selectedOperator);
+      this.$emit("filter", { val: this.inputValue, op: this.selectedOperator });
     },
 
     reset() {
       this.selectedOperator = "=";
+      this.inputValue = "";
       this.filter();
     },
   },

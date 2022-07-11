@@ -24,8 +24,9 @@ export default {
       required: true,
       type: Object,
       validator: function (obj) {
+        // default selected could have empty value
         return (
-          obj.value &&
+          (obj.value || obj.selected) &&
           typeof obj.value == "string" &&
           (typeof obj.disabled == "boolean" ||
             typeof obj.disabled == "undefined") &&
