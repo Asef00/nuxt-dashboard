@@ -61,5 +61,11 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+.c-filter__date {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-row-gap: 0.5em;
+  align-items: center;
+}
 </style>
