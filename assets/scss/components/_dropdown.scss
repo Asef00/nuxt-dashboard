@@ -75,6 +75,12 @@ $arrow-y-pos: 20px;
     left: 0;
     right: 0;
   }
+
+  &.c-dropdown__menu--fixed {
+    @include mq(lg) {
+      position: fixed;
+    }
+  }
 }
 
 .c-dropdown__header {

@@ -21,7 +21,7 @@
         ref="menu"
         v-if="this.$slots.menu"
         v-show="isActive"
-        :class="[menuClass, { 'u-position-fixed': fixed }]"
+        :class="[menuClass, { 'c-dropdown__menu--fixed': fixed }]"
       >
         <slot name="menu"></slot>
       </div>
@@ -103,14 +103,22 @@ export default {
         this.getData();
 
         //vertical
-        console.log("vertical", this.menuRect.bottom + 10, window.innerHeight);
         if (this.menuRect.bottom + 10 > window.innerHeight) {
+          console.log(
+            "vertical",
+            this.menuRect.bottom + 10,
+            window.innerHeight
+          );
           this.VRepos();
         }
 
         //horizontal
-        // console.log("horizontal", this.menuRect.right + 10, window.innerWidth);
         if (this.menuRect.right + 10 > window.innerWidth) {
+          console.log(
+            "horizontal",
+            this.menuRect.right + 10,
+            window.innerWidth
+          );
           this.HRepos();
         }
       });
