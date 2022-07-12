@@ -5,14 +5,16 @@
         <VBtn
           :to="`/person/edit/${id}`"
           v-if="can('person.update')"
-          class="m-0 c-btn--small"
+          size="sm"
+          class="m-0"
         >
           Edit
         </VBtn>
         <VBtn
           :to="`/person-product/create/${id}`"
           v-if="can('person.product.store')"
-          class="m-0 c-btn--small"
+          size="sm"
+          class="m-0"
         >
           Assign Product
         </VBtn>
@@ -20,11 +22,12 @@
           v-if="can('person.change-password')"
           type="button"
           @action="showChangePasswordModal = true"
-          class="m-0 c-btn--small"
+          size="sm"
+          class="m-0"
         >
           Change Password
         </VBtn>
-        <VBtn to="/person" class="m-0 c-btn--small"> List Persons </VBtn>
+        <VBtn to="/person" size="sm" class="m-0"> List Persons </VBtn>
       </template>
       <form action="" class="c-form">
         <h4 class="c-form__title mb-2">Details</h4>
@@ -45,7 +48,10 @@
             <label class="c-form__label">Email Verified</label>
             <VBadge
               :type="data.cognito.email_verified ? 'success' : 'danger'"
-            >{{ data.cognito.email_verified ? "Verified" : "Not Verified" }}</VBadge>
+              >{{
+                data.cognito.email_verified ? "Verified" : "Not Verified"
+              }}</VBadge
+            >
           </div>
           <div class="col-md-6 c-form__control c-form__control--inline mb-0">
             <label class="c-form__label">Enabled</label>
@@ -78,14 +84,28 @@
             <span
               v-for="group in data.person.groups"
               class="c-badge u-bg-primary"
-              >{{ group.label }}</span>
+              >{{ group.label }}</span
+            >
           </div>
         </div>
-        <h4 v-if="data.person.fields ? data.person.fields.length:false" class="c-form__title mb-2">More Info</h4>
-        <div v-if="data.person.fields ? data.person.fields.length : false" class="row mb-3">
-          <div v-for="field in data.person.fields" class="col-md-6 c-form__control c-form__control--inline mb-0">
+        <h4
+          v-if="data.person.fields ? data.person.fields.length : false"
+          class="c-form__title mb-2"
+        >
+          More Info
+        </h4>
+        <div
+          v-if="data.person.fields ? data.person.fields.length : false"
+          class="row mb-3"
+        >
+          <div
+            v-for="field in data.person.fields"
+            class="col-md-6 c-form__control c-form__control--inline mb-0"
+          >
             <label class="c-form__label">{{ field.label }}</label>
-            <span class="u-text-secondary">{{ field.value != null ? field.value.value : '' }}</span>
+            <span class="u-text-secondary">{{
+              field.value != null ? field.value.value : ""
+            }}</span>
           </div>
         </div>
         <h4 class="c-form__title mb-2">Cognito Details</h4>
@@ -117,7 +137,8 @@
         <VBtn
           :to="`/person-product/create/${id}`"
           v-if="can('person.product.store')"
-          class="m-0 c-btn--small"
+          size="sm"
+          class="m-0"
         >
           Assign Product
         </VBtn>
@@ -126,6 +147,7 @@
         @actionDetails="detailsItem($event)"
         @actionDelete="deleteItem($event)"
         :table="table"
+        :isSearchable="false"
       />
       <VModal
         :showModal="showDetails"
@@ -164,12 +186,12 @@ export default {
           { key: "status", label: "Status" },
           { key: "site", label: "Site" },
           { key: "version", label: "Version" },
-          { key: "created_at", label: "Created At", class: "u-text-center" },
-          { key: "updated_at", label: "Updated At", class: "u-text-center" },
+          { key: "created_at", label: "Created At" },
+          { key: "updated_at", label: "Updated At" },
           {
             key: "action",
             label: '<img src="/img/gear.svg" alt="" />',
-            class: "u-text-center",
+            class: "u-table--center",
           },
         ],
         items: [],

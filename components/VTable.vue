@@ -1,8 +1,15 @@
 <template>
   <div class="c-datatable">
+    <!-- Header -->
     <div class="c-datatable__header">
+      <!-- Title -->
       <div class="c-datatable__title" v-if="title">{{ title }}</div>
-      <div class="c-perpage" v-else-if="preferredPerPage === 25 ? hasPaginate : true">
+
+      <!-- Perpage -->
+      <div
+        class="c-perpage"
+        v-else-if="preferredPerPage === 25 ? hasPaginate : true"
+      >
         Show
         <select
           class="c-perpage__input"
@@ -15,159 +22,153 @@
         </select>
         entries
       </div>
+      <!-- Hack to fix flex box -->
       <div v-else></div>
+
+      <!-- Search -->
       <div v-if="isSearchable" class="c-search">
         <VInput
           inputClass="c-search__input"
           placeholder="Search..."
           class="m-0"
           v-model="searchVal"
+          @enter="filterSearch()"
         >
           <template #btn>
-            <VBtn class="c-btn--small c-search__btn" @action="filter">
+            <VBtn size="sm" class="c-search__btn" @action="filterSearch()">
               Filter
             </VBtn>
           </template>
         </VInput>
       </div>
     </div>
-
+    <!-- Body -->
     <div class="c-datatable__body" ref="dataTable__body">
       <!-- <vue-custom-scrollbar> -->
       <table class="c-table" ref="table">
         <thead class="c-table__header">
-        <tr class="c-table__row">
-          <template v-for="col in table.columns">
-            <th :key="col.key" class="c-table__th" :class="col.class">
-              <div class="c-table__th-wrapper">
-                <!-- if filterable -->
-                <VDropdown
-                  isFilter
-                  wrapper="span"
-                  position="bottom"
-                  menuStyle="none"
-                  v-if="col.filterable"
-                  :key="col.key"
-                  :class="col.class"
-                  @toggleShow="fix()"
-                >
-                  <template #btn>
-                    <!-- Filter icon -->
-                    <VIcon
-                      :icon="
-                          col == sortColumn ? 'filter.is-active' : 'filter'
-                        "
-                    />
-                    <!-- <span v-html="col.label"></span>
+          <tr class="c-table__row">
+            <template v-for="col in table.columns">
+              <th :key="col.key" class="c-table__th">
+                <div :class="['c-table__th-wrapper', col.class]">
+                  <!-- if filterable -->
+                  <template v-if="col.filterType">
+                    <VDropdown
+                      isFilter
+                      wrapper="span"
+                      position="bottom"
+                      menuStyle="none"
+                      :class="col.class"
+                      :hideKey="dropdownHideKey"
+                    >
+                      <!-- Filter icon -->
+                      <template #btn>
+                        <!-- we only check first key as convention  -->
+                        <VIcon
+                          :icon="
+                            activeFilters.includes(getSortKey(col))
+                              ? 'filter.is-active'
+                              : 'filter'
+                          "
+                        />
+                      </template>
+
+                      <template #menu>
+                        <!-- switch (filter-type)-->
+                        <!-- case "number": -->
+                        <NumberFilter
+                          v-if="col.filterType == 'number'"
+                          @filter="filterNumber($event, getFilterKey(col))"
+                        />
+                        <!-- case "date": -->
+                        <DateFilter
+                          v-else-if="col.filterType == 'date'"
+                          @filter="filterDate($event, getFilterKey(col))"
+                        />
+                        <!-- case "multiselect": -->
+                        <MultiselectFilter
+                          v-else-if="col.filterType == 'multiselect'"
+                          @filter="filterMultiselect($event, getFilterKey(col))"
+                          :items="col.filterItems"
+                        />
+                        <!-- case "select": -->
+                        <SelectFilter
+                          v-else-if="col.filterType == 'select'"
+                          @filter="filterSelect($event, getFilterKey(col))"
+                          :items="col.filterItems"
+                        />
+                      </template>
+                    </VDropdown>
+                  </template>
+
+                  <span v-html="col.label"></span>
+
                   <span v-if="col.sortable" class="c-sort">
-                    <VChevron class="c-sort__item" dir="up" />
-                    <VChevron class="c-sort__item" dir="down" />
-                  </span> -->
-                  </template>
-                  <template #menu>
-                    <header v-if="col.searchable" class="c-filter__header">
-                      <input
-                        class="c-filter__search"
-                        type="text"
-                        placeholder="Search..."
-                      />
-                      <a href="#" class="c-filter__control">Select All</a>
-                      <a href="#" class="c-filter__control">Clear</a>
-                    </header>
-                    <div v-if="col.filterable" class="c-filter__options">
-                      <div class="c-grid">
-                        <span>Start Date</span>
-                        <VInput
-                          type="date"
-                          @changeDate="changeDate()"
-                          placeholder="Start Point"
-                          class="m-0"
-                        />
-                        <span>End Date</span>
-                        <VInput
-                          type="date"
-                          @changeDate="changeDate()"
-                          placeholder="End point"
-                          class="m-0"
-                        />
-                      </div>
-                      <!-- <VCheckbox
-                      class="c-filter__item"
-                      label="AKMLS"
-                      data="AKMLS"
-                      :list="selectedOptions"
-                      v-model="selected"
+                    <VChevron
+                      :class="[
+                        'c-sort__item',
+                        {
+                          'is-active':
+                            activeSort.key == getSortKey(col) &&
+                            activeSort.order == 'asc',
+                        },
+                      ]"
+                      dir="up"
+                      @click="toggleSort(getSortKey(col), 'asc')"
                     />
-                    <VCheckbox
-                      class="c-filter__item"
-                      label="bridgeMLS"
-                      data="bridgeMLS"
-                      :list="selectedOptions"
-                      v-model="selected"
+                    <VChevron
+                      :class="[
+                        'c-sort__item',
+                        {
+                          'is-active':
+                            activeSort.key == getSortKey(col) &&
+                            activeSort.order == 'desc',
+                        },
+                      ]"
+                      dir="down"
+                      @click="toggleSort(getSortKey(col), 'desc')"
                     />
-                    <VCheckbox
-                      class="c-filter__item"
-                      label="CLAW"
-                      data="CLAW"
-                      :list="selectedOptions"
-                      v-model="selected"
-                    />
-                    <VCheckbox
-                      class="c-filter__item"
-                      label="Kern River Lake Isabella Board"
-                      data="Kern"
-                      :list="selectedOptions"
-                      v-model="selected"
-                    /> -->
-                    </div>
-                  </template>
-                </VDropdown>
-                <!-- else -->
-                <span v-html="col.label"></span>
-                <span v-if="col.sortable" class="c-sort">
-                    <VChevron class="c-sort__item" dir="up"/>
-                    <VChevron class="c-sort__item" dir="down"/>
                   </span>
-              </div>
-            </th>
-          </template>
-        </tr>
+                </div>
+              </th>
+            </template>
+          </tr>
         </thead>
         <tbody class="c-table__body">
-        <!-- if no data -->
-        <tr v-if="!list || !list.length">
-          <td
-            colspan="100%"
-            style="height: 10em; font-size: 16px"
-            class="u-text-center"
+          <!-- if no data -->
+          <tr v-if="!list || !list.length">
+            <td
+              colspan="100%"
+              style="height: 10em; font-size: 16px"
+              class="u-text-center"
+            >
+              No Data Available
+            </td>
+          </tr>
+          <!-- else -->
+          <tr
+            v-else
+            v-for="(row, index) in list"
+            :key="index"
+            :class="table.map['rowClass'](row)"
+            class="c-table__row"
           >
-            No Data Available
-          </td>
-        </tr>
-        <!-- else -->
-        <tr
-          v-else
-          v-for="(row, index) in list"
-          :key="index"
-          :class="table.map['rowClass'](row)"
-          class="c-table__row"
-        >
-          <td
-            v-for="col in table.columns"
-            :key="col.key"
-            class="c-table__cell"
-            :class="col.class"
-          >
-            <v-runtime-template
-              :template="String(showItem(row, col))"
-            ></v-runtime-template>
-          </td>
-        </tr>
+            <td
+              v-for="col in table.columns"
+              :key="col.key"
+              class="c-table__cell"
+              :class="col.class"
+            >
+              <v-runtime-template
+                :template="String(showItem(row, col))"
+              ></v-runtime-template>
+            </td>
+          </tr>
         </tbody>
       </table>
       <!-- </vue-custom-scrollbar> -->
     </div>
-
+    <!-- Footer -->
     <div class="c-datatable__footer" v-if="hasPaginate">
       <div class="c-pagination">
         <!-- prev btn -->
@@ -221,10 +222,19 @@
 
 <script>
 import VRuntimeTemplate from "v-runtime-template";
+// filter components
+import DateFilter from "./filter/DateFilter.vue";
+import NumberFilter from "./filter/NumberFilter.vue";
+import MultiselectFilter from "./filter/MultiselectFilter.vue";
+import SelectFilter from "./filter/SelectFilter.vue";
 
 export default {
   components: {
     VRuntimeTemplate,
+    DateFilter,
+    NumberFilter,
+    MultiselectFilter,
+    SelectFilter,
   },
 
   props: {
@@ -233,10 +243,11 @@ export default {
       columns: Array,
       items: Array,
       map: Object,
+      searchKeys: Array,
     },
     isSearchable: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
 
@@ -252,30 +263,19 @@ export default {
       hasNextDots: false,
       preferredPerPage: 25,
       perPageArray: [25, 50, 100],
-      sortColumn: "",
+      activeFilters: [],
+      activeSort: {
+        key: "",
+        order: "",
+      },
 
-      selected: "", //for checkbox
-      selectedOptions: [], //for checkbox
-
-      startDate: "",
-      endDate: "",
-
-      dropdownIsActive: false,
       searchVal: "",
+      //a key to watch in VDropdown
+      dropdownHideKey: 0,
     };
   },
 
   methods: {
-    fix() {
-      this.$nextTick(() => {
-        this.dropdownIsActive = !this.dropdownIsActive;
-      });
-    },
-
-    changeDate() {
-      console.log("Date Changed!");
-    },
-
     showItem(row, col) {
       let key = col.key; //based on defined structure
       let map = this.table.map; //custom mapped data
@@ -325,9 +325,100 @@ export default {
       }
     },
 
+    hideDropdown() {
+      //change the key to trigger watch in VDropdown
+      this.dropdownHideKey++;
+    },
+
     //search filter
-    filter() {
-      this.$emit("search", this.searchVal);
+    filterSearch() {
+      if (this.table.searchKeys !== undefined) {
+        let search = {};
+        for (let item of this.table.searchKeys) {
+          search[item + "_like"] = this.searchVal;
+        }
+        this.$emit("search", search);
+      }
+    },
+    ////////column filters/////////
+    filterNumber({ val, op }, k) {
+      this.filter(this.getFilterResult(val, k, { operator: op }));
+    },
+    filterDate(val, k) {
+      //process the value here
+      this.filter(this.getFilterResult(val, k));
+    },
+    filterSelect(val, k) {
+      //process the value here
+      this.filter(this.getFilterResult(val, k));
+    },
+    filterMultiselect(val, k) {
+      //process the value here
+      this.filter(this.getFilterResult(val, k));
+    },
+    getFilterResult(val, k, obj = {}) {
+      let result = [];
+      // if multiple keys
+      if (Array.isArray(k)) {
+        for (let item of k) {
+          result.push(
+            Object.assign(
+              {
+                key: item,
+                value: val,
+              },
+              obj
+            )
+          );
+        }
+      }
+      // else
+      else {
+        result.push(
+          Object.assign(
+            {
+              key: k,
+              value: val,
+            },
+            obj
+          )
+        );
+      }
+      return result;
+    },
+    getFilterKey(col) {
+      return col.filterKey ? col.filterKey : col.key;
+    },
+    // front-line filter method
+    filter(arr) {
+      console.log(arr);
+      // to check activeness:
+      /// we only check first key as convention
+
+      // if at least one value has been set
+      if (arr.some((obj) => obj.value)) {
+        this.activeFilters.push(arr[0].key);
+      } else {
+        this.activeFilters = this.activeFilters.filter(
+          (item) => item !== arr[0].key
+        );
+      }
+      this.hideDropdown();
+    },
+
+    // sort methods
+    toggleSort(k, o) {
+      if (this.activeSort.key == k && this.activeSort.order == o) {
+        this.activeSort.key = "";
+        this.activeSort.order = "";
+      } else {
+        this.activeSort.key = k;
+        this.activeSort.order = o;
+      }
+      console.log(this.activeSort);
+    },
+    getSortKey(col) {
+      return col.filterKey ? col.filterKey[0] : col.key;
     },
   },
 
@@ -352,6 +443,8 @@ export default {
 <style lang="scss">
 @import "~/assets/scss/components/datatable";
 @import "~/assets/scss/components/table";
+@import "~/assets/scss/components/sort";
 @import "~/assets/scss/components/pagination";
 @import "~/assets/scss/components/search";
+@import "~/assets/scss/components/radio";
 </style>

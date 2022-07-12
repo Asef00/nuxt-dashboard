@@ -102,33 +102,15 @@ $min-width: 28px;
   }
 }
 
-.c-grid {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-row-gap: 0.5em;
-  align-items: center;
-}
-
-.c-sort {
-  @include flex-column-inline;
-  vertical-align: middle;
-  margin-left: auto;
-}
-
-.c-sort__item {
-  cursor: pointer;
-  border-radius: 3px;
-  transition: 0.2s;
-
-  &:hover {
-    background-color: #0009;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.6);
-    color: #f2f2f2;
-  }
-}
-
 .c-table__th-wrapper {
   display: flex;
   align-items: center;
   gap: 0.5em;
+}
+
+//HACK: a class to center 
+//both th(flex) and td(non flex)
+.u-table--center {
+  text-align: center;
+  justify-content: center;
 }

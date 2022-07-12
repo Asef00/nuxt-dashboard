@@ -1,78 +1,61 @@
 <template>
   <div class="o-page c-page--dashboard container-fluid">
     <div class="row">
-      <div class="col-xl-4 col-md-6">
-        <VCard class="mr-0 ml-0">
+      <div class="col-xl-6 col-md-6">
+        <VCard :loader="loaderRequest" class="mr-0 ml-0">
           <div class="c-report">
             <div class="c-report__title">
-              Alerts
+              Installed Products
               <span class="c-report__icon">
-                <fa icon="triangle-exclamation" size="lg" />
+                <fa icon="file-lines" size="3x"/>
               </span>
             </div>
-            <span class="c-report__big">536</span>
-            <span class="c-report__change u-text-active">(+25%)</span>
-          </div>
-          <VProgress
-            bar="primary"
-            title="overview of last month"
-            subtitle="Monthly"
-            :value="alertValue"
-          />
-        </VCard>
-      </div>
-
-      <div class="col-xl-4 col-md-6">
-        <VCard class="mr-0 ml-0">
-          <div class="c-report">
-            <div class="c-report__title">
-              MLS Clients Active Requests
-              <span class="c-report__icon">
-                <fa icon="file-lines" size="lg" />
-              </span>
-            </div>
-            <span class="c-report__big">128</span>
-            <span class="c-report__change u-text-active">(+25%)</span>
+            <span class="c-report__big">{{ Product.count }}</span>
+            <span v-if="Product.count_month" class="c-report__change u-text-active">(+{{ Product.count_month }})</span>
           </div>
           <VProgress
             bar="info"
-            title="overview of last month"
+            :title="`Overview of this month`"
             subtitle="Monthly"
-            :value="activeRequests0Value"
+            :value="calculatePercentageDecrease(Product.count,Product.count_month)"
           />
         </VCard>
       </div>
 
-      <div class="col-xl-4 col-md-6">
-        <VCard class="mr-0 ml-0">
+      <div class="col-xl-6 col-md-6">
+        <VCard :loader="loaderRequest" class="mr-0 ml-0">
           <div class="c-report">
             <div class="c-report__title">
-              MLS Clients
+              Persons
               <span class="c-report__icon">
-                <fa icon="users" size="lg" />
+                <fa icon="users" size="3x"/>
               </span>
             </div>
-            <span class="c-report__big">1.2K</span>
-            <span class="c-report__change u-text-inactive">(-11%)</span>
+            <span class="c-report__big">{{ Person.count }}</span>
+            <span v-if="Person.count_month" class="c-report__change u-text-active">(+{{ Person.count_month }})</span>
           </div>
           <VProgress
             bar="success"
-            title="overview of last month"
+            :title="`Overview of this month`"
             subtitle="Monthly"
-            :value="clientsValue"
+            :value="calculatePercentageDecrease(Person.count,Person.count_month)"
           />
         </VCard>
       </div>
 
       <div class="col-xl-4">
         <VCard :loader="loaderRequest" class="mr-0 ml-0">
-          <VTable :table="table" title="Overdue Payments" />
+          <VTable :table="tablePerson" title="Last Logins"/>
         </VCard>
       </div>
 
       <div class="col-xl-8">
-        <VCard :loader="loaderRequest" class="mr-0 ml-0">
-          <VTable :table="table" title="Multiple Missed Payments" />
+        <VCard :loader="loaderRequest" class="mr-0 ml-0" title="Newly Installed Products">
+          <VTable @actionDetails="detailsItemProduct($event)"
+                  :table="tableProduct"/>
+          <VModal :showModal="showDetailsProduct" @close="showDetailsProduct =false" title="Data">
+            <DetailsData :id="detailsItemIdProduct"/>
+          </VModal>
         </VCard>
       </div>
     </div>
@@ -80,50 +63,104 @@
 </template>
 
 <script>
-import json from "~/static/json/dashboard.json";
+import DetailsData from "@/components/page/person-product/DetailsDataDashboard";
 
 export default {
   name: "dashboard",
-
+  permission: "dashboard",
+  components: {DetailsData},
   data() {
+    let _this = this;
     return {
-      alertValue: 40,
-      activeRequests0Value: 60,
-      clientsValue: 30,
-
-      table: {
+      Person: {},
+      Product: {
+        latest: []
+      },
+      showDetailsProduct: false,
+      detailsItemIdProduct: 0,
+      tableProduct: {
         columns: [
-          { key: "client", label: "Client" },
-          { key: "last_update", label: "Last Update", class: "u-text-center" },
-          { key: "status", label: "Status" },
-          {
-            key: "action",
-            label: '<VIcon icon="gear" />',
-            class: "u-text-center",
-          },
+          {key: "full_name", label: "Client's Name",},
+          {key: "title", label: "Product Title",},
+          {key: "version", label: "Version",},
+          {key: "site", label: "Site",},
+          {key: "created_at", label: "Created At",},
+          {key: "action", label: '<img src="/img/gear.svg" alt="" />', class: 'u-table--center'},
         ],
-        items: json,
+        items: [],
         map: {
-          action(item) {
-            return `<NuxtLink v-if="can('person.update')" to="/person/edit/${item.id}">
-              <fa icon="ellipsis-vertical" size="lg" />
-            </NuxtLink>`;
+          full_name(item) {
+            return `${item.person.name} ${item.person.family_name}`;
           },
-          status(item) {
-            return item.enabled
-              ? `<span class="c-badge u-bg-success">Enable</span>`
-              : `<span class="c-badge u-bg-danger">Disable</span>`;
+          title(item) {
+            return item.product.title;
+          },
+          action(item) {
+            return `<span title="Show Data" v-on:click="action(${item.id},'Details')" class="c-badge--hover">
+              <fa icon="eye" size="lg" />
+            </span>`;
+          },
+          created_at(item) {
+            return _this.dateFormat(item.created_at);
           },
           //REQUIRED
-          rowClass() {},
+          rowClass() {
+          },
+        },
+      },
+      tablePerson: {
+        columns: [
+          {key: "full_name", label: "Name",},
+          {key: "created_at", label: "Logged At",},
+          {key: "activity", label: "Activity",},
+        ],
+        items: [],
+        map: {
+          full_name(item) {
+            return `${item.causer.name} ${item.causer.family_name}`;
+          },
+          created_at(item) {
+            return _this.dateFormat(item.created_at,"MM/dd/yyyy",true);
+          },
+          activity(item) {
+            return _this.toTitleCase(item.description.replace('Get token with','').replace('_',' '))
+          },
+          //REQUIRED
+          rowClass() {
+          },
         },
       },
     };
   },
-
+  methods: {
+    async show() {
+      this.startLoading();
+      this.$store.commit('dashboard/RESET_ERROR')
+      await this.$store.dispatch('dashboard/index')
+      let err = this.handleError(this.$store.state.dashboard.error);
+      if (!err) {
+        let data = this.$store.state.dashboard.item;
+        this.Person = data.person;
+        this.Product = data.person_product;
+        this.tableProduct.items = this.Product.latest;
+        this.tablePerson.items = this.Person.last_login
+      }
+      this.stopLoading();
+    },
+    detailsItemProduct(id) {
+      this.detailsItemIdProduct = id;
+      this.showDetailsProduct = true;
+    },
+    calculatePercentageDecrease(Original, New) {
+      // let decrease = Original - New;
+      let percentage = New / Original * 100;
+      return Math.round(percentage)
+    }
+  },
   created() {
     this.setTitle("Dashboard");
     this.setBreadcrumb([]);
+    this.show();
   },
 };
 </script>

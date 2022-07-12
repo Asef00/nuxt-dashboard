@@ -1,12 +1,13 @@
 <template>
-  <VCard :loader="loaderRequest" title="List Products">
+  <VCard :loader="loaderRequest" title="Defined Products">
     <template #header>
       <VBtn
         to="/product/create"
         v-if="can('product.store')"
-        class="m-0 c-btn--small"
+        size="sm"
+        class="m-0"
       >
-        Create
+        Define New Product
       </VBtn>
     </template>
     <VTable
@@ -21,7 +22,7 @@
       @close="showDetails = false"
       title="Product details"
     >
-      <Details :id="detailsItemId"/>
+      <Details :id="detailsItemId" />
     </VModal>
   </VCard>
 </template>
@@ -42,15 +43,15 @@ export default {
       detailsItemId: 0,
       table: {
         columns: [
-          {key: "id", label: "#"},
-          {key: "title", label: "Title"},
-          {key: "slug", label: "Slug"},
-          {key: "created_at", label: "Created At", class: "u-text-center"},
-          {key: "updated_at", label: "Updated At", class: "u-text-center"},
+          { key: "id", label: "#" },
+          { key: "title", label: "Title" },
+          { key: "slug", label: "Slug" },
+          { key: "created_at", label: "Created At" },
+          { key: "updated_at", label: "Updated At" },
           {
             key: "action",
             label: '<img src="/img/gear.svg" alt="" />',
-            class: "u-text-center",
+            class: "u-table--center",
           },
         ],
         items: [],
@@ -67,8 +68,7 @@ export default {
             return _this.dateFormat(item.updated_at);
           },
           //REQUIRED
-          rowClass() {
-          },
+          rowClass() {},
         },
       },
     };
@@ -112,14 +112,14 @@ export default {
     },
   },
   created() {
-    this.setTitle("Product");
+    this.setTitle("Definitions");
     this.setBreadcrumb([
       {
         to: "/product",
-        name: "Product",
+        name: "Definitions / Product",
       },
     ]);
-    this.resetAxiosParams()
+    this.resetAxiosParams();
     this.list();
   },
 };

@@ -2,7 +2,7 @@
   <!-- if "to" provided -->
   <NuxtLink
     v-if="to"
-    :class="['c-btn', classBtn, { 'is-disabled': isDisabled }]"
+    :class="['c-btn', btnClass, sizeClass, { 'is-disabled': isDisabled }]"
     :to="to"
     :event="disabled ? '' : 'click'"
   >
@@ -16,7 +16,7 @@
     @click="$emit('action')"
     :disabled="isDisabled"
     :type="type"
-    :class="['c-btn', classBtn]"
+    :class="['c-btn', btnClass, sizeClass]"
   >
     <LoaderDots :color="colorLoader" v-if="loader"></LoaderDots>
     <slot v-else />
@@ -34,10 +34,28 @@ export default {
     type: {
       type: String,
       default: "submit",
+      validator(value) {
+        // must match one of these strings
+        return ["button", "submit", "reset"].includes(value);
+      },
     },
     btn: {
       type: String,
       default: "primary",
+      validator(value) {
+        // must match one of these strings
+        return [
+          "primary",
+          "success",
+          "danger",
+          "warn",
+          "info",
+          "dark",
+          "simple",
+          "outline",
+          "block",
+        ].includes(value);
+      },
     },
     loader: {
       type: Boolean,
@@ -46,6 +64,19 @@ export default {
     disabled: {
       type: Boolean,
       default: false,
+    },
+    size: {
+      type: String,
+      default: "md",
+      validator(value) {
+        // must match one of these strings
+        return [
+          "xs",
+          "sm",
+          "md",
+          "lg",
+        ].includes(value);
+      },
     },
   },
 
@@ -57,7 +88,7 @@ export default {
   },
 
   computed: {
-    classBtn() {
+    btnClass() {
       switch (this.btn) {
         case "success": {
           this.colorLoader = "#fff";
@@ -95,6 +126,12 @@ export default {
           this.colorLoader = "#fff";
           return "c-btn--primary";
         }
+      }
+    },
+    sizeClass() {
+      switch (this.size) {
+        case "sm":
+          return "c-btn--small";
       }
     },
   },

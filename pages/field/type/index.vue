@@ -4,7 +4,8 @@
       <VBtn
         to="/field/type/create"
         v-if="can('field-type.store')"
-        class="m-0 c-btn--small"
+        size="sm"
+        class="m-0"
       >
         Create
       </VBtn>
@@ -33,12 +34,12 @@ export default {
           { key: "id", label: "#" },
           { key: "type", label: "Type" },
           { key: "label", label: "Label" },
-          { key: "created_at", label: "Created At", class: "u-text-center" },
-          { key: "updated_at", label: "Updated At", class: "u-text-center" },
+          { key: "created_at", label: "Created At" },
+          { key: "updated_at", label: "Updated At" },
           {
             key: "action",
             label: '<img src="/img/gear.svg" alt="" />',
-            class: "u-text-center",
+            class: "u-table--center",
           },
         ],
         items: [],
@@ -107,7 +108,7 @@ export default {
         name: "Field Type",
       },
     ]);
-    this.resetAxiosParams()
+    this.resetAxiosParams();
     this.list();
   },
 };

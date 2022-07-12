@@ -25,8 +25,8 @@ export default {
           {key: "status", label: "Status",},
           {key: "site", label: "Site",},
           {key: "version", label: "Version",},
-          {key: "created_at", label: "Created At", class: "u-text-center"},
-          {key: "action", label: '<img src="/img/gear.svg" alt="" />', class: "u-text-center",},
+          {key: "created_at", label: "Created At",},
+          {key: "action", label: '<img src="/img/gear.svg" alt="" />', class: "u-table--center",},
         ],
         items: [],
         map: {

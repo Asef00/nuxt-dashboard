@@ -1,12 +1,13 @@
 <template>
-  <VCard :loader="loaderRequest" title="List Field Names">
+  <VCard :loader="loaderRequest" title="Defined Fields">
     <template #header>
       <VBtn
         to="/field/name/create"
         v-if="can('field-name.store')"
-        class="m-0 c-btn--small"
+        size="sm"
+        class="m-0"
       >
-        Create
+        Define New Field
       </VBtn>
     </template>
     <VTable
@@ -21,7 +22,7 @@
       @close="showDetails = false"
       title="Field name details"
     >
-      <Details :id="detailsItemId"/>
+      <Details :id="detailsItemId" />
     </VModal>
   </VCard>
 </template>
@@ -32,7 +33,7 @@ import Details from "@/components/page/field/name/Details";
 export default {
   name: "index",
   permission: "field-name.index",
-  components: {Details},
+  components: { Details },
   data() {
     let _this = this;
     return {
@@ -40,15 +41,15 @@ export default {
       detailsItemId: 0,
       table: {
         columns: [
-          {key: "id", label: "#"},
-          {key: "name", label: "Name"},
-          {key: "label", label: "Label"},
-          {key: "created_at", label: "Created At", class: "u-text-center"},
-          {key: "updated_at", label: "Updated At", class: "u-text-center"},
+          { key: "id", label: "#" },
+          { key: "name", label: "Name" },
+          { key: "label", label: "Label" },
+          { key: "created_at", label: "Created At" },
+          { key: "updated_at", label: "Updated At" },
           {
             key: "action",
             label: '<img src="/img/gear.svg" alt="" />',
-            class: "u-text-center",
+            class: "u-table--center",
           },
         ],
         items: [],
@@ -66,8 +67,7 @@ export default {
             return _this.dateFormat(item.updated_at);
           },
           //REQUIRED
-          rowClass() {
-          },
+          rowClass() {},
         },
       },
     };
@@ -111,14 +111,14 @@ export default {
     },
   },
   created() {
-    this.setTitle("Field Name");
+    this.setTitle("Definitions");
     this.setBreadcrumb([
       {
         to: "/field/name",
-        name: "Field Name",
+        name: "Definitions / Field Name",
       },
     ]);
-    this.resetAxiosParams()
+    this.resetAxiosParams();
     this.list();
   },
 };

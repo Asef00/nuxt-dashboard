@@ -1,12 +1,8 @@
 <template>
-  <VCard :loader="loaderRequest" title="List Groups">
+  <VCard :loader="loaderRequest" title="Defined Groups">
     <template #header>
-      <VBtn
-        to="/group/create"
-        v-if="can('group.store')"
-        class="m-0 c-btn--small"
-      >
-        Create
+      <VBtn to="/group/create" v-if="can('group.store')" size="sm" class="m-0">
+        Define New Group
       </VBtn>
     </template>
     <VTable
@@ -21,19 +17,19 @@
       @close="showDetails = false"
       title="Role details"
     >
-      <Details :id="detailsItemId"/>
+      <Details :id="detailsItemId" />
     </VModal>
   </VCard>
 </template>
 
 <script>
-import Details from '@/components/page/group/Details'
+import Details from "@/components/page/group/Details";
 
 export default {
   name: "index",
   permission: "group.index",
   components: {
-    Details
+    Details,
   },
   data() {
     let _this = this;
@@ -42,15 +38,15 @@ export default {
       detailsItemId: 0,
       table: {
         columns: [
-          {key: "id", label: "#"},
-          {key: "name", label: "Name"},
-          {key: "label", label: "Label"},
-          {key: "created_at", label: "Created At", class: "u-text-center"},
-          {key: "updated_at", label: "Updated At", class: "u-text-center"},
+          { key: "id", label: "#" },
+          { key: "name", label: "Name" },
+          { key: "label", label: "Label" },
+          { key: "created_at", label: "Created At" },
+          { key: "updated_at", label: "Updated At" },
           {
             key: "action",
             label: '<img src="/img/gear.svg" alt="" />',
-            class: "u-text-center",
+            // class: "u-table--center",
           },
         ],
         items: [],
@@ -67,8 +63,7 @@ export default {
             return _this.dateFormat(item.updated_at);
           },
           //REQUIRED
-          rowClass() {
-          },
+          rowClass() {},
         },
       },
     };
@@ -112,11 +107,11 @@ export default {
     },
   },
   created() {
-    this.setTitle("Group");
+    this.setTitle("Definitions");
     this.setBreadcrumb([
       {
         to: "/group",
-        name: "Group",
+        name: "Definitions / Group",
       },
     ]);
     this.resetAxiosParams();

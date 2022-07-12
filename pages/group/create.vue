@@ -1,7 +1,7 @@
 <template>
-  <VCard title="Create New Group">
+  <VCard title="Define New Group">
     <template #header>
-      <VBtn to="/group" class="m-0 c-btn--small"> List</VBtn>
+      <VBtn to="/group" size="sm" class="m-0"> Defined Groups</VBtn>
     </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">
@@ -25,20 +25,23 @@
         </div>
         <div class="col-md-6">
           <VSelect
-            v-model="payload.field_name"
-            @validation="validate('field_name')"
-            :error="errorMessage('field_name')"
+            v-model="payload.fields"
+            @validation="validate('fields')"
+            :error="errorMessage('fields')"
             :list="list.field_name"
-            placeholder="Please enter field name"
+            placeholder="Please enter fields"
             track-label="label"
             track-by="id"
             :multiple="true"
             :closeOnSelect="false"
-            label="Field Name"
+            label="Fields"
           />
         </div>
       </div>
-      <VBtn :loader="loaderRequest">SAVE</VBtn>
+      <div class="mt-5">
+        <VBtn :loader="loaderRequest">SAVE</VBtn>
+        <VBtn btn="danger" to="/group" :loader="loaderRequest">CANCEL</VBtn>
+      </div>
     </form>
   </VCard>
 </template>
@@ -57,7 +60,7 @@ export default {
       payload: {
         name: "",
         label: "",
-        field_name: [],
+        fields: [],
       },
     };
   },
@@ -65,13 +68,13 @@ export default {
     create() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("group/create", {
             name: this.payload.name,
             label: this.payload.label,
-            field_name_ids: this.payload.field_name.map((a) => a.id),
+            field_name_ids: this.payload.fields.map((a) => a.id),
           });
           this.stopLoading();
           const err = this.handleError(this.$store.state.group.error);
@@ -89,7 +92,7 @@ export default {
       return Yup.object({
         name: Yup.string().required(),
         label: Yup.string().required(),
-        field_name: Yup.array(),
+        fields: Yup.array(),
       });
     },
     resetError() {
@@ -97,7 +100,7 @@ export default {
       this.errors = {
         name: "",
         label: "",
-        field_name: "",
+        fields: "",
       };
     },
     async getFieldName() {
@@ -109,11 +112,11 @@ export default {
     },
   },
   created() {
-    this.setTitle("Group");
+    this.setTitle("Definitions");
     this.setBreadcrumb([
       {
         to: "/group",
-        name: "Group",
+        name: "Definitions / Group",
       },
       {
         to: "/group/create",

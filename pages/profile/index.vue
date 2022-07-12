@@ -1,6 +1,6 @@
 <template>
   <div>
-    <VCard title="Profile">
+    <VCard :title="user.name != null ? user.name + `'s Profile` : `Profile`">
       <template #header>
         <transition>
           <VBtn
@@ -8,28 +8,31 @@
             @action="editModeToggle"
             btn="info"
             type="button"
-            class="m-0 c-btn--small"
+            size="sm"
+            class="m-0"
           >
             Edit Profile
-            <fa icon="pen-to-square"/>
+            <fa icon="pen-to-square" />
           </VBtn>
         </transition>
         <VBtn
           @action="showModalChangePassword = true"
           btn="warn"
           type="button"
-          class="m-0 c-btn--small"
+          size="sm"
+          class="m-0"
         >
           Change Password
         </VBtn>
       </template>
       <div class="row">
-        <div class="col-md-3 col-12">
+        <div class="col-12 u-text-center">
           <div class="c-avatar">
-            <VIcon icon="avatar" width="300" height="300"/>
+            <VIcon icon="avatar" width="150" height="150" />
           </div>
         </div>
-        <div class="col-md-9 col-12">
+
+        <div class="col-12">
           <form ref="form" @submit.prevent="update" class="c-form">
             <h4 class="c-form__title">Profile Info</h4>
             <div class="row">
@@ -77,15 +80,21 @@
                   @action="sendVerifyCode"
                   v-if="!payload.is_verified"
                   btn="success"
-                >Verify Email
+                  >Verify Email
                 </VBtn>
               </div>
             </div>
             <template v-if="user.fields.length">
               <h4 class="c-form__title">More Info</h4>
               <div class="row">
-                <template v-for="(field, index) in user.fields"
-                          v-if="field.value == null ? field.default_access.includes('show') : field.value.access.includes('show')">
+                <template
+                  v-for="(field, index) in user.fields"
+                  v-if="
+                    field.value == null
+                      ? field.default_access.includes('show')
+                      : field.value.access.includes('show')
+                  "
+                >
                   <div
                     :key="index"
                     class="col-md-6"
@@ -94,7 +103,13 @@
                     <VInput
                       @validation="validate(field.name)"
                       :error="errorMessage(field.name)"
-                      :disabled="editMode ? field.value == null ? !field.default_access.includes('edit') : !field.value.access.includes('edit') :true"
+                      :disabled="
+                        editMode
+                          ? field.value == null
+                            ? !field.default_access.includes('edit')
+                            : !field.value.access.includes('edit')
+                          : true
+                      "
                       :label="field.label"
                       v-model="payload[field.name]"
                       :placeholder="
@@ -209,13 +224,14 @@ export default {
       if (this.editMode) {
         this.scrollToElement(this.$refs.form);
       } else {
-        this.me()
-        this.resetError()
+        this.me();
+        this.resetError();
       }
     },
+
     //current user
     me() {
-      this.$auth.fetchUser()
+      this.$auth.fetchUser();
       this.user = this.$auth.user;
       this.id = this.user.id;
       this.payload.name = this.user.name;
@@ -224,9 +240,11 @@ export default {
       this.payload.is_verified = this.user.cognito.email_verified;
       for (let field of this.user.fields) {
         this.errors[field.name] = "";
-        this.payload[field.name] = field.value != null ? field.value.value : field.value;
+        this.payload[field.name] =
+          field.value != null ? field.value.value : field.value;
       }
     },
+
     validation() {
       let roles = {
         name: Yup.string().required(),
@@ -239,18 +257,22 @@ export default {
       }
       return Yup.object(roles);
     },
+
     update() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           let fields = [];
           for (let field of this.user.fields) {
             fields.push({
               field_name_id: field.id,
-              value: this.payload[field.name] instanceof Date ? this.payload[field.name].toLocaleDateString() : this.payload[field.name]
-            })
+              value:
+                this.payload[field.name] instanceof Date
+                  ? this.payload[field.name].toLocaleDateString()
+                  : this.payload[field.name],
+            });
           }
           await this.$store.dispatch("me/update", {
             name: this.payload.name,
@@ -269,6 +291,7 @@ export default {
           this.stopLoading();
         });
     },
+
     resetError() {
       this.$store.commit("me/RESET_ERROR");
       this.errors = {
@@ -276,15 +299,18 @@ export default {
         family_name: "",
       };
     },
+
     changePasswordModal(show) {
       this.showModalChangePassword = show;
     },
+
     verifyEmailModal(show) {
       this.showModalVerifyEmail = show;
       if (!show) {
         this.me();
       }
     },
+
     sendVerifyCode() {
       this.showModalVerifyEmail = true;
       this.startLoading();
@@ -296,6 +322,7 @@ export default {
         }
       });
     },
+
     detailsItem(id) {
       this.detailsItemId = id;
       this.showDetails = true;
@@ -303,7 +330,7 @@ export default {
   },
 
   created() {
-    this.setTitle("Profile");
+    this.setTitle("Manage Profile");
     this.setBreadcrumb([
       {
         to: "/profile",

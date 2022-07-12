@@ -1,7 +1,7 @@
 <template>
-  <VCard title="Create new Field Name">
+  <VCard title="Define New Field">
     <template #header>
-      <VBtn to="/field/name" class="m-0 c-btn--small"> List </VBtn>
+      <VBtn to="/field/name" size="sm" class="m-0"> Defined Fields </VBtn>
     </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">
@@ -90,7 +90,10 @@
         @validation="validate('required')"
         :error="errorMessage('required')"
       />
-      <VBtn :loader="loaderRequest">SAVE</VBtn>
+      <div class="mt-5">
+        <VBtn :loader="loaderRequest">SAVE</VBtn>
+        <VBtn btn="danger" to="/field/name" :loader="loaderRequest">CANCEL</VBtn>
+      </div>
     </form>
   </VCard>
 </template>
@@ -127,7 +130,7 @@ export default {
     create() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, { abortEarly: false })
+        .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("fieldName/create", {
@@ -165,7 +168,7 @@ export default {
         field_type: Yup.object().nullable().required(),
       };
       if (this.checkFieldTypeHasSelect) {
-        roles = { data_set: Yup.array().min(1), ...roles };
+        roles = {data_set: Yup.array().min(1), ...roles};
       }
       return Yup.object(roles);
     },
@@ -187,11 +190,11 @@ export default {
   },
   created() {
     this.resetError();
-    this.setTitle("Field Name");
+    this.setTitle("Definitions");
     this.setBreadcrumb([
       {
         to: "/field/name",
-        name: "Field Name",
+        name: "Definitions / Field Name",
       },
       {
         to: "/field/name/create",
@@ -205,7 +208,7 @@ export default {
   computed: {
     checkFieldTypeHasSelect() {
       if (this.payload.field_type) {
-        return this.payload.field_type.type === "select";
+        return this.payload.field_type.label === "Select";
       }
       return false;
     },

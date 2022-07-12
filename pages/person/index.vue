@@ -4,14 +4,16 @@
       <VBtn
         to="/person/create"
         v-if="can('person.store')"
-        class="m-0 c-btn--small"
+        size="sm"
+        class="m-0"
       >
         Create New
       </VBtn>
       <VBtn
         to="/person/create-cognito"
         v-if="can('person.cognito.store')"
-        class="m-0 c-btn--small"
+        size="sm"
+        class="m-0"
       >
         Add From Cognito
       </VBtn>
@@ -19,7 +21,9 @@
     <VTable
       @changePage="changePage($event)"
       @changePerPage="changePerPage($event)"
+      @search="search($event)"
       :table="table"
+      isSearchable
     />
   </VCard>
 </template>
@@ -35,22 +39,20 @@ export default {
       detailsItemId: 0,
       table: {
         columns: [
-          {key: "id", label: "#"},
-          {key: "full_name", label: "Full Name"},
-          {key: "username", label: "Username"},
-          {key: "status", label: "Status"},
-          {key: "roles", label: "Roles"},
+          { key: "id", label: "#" },
+          { key: "full_name", label: "Full Name" },
+          { key: "username", label: "Username" },
+          { key: "status", label: "Status" },
+          { key: "roles", label: "Roles" },
           {
             key: "created_at",
             label: "Created At",
-            // class: "u-text-center",
-            filterable: true,
           },
-          {key: "updated_at", label: "Updated At", class: "u-text-center"},
+          { key: "updated_at", label: "Updated At" },
           {
             key: "action",
             label: '<img src="/img/gear.svg" alt="" />',
-            class: "u-text-center",
+            class: "u-table--center",
           },
         ],
         items: [],
@@ -74,23 +76,27 @@ export default {
               : `<span class="c-badge u-bg-danger">Disable</span>`;
           },
           roles(item) {
-            let data = ''
+            let data = "";
             for (let role of item.roles) {
-              data += '<span class="c-badge u-bg-primary mr-1">'+role.label+'</span>'
+              data +=
+                '<span class="c-badge u-bg-primary mr-1">' +
+                role.label +
+                "</span>";
             }
             return data;
           },
           //REQUIRED
-          rowClass() {
-          },
+          rowClass() {},
         },
+        searchKeys: ["name", "family_name", "username"],
       },
     };
   },
+
   methods: {
     async list() {
       this.startLoading();
-      this.setWith('roles')
+      this.setWith("roles");
       this.$store.commit("person/RESET_ERROR");
       await this.$store.dispatch("person/list");
       let err = this.handleError(this.$store.state.person.error);
@@ -108,7 +114,13 @@ export default {
       this.setPaginate(1);
       this.list();
     },
+    search(val) {
+      this.resetAxiosParams();
+      this.setAxiosParams(val);
+      this.list();
+    },
   },
+
   created() {
     this.setTitle("Manage Persons");
     this.setBreadcrumb([

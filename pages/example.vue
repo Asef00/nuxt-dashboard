@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- table sample -->
     <VCard :loader="loaderRequest" title="Sample Table">
       <VTable
         @changePage="changePage($event)"
@@ -8,7 +9,7 @@
         :table="table"
       />
     </VCard>
-
+    <!-- form control samples -->
     <VCard title="Dashboard">
       <template #header> </template>
       <form action="" class="c-form">
@@ -76,7 +77,7 @@
               placeholder="Please enter summary"
             />
           </div>
-
+          <!-- switch samples -->
           <div class="col-md-1">
             <VSwitch
               :defaultState="true"
@@ -116,19 +117,13 @@
               type="success"
             />
           </div>
-
+          <!-- checkbox samples -->
           <div class="col-md-6">
-            <VCheckbox
-              label="Ali"
-              data="Ali"
-              :list="selectedOptions"
-              v-model="selected"
-            />
+            <VCheckbox label="Ali" inputValue="Ali" v-model="selectedOptions" />
             <VCheckbox
               label="Reza"
-              data="Reza"
-              :list="selectedOptions"
-              v-model="selected"
+              inputValue="Reza"
+              v-model="selectedOptions"
             />
             <VCheckbox
               label="Disabled"
@@ -138,6 +133,7 @@
             />
           </div>
         </div>
+        <!-- button samples -->
         <VBtn
           @action="startLoading"
           :loader="loaderRequest"
@@ -163,7 +159,7 @@
         </VBtn>
       </form>
     </VCard>
-
+    <!-- alert samples -->
     <VCard title="Alerts">
       <VAlert class="c-alert--primary">
         A simple primary alert—check it out!
@@ -186,11 +182,11 @@
       </VAlert>
       <VAlert class="c-alert--dark"> A simple dark alert—check it out! </VAlert>
     </VCard>
-
+    <!-- inline form-control samples -->
     <VCard title="Inline Form Controls">
       <template #header>
-        <VBtn class="m-0 c-btn--small" btn="info">Button</VBtn>
-        <VBtn class="m-0 c-btn--small" btn="danger">Button</VBtn>
+        <VBtn size="sm" class="m-0" btn="info">Button</VBtn>
+        <VBtn size="sm" class="m-0" btn="danger">Button</VBtn>
       </template>
       <form action="" class="c-form">
         <div class="row mb-3">
@@ -298,10 +294,10 @@
         <span class="c-badge u-bg-dark">success</span>
       </form>
     </VCard>
-
+    <!-- modal samples -->
     <VCard title="Card Long Title Sample">
       <template #header>
-        <VBtn class="m-0 c-btn--small" btn="success">Success</VBtn>
+        <VBtn size="sm" class="m-0" btn="success">Success</VBtn>
       </template>
       <p class="mb-3">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam
@@ -311,7 +307,7 @@
       <VBtn @action="showModal = true">Show Modal</VBtn>
       <VBtn @action="showFormModal = true" btn="info">Show Form Modal</VBtn>
     </VCard>
-
+    <!-- tab samples -->
     <VCard>
       <VTabs
         qKey="tabs1"
@@ -363,7 +359,6 @@
       </p>
       <template #footer>Modal footer</template>
     </VModal>
-
     <VModal
       :showModal="showFormModal"
       @close="showFormModal = false"
@@ -416,19 +411,9 @@
           type="success"
         />
 
-        <VCheckbox
-          label="Ali"
-          data="Ali"
-          :list="selectedOptions"
-          v-model="selected"
-        />
+        <VCheckbox label="Ali" inputValue="Ali" v-model="selectedOptions" />
 
-        <VCheckbox
-          label="Reza"
-          data="Reza"
-          :list="selectedOptions"
-          v-model="selected"
-        />
+        <VCheckbox label="Reza" inputValue="Reza" v-model="selectedOptions" />
 
         <VCheckbox
           label="Disabled"
@@ -490,27 +475,60 @@ export default {
 
       table: {
         columns: [
-          { key: "id", label: "#" },
-          { key: "full_name", label: "Full Name", sortable: true },
+          { key: "id", label: "#", filterType: "number" },
+          {
+            key: "full_name",
+            label: "Full Name",
+            sortable: true,
+            filterType: "multiselect",
+            filterKey: ["name", "family_name"],
+            filterItems: [
+              { label: "Alan Walker", value: "Alan", selected: true },
+              { label: "Peter Parker", value: "Peter" },
+              { label: "Jesus Christ", value: "Jesus" },
+            ],
+          },
           { key: "username", label: "Username", sortable: true },
-          { key: "status", label: "Status", sortable: true },
+          {
+            key: "status",
+            label: "Status",
+            sortable: true,
+            filterType: "select",
+            // NOTE: default item's value should be empty
+            filterItems: [
+              { label: "All", value: "", selected: true },
+              { label: "Enable", value: "enabled" },
+              { label: "Disable", value: "disabled" },
+            ],
+          },
+          {
+            key: "roles",
+            label: "Roles",
+            filterType: "multiselect",
+            filterItems: [
+              { label: "Admin", value: "admin" },
+              { label: "Developer", value: "developer" },
+              { label: "Staff", value: "staff" },
+            ],
+          },
           {
             key: "created_at",
             label: "Created At",
-            class: "u-text-center",
-            filterable: true,
+            class: "u-table--center",
+            filterType: "date",
             sortable: true,
           },
           {
             key: "updated_at",
             label: "Updated At",
-            class: "u-text-center",
+            class: "u-table--center",
+            filterType: "date",
             sortable: true,
           },
           {
             key: "action",
             label: '<img src="/img/gear.svg" alt="" />',
-            class: "u-text-center",
+            class: "u-table--center",
           },
         ],
         items: [],
@@ -532,6 +550,16 @@ export default {
             return item.enabled
               ? `<span class="c-badge u-bg-success">Enable</span>`
               : `<span class="c-badge u-bg-danger">Disable</span>`;
+          },
+          roles(item) {
+            let data = "";
+            for (let role of item.roles) {
+              data +=
+                '<span class="c-badge u-bg-primary mr-1">' +
+                role.label +
+                "</span>";
+            }
+            return data;
           },
           //REQUIRED
           rowClass() {},
@@ -573,14 +601,11 @@ export default {
     },
 
     //sample table methods
-    async list(page = null, limit = null) {
+    async list() {
       this.startLoading();
+      this.setWith("roles");
       this.$store.commit("person/RESET_ERROR");
-      await this.$store.dispatch("person/list", {
-        page: page ?? this.getPaginate(),
-        limit: limit ?? this.getLimit(),
-        paginate: 1,
-      });
+      await this.$store.dispatch("person/list");
       let err = this.handleError(this.$store.state.person.error);
       if (!err) {
         this.table.items = this.$store.state.person.list;
@@ -589,16 +614,19 @@ export default {
     },
     changePage(val) {
       this.setPaginate(val);
-      this.list(val, this.getLimit());
+      this.list();
     },
     changePerPage(val) {
       this.setLimit(val);
       this.setPaginate(1);
-      this.list(1, val);
+      this.list();
     },
 
     tableSearch(val) {
       console.log("tableSearch:", val);
+      this.resetAxiosParams();
+      this.setAxiosParams(val);
+      this.list();
     },
   },
 

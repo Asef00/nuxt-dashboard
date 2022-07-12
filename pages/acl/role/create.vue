@@ -1,7 +1,7 @@
 <template>
-  <VCard title="Create new Role">
+  <VCard title="Define New Role">
     <template #header>
-      <VBtn to="/acl/role" class="m-0 c-btn--small"> List </VBtn>
+      <VBtn to="/acl/role" size="sm" class="m-0"> Defined Roles </VBtn>
     </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">
@@ -25,20 +25,23 @@
         </div>
         <div class="col-md-6">
           <VSelect
-            v-model="payload.permission"
-            @validation="validate('permission')"
-            :error="errorMessage('permission')"
+            v-model="payload.permissions"
+            @validation="validate('permissions')"
+            :error="errorMessage('permissions')"
             :list="list.permission"
             :multiple="true"
-            placeholder="Please enter permission"
+            placeholder="Please Grant a Permission"
             track-label="label"
             track-by="id"
             :closeOnSelect="false"
-            label="Permission"
+            label="Permissions"
           />
         </div>
       </div>
-      <VBtn :loader="loaderRequest">SAVE</VBtn>
+      <div class="mt-5">
+        <VBtn :loader="loaderRequest">SAVE</VBtn>
+        <VBtn btn="danger" to="/acl/role" :loader="loaderRequest">CANCEL</VBtn>
+      </div>
     </form>
   </VCard>
 </template>
@@ -57,7 +60,7 @@ export default {
       payload: {
         name: "",
         label: "",
-        permission: [],
+        permissions: [],
       },
     };
   },
@@ -71,7 +74,7 @@ export default {
           await this.$store.dispatch("role/create", {
             name: this.payload.name,
             label: this.payload.label,
-            permission_ids: this.payload.permission.map((a) => a.id),
+            permission_ids: this.payload.permissions.map((a) => a.id),
           });
           this.stopLoading();
           const err = this.handleError(this.$store.state.fieldName.error);
@@ -96,7 +99,7 @@ export default {
       let roles = {
         name: Yup.string().required(),
         label: Yup.string().required(),
-        permission: Yup.array().min(1),
+        permissions: Yup.array().min(1),
       };
       return Yup.object(roles);
     },
@@ -107,17 +110,17 @@ export default {
       this.errors = {
         name: "",
         label: "",
-        permission: "",
+        permissions: "",
       };
     },
   },
   created() {
     this.resetError();
-    this.setTitle("Role");
+    this.setTitle("Definitions");
     this.setBreadcrumb([
       {
         to: "/acl/role",
-        name: "Role",
+        name: "Definitions / Role",
       },
       {
         to: "/acl/role/create",

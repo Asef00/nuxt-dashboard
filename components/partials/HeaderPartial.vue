@@ -21,10 +21,10 @@
             <VIcon icon="avatar" width="34" height="34" />
           </template>
           <template #menu>
-            <header class="c-dropdown__header">Welcome!</header>
+            <header class="c-dropdown__header">Welcome {{$auth.user.name}}!</header>
 
             <NuxtLink to="/profile" class="c-dropdown__item">
-              My Profile
+              Profile
             </NuxtLink>
             <span class="c-dropdown__divider"></span>
             <a @click="logout" class="c-dropdown__item">Logout</a>

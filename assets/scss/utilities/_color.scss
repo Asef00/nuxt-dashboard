@@ -1,4 +1,8 @@
 //Background Color
+.u-bg-primary {
+  background-color: $primary-color !important;
+  color: #fff !important;
+}
 .u-bg-danger {
   background-color: $danger-color !important;
   color: #fff !important;
@@ -13,10 +17,6 @@
 }
 .u-bg-info {
   background-color: $info-color !important;
-  color: #fff !important;
-}
-.u-bg-primary {
-  background-color: $primary-color !important;
   color: #fff !important;
 }
 .u-bg-warn {

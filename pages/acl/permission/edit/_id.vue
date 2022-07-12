@@ -1,7 +1,7 @@
 <template>
-  <VCard title="Edit a Permission">
+  <VCard title="Edit Permission">
     <template #header>
-      <VBtn to="/acl/permission" class="m-0 c-btn--small"> List</VBtn>
+      <VBtn to="/acl/permission" size="sm" class="m-0"> Defined Permissions </VBtn>
     </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">
@@ -13,7 +13,7 @@
             :list="list.route"
             placeholder="Please select name"
             track-label="name"
-            label="Name (route name)"
+            label="Name (Route Name)"
           />
         </div>
         <div class="col-md-6">
@@ -44,9 +44,13 @@
           />
         </div>
         <div class="col-md-6">
-          <div class=" c-form__control c-form__control--inline mb-5 ">
+          <div class="c-form__control c-form__control--inline mb-5">
             <label class="c-form__label">Fields :</label>
-            <span v-for="field in payload.fields" class="c-badge u-bg-primary">{{ field }}</span>
+            <span
+              v-for="field in payload.fields"
+              class="c-badge u-bg-primary"
+              >{{ field }}</span
+            >
           </div>
         </div>
         <div class="col-md-12 mb-4">
@@ -59,7 +63,10 @@
           />
         </div>
       </div>
-      <VBtn :loader="loaderRequest">SAVE</VBtn>
+      <div class="mt-5">
+        <VBtn :loader="loaderRequest">SAVE</VBtn>
+        <VBtn btn="danger" to="/acl/permission" :loader="loaderRequest">CANCEL</VBtn>
+      </div>
     </form>
   </VCard>
 </template>
@@ -71,7 +78,7 @@ import * as Yup from "yup";
 export default {
   name: "create",
   permission: "permission.update",
-  components: {Multiselect},
+  components: { Multiselect },
   data() {
     return {
       id: this.$route.params.id,
@@ -97,7 +104,7 @@ export default {
     update() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           let payload = {
@@ -144,7 +151,9 @@ export default {
         this.payload.name = this.list.route.find((o) => o.name === data.name);
         this.payload.label = data.label;
         if (data.conditions != null) {
-          this.hasFilter = true;
+          if (Object.keys(data.conditions).length){
+            this.hasFilter = true;
+          }
           this.payload.conditions = data.conditions
         }
       }
@@ -171,11 +180,11 @@ export default {
     this.resetError();
     this.getRouteList();
     this.show();
-    this.setTitle("Permission");
+    this.setTitle("Definitions");
     this.setBreadcrumb([
       {
         to: "/acl/permission",
-        name: "Permission",
+        name: "Definitions / Permission",
       },
       {
         to: "/acl/permission/edit/" + this.id,
@@ -198,11 +207,11 @@ export default {
     "payload.model": {
       handler(v) {
         if (v == null) {
-          this.payload.fields = null
+          this.payload.fields = null;
         } else {
-          this.payload.fields = v.fields
+          this.payload.fields = v.fields;
         }
-      }
+      },
     },
   },
 };

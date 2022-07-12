@@ -1,5 +1,5 @@
 <template>
-  <VCard :loader="loaderRequest" title="List Person Products">
+  <VCard :loader="loaderRequest" title="List Products">
     <VTable @actionDetails="detailsItem($event)"
             @changePage="changePage($event)"
             @changePerPage="changePerPage($event)"
@@ -26,13 +26,13 @@ export default {
       table: {
         columns: [
           {key: "id", label: "#"},
-          {key: "full_name", label: "Full Name",},
+          {key: "full_name", label: "Client's Name",},
           {key: "title", label: "Product Title",},
           {key: "version", label: "Version",},
           {key: "site", label: "Site",},
           {key: "status", label: "Status",},
-          {key: "created_at", label: "Created At", class: "u-text-center"},
-          {key: "action", label: '<img src="/img/gear.svg" alt="" />', class: "u-text-center",},
+          {key: "created_at", label: "Created At",},
+          {key: "action", label: '<img src="/img/gear.svg" alt="" />',},
         ],
         items: [],
         map: {
@@ -83,11 +83,11 @@ export default {
   created() {
     this.resetAxiosParams();
     this.list()
-    this.setTitle('Person Product')
+    this.setTitle('Products')
     this.setBreadcrumb([
       {
         to: '/person-product',
-        name: 'Person Product'
+        name: 'Products'
       }
     ])
   }
