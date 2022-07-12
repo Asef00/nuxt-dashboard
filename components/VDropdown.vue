@@ -102,11 +102,6 @@ export default {
         //update data variables
         this.getData();
 
-        //handle fixed position
-        if (this.fixed) {
-          this.FRepos();
-        }
-
         //vertical
         console.log("vertical", this.menuRect.bottom + 10, window.innerHeight);
         if (this.menuRect.bottom + 10 > window.innerHeight) {
@@ -114,7 +109,7 @@ export default {
         }
 
         //horizontal
-        console.log("horizontal", this.menuRect.right + 10, window.innerWidth);
+        // console.log("horizontal", this.menuRect.right + 10, window.innerWidth);
         if (this.menuRect.right + 10 > window.innerWidth) {
           this.HRepos();
         }
@@ -125,7 +120,7 @@ export default {
       this.menu.classList.add("is-bottom"); //to change arrow position (CSS)
 
       if (this.fixed) {
-        // console.log(this.btn.bottom(), this.menu.offsetHeight);
+        this.FRepos();
         this.menu.style.top = `${this.btn.bottom() - this.menu.offsetHeight}px`;
         this.menu.style.bottom = "unset";
       } else {
@@ -135,13 +130,13 @@ export default {
     },
 
     HRepos() {
-      this.menu.style.left = "unset";
-
       if (this.fixed) {
+        this.FRepos();
         this.menu.style.right = this.btn.right();
       } else {
         this.menu.style.right = 0;
       }
+      this.menu.style.left = "unset";
     },
 
     FRepos() {
