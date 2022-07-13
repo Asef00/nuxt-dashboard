@@ -21,6 +21,7 @@
         <div
           ref="menu"
           v-show="isActive"
+          :style="style"
           :class="[menuClass, { 'c-dropdown__menu--fixed': fixed }]"
         >
           <slot name="menu"></slot>
@@ -80,7 +81,7 @@ export default {
   methods: {
     //close fixed dropdown on scroll
     handleScroll() {
-      if (this.fixed) this.isActive = false;
+      if (this.fixed) this.toggle(true);
     },
 
     toggle(hide = false) {
@@ -101,6 +102,7 @@ export default {
 
     //handle dropdown close to the edge + fixed menu position
     reposition() {
+      // console.log("REpos");
       //using nestTick to let the element show up
       this.$nextTick(() => {
         //update data variables
@@ -144,7 +146,8 @@ export default {
     },
 
     FRepos() {
-      console.log("fixed");
+      // console.log("fixed");
+
       switch (this.position) {
         case "right":
           {
@@ -201,6 +204,10 @@ export default {
       else
         return `c-dropdown__menu c-dropdown__menu--${this.position} u-bg-${this.menuStyle}`;
     },
+
+    style() {
+      return this.fixed ? "top: unset;" : "";
+    },
   },
 
   watch: {
@@ -219,11 +226,15 @@ export default {
     },
   },
 
-  mounted () {
+  mounted() {
     window.addEventListener("scroll", this.handleScroll);
+    setTimeout(() => {
+      this.getData();
+      this.FRepos();
+    }, 500);
   },
 
-  destroyed () {
+  destroyed() {
     window.removeEventListener("scroll", this.handleScroll);
   },
 };
