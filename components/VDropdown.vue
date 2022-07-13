@@ -8,7 +8,7 @@
     <!-- Dropdown Button -->
     <button
       v-if="this.$slots.btn"
-      :class="[btnClass, buttonClass]"
+      :class="[btnClass, computedBtnClass, { 'is-active': isBtnActive }]"
       @click="toggle()"
       ref="btn"
     >
@@ -72,6 +72,7 @@ export default {
   data() {
     return {
       isActive: false,
+      isBtnActive: false,
       btn: {},
       menu: {},
       menuRect: {},
@@ -185,6 +186,17 @@ export default {
         },
       };
     },
+
+    findActive() {
+      // console.log(this.$refs.menu.querySelector(".nuxt-link-exact-active"));
+      this.$nextTick(() => {
+        if (this.$refs.menu.querySelector(".nuxt-link-exact-active")) {
+          this.isBtnActive = true;
+        } else {
+          this.isBtnActive = false;
+        }
+      });
+    },
   },
 
   computed: {
@@ -193,7 +205,7 @@ export default {
       else return "c-dropdown";
     },
 
-    buttonClass() {
+    computedBtnClass() {
       if (this.isFilter) return "c-filter__btn";
       else return "c-dropdown__btn";
     },
@@ -213,6 +225,7 @@ export default {
   watch: {
     $route() {
       this.toggle(true);
+      this.findActive();
     },
 
     isActive() {
@@ -228,10 +241,12 @@ export default {
 
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
-    if (this.fixed) setTimeout(() => {
-      this.getData();
-      this.FRepos();
-    }, 500);
+    if (this.fixed)
+      setTimeout(() => {
+        this.getData();
+        this.FRepos();
+        this.findActive();
+      }, 500);
   },
 
   destroyed() {
