@@ -1,11 +1,11 @@
 <template>
   <div class="o-wrapper">
     <nav class="o-wrapper__side">
-      <SidenavPartial />
+      <SidenavPartial @toggleMenu="toggleMenu()" :isActive="isMenuActive" />
     </nav>
 
     <div class="o-wrapper__center">
-      <HeaderPartial />
+      <HeaderPartial @toggleMenu="toggleMenu()" />
 
       <main class="o-wrapper__main">
         <Nuxt />
@@ -35,18 +35,24 @@ export default {
     script: [{ src: "/main.js" }],
   },
 
-  mounted() {
-    //sidenav.js
-    // handle sidenav on mobile
-    let sidenav = document.querySelector(".js-sidenav");
-    let menu_open = document.querySelector(".js-menu-open");
-    let menu_close = document.querySelector(".js-menu-close");
-    menu_open.onclick = function () {
-      sidenav.classList.add("is-open");
-    };
-    menu_close.onclick = function () {
-      sidenav.classList.remove("is-open");
-    };
+  data() {
+    return { isMenuActive: false };
+  },
+
+  methods: {
+    toggleMenu(close = false) {
+      if (close) {
+        this.isMenuActive = false;
+      } else {
+        this.isMenuActive = !this.isMenuActive;
+      }
+    },
+  },
+  
+  watch: {
+    $route() {
+      this.toggleMenu();
+    },
   },
 };
 </script>

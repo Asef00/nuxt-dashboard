@@ -1,12 +1,12 @@
 <template>
-  <div class="c-sidenav js-sidenav">
+  <div :class="['c-sidenav', { 'is-open': isActive }]">
     <vue-custom-scrollbar>
       <ul class="c-sidenav__list" role="presentation">
         <li class="c-sidenav__header">
           <NuxtLink to="/" class="c-logo">
             <VIcon icon="logo" width="80" height="60" />
           </NuxtLink>
-          <span class="c-sidenav__close js-menu-close">
+          <span class="c-sidenav__close" @click="$emit('toggleMenu')">
             <fa icon="xmark" />
           </span>
         </li>
@@ -115,14 +115,15 @@ import "vue-custom-scrollbar/dist/vueScrollbar.css";
 export default {
   name: "SidenavPartial",
 
-  components: {
-    vueCustomScrollbar,
+  props: {
+    isActive: {
+      type: Boolean,
+      default: false,
+    },
   },
 
-  watch: {
-    $route() {
-      document.querySelector(".js-sidenav").classList.remove("is-open");
-    },
+  components: {
+    vueCustomScrollbar,
   },
 };
 </script>
