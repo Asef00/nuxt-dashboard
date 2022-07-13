@@ -113,7 +113,7 @@ import vueCustomScrollbar from "vue-custom-scrollbar";
 import "vue-custom-scrollbar/dist/vueScrollbar.css";
 
 export default {
-  name: "SidenavPartial",
+  name: "TheSidenavPartial",
 
   props: {
     isActive: {

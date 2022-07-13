@@ -1,34 +1,34 @@
 <template>
   <div class="o-wrapper">
     <nav class="o-wrapper__side">
-      <SidenavPartial @toggleMenu="toggleMenu()" :isActive="isMenuActive" />
+      <TheSidenavPartial @toggleMenu="toggleMenu()" :isActive="isMenuActive" />
     </nav>
 
     <div class="o-wrapper__center">
-      <HeaderPartial @toggleMenu="toggleMenu()" />
+      <TheHeaderPartial @toggleMenu="toggleMenu()" />
 
       <main class="o-wrapper__main">
         <Nuxt />
       </main>
 
-      <FooterPartial />
+      <TheFooterPartial />
     </div>
   </div>
 </template>
 
 <script>
-import FooterPartial from "../components/partials/FooterPartial.vue";
-import HeaderPartial from "../components/partials/HeaderPartial.vue";
-import SidenavPartial from "../components/partials/SidenavPartial.vue";
+import TheFooterPartial from "../components/partials/TheFooterPartial.vue";
+import TheHeaderPartial from "../components/partials/TheHeaderPartial.vue";
+import TheSidenavPartial from "../components/partials/TheSidenavPartial.vue";
 
 export default {
   name: "default",
   scrollTop: true,
 
   components: {
-    HeaderPartial,
-    SidenavPartial,
-    FooterPartial,
+    TheHeaderPartial,
+    TheSidenavPartial,
+    TheFooterPartial,
   },
 
   head: {

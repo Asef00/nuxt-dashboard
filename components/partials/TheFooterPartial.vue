@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: "FooterPartial",
+  name: "TheFooterPartial",
 };
 </script>
 

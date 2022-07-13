@@ -57,7 +57,7 @@
 
 <script>
 export default {
-  name: "HeaderPartial",
+  name: "TheHeaderPartial",
   methods: {
     logout() {
       this.$store.dispatch("me/revokeToken");
