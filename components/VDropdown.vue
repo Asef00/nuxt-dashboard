@@ -228,7 +228,7 @@ export default {
 
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
-    setTimeout(() => {
+    if (this.fixed) setTimeout(() => {
       this.getData();
       this.FRepos();
     }, 500);
