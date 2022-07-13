@@ -16,47 +16,51 @@
     </button>
 
     <!-- Dropdown Menu -->
-    <transition name="c-dropdown__menu" mode="out-in">
-      <div
-        ref="menu"
-        v-if="this.$slots.menu"
-        v-show="isActive"
-        :class="[menuClass, { 'c-dropdown__menu--fixed': fixed }]"
-      >
-        <slot name="menu"></slot>
-      </div>
-    </transition>
+    <template v-if="this.$slots.menu">
+      <transition name="c-dropdown__menu" mode="out-in">
+        <div
+          ref="menu"
+          v-show="isActive"
+          :class="[menuClass, { 'c-dropdown__menu--fixed': fixed }]"
+        >
+          <slot name="menu"></slot>
+        </div>
+      </transition>
+    </template>
   </component>
 </template>
 
 <script>
 export default {
   props: {
+    btnClass: String,
+    position: String,
+
     isFilter: {
       type: Boolean,
       default: false,
     },
 
-    btnClass: String,
-
     menuStyle: {
       type: String,
       default: "light",
     },
+
     menuGap: {
       type: Number,
       default: 10,
     },
-    position: String,
 
     wrapper: {
       type: String,
       default: "div",
     },
+
     fixed: {
       type: Boolean,
       default: false,
     },
+
     //a key to hide the menu from parent
     hideKey: {
       type: Number,
@@ -215,11 +219,11 @@ export default {
     },
   },
 
-  mounted: function () {
+  mounted () {
     window.addEventListener("scroll", this.handleScroll);
   },
 
-  destroyed: function () {
+  destroyed () {
     window.removeEventListener("scroll", this.handleScroll);
   },
 };
