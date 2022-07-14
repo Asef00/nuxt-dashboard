@@ -16,10 +16,10 @@ export default {
   },
 
   //scss variables & mixins
-  styleResources: {
-    scss: ["~/assets/scss/resources.scss"],
-    hoistUseStatements: true,
-  },
+  // styleResources: {
+  //   scss: ["~/assets/scss/resources.scss"],
+  //   hoistUseStatements: true,
+  // },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
@@ -27,6 +27,20 @@ export default {
     "vue-multiselect/dist/vue-multiselect.min.css",
     "~/assets/scss/app.scss",
   ],
+
+  vite: {
+    css: {
+      //scss variables & mixins
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@import "@/assets/scss/resources.scss";',
+        },
+      },
+    },
+    optimizeDeps: {
+      include: ["cookie"],
+    },
+  },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -42,6 +56,8 @@ export default {
   buildModules: [
     "@nuxtjs/fontawesome",
     "@nuxtjs/style-resources",
+    "@nuxt/postcss8",
+    "nuxt-vite",
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
