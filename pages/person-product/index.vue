@@ -3,6 +3,7 @@
     <VTable @actionDetails="detailsItem($event)"
             @changePage="changePage($event)"
             @changePerPage="changePerPage($event)"
+            @filter="filter($event)"
             :table="table"/>
     <VModal :showModal="showDetails" @close="showDetails =false" title="Product data">
       <DetailsData :id="detailsItemId"/>
@@ -25,13 +26,13 @@ export default {
       detailsItemId: 0,
       table: {
         columns: [
-          {key: "id", label: "#"},
+          {key: "id", label: "#",filterType: "number", sortable: true,},
           {key: "full_name", label: "Client's Name",},
           {key: "title", label: "Product Title",},
           {key: "version", label: "Version",},
           {key: "site", label: "Site",},
           {key: "status", label: "Status",},
-          {key: "created_at", label: "Created At",},
+          {key: "created_at", label: "Created At", filterType: "date", sortable: true,},
           {key: "action", label: '<img src="/img/gear.svg" alt="" />',},
         ],
         items: [],
@@ -77,6 +78,10 @@ export default {
     changePerPage(val) {
       this.setLimit(val);
       this.setPaginate(1);
+      this.list();
+    },
+    filter(val) {
+      this.setAxiosParams(val);
       this.list();
     },
   },

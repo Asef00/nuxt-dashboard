@@ -110,11 +110,11 @@
                         {
                           'is-active':
                             activeSort.key == getSortKey(col) &&
-                            activeSort.order == 'asc',
+                            activeSort.order == 'desc',
                         },
                       ]"
                       dir="up"
-                      @click="toggleSort(getSortKey(col), 'asc')"
+                      @click="toggleSort(getSortKey(col), 'desc')"
                     />
                     <VChevron
                       :class="[
@@ -122,11 +122,11 @@
                         {
                           'is-active':
                             activeSort.key == getSortKey(col) &&
-                            activeSort.order == 'desc',
+                            activeSort.order == 'asc',
                         },
                       ]"
                       dir="down"
-                      @click="toggleSort(getSortKey(col), 'desc')"
+                      @click="toggleSort(getSortKey(col), 'asc')"
                     />
                   </span>
               </div>
