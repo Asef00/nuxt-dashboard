@@ -91,7 +91,6 @@ export default {
       } else {
         this.isActive = !this.isActive;
       }
-
       this.$emit("toggleShow");
     },
 
@@ -122,7 +121,7 @@ export default {
     },
 
     VRepos() {
-      console.log("vertical", this.menuRect.bottom + 10, window.innerHeight);
+      // console.log("vertical", this.menuRect.bottom + 10, window.innerHeight);
       this.menu.classList.add("is-bottom"); //to change arrow position (CSS)
 
       if (this.fixed) {
@@ -136,7 +135,7 @@ export default {
     },
 
     HRepos() {
-      console.log("horizontal", this.menuRect.right + 10, window.innerWidth);
+      // console.log("horizontal", this.menuRect.right + 10, window.innerWidth);
       if (this.fixed) {
         this.FRepos();
         this.menu.style.right = this.btn.right();
@@ -148,7 +147,6 @@ export default {
 
     FRepos() {
       // console.log("fixed");
-
       switch (this.position) {
         case "right":
           {
@@ -241,6 +239,7 @@ export default {
 
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
+
     if (this.fixed)
       setTimeout(() => {
         this.getData();
