@@ -1,26 +1,35 @@
 <template>
   <div class="c-tabs">
-    <ul class="c-tabs__header">
-      <li
-        class="c-tabs__item"
-        v-for="tab in tabs"
-        @click="clickHandler(tab.tabKey)"
-        :key="tab.tabKey"
-        :class="{ 'is-active': tab.tabKey == selectedTab }"
-      >
-        {{ tab.title }}
-        <span v-if="tab.noteCount" :class="`c-note u-bg-${tab.noteType}`">
-          {{ tab.noteCount }}
-        </span>
-      </li>
-    </ul>
-    <slot></slot>
+    <!-- <vue-custom-scrollbar> -->
+      <ul class="c-tabs__header">
+        <li
+          class="c-tabs__item"
+          v-for="tab in tabs"
+          @click="clickHandler(tab.tabKey)"
+          :key="tab.tabKey"
+          :class="{ 'is-active': tab.tabKey == selectedTab }"
+        >
+          {{ tab.title }}
+          <span v-if="tab.noteCount" :class="`c-note u-bg-${tab.noteType}`">
+            {{ tab.noteCount }}
+          </span>
+        </li>
+      </ul>
+    <!-- </vue-custom-scrollbar> -->
+    <slot>Nothing to show</slot>
   </div>
 </template>
 
 <script>
+// import vueCustomScrollbar from "vue-custom-scrollbar";
+// import "vue-custom-scrollbar/dist/vueScrollbar.css";
+
 export default {
   name: "VTabs",
+
+  // components: {
+  //   vueCustomScrollbar,
+  // },
 
   props: {
     queryKey: {

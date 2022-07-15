@@ -9,6 +9,7 @@ $orange-color: #ff6e38;
   padding: 0 1em;
   display: flex;
   gap: 1em;
+  overflow: auto;
   @include border(bottom);
 }
 
