@@ -51,7 +51,7 @@ export default {
   
   watch: {
     $route() {
-      this.toggleMenu();
+      this.toggleMenu(true);
     },
   },
 };
