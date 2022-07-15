@@ -60,6 +60,7 @@
                     menuStyle="none"
                     :class="col.class"
                     :hideKey="dropdownHideKey"
+                    fixed
                   >
                     <!-- Filter icon -->
                     <template #btn>
