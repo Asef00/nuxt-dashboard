@@ -73,6 +73,8 @@ export default {
     return {
       isActive: false,
       isBtnActive: false,
+      isVertical: false,
+      isHorizontal: false,
       btn: {},
       menu: {},
       menuRect: {},
@@ -105,27 +107,18 @@ export default {
       // console.log("REpos");
       //using nestTick to let the element show up
       this.$nextTick(() => {
-        //update data variables
-        this.getData();
+        this.refreshData();
 
-        //vertical
-        if (this.menuRect.bottom + 10 > window.innerHeight) {
-          this.VRepos();
-        }
-
-        //horizontal
-        if (this.menuRect.right + 10 > window.innerWidth) {
-          this.HRepos();
-        }
+        if (this.isVertical) this.VRepos();
+        if (this.isHorizontal) this.HRepos();
       });
     },
 
     VRepos() {
-      // console.log("vertical", this.menuRect.bottom + 10, window.innerHeight);
+      console.log("vertical", this.menuRect.bottom + 10, window.innerHeight);
       this.menu.classList.add("is-bottom"); //to change arrow position (CSS)
 
       if (this.fixed) {
-        this.FRepos();
         this.menu.style.top = `${this.btn.bottom() - this.menu.offsetHeight}px`;
         this.menu.style.bottom = "unset";
       } else {
@@ -135,18 +128,19 @@ export default {
     },
 
     HRepos() {
-      // console.log("horizontal", this.menuRect.right + 10, window.innerWidth);
+      console.log("horizontal", this.menuRect.right + 10, window.innerWidth);
       if (this.fixed) {
-        this.FRepos();
-        this.menu.style.right = this.btn.right();
+        this.menu.style.left = `${this.btn.left() - this.menu.offsetWidth}px`;
+        this.menu.style.right = "unset";
       } else {
         this.menu.style.right = 0;
+        this.menu.style.left = "unset";
       }
-      this.menu.style.left = "unset";
     },
 
     FRepos() {
-      // console.log("fixed");
+      console.log("fixed");
+      this.refreshData();
       switch (this.position) {
         case "right":
           {
@@ -165,24 +159,26 @@ export default {
       }
     },
 
-    getData() {
+    refreshData() {
       this.menu = this.$refs.menu;
       this.menuRect = this.menu.getBoundingClientRect();
       this.btn = {
         rect: this.$refs.btn.getBoundingClientRect(),
-        top: function () {
+        top() {
           return this.rect.top;
         },
-        right: function () {
+        right() {
           return this.rect.right;
         },
-        bottom: function () {
+        bottom() {
           return this.rect.bottom;
         },
-        left: function () {
+        left() {
           return this.rect.left;
         },
       };
+      this.isVertical = this.menuRect.bottom + 10 > window.innerHeight;
+      this.isHorizontal = this.menuRect.right + 10 > window.innerWidth;
     },
 
     findActive() {
@@ -228,6 +224,7 @@ export default {
 
     isActive() {
       if (this.isActive) {
+        if (this.fixed) this.FRepos();
         this.reposition();
       }
     },
@@ -240,12 +237,10 @@ export default {
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
 
-    if (this.fixed)
-      setTimeout(() => {
-        this.getData();
-        this.FRepos();
-        this.findActive();
-      }, 500);
+    setTimeout(() => {
+      if (this.fixed) this.FRepos();
+      this.findActive();
+    }, 500);
   },
 
   destroyed() {
