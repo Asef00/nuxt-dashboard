@@ -469,7 +469,8 @@ export default {
         this.activeSort.key = k;
         this.activeSort.order = o;
       }
-      console.log(this.activeSort);
+      let sort = this.activeSort.order === "" ? {sort: null} : {sort:`${this.activeSort.key}:${this.activeSort.order}`}
+      this.$emit('filter', sort)
     },
     getSortKey(col) {
       return col.filterKey ? col.filterKey[0] : col.key;

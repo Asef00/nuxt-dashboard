@@ -197,7 +197,9 @@ const mixin = {
       if (params === undefined) {
         this.$store.commit('SET_AXIOS_PARAMS', {with: relation});
       } else {
-        this.$store.commit('SET_AXIOS_PARAMS', {with: relation + "|" + params});
+        if (!params.includes(relation+'|')){
+          this.$store.commit('SET_AXIOS_PARAMS', {with: relation + "|" + params});
+        }
       }
     },
     setAxiosParams(param) {

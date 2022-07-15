@@ -40,7 +40,7 @@ export default {
       detailsItemId: 0,
       table: {
         columns: [
-          {key: "id", label: "#", filterType: "number"},
+          {key: "id", label: "#", filterType: "number", sortable: true},
           {key: "full_name", label: "Full Name"},
           {key: "username", label: "Username"},
           {
@@ -56,6 +56,7 @@ export default {
             key: "created_at",
             label: "Created At",
             filterType: "date",
+            sortable: true
           },
           {key: "updated_at", label: "Updated At"},
           {
