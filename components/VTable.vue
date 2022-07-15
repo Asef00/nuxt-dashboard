@@ -28,14 +28,14 @@
       <!-- Search -->
       <div v-if="isSearchable" class="c-search">
         <VInput
-          inputClass="c-search__input"
+          inputClass="c-search__input c-form__input c-form__input--sm"
           placeholder="Search..."
           class="m-0"
           v-model="searchVal"
-          @enter="filterSearch()"
+          @enter="search()"
         >
           <template #btn>
-            <VBtn size="sm" class="c-search__btn" @action="filterSearch()">
+            <VBtn size="sm" class="c-search__btn" @action="search()">
               Filter
             </VBtn>
           </template>
@@ -47,124 +47,129 @@
       <!-- <vue-custom-scrollbar> -->
       <table class="c-table" ref="table">
         <thead class="c-table__header">
-        <tr class="c-table__row">
-          <template v-for="col in table.columns">
-            <th :key="col.key" class="c-table__th">
-              <div :class="['c-table__th-wrapper', col.class]">
-                <!-- if filterable -->
-                <template v-if="col.filterType">
-                  <VDropdown
-                    isFilter
-                    wrapper="span"
-                    position="bottom"
-                    menuStyle="none"
-                    :class="col.class"
-                    :hideKey="dropdownHideKey"
-                    fixed
-                  >
-                    <!-- Filter icon -->
-                    <template #btn>
-                      <!-- we only check first key as convention  -->
-                      <VIcon
-                        :icon="
+          <tr class="c-table__row">
+            <template v-for="col in table.columns">
+              <th :key="col.key" class="c-table__th">
+                <div :class="['c-table__th-wrapper', col.class]">
+                  <!-- if filterable -->
+                  <template v-if="col.filterType">
+                    <VDropdown
+                      isFilter
+                      wrapper="span"
+                      position="bottom"
+                      menuStyle="none"
+                      :class="col.class"
+                      :hideKey="dropdownHideKey"
+                      fixed
+                    >
+                      <!-- Filter icon -->
+                      <template #btn>
+                        <!-- we only check first key as convention  -->
+                        <VIcon
+                          :icon="
                             activeFilters.includes(getFilterKey(col))
                               ? 'filter.is-active'
                               : 'filter'
                           "
-                      />
-                    </template>
+                        />
+                      </template>
 
-                    <template #menu>
-                      <!-- switch (filter-type)-->
-                      <!-- case "number": -->
-                      <NumberFilter
-                        v-if="col.filterType == 'number'"
-                        @filter="filterNumber($event, getFilterKey(col))"
-                      />
-                      <!-- case "date": -->
-                      <DateFilter
-                        v-else-if="col.filterType == 'date'"
-                        @filter="filterDate($event, getFilterKey(col))"
-                      />
-                      <!-- case "multiselect": -->
-                      <MultiselectFilter
-                        v-else-if="col.filterType == 'multiselect'"
-                        @filter="filterSelect($event, getFilterKey(col))"
-                        :items="col.filterItems"
-                      />
-                      <!-- case "select": -->
-                      <SelectFilter
-                        v-else-if="col.filterType == 'select'"
-                        @filter="filterSelect($event, getFilterKey(col))"
-                        :items="col.filterItems"
-                      />
-                    </template>
-                  </VDropdown>
-                </template>
+                      <template #menu>
+                        <!-- switch (filter-type)-->
+                        <!-- case "number": -->
+                        <NumberFilter
+                          v-if="col.filterType == 'number'"
+                          @filter="filterNumber($event, getFilterKey(col))"
+                        />
+                        <!-- case "date": -->
+                        <DateFilter
+                          v-else-if="col.filterType == 'date'"
+                          @filter="filterDate($event, getFilterKey(col))"
+                        />
+                        <!-- case "multiselect": -->
+                        <MultiselectFilter
+                          v-else-if="col.filterType == 'multiselect'"
+                          @filter="filterSelect($event, getFilterKey(col))"
+                          :items="col.filterItems"
+                        />
+                        <!-- case "select": -->
+                        <SelectFilter
+                          v-else-if="col.filterType == 'select'"
+                          @filter="filterSelect($event, getFilterKey(col))"
+                          :items="col.filterItems"
+                        />
+                        <!-- case "search": -->
+                        <SearchFilter
+                          v-else-if="col.filterType == 'search'"
+                          @filter="filterSearch($event, getFilterKey(col))"
+                        />
+                      </template>
+                    </VDropdown>
+                  </template>
 
-                <span v-html="col.label"></span>
+                  <span v-html="col.label"></span>
 
-                <span v-if="col.sortable" class="c-sort">
+                  <span v-if="col.sortable" class="c-sort">
                     <VChevron
                       :class="[
                         'c-sort__item',
                         {
                           'is-active':
-                            activeSort.key == getSortKey(col) &&
+                            activeSort.key == getFilterKey(col) &&
                             activeSort.order == 'asc',
                         },
                       ]"
                       dir="up"
-                      @click="toggleSort(getSortKey(col), 'asc')"
+                      @click="toggleSort(getFilterKey(col), 'asc')"
                     />
                     <VChevron
                       :class="[
                         'c-sort__item',
                         {
                           'is-active':
-                            activeSort.key == getSortKey(col) &&
+                            activeSort.key == getFilterKey(col) &&
                             activeSort.order == 'desc',
                         },
                       ]"
                       dir="down"
-                      @click="toggleSort(getSortKey(col), 'desc')"
+                      @click="toggleSort(getFilterKey(col), 'desc')"
                     />
                   </span>
-              </div>
-            </th>
-          </template>
-        </tr>
+                </div>
+              </th>
+            </template>
+          </tr>
         </thead>
         <tbody class="c-table__body">
-        <!-- if no data -->
-        <tr v-if="!list || !list.length">
-          <td
-            colspan="100%"
-            style="height: 10em; font-size: 16px"
-            class="u-text-center"
+          <!-- if no data -->
+          <tr v-if="!list || !list.length">
+            <td
+              colspan="100%"
+              style="height: 10em; font-size: 16px"
+              class="u-text-center"
+            >
+              No Data Available
+            </td>
+          </tr>
+          <!-- else -->
+          <tr
+            v-else
+            v-for="(row, index) in list"
+            :key="index"
+            :class="table.map['rowClass'](row)"
+            class="c-table__row"
           >
-            No Data Available
-          </td>
-        </tr>
-        <!-- else -->
-        <tr
-          v-else
-          v-for="(row, index) in list"
-          :key="index"
-          :class="table.map['rowClass'](row)"
-          class="c-table__row"
-        >
-          <td
-            v-for="col in table.columns"
-            :key="col.key"
-            class="c-table__cell"
-            :class="col.class"
-          >
-            <v-runtime-template
-              :template="String(showItem(row, col))"
-            ></v-runtime-template>
-          </td>
-        </tr>
+            <td
+              v-for="col in table.columns"
+              :key="col.key"
+              class="c-table__cell"
+              :class="col.class"
+            >
+              <v-runtime-template
+                :template="String(showItem(row, col))"
+              ></v-runtime-template>
+            </td>
+          </tr>
         </tbody>
       </table>
       <!-- </vue-custom-scrollbar> -->
@@ -228,6 +233,7 @@ import DateFilter from "./filter/DateFilter.vue";
 import NumberFilter from "./filter/NumberFilter.vue";
 import MultiselectFilter from "./filter/MultiselectFilter.vue";
 import SelectFilter from "./filter/SelectFilter.vue";
+import SearchFilter from "./filter/SearchFilter.vue";
 
 export default {
   components: {
@@ -236,6 +242,7 @@ export default {
     NumberFilter,
     MultiselectFilter,
     SelectFilter,
+    SearchFilter,
   },
 
   props: {
@@ -244,7 +251,7 @@ export default {
       columns: Array,
       items: Array,
       map: Object,
-      searchKeys: Array
+      searchKeys: Array,
     },
     isSearchable: {
       type: Boolean,
@@ -332,7 +339,7 @@ export default {
     },
 
     //search filter
-    filterSearch() {
+    search() {
       if (this.table.searchKeys !== undefined) {
         let search = {};
         for (let item of this.table.searchKeys) {
@@ -342,48 +349,52 @@ export default {
       }
     },
     ////////column filters/////////
-    filterNumber({val, op}, k) {
+    filterNumber({ val, op }, k) {
       let filterVal = {};
-      let result = this.getFilterResult(val, k, {operator: op})
+      let result = this.getFilterResult(val, k, { operator: op });
       for (let r of result) {
         let o = r.operator;
-        let v = r.value === "" ? null : r.value
-        delete this.$store.state.axiosParams[r.key + '_in']
-        delete this.$store.state.axiosParams[r.key + '_lt']
-        delete this.$store.state.axiosParams[r.key + '_gt']
-        delete this.$store.state.axiosParams[r.key + '_lte']
-        delete this.$store.state.axiosParams[r.key + '_gte']
-        delete this.$store.state.axiosParams[r.key + '_notIn']
-        if (o === '=') {
-          filterVal[r.key + '_in'] = v;
-        } else if (o === '<') {
-          filterVal[r.key + '_lt'] = v;
-        } else if (o === '>') {
-          filterVal[r.key + '_gt'] = v;
-        } else if (o === '<=') {
-          filterVal[r.key + '_lte'] = v;
-        } else if (o === '>=') {
-          filterVal[r.key + '_gte'] = v;
-        } else if (o === '!=') {
-          filterVal[r.key + '_notIn'] = v;
+        let v = r.value === "" ? null : r.value;
+
+        let queryArr = ["_in", "_lt", "_gt", "_lte", "_gte", "_notIn"];
+        queryArr.forEach((item) => {
+          this.dropOldFilter(r.key + item);
+        });
+        // add new filter
+        switch (o) {
+          case "=":
+            filterVal[r.key + "_in"] = v;
+          case "<":
+            filterVal[r.key + "_lt"] = v;
+          case ">":
+            filterVal[r.key + "_gt"] = v;
+          case "<=":
+            filterVal[r.key + "_lte"] = v;
+          case ">=":
+            filterVal[r.key + "_gte"] = v;
+          case "!=":
+            filterVal[r.key + "_notIn"] = v;
         }
       }
       this.filter(result, filterVal);
     },
     filterDate(val, k) {
       let filterVal = {};
-      let result = this.getFilterResult(val, k)
+      let result = this.getFilterResult(val, k);
       for (let r of result) {
-        let v = r.value.split(',')
+        let v = r.value.split(",");
         let start = v[0];
         let end = v[1];
-        delete this.$store.state.axiosParams[r.key + '_date']
-        delete this.$store.state.axiosParams[r.key + '_dateBetween']
+        this.dropOldFilter(r.key + "_date");
+        this.dropOldFilter(r.key + "_dateBetween");
         if (r.value !== "") {
           if (end === undefined) {
-            filterVal[r.key + '_date'] = this.dateFormat(start, 'yyyy-MM-dd');
+            filterVal[r.key + "_date"] = this.dateFormat(start, "yyyy-MM-dd");
           } else {
-            filterVal[r.key + '_dateBetween'] = this.dateFormat(start, 'yyyy-MM-dd') + ',' + this.dateFormat(end, 'yyyy-MM-dd');
+            filterVal[r.key + "_dateBetween"] =
+              this.dateFormat(start, "yyyy-MM-dd") +
+              "," +
+              this.dateFormat(end, "yyyy-MM-dd");
           }
         }
       }
@@ -393,22 +404,71 @@ export default {
       let filterVal = {};
       let result = this.getFilterResult(val, k);
       for (let r of result) {
-        let k = r.key.split(',')
-        if (k[1] === 'with') {
+        let k = r.key.split(",");
+        if (k[1] === "with") {
           let v = `${k[0]}=>${k[2]}_in=${r.value}`;
-          let params = this.$store.state.axiosParams['with']
+          let params = this.$store.state.axiosParams["with"];
           if (params === undefined) {
-            filterVal['with'] = v;
+            filterVal["with"] = v;
           } else {
-            delete this.$store.state.axiosParams['with'];
-            filterVal['with'] = r.value === "" ? null : v;
+            this.dropOldFilter("with");
+            filterVal["with"] = r.value === "" ? null : v;
           }
         } else {
-          delete this.$store.state.axiosParams[k[0]]
+          this.dropOldFilter(k[0]);
           filterVal[k[0]] = r.value === "" ? null : r.value;
         }
       }
       this.filter(result, filterVal);
+    },
+
+    filterSearch(val, k) {
+      let filterVal = {};
+      let result = this.getFilterResult(val, k);
+      for (let r of result) {
+        this.dropOldFilter(r.key);
+        filterVal[r.key] = val;
+      }
+      this.filter(result, filterVal);
+    },
+
+    // front-line filter method
+    filter(arr, filterVal = {}) {
+      //push new filters
+      this.$emit("filter", filterVal);
+      // to check activeness:
+      /// we only check first key as convention
+
+      // if at least one value has been set
+      if (arr.some((obj) => obj.value)) {
+        this.activeFilters.push(arr[0].key);
+      } else {
+        this.activeFilters = this.activeFilters.filter(
+          (item) => item !== arr[0].key
+        );
+      }
+      this.hideDropdown();
+    },
+
+    // sort methods
+    toggleSort(k, o) {
+      if (this.activeSort.key == k && this.activeSort.order == o) {
+        this.activeSort.key = "";
+        this.activeSort.order = "";
+      } else {
+        this.activeSort.key = k;
+        this.activeSort.order = o;
+      }
+      let sort =
+        this.activeSort.order === ""
+          ? { sort: null }
+          : { sort: `${this.activeSort.key}:${this.activeSort.order}` };
+      this.$emit("filter", sort);
+    },
+
+    //----------UTILITIES------------
+    dropOldFilter(key) {
+      delete this.$store.state.axiosParams[key];
     },
     getFilterResult(val, k, obj = {}) {
       let result = [];
@@ -438,43 +498,13 @@ export default {
           )
         );
       }
+      // console.log(result);
       return result;
     },
     getFilterKey(col) {
-      return col.filterKey ? col.filterKey : col.key;
-    },
-    // front-line filter method
-    filter(arr, filterVal = {}) {
-      //push new filters
-      this.$emit('filter', filterVal)
-      // to check activeness:
-      /// we only check first key as convention
-
-      // if at least one value has been set
-      if (arr.some((obj) => obj.value)) {
-        this.activeFilters.push(arr[0].key);
-      } else {
-        this.activeFilters = this.activeFilters.filter(
-          (item) => item !== arr[0].key
-        );
-      }
-      this.hideDropdown();
-    },
-
-    // sort methods
-    toggleSort(k, o) {
-      if (this.activeSort.key == k && this.activeSort.order == o) {
-        this.activeSort.key = "";
-        this.activeSort.order = "";
-      } else {
-        this.activeSort.key = k;
-        this.activeSort.order = o;
-      }
-      let sort = this.activeSort.order === "" ? {sort: null} : {sort:`${this.activeSort.key}:${this.activeSort.order}`}
-      this.$emit('filter', sort)
-    },
-    getSortKey(col) {
-      return col.filterKey ? col.filterKey[0] : col.key;
+      if (col.filterKey) {
+        return Array.isArray(col.filterKey) ? col.filterKey[0] : col.filterKey;
+      } else return col.key;
     },
   },
 
