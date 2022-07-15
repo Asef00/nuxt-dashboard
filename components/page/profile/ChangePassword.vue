@@ -1,10 +1,6 @@
 <template>
-  <VModal
-    :showModal="show"
-    @close="show = false"
-    title="Change password"
-  >
-    <form @submit.prevent="changePassword" class="c-form">
+  <VModal :showModal="show" @close="hide()" title="Change password">
+    <form @submit.prevent="changePassword()" class="c-form">
       <div class="row">
         <div class="col-md-12">
           <VInput
@@ -33,8 +29,21 @@
           />
         </div>
       </div>
-      <VBtn :loader="loaderRequest">Change Password</VBtn>
     </form>
+    <template #footer>
+      <VBtn :loader="loaderRequest" @action="changePassword()" class="mb-0"
+        >Change Password</VBtn
+      >
+      <VBtn
+        :loader="loaderRequest"
+        type="button"
+        btn="danger"
+        class="mb-0"
+        @action="hide()"
+      >
+        Cancel
+      </VBtn>
+    </template>
   </VModal>
 </template>
 
@@ -43,26 +52,33 @@ import * as Yup from "yup";
 
 export default {
   name: "ChangePassword",
+
   props: {
     show: {
       type: Boolean,
-      required: false
-    }
+      required: false,
+    },
   },
+
   data() {
     return {
       payload: {
-        current_password: '',
-        new_password: '',
-        new_password_confirmation: '',
-      }
+        current_password: "",
+        new_password: "",
+        new_password_confirmation: "",
+      },
     };
   },
+
   methods: {
+    hide() {
+      this.show = false;
+    },
+
     changePassword() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("me/changePassword", {
@@ -71,15 +87,16 @@ export default {
             new_password_confirmation: this.payload.new_password_confirmation,
           });
           this.stopLoading();
-          let error = this.$store.state.me.error
+          let error = this.$store.state.me.error;
           const err = this.handleError(error);
           if (err) {
             if (error.response.data.error === "NotAuthorizedException") {
-              this.errors.current_password = 'The current password is incorrect.';
+              this.errors.current_password =
+                "The current password is incorrect.";
             }
           }
           if (!err) {
-            this.show = false;
+            this.hide();
             this.$toast.success("Password successfully changed.");
           }
         })
@@ -88,38 +105,43 @@ export default {
           this.stopLoading();
         });
     },
+
     validation() {
       let roles = {
         current_password: Yup.string().required(),
         new_password: Yup.string().required(),
-        new_password_confirmation: Yup.string().oneOf([Yup.ref('new_password'), null], 'new password must match').required(),
+        new_password_confirmation: Yup.string()
+          .oneOf([Yup.ref("new_password"), null], "new password must match")
+          .required(),
       };
       return Yup.object(roles);
     },
+
     resetError() {
-      this.$store.commit('me/RESET_ERROR')
+      this.$store.commit("me/RESET_ERROR");
       this.errors = {
-        current_password: '',
-        new_password: '',
-        new_password_confirmation: '',
+        current_password: "",
+        new_password: "",
+        new_password_confirmation: "",
       };
     },
   },
+
   created() {
-    this.resetError()
+    this.resetError();
   },
+
   watch: {
     show(val) {
-      this.$emit('show', val);
-      this.payload.current_password = ''
-      this.payload.new_password = ''
-      this.payload.new_password_confirmation = ''
-      this.resetError()
-    }
-  }
-}
+      this.$emit("show", val);
+      this.payload.current_password = "";
+      this.payload.new_password = "";
+      this.payload.new_password_confirmation = "";
+      this.resetError();
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

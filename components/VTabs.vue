@@ -1,35 +1,40 @@
 <template>
   <div class="c-tabs">
-    <ul class="c-tabs__header">
-      <li
-        class="c-tabs__item"
-        v-for="tab in tabs"
-        @click="clickHandler(tab.tabKey)"
-        :key="tab.tabKey"
-        :class="{ 'is-active': tab.tabKey == selectedTab }"
-      >
-        {{ tab.title }}
-        <span v-if="tab.noteCount" :class="`c-note u-bg-${tab.noteType}`">
-          {{ tab.noteCount }}
-        </span>
-      </li>
-    </ul>
-    <slot></slot>
+    <!-- <vue-custom-scrollbar> -->
+      <ul class="c-tabs__header">
+        <li
+          class="c-tabs__item"
+          v-for="tab in tabs"
+          @click="clickHandler(tab.tabKey)"
+          :key="tab.tabKey"
+          :class="{ 'is-active': tab.tabKey == selectedTab }"
+        >
+          {{ tab.title }}
+          <span v-if="tab.noteCount" :class="`c-note u-bg-${tab.noteType}`">
+            {{ tab.noteCount }}
+          </span>
+        </li>
+      </ul>
+    <!-- </vue-custom-scrollbar> -->
+    <slot>Nothing to show</slot>
   </div>
 </template>
 
 <script>
+// import vueCustomScrollbar from "vue-custom-scrollbar";
+// import "vue-custom-scrollbar/dist/vueScrollbar.css";
+
 export default {
   name: "VTabs",
 
+  // components: {
+  //   vueCustomScrollbar,
+  // },
+
   props: {
-    qKey: {
+    queryKey: {
       type: String,
       require: true,
-    },
-    mode: {
-      type: String,
-      default: "light",
     },
   },
 
@@ -61,11 +66,11 @@ export default {
       if (key !== undefined) {
         //Set query
         let query = { ...this.$route.query };
-        query[this.qKey] = key;
+        query[this.queryKey] = key;
         this.$router.replace({ query: query });
       } else {
         //Get query
-        key = this.$route.query[this.qKey] || this.tabs[0].tabKey;
+        key = this.$route.query[this.queryKey] || this.tabs[0].tabKey;
       }
 
       //change UI
