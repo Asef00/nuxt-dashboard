@@ -310,7 +310,7 @@
     <!-- tab samples -->
     <VCard>
       <VTabs
-        qKey="tabs1"
+        queryKey="tabs1"
         @tab1="calendarMethod()"
         @tab2="historyMethod()"
         @tab3="paymentrMethod()"

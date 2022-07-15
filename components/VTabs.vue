@@ -23,13 +23,9 @@ export default {
   name: "VTabs",
 
   props: {
-    qKey: {
+    queryKey: {
       type: String,
       require: true,
-    },
-    mode: {
-      type: String,
-      default: "light",
     },
   },
 
@@ -61,11 +57,11 @@ export default {
       if (key !== undefined) {
         //Set query
         let query = { ...this.$route.query };
-        query[this.qKey] = key;
+        query[this.queryKey] = key;
         this.$router.replace({ query: query });
       } else {
         //Get query
-        key = this.$route.query[this.qKey] || this.tabs[0].tabKey;
+        key = this.$route.query[this.queryKey] || this.tabs[0].tabKey;
       }
 
       //change UI
