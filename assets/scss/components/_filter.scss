@@ -1,5 +1,6 @@
 .c-filter {
   position: relative;
+  width: max-content;
 
   &.is-open {
     display: flex;
