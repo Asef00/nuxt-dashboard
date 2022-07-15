@@ -31,6 +31,12 @@
 .c-form__input {
   @include input;
 
+  &--sm {
+    height: 28px;
+    padding: 0 1em;
+    @include font-size(13px);
+  }
+
   &.is-invalid {
     @include input-invalid;
 

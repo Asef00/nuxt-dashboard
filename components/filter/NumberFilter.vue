@@ -87,7 +87,6 @@ export default {
   }
 
   input[type="text"] {
-    // @include input-search-bg;
     flex: 1;
   }
 
