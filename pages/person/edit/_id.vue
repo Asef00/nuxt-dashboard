@@ -268,8 +268,8 @@ export default {
     },
     validation() {
       let roles = {
-        first_name: Yup.string().required(),
-        last_name: Yup.string().required(),
+        first_name: Yup.string().nullable().required(),
+        last_name: Yup.string().nullable().required(),
         role: Yup.array().nullable().min(1),
         group: Yup.array().nullable(),
         email_verified: Yup.boolean().nullable(),

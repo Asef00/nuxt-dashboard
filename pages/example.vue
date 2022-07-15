@@ -483,7 +483,7 @@ export default {
             filterType: "multiselect",
             filterKey: ["name", "family_name"],
             filterItems: [
-              { label: "Alan Walker", value: "Alan", selected: true },
+              { label: "Alan Walker", value: "Alan" },
               { label: "Peter Parker", value: "Peter" },
               { label: "Jesus Christ", value: "Jesus" },
             ],
@@ -496,7 +496,7 @@ export default {
             filterType: "select",
             // NOTE: default item's value should be empty
             filterItems: [
-              { label: "All", value: "", selected: true },
+              { label: "All", value: null, selected: true },
               { label: "Enable", value: "enabled" },
               { label: "Disable", value: "disabled" },
             ],

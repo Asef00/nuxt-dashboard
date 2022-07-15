@@ -1,7 +1,7 @@
 <template>
   <div class="c-filter__container">
     <div class="c-filter__number">
-      <input type="number" placeholder="Enter Value" v-model="inputValue" />
+      <input type="number" placeholder="Enter Value" v-model="inputValue"/>
 
       <select v-model="selectedOperator">
         <option
@@ -25,12 +25,12 @@ export default {
   data() {
     return {
       options: [
-        { value: "=", label: "=", selected: true },
-        { value: "<", label: "<" },
-        { value: ">", label: ">" },
-        { value: "=<", label: "=<" },
-        { value: "=>", label: "=>" },
-        { value: "!=", label: "!=" },
+        {value: "=", label: "=", selected: true},
+        {value: "<", label: "<"},
+        {value: ">", label: ">"},
+        {value: "<=", label: "<="},
+        {value: ">=", label: ">="},
+        {value: "!=", label: "!="},
       ],
 
       selectedOperator: "=",
@@ -40,7 +40,7 @@ export default {
 
   methods: {
     filter() {
-      this.$emit("filter", { val: this.inputValue, op: this.selectedOperator });
+      this.$emit("filter", {val: this.inputValue, op: this.selectedOperator});
     },
 
     reset() {
@@ -74,12 +74,14 @@ export default {
     &:focus {
       outline: none;
     }
+
     /* Chrome, Safari, Edge, Opera */
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
       -webkit-appearance: none;
       margin: 0;
     }
+
     /* Firefox */
     -moz-appearance: textfield;
   }

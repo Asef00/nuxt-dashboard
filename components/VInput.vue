@@ -18,6 +18,7 @@
         :input-class="['c-form__input', hasError() ? 'is-invalid' : '']"
         wrapper-class="c-datepicker"
         calendar-class="c-datepicker__calendar"
+        typeable
       ></datepicker>
 
       <!-- else -->
@@ -91,7 +92,7 @@ export default {
     },
     datePickerFormat: {
       type: String,
-      default: "dd/MM/yyyy",
+      default: "MM/dd/yyyy",
     },
     inline: {
       type: Boolean,

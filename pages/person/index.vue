@@ -22,6 +22,7 @@
       @changePage="changePage($event)"
       @changePerPage="changePerPage($event)"
       @search="search($event)"
+      @filter="filter($event)"
       :table="table"
       isSearchable
     />
@@ -39,16 +40,24 @@ export default {
       detailsItemId: 0,
       table: {
         columns: [
-          { key: "id", label: "#" },
-          { key: "full_name", label: "Full Name" },
-          { key: "username", label: "Username" },
-          { key: "status", label: "Status" },
-          { key: "roles", label: "Roles" },
+          {key: "id", label: "#", filterType: "number"},
+          {key: "full_name", label: "Full Name"},
+          {key: "username", label: "Username"},
+          {
+            key: "status", label: "Status", filterKey: "enabled", filterType: "select",
+            filterItems: [
+              {label: "All", value: "", selected: true},
+              {label: "Enable", value: "1"},
+              {label: "Disable", value: "0"},
+            ],
+          },
+          {key: "roles", label: "Roles", filterType: "multiselect",filterKey: "roles,with,id", filterItems: []},
           {
             key: "created_at",
             label: "Created At",
+            filterType: "date",
           },
-          { key: "updated_at", label: "Updated At" },
+          {key: "updated_at", label: "Updated At"},
           {
             key: "action",
             label: '<img src="/img/gear.svg" alt="" />',
@@ -86,13 +95,13 @@ export default {
             return data;
           },
           //REQUIRED
-          rowClass() {},
+          rowClass() {
+          },
         },
         searchKeys: ["name", "family_name", "username"],
       },
     };
   },
-
   methods: {
     async list() {
       this.startLoading();
@@ -119,9 +128,27 @@ export default {
       this.setAxiosParams(val);
       this.list();
     },
+    filter(val) {
+      this.setAxiosParams(val);
+      this.list();
+    },
+    async getRole() {
+      await this.$store.dispatch("role/listLabel");
+      let err = this.handleError(this.$store.state.role.error);
+      if (!err) {
+        this.table.columns.forEach((_, index) => {
+          if (_.key === "roles") {
+            this.table.columns[index].filterItems = this.$store.state.role.list.map(({id, label}) => ({
+              value: id,
+              label: label
+            }));
+          }
+        })
+      }
+    },
   },
 
-  created() {
+  async created() {
     this.setTitle("Manage Persons");
     this.setBreadcrumb([
       {
@@ -130,7 +157,8 @@ export default {
       },
     ]);
     this.resetAxiosParams();
-    this.list();
+    await this.getRole();
+    await this.list();
   },
 };
 </script>

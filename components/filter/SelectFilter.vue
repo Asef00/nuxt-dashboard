@@ -9,7 +9,7 @@
     </div>
 
     <div class="c-filter__buttons">
-      <VBtn btn="simple" size="sm" class="mb-0" @action="reset()"> Reset </VBtn>
+      <VBtn btn="simple" size="sm" class="mb-0" @action="reset()"> Reset</VBtn>
     </div>
   </div>
 </template>

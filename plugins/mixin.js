@@ -108,7 +108,7 @@ const mixin = {
         }
       }
     },
-    dateFormat(inputDate, format = "MM/dd/yyyy" ,withTime = false) {
+    dateFormat(inputDate, format = "MM/dd/yyyy", withTime = false) {
       //parse the input date
       const date = new Date(inputDate);
 
@@ -129,8 +129,8 @@ const mixin = {
 
       //replace the day
       format = format.replace("dd", day.toString().padStart(2, "0"));
-      if (withTime){
-        return format+' '+`${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+      if (withTime) {
+        return format + ' ' + `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
       }
       return format;
     },
@@ -179,6 +179,7 @@ const mixin = {
       this.$store.commit('SET_AXIOS_PARAMS', {limit: limit});
     },
     setWith(relation) {
+      let data
       if (relation instanceof Array) {
         let r = ''
         for (let i of relation) {
@@ -188,9 +189,15 @@ const mixin = {
             r += ',' + i
           }
         }
-        this.$store.commit('SET_AXIOS_PARAMS', {with: r});
+        data = r
       } else {
+        data = relation
+      }
+      let params = this.$store.state.axiosParams['with'];
+      if (params === undefined) {
         this.$store.commit('SET_AXIOS_PARAMS', {with: relation});
+      } else {
+        this.$store.commit('SET_AXIOS_PARAMS', {with: relation + "|" + params});
       }
     },
     setAxiosParams(param) {
@@ -200,7 +207,7 @@ const mixin = {
       return this.$store.commit('RESET_AXIOS_PARAMS')
     },
     toTitleCase(str) {
-      return str.replace(/\w\S*/g, function(txt){
+      return str.replace(/\w\S*/g, function (txt) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
       });
     }
