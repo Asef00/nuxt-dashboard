@@ -87,14 +87,7 @@
             <template v-if="user.fields.length">
               <h4 class="c-form__title">More Info</h4>
               <div class="row">
-                <template
-                  v-for="(field, index) in user.fields"
-                  v-if="
-                    field.value == null
-                      ? field.default_access.includes('show')
-                      : field.value.access.includes('show')
-                  "
-                >
+                <template v-for="(field, index) in computedFields">
                   <div
                     :key="index"
                     class="col-md-6"
@@ -215,6 +208,16 @@ export default {
         is_verified: false,
       },
     };
+  },
+
+  computed: {
+    computedFields() {
+      return this.user.fields.filter((field) =>
+        field.value == null
+          ? field.default_access.includes("show")
+          : field.value.access.includes("show")
+      );
+    },
   },
 
   methods: {

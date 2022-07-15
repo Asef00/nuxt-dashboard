@@ -4,7 +4,6 @@
     v-if="to"
     :class="['c-btn', btnClass, sizeClass, { 'is-disabled': isDisabled }]"
     :to="to"
-    :event="disabled ? '' : 'click'"
   >
     <LoaderDots :color="colorLoader" v-if="loader"></LoaderDots>
     <slot v-else />

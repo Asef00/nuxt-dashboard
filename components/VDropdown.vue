@@ -2,13 +2,13 @@
   <!-- Dynamic Wrapper -->
   <component
     :is="wrapper"
-    :class="[dropdownClass, isActive ? 'is-active' : '']"
+    :class="[dropdownClass, { 'is-active': isActive }]"
     v-click-outside="blur"
   >
     <!-- Dropdown Button -->
     <button
       v-if="this.$slots.btn"
-      :class="[btnClass, buttonClass]"
+      :class="[btnClass, computedBtnClass, { 'is-active': isBtnActive }]"
       @click="toggle()"
       ref="btn"
     >
@@ -16,39 +16,50 @@
     </button>
 
     <!-- Dropdown Menu -->
-    <transition name="c-dropdown__menu" mode="out-in">
-      <div
-        ref="menu"
-        v-if="this.$slots.menu"
-        v-show="isActive"
-        :class="menuClass"
-      >
-        <slot name="menu"></slot>
-      </div>
-    </transition>
+    <template v-if="this.$slots.menu">
+      <transition name="c-dropdown__menu" mode="out-in">
+        <div
+          ref="menu"
+          v-show="isActive"
+          :style="style"
+          :class="[menuClass, { 'c-dropdown__menu--fixed': fixed }]"
+        >
+          <slot name="menu"></slot>
+        </div>
+      </transition>
+    </template>
   </component>
 </template>
 
 <script>
 export default {
   props: {
+    btnClass: String,
+    position: String,
+
     isFilter: {
       type: Boolean,
       default: false,
     },
-
-    btnClass: String,
 
     menuStyle: {
       type: String,
       default: "light",
     },
 
-    position: String,
+    menuGap: {
+      type: Number,
+      default: 10,
+    },
 
     wrapper: {
       type: String,
       default: "div",
+    },
+
+    fixed: {
+      type: Boolean,
+      default: false,
     },
 
     //a key to hide the menu from parent
@@ -61,13 +72,17 @@ export default {
   data() {
     return {
       isActive: false,
+      isBtnActive: false,
+      btn: {},
+      menu: {},
+      menuRect: {},
     };
   },
 
   methods: {
-    //close filter dropdown on scroll
+    //close fixed dropdown on scroll
     handleScroll() {
-      if (this.isFilter) this.isActive = false;
+      if (this.fixed) this.toggle(true);
     },
 
     toggle(hide = false) {
@@ -86,46 +101,101 @@ export default {
       }
     },
 
-    // handle dropdown close to the edge + filter menu position
+    //handle dropdown close to the edge + fixed menu position
     reposition() {
-      // using nestTick to let the element show up
+      // console.log("REpos");
+      //using nestTick to let the element show up
       this.$nextTick(() => {
-        let menu = this.$refs.menu;
-        let rect = menu.getBoundingClientRect();
-        let btnBottom = this.$refs.btn.getBoundingClientRect().bottom;
+        //update data variables
+        this.getData();
 
-        // vertical
-        if (rect.right + 10 > window.innerWidth) {
-          this.VRepos(menu);
+        //vertical
+        if (this.menuRect.bottom + 10 > window.innerHeight) {
+          this.VRepos();
         }
-        // horizontal
-        if (rect.bottom + 10 > window.innerHeight) {
-          this.HRepos(menu);
-        }
-        //handle filter fixed position
-        if (this.isFilter) {
-          this.FRepos(menu, btnBottom);
+
+        //horizontal
+        if (this.menuRect.right + 10 > window.innerWidth) {
+          this.HRepos();
         }
       });
     },
 
-    HRepos(m) {
-      // console.log("Horizontal reposition");
-      m.classList.add("is-bottom");
-      m.style.top = "unset";
-      m.style.bottom = 0;
+    VRepos() {
+      console.log("vertical", this.menuRect.bottom + 10, window.innerHeight);
+      this.menu.classList.add("is-bottom"); //to change arrow position (CSS)
+
+      if (this.fixed) {
+        this.FRepos();
+        this.menu.style.top = `${this.btn.bottom() - this.menu.offsetHeight}px`;
+        this.menu.style.bottom = "unset";
+      } else {
+        this.menu.style.top = "unset";
+        this.menu.style.bottom = 0;
+      }
     },
 
-    VRepos(m) {
-      // console.log("Vertical reposition");
-      m.style.left = "unset";
-      m.style.right = 0;
+    HRepos() {
+      console.log("horizontal", this.menuRect.right + 10, window.innerWidth);
+      if (this.fixed) {
+        this.FRepos();
+        this.menu.style.right = this.btn.right();
+      } else {
+        this.menu.style.right = 0;
+      }
+      this.menu.style.left = "unset";
     },
 
-    FRepos(m, pos) {
-      // console.log("Filter reposition");
-      m.style.top = `${pos}px`;
-      m.style.bottom = "unset";
+    FRepos() {
+      // console.log("fixed");
+
+      switch (this.position) {
+        case "right":
+          {
+            this.menu.style.left = `${this.btn.right() + this.menuGap}px`;
+            this.menu.style.right = "unset";
+            this.menu.style.top = `${this.btn.top()}px`;
+            this.menu.style.bottom = "unset";
+          }
+          break;
+        case "bottom": {
+          this.menu.style.left = `${this.btn.left()}px`;
+          this.menu.style.right = "unset";
+          this.menu.style.top = `${this.btn.bottom() + this.menuGap}px`;
+          this.menu.style.bottom = "unset";
+        }
+      }
+    },
+
+    getData() {
+      this.menu = this.$refs.menu;
+      this.menuRect = this.menu.getBoundingClientRect();
+      this.btn = {
+        rect: this.$refs.btn.getBoundingClientRect(),
+        top: function () {
+          return this.rect.top;
+        },
+        right: function () {
+          return this.rect.right;
+        },
+        bottom: function () {
+          return this.rect.bottom;
+        },
+        left: function () {
+          return this.rect.left;
+        },
+      };
+    },
+
+    findActive() {
+      // console.log(this.$refs.menu.querySelector(".nuxt-link-exact-active"));
+      this.$nextTick(() => {
+        if (this.$refs.menu.querySelector(".nuxt-link-exact-active")) {
+          this.isBtnActive = true;
+        } else {
+          this.isBtnActive = false;
+        }
+      });
     },
   },
 
@@ -135,7 +205,7 @@ export default {
       else return "c-dropdown";
     },
 
-    buttonClass() {
+    computedBtnClass() {
       if (this.isFilter) return "c-filter__btn";
       else return "c-dropdown__btn";
     },
@@ -146,11 +216,16 @@ export default {
       else
         return `c-dropdown__menu c-dropdown__menu--${this.position} u-bg-${this.menuStyle}`;
     },
+
+    style() {
+      return this.fixed ? "top: unset;" : "";
+    },
   },
 
   watch: {
     $route() {
       this.toggle(true);
+      this.findActive();
     },
 
     isActive() {
@@ -164,11 +239,17 @@ export default {
     },
   },
 
-  created: function () {
+  mounted() {
     window.addEventListener("scroll", this.handleScroll);
+    if (this.fixed)
+      setTimeout(() => {
+        this.getData();
+        this.FRepos();
+        this.findActive();
+      }, 500);
   },
 
-  destroyed: function () {
+  destroyed() {
     window.removeEventListener("scroll", this.handleScroll);
   },
 };

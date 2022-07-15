@@ -1,7 +1,7 @@
 <template>
   <div class="c-header">
     <div class="c-header__upper">
-      <button class="c-header__menu js-menu-open">
+      <button class="c-header__menu" @click="$emit('toggleMenu')">
         <VIcon icon="menu" />
       </button>
 
@@ -21,7 +21,9 @@
             <VIcon icon="avatar" width="34" height="34" />
           </template>
           <template #menu>
-            <header class="c-dropdown__header">Welcome {{$auth.user.name}}!</header>
+            <header class="c-dropdown__header">
+              Welcome {{ $auth.user.name }}!
+            </header>
 
             <NuxtLink to="/profile" class="c-dropdown__item">
               Profile
@@ -55,7 +57,7 @@
 
 <script>
 export default {
-  name: "HeaderPartial",
+  name: "TheHeaderPartial",
   methods: {
     logout() {
       this.$store.dispatch("me/revokeToken");

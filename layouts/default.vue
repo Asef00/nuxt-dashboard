@@ -1,52 +1,58 @@
 <template>
   <div class="o-wrapper">
     <nav class="o-wrapper__side">
-      <SidenavPartial />
+      <TheSidenavPartial @toggleMenu="toggleMenu()" :isActive="isMenuActive" />
     </nav>
 
     <div class="o-wrapper__center">
-      <HeaderPartial />
+      <TheHeaderPartial @toggleMenu="toggleMenu()" />
 
       <main class="o-wrapper__main">
         <Nuxt />
       </main>
 
-      <FooterPartial />
+      <TheFooterPartial />
     </div>
   </div>
 </template>
 
 <script>
-import FooterPartial from "../components/partials/FooterPartial.vue";
-import HeaderPartial from "../components/partials/HeaderPartial.vue";
-import SidenavPartial from "../components/partials/SidenavPartial.vue";
+import TheFooterPartial from "../components/partials/TheFooterPartial.vue";
+import TheHeaderPartial from "../components/partials/TheHeaderPartial.vue";
+import TheSidenavPartial from "../components/partials/TheSidenavPartial.vue";
 
 export default {
   name: "default",
   scrollTop: true,
 
   components: {
-    HeaderPartial,
-    SidenavPartial,
-    FooterPartial,
+    TheHeaderPartial,
+    TheSidenavPartial,
+    TheFooterPartial,
   },
 
   head: {
     script: [{ src: "/main.js" }],
   },
 
-  mounted() {
-    //sidenav.js
-    // handle sidenav on mobile
-    let sidenav = document.querySelector(".js-sidenav");
-    let menu_open = document.querySelector(".js-menu-open");
-    let menu_close = document.querySelector(".js-menu-close");
-    menu_open.onclick = function () {
-      sidenav.classList.add("is-open");
-    };
-    menu_close.onclick = function () {
-      sidenav.classList.remove("is-open");
-    };
+  data() {
+    return { isMenuActive: false };
+  },
+
+  methods: {
+    toggleMenu(close = false) {
+      if (close) {
+        this.isMenuActive = false;
+      } else {
+        this.isMenuActive = !this.isMenuActive;
+      }
+    },
+  },
+  
+  watch: {
+    $route() {
+      this.toggleMenu();
+    },
   },
 };
 </script>

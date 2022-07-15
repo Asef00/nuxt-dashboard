@@ -32,8 +32,8 @@ $arrow-y-pos: 20px;
   //----Positioning----
   //right
   &.c-dropdown__menu--right {
-    left: calc(100% + 15px);
-    top: 0;
+    // left: calc(100% + 15px);
+    // top: 0;
 
     @include mq(lg) {
       &::before {
@@ -75,6 +75,31 @@ $arrow-y-pos: 20px;
     left: 0;
     right: 0;
   }
+
+  &.c-dropdown__menu--fixed {
+    @include mq(lg) {
+      position: fixed;
+    }
+  }
+
+  /*
+   * The following styles are auto-applied to elements with
+   * transition="c-dropdown__menu" when their visibility is toggled
+   * by Vue.js.
+   *
+   * You can easily play with the c-dropdown__menu transition by editing
+   * these styles.
+   */
+
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+  }
+
+  &-enter-active,
+  &-leave-active {
+    transition: opacity 0.2s;
+  }
 }
 
 .c-dropdown__header {
@@ -103,23 +128,4 @@ $arrow-y-pos: 20px;
 
 .c-dropdown__divider {
   border-bottom: 1px solid #fff9;
-}
-
-/*
-   * The following styles are auto-applied to elements with
-   * transition="c-dropdown__menu" when their visibility is toggled
-   * by Vue.js.
-   *
-   * You can easily play with the c-dropdown__menu transition by editing
-   * these styles.
-   */
-
-.c-dropdown__menu-enter-active,
-.c-dropdown__menu-leave-active {
-  transition: opacity 0.2s;
-}
-
-.c-dropdown__menu-enter,
-.c-dropdown__menu-leave-active {
-  opacity: 0;
 }
