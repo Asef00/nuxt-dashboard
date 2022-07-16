@@ -17,7 +17,10 @@
 
     <!-- Dropdown Menu -->
     <template v-if="this.$slots.menu">
-      <transition name="c-dropdown__menu" mode="out-in">
+      <transition
+        :name="isFilter ? 'c-filter__transition' : 'c-dropdown__transition'"
+        mode="out-in"
+      >
         <div
           ref="menu"
           v-show="isActive"
@@ -26,6 +29,14 @@
         >
           <slot name="menu"></slot>
         </div>
+      </transition>
+      <transition>
+        <div
+          v-if="isFilter"
+          v-show="isActive"
+          class="c-filter__mask"
+          @click="toggle(true)"
+        ></div>
       </transition>
     </template>
   </component>
