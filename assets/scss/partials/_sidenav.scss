@@ -26,10 +26,13 @@
   }
 
   .c-dropdown__menu {
-    max-height: 0;
     transition: 0.3s;
-    position: static;
-    border-radius: 0;
+    
+    @include mq($until: lg) {
+      border-radius: 0;
+      position: static;
+      max-height: 0;
+    }
 
     @include mq(lg) {
       border-radius: 5px;
