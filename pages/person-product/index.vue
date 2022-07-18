@@ -26,11 +26,11 @@ export default {
       detailsItemId: 0,
       table: {
         columns: [
-          {key: "id", label: "#",filterType: "number", sortable: true,},
+          {key: "id", label: "#", filterType: "number", sortable: true,},
           {key: "full_name", label: "Client's Name",},
           {key: "title", label: "Product Title",},
-          {key: "version", label: "Version",},
-          {key: "site", label: "Site",},
+          {key: "version", label: "Version", filterType: "search"},
+          {key: "site", label: "Site", filterType: "search"},
           {key: "status", label: "Status",},
           {key: "created_at", label: "Created At", filterType: "date", sortable: true,},
           {key: "action", label: '<img src="/img/gear.svg" alt="" />',},
