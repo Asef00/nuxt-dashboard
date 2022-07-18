@@ -115,24 +115,24 @@
                         'c-sort__item',
                         {
                           'is-active':
-                            activeSort.key == getSortKey(col) &&
+                            activeSort.key == getFilterKey(col) &&
                             activeSort.order == 'desc',
                         },
                       ]"
                       dir="up"
-                      @click="toggleSort(getSortKey(col), 'desc')"
+                      @click="toggleSort(getFilterKey(col), 'desc')"
                     />
                     <VChevron
                       :class="[
                         'c-sort__item',
                         {
                           'is-active':
-                            activeSort.key == getSortKey(col) &&
+                            activeSort.key == getFilterKey(col) &&
                             activeSort.order == 'asc',
                         },
                       ]"
                       dir="down"
-                      @click="toggleSort(getSortKey(col), 'asc')"
+                      @click="toggleSort(getFilterKey(col), 'asc')"
                     />
                   </span>
                 </div>
