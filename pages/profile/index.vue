@@ -349,7 +349,5 @@ export default {
 <style lang="scss">
 .c-avatar {
   @include flex-inline-center;
-  border-radius: 100%;
-  overflow: hidden;
 }
 </style>
