@@ -475,56 +475,25 @@ export default {
 
       table: {
         columns: [
-          { key: "id", label: "#", filterType: "number" },
+          {key: "id", label: "#", filterType: "number", sortable: true},
+          {key: "full_name", label: "Full Name"},
+          {key: "username", label: "Username"},
           {
-            key: "full_name",
-            label: "Full Name",
-            sortable: true,
-            filterType: "multiselect",
-            filterKey: ["name", "family_name"],
+            key: "status", label: "Status", filterKey: "enabled", filterType: "select",
             filterItems: [
-              { label: "Alan Walker", value: "Alan" },
-              { label: "Peter Parker", value: "Peter" },
-              { label: "Jesus Christ", value: "Jesus" },
+              {label: "All", value: "", selected: true},
+              {label: "Enable", value: "1"},
+              {label: "Disable", value: "0"},
             ],
           },
-          { key: "username", label: "Username", sortable: true },
-          {
-            key: "status",
-            label: "Status",
-            sortable: true,
-            filterType: "select",
-            // NOTE: default item's value should be empty
-            filterItems: [
-              { label: "All", value: null, selected: true },
-              { label: "Enable", value: "enabled" },
-              { label: "Disable", value: "disabled" },
-            ],
-          },
-          {
-            key: "roles",
-            label: "Roles",
-            filterType: "multiselect",
-            filterItems: [
-              { label: "Admin", value: "admin" },
-              { label: "Developer", value: "developer" },
-              { label: "Staff", value: "staff" },
-            ],
-          },
+          {key: "roles", label: "Roles", filterType: "multiselect",filterKey: "roles,with,id", filterItems: []},
           {
             key: "created_at",
             label: "Created At",
-            class: "u-table--center",
             filterType: "date",
-            sortable: true,
+            sortable: true
           },
-          {
-            key: "updated_at",
-            label: "Updated At",
-            class: "u-table--center",
-            filterType: "date",
-            sortable: true,
-          },
+          {key: "updated_at", label: "Updated At"},
           {
             key: "action",
             label: '<img src="/img/gear.svg" alt="" />',
@@ -562,8 +531,10 @@ export default {
             return data;
           },
           //REQUIRED
-          rowClass() {},
+          rowClass() {
+          },
         },
+        searchKeys: ["name", "family_name", "username"],
       },
     };
   },

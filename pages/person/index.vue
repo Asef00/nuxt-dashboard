@@ -40,25 +40,34 @@ export default {
       detailsItemId: 0,
       table: {
         columns: [
-          {key: "id", label: "#", filterType: "number", sortable: true},
-          {key: "full_name", label: "Full Name"},
-          {key: "username", label: "Username"},
+          { key: "id", label: "#", filterType: "number", sortable: true },
+          { key: "full_name", label: "Full Name" },
+          { key: "username", label: "Username" },
           {
-            key: "status", label: "Status", filterKey: "enabled", filterType: "select",
+            key: "status",
+            label: "Status",
+            filterKey: "enabled",
+            filterType: "select",
             filterItems: [
-              {label: "All", value: "", selected: true},
-              {label: "Enable", value: "1"},
-              {label: "Disable", value: "0"},
+              { label: "All", value: "", selected: true },
+              { label: "Enable", value: "1" },
+              { label: "Disable", value: "0" },
             ],
           },
-          {key: "roles", label: "Roles", filterType: "multiselect",filterKey: "roles,with,id", filterItems: []},
+          {
+            key: "roles",
+            label: "Roles",
+            filterType: "multiselect",
+            filterKey: "roles,with,id",
+            filterItems: [],
+          },
           {
             key: "created_at",
             label: "Created At",
             filterType: "date",
-            sortable: true
+            sortable: true,
           },
-          {key: "updated_at", label: "Updated At"},
+          { key: "updated_at", label: "Updated At" },
           {
             key: "action",
             label: '<img src="/img/gear.svg" alt="" />',
@@ -96,8 +105,7 @@ export default {
             return data;
           },
           //REQUIRED
-          rowClass() {
-          },
+          rowClass() {},
         },
         searchKeys: ["name", "family_name", "username"],
       },
@@ -139,12 +147,13 @@ export default {
       if (!err) {
         this.table.columns.forEach((_, index) => {
           if (_.key === "roles") {
-            this.table.columns[index].filterItems = this.$store.state.role.list.map(({id, label}) => ({
-              value: id,
-              label: label
-            }));
+            this.table.columns[index].filterItems =
+              this.$store.state.role.list.map(({ id, label }) => ({
+                value: id,
+                label: label,
+              }));
           }
-        })
+        });
       }
     },
   },

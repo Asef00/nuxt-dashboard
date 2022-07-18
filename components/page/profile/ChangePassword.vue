@@ -31,16 +31,10 @@
       </div>
     </form>
     <template #footer>
-      <VBtn :loader="loaderRequest" @action="changePassword()" class="mb-0"
-        >Change Password</VBtn
-      >
-      <VBtn
-        :loader="loaderRequest"
-        type="button"
-        btn="danger"
-        class="mb-0"
-        @action="hide()"
-      >
+      <VBtn class="mb-0" @action="changePassword()" :loader="loaderRequest">
+        Change Password
+      </VBtn>
+      <VBtn class="mb-0" btn="danger" @action="hide()" :loader="loaderRequest">
         Cancel
       </VBtn>
     </template>
