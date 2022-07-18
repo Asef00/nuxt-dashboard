@@ -167,8 +167,8 @@ export default {
       },
     ]);
     this.resetAxiosParams();
-    await this.getRole();
     await this.list();
+    await this.getRole();
   },
 };
 </script>
