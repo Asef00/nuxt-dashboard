@@ -18,7 +18,7 @@
           btnClass="c-navbar__avatar"
         >
           <template #btn>
-            <VAvatar size="34" />
+            <VAvatar size="34" background="#fff" />
           </template>
           <template #menu>
             <header class="c-dropdown__header">
