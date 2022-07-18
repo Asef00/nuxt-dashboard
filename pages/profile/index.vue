@@ -28,7 +28,7 @@
       <div class="row">
         <div class="col-12 u-text-center">
           <div class="c-avatar">
-            <VIcon icon="avatar" width="150" height="150" />
+            <VAvatar size="150" />
           </div>
         </div>
 

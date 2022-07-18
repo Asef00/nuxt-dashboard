@@ -25,6 +25,7 @@
     "v-jsoneditor": "^1.4.5",
     "v-runtime-template": "^1.10.0",
     "vue": "^2.6.14",
+    "vue-avatar": "^2.3.3",
     "vue-custom-scrollbar": "^1.4.4",
     "vue-multiselect": "^2.1.6",
     "vue-server-renderer": "^2.6.14",

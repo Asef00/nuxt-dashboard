@@ -126,7 +126,7 @@ export default {
     },
 
     VRepos() {
-      console.log("vertical", this.menuRect.bottom + 10, window.innerHeight);
+      // console.log("vertical", this.menuRect.bottom + 10, window.innerHeight);
       this.menu.classList.add("is-bottom"); //to change arrow position (CSS)
 
       if (this.fixed) {
@@ -139,7 +139,7 @@ export default {
     },
 
     HRepos() {
-      console.log("horizontal", this.menuRect.right + 10, window.innerWidth);
+      // console.log("horizontal", this.menuRect.right + 10, window.innerWidth);
       if (this.fixed) {
         this.menu.style.left = `${this.btn.left() - this.menu.offsetWidth}px`;
         this.menu.style.right = "unset";
@@ -150,7 +150,7 @@ export default {
     },
 
     FRepos() {
-      console.log("fixed");
+      // console.log("fixed");
       this.refreshData();
       switch (this.position) {
         case "right":

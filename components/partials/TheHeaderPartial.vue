@@ -18,7 +18,7 @@
           btnClass="c-navbar__avatar"
         >
           <template #btn>
-            <VIcon icon="avatar" width="34" height="34" />
+            <VAvatar size="34" background="#fff" />
           </template>
           <template #menu>
             <header class="c-dropdown__header">
@@ -58,6 +58,7 @@
 <script>
 export default {
   name: "TheHeaderPartial",
+
   methods: {
     logout() {
       this.$store.dispatch("me/revokeToken");
