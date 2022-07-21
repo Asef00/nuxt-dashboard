@@ -1,7 +1,7 @@
 <template>
-  <VCard title="Edit License Mode">
+  <VCard title="Edit Product Mode">
     <template #header>
-      <VBtn to="/license-mode" size="sm" class="m-0"> Defined Products </VBtn>
+      <VBtn to="/product/mode" size="sm" class="m-0"> Defined Product Modes </VBtn>
     </template>
     <form @submit.prevent="update" class="c-form">
       <div class="row">
@@ -23,10 +23,20 @@
             placeholder="Please enter label"
           />
         </div>
+        <div class="col-md-6">
+          <VSelect
+            v-model="payload.type"
+            @validation="validate('type')"
+            :error="errorMessage('type')"
+            :list="list.type"
+            placeholder="Please enter type"
+            label="Type"
+          />
+        </div>
       </div>
       <div class="mt-5">
         <VBtn :loader="loaderRequest">SAVE</VBtn>
-        <VBtn btn="danger" to="/license-mode" :loader="loaderRequest">CANCEL</VBtn>
+        <VBtn btn="danger" to="/product/mode" :loader="loaderRequest">CANCEL</VBtn>
       </div>
     </form>
   </VCard>
@@ -37,13 +47,20 @@ import * as Yup from "yup";
 
 export default {
   name: "edit",
-  permission: "license-mode.update",
+  permission: "product.mode.update",
   data() {
     return {
       id: this.$route.params.id,
+      list: {
+        type: [
+          'product',
+          'license'
+        ],
+      },
       payload: {
         name: "",
         label: "",
+        type: "",
       },
     };
   },
@@ -54,15 +71,15 @@ export default {
         .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
-          await this.$store.dispatch("licenseMode/update", {
+          await this.$store.dispatch("product/mode/update", {
             payload: this.payload,
             id: this.id,
           });
           this.stopLoading();
-          const err = this.handleError(this.$store.state.licenseMode.error);
+          const err = this.handleError(this.$store.state.product.mode.error);
           if (!err) {
-            this.$toast.success("License Mode successfully updated.");
-            this.$router.push("/license-mode");
+            this.$toast.success("Product Mode successfully updated.");
+            this.$router.push("/product/mode");
           }
         })
         .catch((err) => {
@@ -72,24 +89,27 @@ export default {
     },
     async show() {
       this.startLoading();
-      await this.$store.dispatch("licenseMode/show", this.id);
-      this.handleError(this.$store.state.licenseMode.error);
-      let data = this.$store.state.licenseMode.item;
+      await this.$store.dispatch("product/mode/show", this.id);
+      this.handleError(this.$store.state.product.mode.error);
+      let data = this.$store.state.product.mode.item;
       this.payload.label = data.label;
       this.payload.name = data.name;
+      this.payload.type = data.type;
       this.stopLoading();
     },
     validation() {
       return Yup.object({
         name: Yup.string().required(),
         label: Yup.string().required(),
+        type: Yup.string().required(),
       });
     },
     resetError() {
-      this.$store.commit("licenseMode/RESET_ERROR");
+      this.$store.commit("product/mode/RESET_ERROR");
       this.errors = {
         name: "",
         label: "",
+        type: "",
       };
     },
   },
@@ -98,11 +118,11 @@ export default {
     this.setTitle("Definitions");
     this.setBreadcrumb([
       {
-        to: "/license-mode",
-        name: "Definitions / License Mode",
+        to: "/product/mode",
+        name: "Definitions / Product Mode",
       },
       {
-        to: "/license-mode/edit/" + this.id,
+        to: "/product/mode/edit/" + this.id,
         name: "Edit",
       },
     ]);

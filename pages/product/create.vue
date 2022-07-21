@@ -1,7 +1,7 @@
 <template>
   <VCard title="Define New Product">
     <template #header>
-      <VBtn to="/product" size="sm" class="m-0"> Defined Products </VBtn>
+      <VBtn to="/product" size="sm" class="m-0"> Defined Products</VBtn>
     </template>
     <form @submit.prevent="create" class="c-form">
       <div class="row">
@@ -37,12 +37,14 @@
         </div>
         <div class="col-md-6">
           <VSelect
-            @validation="validate('data_fields')"
-            :error="errorMessage('data_fields')"
-            v-model="payload.data_fields"
-            label="Data Fields"
-            placeholder="Please add data fields"
-            :taggable="true"
+            v-model="payload.product_mode"
+            @validation="validate('product_mode')"
+            :error="errorMessage('product_mode')"
+            :list="list.product_mode"
+            placeholder="Please enter product mode"
+            track-label="label"
+            track-by="id"
+            label="Product Mode"
           />
         </div>
         <div class="col-md-6">
@@ -53,6 +55,16 @@
             :rows="3"
             v-model="payload.description"
             placeholder="Please enter description"
+          />
+        </div>
+        <div class="col-md-6">
+          <VSelect
+            @validation="validate('data_fields')"
+            :error="errorMessage('data_fields')"
+            v-model="payload.data_fields"
+            label="Data Fields"
+            placeholder="Please add data fields"
+            :taggable="true"
           />
         </div>
       </div>
@@ -73,6 +85,7 @@ export default {
   data() {
     return {
       list: {
+        product_mode: [],
         license_mode: [],
       },
       payload: {
@@ -80,6 +93,7 @@ export default {
         slug: "",
         description: "",
         license_mode: [],
+        product_mode: [],
         data_fields: [],
       },
     };
@@ -88,7 +102,7 @@ export default {
     create() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, { abortEarly: false })
+        .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("product/create", {
@@ -96,6 +110,7 @@ export default {
             slug: this.payload.slug,
             description: this.payload.description,
             license_mode_id: this.payload.license_mode.id,
+            product_mode_id: this.payload.product_mode.id,
             data_fields: this.payload.data_fields,
           });
           this.stopLoading();
@@ -111,10 +126,12 @@ export default {
         });
     },
     async getLicenseMode() {
-      await this.$store.dispatch("licenseMode/listLabel");
-      let err = this.handleError(this.$store.state.licenseMode.error);
+      await this.$store.dispatch("product/mode/listLabel");
+      let err = this.handleError(this.$store.state.product.mode.error);
       if (!err) {
-        this.list.license_mode = this.$store.state.licenseMode.list;
+        let data = this.$store.state.product.mode.list;
+        this.list.product_mode = data.filter(item => item.type === 'product')
+        this.list.license_mode = data.filter(item => item.type === 'license')
       }
     },
     validation() {
@@ -123,6 +140,7 @@ export default {
         slug: Yup.string().required(),
         description: Yup.string().required(),
         license_mode: Yup.object().nullable().required(),
+        product_mode: Yup.object().nullable().required(),
         data_fields: Yup.array().nullable(),
       };
       return Yup.object(roles);
@@ -134,6 +152,7 @@ export default {
         slug: "",
         description: "",
         license_mode: "",
+        product_mode: "",
       };
     },
     convertToSlug(Text) {

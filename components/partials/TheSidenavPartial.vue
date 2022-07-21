@@ -65,10 +65,10 @@
               >Products
             </NuxtLink>
             <NuxtLink
-              v-if="can('license-mode.index')"
-              to="/license-mode"
+              v-if="can('product.mode.index')"
+              to="/product/mode"
               class="c-dropdown__item"
-              >License Modes
+              >Product Modes
             </NuxtLink>
             <NuxtLink
               v-if="can('group.index')"
