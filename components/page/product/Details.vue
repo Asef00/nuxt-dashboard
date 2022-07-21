@@ -28,6 +28,10 @@
       <span class="u-text-secondary">{{ data.license_mode.label }}</span>
     </div>
     <div class="c-form__control c-form__control--inline mb-0">
+      <label class="c-form__label">Product mode</label>
+      <span class="u-text-secondary">{{ data.product_mode.label }}</span>
+    </div>
+    <div class="c-form__control c-form__control--inline mb-0">
       <label class="c-form__label">Created At</label>
       <span class="u-text-secondary">{{ dateFormat(data.created_at) }}</span>
     </div>
