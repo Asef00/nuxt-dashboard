@@ -27,28 +27,18 @@
       </div>
       <span class="u-text-color">Continue with Google</span>
     </button>
-    <button class="c-login__method" @click="continueWithGoogle">
+    <!-- <button class="c-login__method" @click="continueWithFacebook">
       <div class="c-icon">
         <fa class="c-icon__facebook" :icon="['fab', 'facebook-f']" />
       </div>
       <span class="u-text-color">Sign up with Facebook</span>
-    </button>
-    <!-- <div class="btn-social">
-        <a class="mb-3" href="#!" role="button">
-          <i class="facebook">
-            <fa :icon="['fab', 'facebook-f']" />
-          </i>
-          <span class="text-center"> Continue with Facebook </span>
-        </a>
-      </div> -->
-    <!-- <div class="btn-social">
-        <a class="mb-3" href="#!" role="button">
-          <i class="facebook">
-            <fa :icon="['fab', 'facebook-f']" />
-          </i>
-          <span class="text-center"> Continue with Facebook </span>
-        </a>
-      </div> -->
+    </button> -->
+    <!-- <button class="c-login__method" @click="continueWithApple">
+      <div class="c-icon">
+        <fa class="c-icon__apple" :icon="['fab', 'apple']" />
+      </div>
+      <span class="u-text-color">Sign up with Apple</span>
+    </button> -->
   </div>
 
   <div v-else-if="show.changePassword" class="c-login">
