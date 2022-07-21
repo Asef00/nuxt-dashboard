@@ -20,6 +20,15 @@
   margin-bottom: 1.25em;
 }
 
+.c-login__forget {
+  display: block;
+  margin: 12px 0 30px;
+  text-align: right;
+  color: $primary-color;
+  @include font-size(14px);
+  text-transform: capitalize;
+}
+
 .c-login__method {
   @include flex-start;
   height: 40px;

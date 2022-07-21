@@ -16,9 +16,9 @@
         label="Password"
         :icon="['fas', 'unlock-keyhole']"
       />
-      <div class="text-right fs-6">
-        <NuxtLink to="/auth/forget-password">Forget password?</NuxtLink>
-      </div>
+      <NuxtLink class="c-login__forget" to="/auth/forget-password">
+        Forget password?
+      </NuxtLink>
       <VBtn class="c-btn--block">LOGIN</VBtn>
     </form>
     <button class="c-login__method" @click="continueWithGoogle">
