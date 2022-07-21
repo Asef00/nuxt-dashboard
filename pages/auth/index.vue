@@ -1,101 +1,99 @@
 <template>
-  <div class="container pt-5">
-    <div class="row justify-content-center">
-      <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-        <div v-if="show.singIn" class="wrapper pb-3 pr-2 pl-2">
-          <div class="member-login">Member Login</div>
-          <form class="p-4" @submit.prevent="signIn">
-            <VInput
-              v-model="payload.email"
-              key-validation="email"
-              label="Email"
-              type="email"
-              :icon="['far', 'envelope']"
-            />
-            <VInput
-              v-model="payload.password"
-              key-validation="password"
-              type="password"
-              label="Password"
-              :icon="['fas', 'unlock-keyhole']"
-            />
-            <div class="text-right fs-6">
-              <NuxtLink to="/auth/forget-password">Forget password?</NuxtLink>
-            </div>
-            <VButton label="LOGIN"/>
-          </form>
-          <div class="p-3">
-            <div v-if="false" class="text-center fs-6 mb-3">
-              Not a member?<a href="#"> Sign UP now</a>
-            </div>
-            <div class="mt-4 btn-social" @click="continueWithGoogle">
-              <a class="mb-3" href="#!" role="button">
-                <i class="g-plus">
-                  <fa :icon="['fab', 'google-plus-g']"/>
-                </i>
-                <span class="text-center"> Continue with Google </span>
-              </a>
-            </div>
-            <div class="mt-2 btn-social">
-              <a class="mb-3" href="#!" role="button">
-                <i class="facebook">
-                  <fa :icon="['fab', 'facebook-f']"/>
-                </i>
-                <span class="text-center"> Continue with Facebook </span>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div v-if="show.changePassword" class="wrapper pb-3 pr-2 pl-2">
-          <div class="member-login">Change Password</div>
-          <form class="p-4" @submit.prevent="challengePassword">
-            <VInput
-              v-model="payload.password"
-              key-validation="password"
-              label="Password"
-              type="password"
-              :icon="['fas', 'unlock-keyhole']"
-            ></VInput>
-            <VInput
-              v-model="payload.password_confirmation"
-              key-validation="password_confirmation"
-              label="Password Confirmation"
-              type="password"
-              :icon="['fas', 'unlock-keyhole']"
-            ></VInput>
-            <VButton label="SEND"/>
-          </form>
-        </div>
-        <div v-if="show.verificationCode" class="wrapper pb-3 pr-2 pl-2">
-          <div class="member-login">Verify Code</div>
-
-          <form class="p-4" @submit.prevent="verificationCode">
-            <div class="text-normal mb-2">
-              We have sent a code by email to
-              <strong>{{ payload.email }}</strong
-              >. Enter it below to confirm your account.
-            </div>
-            <VInput
-              v-model="payload.code"
-              key-validation="code"
-              label="Code"
-              :icon="['fas', 'lock']"
-            ></VInput>
-            <VButton label="CONFIRM ACCOUNT"/>
-            <div class="text-center pt-4 fs-6">
-              <span class="text-normal">Didn't receive a code?</span>
-              <a
-                href="!#"
-                role="button"
-                @click.prevent="resendVerificationCode"
-              >
-                Resend it</a
-              >
-            </div>
-          </form>
-        </div>
+  <div v-if="show.singIn" class="c-login">
+    <h1 class="c-login__title">Member Login</h1>
+    <form @submit.prevent="signIn">
+      <VInput
+        v-model="payload.email"
+        key-validation="email"
+        label="Email"
+        type="email"
+        :icon="['far', 'envelope']"
+      />
+      <VInput
+        v-model="payload.password"
+        key-validation="password"
+        type="password"
+        label="Password"
+        :icon="['fas', 'unlock-keyhole']"
+      />
+      <div class="text-right fs-6">
+        <NuxtLink to="/auth/forget-password">Forget password?</NuxtLink>
       </div>
-    </div>
+      <VBtn>LOGIN</VBtn>
+    </form>
+    <button class="c-login__method" @click="continueWithGoogle">
+      <div class="c-icon">
+        <fa class="c-icon__google" :icon="['fab', 'google']" />
+      </div>
+      <span class="u-text-color">Continue with Google</span>
+    </button>
+    <button class="c-login__method" @click="continueWithGoogle">
+      <div class="c-icon">
+        <fa class="c-icon__facebook" :icon="['fab', 'facebook-f']" />
+      </div>
+      <span class="u-text-color">Sign up with Facebook</span>
+    </button>
+    <!-- <div class="btn-social">
+        <a class="mb-3" href="#!" role="button">
+          <i class="facebook">
+            <fa :icon="['fab', 'facebook-f']" />
+          </i>
+          <span class="text-center"> Continue with Facebook </span>
+        </a>
+      </div> -->
+    <!-- <div class="btn-social">
+        <a class="mb-3" href="#!" role="button">
+          <i class="facebook">
+            <fa :icon="['fab', 'facebook-f']" />
+          </i>
+          <span class="text-center"> Continue with Facebook </span>
+        </a>
+      </div> -->
+  </div>
+
+  <div v-else-if="show.changePassword" class="c-login">
+    <h1 class="c-login__title">Change Password</h1>
+    <form @submit.prevent="challengePassword">
+      <VInput
+        v-model="payload.password"
+        key-validation="password"
+        label="Password"
+        type="password"
+        :icon="['fas', 'unlock-keyhole']"
+      ></VInput>
+      <VInput
+        v-model="payload.password_confirmation"
+        key-validation="password_confirmation"
+        label="Password Confirmation"
+        type="password"
+        :icon="['fas', 'unlock-keyhole']"
+      />
+      <VButton label="SEND" />
+    </form>
+  </div>
+
+  <div v-else-if="show.verificationCode" class="c-login">
+    <h1 class="c-login__title">Verify Code</h1>
+    <form @submit.prevent="verificationCode">
+      <div class="text-normal mb-2">
+        We have sent a code by email to
+        <strong>{{ payload.email }}</strong
+        >. Enter it below to confirm your account.
+      </div>
+      <VInput
+        v-model="payload.code"
+        key-validation="code"
+        label="Code"
+        :icon="['fas', 'lock']"
+      />
+      <VButton label="CONFIRM ACCOUNT" />
+      <div class="text-center pt-4 fs-6">
+        <span class="text-normal">Didn't receive a code?</span>
+        <a href="!#" role="button" @click.prevent="resendVerificationCode">
+          Resend it</a
+        >
+      </div>
+    </form>
   </div>
 </template>
 
@@ -106,8 +104,11 @@ import VButton from "@/components/auth/VButton";
 
 export default {
   name: "AuthIndex",
-  components: {VInput, VButton},
+
+  components: { VInput, VButton },
+
   layout: "auth",
+
   data() {
     return {
       show: {
@@ -127,11 +128,12 @@ export default {
       },
     };
   },
+
   methods: {
     signIn() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           await this.$auth
@@ -164,7 +166,7 @@ export default {
                 this.show.singIn = false;
                 this.show.verificationCode = true;
               }
-              this.handleError(err)
+              this.handleError(err);
             });
         })
         .catch((err) => {
@@ -172,11 +174,12 @@ export default {
           this.stopLoading();
         });
     },
+
     tokenWithCode() {
       let code = this.$route.query.code;
       if (code) {
-        this.validation({code: Yup.string().uuid()})
-          .validate({code: code}, {abortEarly: false})
+        this.validation({ code: Yup.string().uuid() })
+          .validate({ code: code }, { abortEarly: false })
           .then(() => {
             this.resetError();
             this.startLoading();
@@ -205,16 +208,18 @@ export default {
           });
       }
     },
+
     continueWithGoogle() {
       this.startLoading();
       let url =
         "https://realtyna.auth.us-east-1.amazoncognito.com/oauth2/authorize?identity_provider=Google&redirect_uri=http://localhost:3000/&response_type=CODE&client_id=1397vrlg8fap3him44fsafk5pd&scope=aws.cognito.signin.user.admin email openid phone profile";
       window.location.replace(url);
     },
+
     challengePassword() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("me/authPassChallenge", this.payload);
@@ -233,10 +238,11 @@ export default {
           this.stopLoading();
         });
     },
+
     verificationCode() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, {abortEarly: false})
+        .validate(this.payload, { abortEarly: false })
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("me/confirmSingUp", {
@@ -258,6 +264,7 @@ export default {
           this.stopLoading();
         });
     },
+
     async resendVerificationCode() {
       this.startLoading();
       this.resetError();
@@ -276,6 +283,7 @@ export default {
         this.resetResponse();
       }
     },
+
     validation(roles = {}) {
       let changePasswordRoles = {
         password: Yup.string().required(),
@@ -302,6 +310,7 @@ export default {
         return Yup.object(roles);
       }
     },
+
     resetError() {
       this.$store.commit("me/RESET_ERROR");
       this.errors = {
@@ -311,18 +320,18 @@ export default {
         password_confirmation: "",
       };
     },
+
     resetResponse() {
       this.$store.commit("me/RESET_RESPONSE");
     },
   },
+
   created() {
     this.resetError();
   },
+
   mounted() {
     this.tokenWithCode();
   },
 };
 </script>
-
-<style scoped lang="scss" src="~/assets/scss/auth.scss">
-</style>

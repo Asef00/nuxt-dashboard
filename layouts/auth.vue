@@ -1,13 +1,15 @@
 <template>
-  <Nuxt/>
+  <div class="o-page o-page--login">
+    <Nuxt />
+  </div>
 </template>
 
 <script>
 export default {
-  name: "LayoutAuth"
-}
+  name: "LayoutAuth",
+};
 </script>
 
-<style scoped>
-
+<style lang="scss">
+@import "~/assets/scss/auth";
 </style>
