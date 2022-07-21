@@ -19,7 +19,7 @@
       <div class="text-right fs-6">
         <NuxtLink to="/auth/forget-password">Forget password?</NuxtLink>
       </div>
-      <VBtn>LOGIN</VBtn>
+      <VBtn class="c-btn--block">LOGIN</VBtn>
     </form>
     <button class="c-login__method" @click="continueWithGoogle">
       <div class="c-icon">
