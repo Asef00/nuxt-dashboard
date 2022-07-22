@@ -113,7 +113,7 @@
   @include font-size(14px);
 }
 
-.c-login__resend {
-  color: $link-color;
+.c-login__link {
+  color: $primary-color;
   cursor: pointer;
 }

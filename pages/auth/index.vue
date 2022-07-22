@@ -16,9 +16,11 @@
         label="Password"
         :icon="['fas', 'unlock-keyhole']"
       />
+      
       <NuxtLink class="c-login__forget" to="/auth/forget-password">
         Forget password?
       </NuxtLink>
+
       <VBtn class="c-btn--block">LOGIN</VBtn>
     </form>
     <button class="c-login__method" @click="continueWithGoogle">
@@ -79,7 +81,7 @@
       <VBtn class="c-btn--block">CONFIRM ACCOUNT</VBtn>
       <div class="c-login__hint">
         Didn't receive a code?
-        <span class="c-login__resend" @click.prevent="resendVerificationCode">
+        <span class="c-login__link" @click="resendVerificationCode">
           Resend it
         </span>
       </div>

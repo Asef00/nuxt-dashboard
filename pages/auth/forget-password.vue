@@ -5,6 +5,7 @@
       <p class="c-login__hint mb-1">
         Enter your Email below and we will send a message to reset your password
       </p>
+
       <VInput
         v-model="payload.email"
         key-validation="email"
@@ -12,7 +13,14 @@
         type="email"
         :icon="['far', 'envelope']"
       />
-      <VBtn class="c-btn--block mb-0">RESET MY PASSWORD</VBtn>
+
+      <VBtn class="c-btn--block">RESET MY PASSWORD</VBtn>
+
+      <div class="c-login__hint">
+        <NuxtLink class="c-login__link" to="/auth">
+          <fa icon="chevron-left" /> Login
+        </NuxtLink>
+      </div>
     </form>
   </div>
 
@@ -24,6 +32,7 @@
         <strong>{{ payload.email }}</strong
         >. Enter it below to reset your password.
       </p>
+
       <VInput
         v-model="payload.code"
         key-validation="code"
@@ -44,12 +53,20 @@
         type="password"
         :icon="['fas', 'unlock-keyhole']"
       />
+
       <VBtn class="c-btn--block">CHANGE PASSWORD</VBtn>
-      <div class="c-login__hint">
+
+      <div class="c-login__hint mb-2">
         Didn't receive a code?
-        <span class="c-login__resend" @click.prevent="resendForgetPassword">
+        <span class="c-login__link" @click="resendForgetPassword">
           Resend it
         </span>
+      </div>
+
+      <div class="c-login__hint">
+        <spna class="c-login__link" @click="toggleShow()">
+          <fa icon="chevron-left" /> Change Email
+        </spna>
       </div>
     </form>
   </div>
@@ -86,6 +103,16 @@ export default {
   },
 
   methods: {
+    toggleShow(target) {
+      if (target == "confirm") {
+        this.show.forgetPassword = false;
+        this.show.confirmForgetPassword = true;
+      } else {
+        this.show.forgetPassword = true;
+        this.show.confirmForgetPassword = false;
+      }
+    },
+
     forgetPassword() {
       this.startLoading();
       this.validation()
@@ -105,8 +132,7 @@ export default {
             this.$toast.success(`Sending code to ${res.destination}`);
             this.stopLoading();
             this.resetResponse();
-            this.show.forgetPassword = false;
-            this.show.confirmForgetPassword = true;
+            this.toggleShow("confirm");
           }
         })
         .catch((err) => {
