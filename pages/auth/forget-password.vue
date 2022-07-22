@@ -17,7 +17,7 @@
         type="email"
       />
 
-      <VBtn class="c-btn--block">RESET MY PASSWORD</VBtn>
+      <VBtn class="c-btn--block" :loader="loaderRequest">RESET MY PASSWORD</VBtn>
 
       <div class="c-login__hint">
         <NuxtLink class="c-login__link" to="/auth">
@@ -64,7 +64,7 @@
         type="password"
       />
 
-      <VBtn class="c-btn--block">CHANGE PASSWORD</VBtn>
+      <VBtn class="c-btn--block" :loader="loaderRequest">CHANGE PASSWORD</VBtn>
 
       <div class="c-login__hint mb-2">
         Didn't receive a code?

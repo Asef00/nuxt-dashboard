@@ -26,7 +26,7 @@
         Forget password?
       </NuxtLink>
 
-      <VBtn class="c-btn--block">LOGIN</VBtn>
+      <VBtn class="c-btn--block" :loader="loaderRequest">LOGIN</VBtn>
     </form>
 
     <button class="c-login__method" @click="continueWithGoogle">
@@ -71,7 +71,7 @@
         label="Password Confirmation"
         type="password"
       />
-      <VBtn class="c-btn--block mb-0">SEND</VBtn>
+      <VBtn class="c-btn--block mb-0" :loader="loaderRequest">SEND</VBtn>
     </form>
   </div>
 
@@ -91,7 +91,7 @@
         name="code"
         label="Code"
       />
-      <VBtn class="c-btn--block">CONFIRM ACCOUNT</VBtn>
+      <VBtn class="c-btn--block" :loader="loaderRequest">CONFIRM ACCOUNT</VBtn>
       <div class="c-login__hint">
         Didn't receive a code?
         <span class="c-login__link" @click="resendVerificationCode">
