@@ -20,31 +20,38 @@
   margin-bottom: 1.25em;
 }
 
-.c-login__form-control {
-}
-
 .c-login__input {
   height: 45px;
   width: 100%;
   display: flex;
   position: relative;
   margin-bottom: 10px;
-  transition: 0.2s;
+  transition-property: box-shadow, border, outline;
+  transition-duration: 0.2s;
   background-color: #f7f6f9;
   border-radius: 3px;
 
   &:focus-within {
-    border-color: $primary-color;
+    outline: 1px solid $primary-color;
     box-shadow: 0 0 0 0.25rem rgb(86 78 193 / 25%);
+  }
+
+  &.is-invalid {
+    outline: 1px solid $danger-color;
+    @include input-invalid;
+
+    &:focus-within {
+      @include input-focus--invalid;
+    }
   }
 
   input {
     flex: 1;
-    border: none;
+    border: 0;
     background-color: transparent;
 
     &:focus {
-      outline: none;
+      outline: 0;
     }
 
     &:-webkit-autofill,

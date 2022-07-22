@@ -1,6 +1,6 @@
 <template>
-  <div class="c-login__form-control">
-    <div class="c-login__input">
+  <div>
+    <div :class="['c-login__input', { 'is-invalid': hasError() }]">
       <span class="c-login__input-icon">
         <fa :icon="icon" />
       </span>
@@ -9,7 +9,6 @@
         @blur="$emit('validation')"
         @keydown="$emit('validation')"
         @input="$emit('input', $event.target.value)"
-        :class="[{ 'is-invalid': hasError() }]"
         :value="value"
         :type="type"
         :name="name"
@@ -28,7 +27,7 @@ export default {
     value: [String, Number],
     name: {
       type: String,
-      default: ""
+      default: "",
     },
     type: {
       type: String,
