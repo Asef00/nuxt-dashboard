@@ -5,28 +5,25 @@
         <fa :icon="icon" />
       </span>
       <input
-        @keyup="$parent.validate(keyValidation)"
-        @blur="$parent.validate(keyValidation)"
-        @keydown="$parent.validate(keyValidation)"
+        @keyup="$emit('validation')"
+        @blur="$emit('validation')"
+        @keydown="$emit('validation')"
         @input="$emit('input', $event.target.value)"
-        :class="[
-          { 'is-invalid': $parent.hasError(keyValidation) },
-        ]"
+        :class="[{ 'is-invalid': hasError() }]"
         :value="value"
         :type="type"
         :name="keyValidation"
         :placeholder="label"
       />
     </div>
-    <div class="c-form__error" v-if="$parent.hasError(keyValidation)">
-      {{ $parent.errorMessage(keyValidation) }}
-    </div>
+    <div v-if="hasError()" class="c-form__error">{{ error }}</div>
   </div>
 </template>
 
 <script>
 export default {
   name: "VInput",
+
   props: {
     value: [String, Number],
     type: {
@@ -42,10 +39,16 @@ export default {
       type: String,
       required: true,
     },
+    error: {
+      type: String,
+      default: "",
+    },
   },
-  data() {
-    return {};
+
+  methods: {
+    hasError() {
+      return this.error !== "";
+    },
   },
-  methods: {},
 };
 </script>

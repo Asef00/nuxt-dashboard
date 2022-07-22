@@ -1,6 +1,7 @@
 <template>
   <div v-if="show.forgetPassword" class="c-login">
     <h1 class="c-login__title">Forget Password</h1>
+
     <form @submit.prevent="forgetPassword">
       <p class="c-login__hint mb-1">
         Enter your Email below and we will send a message to reset your password
@@ -8,7 +9,8 @@
 
       <VInput
         v-model="payload.email"
-        key-validation="email"
+        @validation="validate('email')"
+        :error="errorMessage('email')"
         label="Email"
         type="email"
         :icon="['far', 'envelope']"
@@ -26,6 +28,7 @@
 
   <div v-else-if="show.confirmForgetPassword" class="c-login">
     <h1 class="c-login__title">Change Password</h1>
+
     <form @submit.prevent="confirmForgetPassword">
       <p class="c-login__hint mb-1">
         We have sent a password reset code by email to
@@ -35,20 +38,23 @@
 
       <VInput
         v-model="payload.code"
-        key-validation="code"
+        @validation="validate('code')"
+        :error="errorMessage('code')"
         label="Code"
         :icon="['far', 'envelope']"
       />
       <VInput
         v-model="payload.password"
-        key-validation="password"
+        @validation="validate('password')"
+        :error="errorMessage('password')"
         label="Password"
         type="password"
         :icon="['fas', 'unlock-keyhole']"
       />
       <VInput
         v-model="payload.password_confirmation"
-        key-validation="password_confirmation"
+        @validation="validate('password_confirmation')"
+        :error="errorMessage('password_confirmation')"
         label="Password Confirmation"
         type="password"
         :icon="['fas', 'unlock-keyhole']"

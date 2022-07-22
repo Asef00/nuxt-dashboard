@@ -1,34 +1,39 @@
 <template>
   <div v-if="show.singIn" class="c-login">
     <h1 class="c-login__title">Member Login</h1>
+
     <form @submit.prevent="signIn">
       <VInput
         v-model="payload.email"
-        key-validation="email"
+        @validation="validate('email')"
+        :error="errorMessage('email')"
         label="Email"
         type="email"
         :icon="['far', 'envelope']"
       />
       <VInput
         v-model="payload.password"
-        key-validation="password"
+        @validation="validate('password')"
+        :error="errorMessage('password')"
         type="password"
         label="Password"
         :icon="['fas', 'unlock-keyhole']"
       />
-      
+
       <NuxtLink class="c-login__forget" to="/auth/forget-password">
         Forget password?
       </NuxtLink>
 
       <VBtn class="c-btn--block">LOGIN</VBtn>
     </form>
+
     <button class="c-login__method" @click="continueWithGoogle">
       <div class="c-icon">
         <fa class="c-icon__google" :icon="['fab', 'google']" />
       </div>
       <span class="u-text-color">Continue with Google</span>
     </button>
+
     <!-- <button class="c-login__method" @click="continueWithFacebook">
       <div class="c-icon">
         <fa class="c-icon__facebook" :icon="['fab', 'facebook-f']" />
@@ -48,14 +53,16 @@
     <form @submit.prevent="challengePassword">
       <VInput
         v-model="payload.password"
-        key-validation="password"
+        @validation="validate('password')"
+        :error="errorMessage('password')"
         label="Password"
         type="password"
         :icon="['fas', 'unlock-keyhole']"
       />
       <VInput
         v-model="payload.password_confirmation"
-        key-validation="password_confirmation"
+        @validation="validate('password_confirmation')"
+        :error="errorMessage('password_confirmation')"
         label="Password Confirmation"
         type="password"
         :icon="['fas', 'unlock-keyhole']"
@@ -74,7 +81,8 @@
       </div>
       <VInput
         v-model="payload.code"
-        key-validation="code"
+        @validation="validate('code')"
+        :error="errorMessage('password_confirmation')"
         label="Code"
         :icon="['fas', 'lock']"
       />

@@ -19,7 +19,7 @@
         wrapper-class="c-datepicker"
         calendar-class="c-datepicker__calendar"
         typeable
-      ></datepicker>
+      />
 
       <!-- else -->
       <input
@@ -121,6 +121,7 @@ export default {
     hasError() {
       return this.error !== "";
     },
+
     selectedDate(v) {
       this.$emit("input", v);
       this.$emit("changeDate");
