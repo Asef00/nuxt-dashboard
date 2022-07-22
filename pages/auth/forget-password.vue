@@ -1,10 +1,10 @@
 <template>
-  <div v-if="show.forgetPassword" class="wrapper pb-3 pr-2 pl-2">
-    <div class="c-login__title">Forget Password</div>
-    <form class="p-4" @submit.prevent="forgetPassword">
-      <div class="text-normal mb-2">
+  <div v-if="show.forgetPassword" class="c-login">
+    <h1 class="c-login__title">Forget Password</h1>
+    <form @submit.prevent="forgetPassword">
+      <p class="c-login__hint">
         Enter your Email below and we will send a message to reset your password
-      </div>
+      </p>
       <VInput
         v-model="payload.email"
         key-validation="email"
@@ -12,17 +12,18 @@
         type="email"
         :icon="['far', 'envelope']"
       />
-      <VButton label="RESET MY PASSWORD" />
+      <VBtn class="c-btn--block mb-0">RESET MY PASSWORD</VBtn>
     </form>
   </div>
-  <div v-else-if="show.confirmForgetPassword" class="wrapper pb-3 pr-2 pl-2">
-    <div class="text-center member-login">Change Password</div>
-    <form class="p-4" @submit.prevent="confirmForgetPassword">
-      <div class="text-normal mb-2">
+
+  <div v-else-if="show.confirmForgetPassword" class="c-login">
+    <h1 class="c-login__title">Change Password</h1>
+    <form @submit.prevent="confirmForgetPassword">
+      <p class="c-login__hint">
         We have sent a password reset code by email to
-        <strong>{{ payload.email }}</strong>
-        . Enter it below to reset your password.
-      </div>
+        <strong>{{ payload.email }}</strong
+        >. Enter it below to reset your password.
+      </p>
       <VInput
         v-model="payload.code"
         key-validation="code"
@@ -35,20 +36,20 @@
         label="Password"
         type="password"
         :icon="['fas', 'unlock-keyhole']"
-      ></VInput>
+      />
       <VInput
         v-model="payload.password_confirmation"
         key-validation="password_confirmation"
         label="Password Confirmation"
         type="password"
         :icon="['fas', 'unlock-keyhole']"
-      ></VInput>
-      <VButton label="CHANGE PASSWORD" />
-      <div class="text-center pt-4 fs-6">
-        <span class="text-normal">Didn't receive a code?</span>
-        <a href="!#" role="button" @click.prevent="resendForgetPassword">
+      />
+      <VBtn class="c-btn--block">CHANGE PASSWORD</VBtn>
+      <div class="c-login__hint">
+        Didn't receive a code?
+        <span class="c-login__resend" @click.prevent="resendForgetPassword">
           Resend it
-        </a>
+        </span>
       </div>
     </form>
   </div>

@@ -108,3 +108,13 @@
     width: 18px !important;
   }
 }
+
+.c-login__hint {
+  margin-bottom: 1em;
+  @include font-size(14px);
+}
+
+.c-login__resend {
+  color: $link-color;
+  cursor: pointer;
+}

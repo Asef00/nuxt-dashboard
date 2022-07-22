@@ -39,7 +39,9 @@
 // Text Color
 .u-text-color {
   color: $text-color;
-
+}
+.u-text-primary {
+  color: $primary-color;
 }
 .u-text-secondary {
   color: $placeholder-color;
