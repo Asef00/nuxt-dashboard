@@ -12,7 +12,7 @@
         :class="[{ 'is-invalid': hasError() }]"
         :value="value"
         :type="type"
-        :name="keyValidation"
+        :name="name"
         :placeholder="label"
       />
     </div>
@@ -26,11 +26,14 @@ export default {
 
   props: {
     value: [String, Number],
+    name: {
+      type: String,
+      default: ""
+    },
     type: {
       type: String,
       default: "text",
     },
-    keyValidation: String,
     icon: {
       type: [Object, Array],
       required: true,

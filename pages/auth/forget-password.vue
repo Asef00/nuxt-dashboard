@@ -11,9 +11,10 @@
         v-model="payload.email"
         @validation="validate('email')"
         :error="errorMessage('email')"
+        :icon="['far', 'envelope']"
+        name="email"
         label="Email"
         type="email"
-        :icon="['far', 'envelope']"
       />
 
       <VBtn class="c-btn--block">RESET MY PASSWORD</VBtn>
@@ -40,24 +41,27 @@
         v-model="payload.code"
         @validation="validate('code')"
         :error="errorMessage('code')"
-        label="Code"
         :icon="['far', 'envelope']"
+        name="code"
+        label="Code"
       />
       <VInput
         v-model="payload.password"
         @validation="validate('password')"
         :error="errorMessage('password')"
+        :icon="['fas', 'unlock-keyhole']"
+        name="password"
         label="Password"
         type="password"
-        :icon="['fas', 'unlock-keyhole']"
       />
       <VInput
         v-model="payload.password_confirmation"
         @validation="validate('password_confirmation')"
         :error="errorMessage('password_confirmation')"
+        :icon="['fas', 'unlock-keyhole']"
+        name="password_confirmation"
         label="Password Confirmation"
         type="password"
-        :icon="['fas', 'unlock-keyhole']"
       />
 
       <VBtn class="c-btn--block">CHANGE PASSWORD</VBtn>
@@ -80,7 +84,6 @@
 
 <script>
 import * as Yup from "yup";
-import VButton from "@/components/auth/VButton";
 import VInput from "@/components/auth/VInput";
 
 export default {
@@ -88,7 +91,7 @@ export default {
 
   layout: "auth",
 
-  components: { VButton, VInput },
+  components: { VInput },
 
   auth: false,
 

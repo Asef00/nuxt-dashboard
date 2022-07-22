@@ -7,17 +7,19 @@
         v-model="payload.email"
         @validation="validate('email')"
         :error="errorMessage('email')"
+        :icon="['far', 'envelope']"
+        name="email"
         label="Email"
         type="email"
-        :icon="['far', 'envelope']"
       />
       <VInput
         v-model="payload.password"
         @validation="validate('password')"
         :error="errorMessage('password')"
+        :icon="['fas', 'unlock-keyhole']"
+        name="password"
         type="password"
         label="Password"
-        :icon="['fas', 'unlock-keyhole']"
       />
 
       <NuxtLink class="c-login__forget" to="/auth/forget-password">
@@ -55,17 +57,19 @@
         v-model="payload.password"
         @validation="validate('password')"
         :error="errorMessage('password')"
+        :icon="['fas', 'unlock-keyhole']"
+        name="password"
         label="Password"
         type="password"
-        :icon="['fas', 'unlock-keyhole']"
       />
       <VInput
         v-model="payload.password_confirmation"
         @validation="validate('password_confirmation')"
         :error="errorMessage('password_confirmation')"
+        :icon="['fas', 'unlock-keyhole']"
+        name="password_confirmation"
         label="Password Confirmation"
         type="password"
-        :icon="['fas', 'unlock-keyhole']"
       />
       <VBtn class="c-btn--block mb-0">SEND</VBtn>
     </form>
@@ -82,9 +86,10 @@
       <VInput
         v-model="payload.code"
         @validation="validate('code')"
-        :error="errorMessage('password_confirmation')"
-        label="Code"
+        :error="errorMessage('code')"
         :icon="['fas', 'lock']"
+        name="code"
+        label="Code"
       />
       <VBtn class="c-btn--block">CONFIRM ACCOUNT</VBtn>
       <div class="c-login__hint">
@@ -100,12 +105,11 @@
 <script>
 import * as Yup from "yup";
 import VInput from "@/components/auth/VInput";
-import VButton from "@/components/auth/VButton";
 
 export default {
   name: "AuthIndex",
 
-  components: { VInput, VButton },
+  components: { VInput },
 
   layout: "auth",
 
