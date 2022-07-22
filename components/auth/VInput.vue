@@ -1,26 +1,24 @@
 <template>
-  <div>
-    <div
-      :class="[
-        $parent.hasError(keyValidation) ? 'invalid-input' : '',
-        'form-field',
-        'd-flex ',
-        'align-items-center',
-      ]"
-    >
-      <span class="icon"><fa :icon="icon" /></span>
+  <div class="c-login__form-control">
+    <div class="c-login__input">
+      <span class="c-login__input-icon">
+        <fa :icon="icon" />
+      </span>
       <input
         @keyup="$parent.validate(keyValidation)"
         @blur="$parent.validate(keyValidation)"
         @keydown="$parent.validate(keyValidation)"
         @input="$emit('input', $event.target.value)"
+        :class="[
+          { 'is-invalid': $parent.hasError(keyValidation) },
+        ]"
         :value="value"
         :type="type"
         :name="keyValidation"
         :placeholder="label"
       />
     </div>
-    <div class="invalid-message" v-if="$parent.hasError(keyValidation)">
+    <div class="c-form__error" v-if="$parent.hasError(keyValidation)">
       {{ $parent.errorMessage(keyValidation) }}
     </div>
   </div>
@@ -51,7 +49,3 @@ export default {
   methods: {},
 };
 </script>
-
-<style scoped lang="scss">
-@import "assets/scss/auth.scss";
-</style>

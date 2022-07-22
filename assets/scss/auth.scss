@@ -20,6 +20,49 @@
   margin-bottom: 1.25em;
 }
 
+.c-login__form-control {
+}
+
+.c-login__input {
+  height: 45px;
+  width: 100%;
+  display: flex;
+  position: relative;
+  margin-bottom: 10px;
+  transition: 0.2s;
+  background-color: #f7f6f9;
+  border-radius: 3px;
+
+  &:focus-within {
+    border-color: $primary-color;
+    box-shadow: 0 0 0 0.25rem rgb(86 78 193 / 25%);
+  }
+
+  input {
+    flex: 1;
+    border: none;
+    background-color: transparent;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:focus {
+      box-shadow: 0 0 0 50px #f7f6f9 inset; /*your box-shadow*/
+      -webkit-text-fill-color: #333;
+    }
+  }
+}
+
+.c-login__input-icon {
+  @include flex-inline-center;
+  height: 45px;
+  width: 45px;
+  background-color: #f7f6f9;
+  border-radius: 3px 0 0 3px;
+}
+
 .c-login__forget {
   display: block;
   margin: 12px 0 30px;
