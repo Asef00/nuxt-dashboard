@@ -50,7 +50,7 @@
         label="Password"
         type="password"
         :icon="['fas', 'unlock-keyhole']"
-      ></VInput>
+      />
       <VInput
         v-model="payload.password_confirmation"
         key-validation="password_confirmation"
@@ -58,14 +58,14 @@
         type="password"
         :icon="['fas', 'unlock-keyhole']"
       />
-      <VButton label="SEND" />
+      <VBtn class="c-btn--block mb-0">SEND</VBtn>
     </form>
   </div>
 
   <div v-else-if="show.verificationCode" class="c-login">
     <h1 class="c-login__title">Verify Code</h1>
     <form @submit.prevent="verificationCode">
-      <div class="text-normal mb-2">
+      <div class="c-login__hint mb-1">
         We have sent a code by email to
         <strong>{{ payload.email }}</strong
         >. Enter it below to confirm your account.
@@ -76,12 +76,12 @@
         label="Code"
         :icon="['fas', 'lock']"
       />
-      <VButton label="CONFIRM ACCOUNT" />
-      <div class="text-center pt-4 fs-6">
-        <span class="text-normal">Didn't receive a code?</span>
-        <a href="!#" role="button" @click.prevent="resendVerificationCode">
-          Resend it</a
-        >
+      <VBtn class="c-btn--block">CONFIRM ACCOUNT</VBtn>
+      <div class="c-login__hint">
+        Didn't receive a code?
+        <span class="c-login__resend" @click.prevent="resendVerificationCode">
+          Resend it
+        </span>
       </div>
     </form>
   </div>

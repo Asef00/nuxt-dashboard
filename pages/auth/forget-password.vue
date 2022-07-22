@@ -2,7 +2,7 @@
   <div v-if="show.forgetPassword" class="c-login">
     <h1 class="c-login__title">Forget Password</h1>
     <form @submit.prevent="forgetPassword">
-      <p class="c-login__hint">
+      <p class="c-login__hint mb-1">
         Enter your Email below and we will send a message to reset your password
       </p>
       <VInput
@@ -19,7 +19,7 @@
   <div v-else-if="show.confirmForgetPassword" class="c-login">
     <h1 class="c-login__title">Change Password</h1>
     <form @submit.prevent="confirmForgetPassword">
-      <p class="c-login__hint">
+      <p class="c-login__hint mb-1">
         We have sent a password reset code by email to
         <strong>{{ payload.email }}</strong
         >. Enter it below to reset your password.
