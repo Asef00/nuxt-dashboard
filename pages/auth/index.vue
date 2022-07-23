@@ -29,30 +29,30 @@
       <VBtn class="c-btn--block" :loader="loaderRequest">LOGIN</VBtn>
     </form>
 
-    <button class="c-login__method" @click="continueWithGoogle">
+    <button class="c-login__method" @click="continueWithProviders('Google')">
       <div class="c-icon">
-        <fa class="c-icon__google" :icon="['fab', 'google']" />
+        <fa class="c-icon__google" :icon="['fab', 'google']"/>
       </div>
       <span class="u-text-color">Continue with Google</span>
     </button>
-
-    <!-- <button class="c-login__method" @click="continueWithFacebook">
+    <button class="c-login__method" disabled @click="continueWithProviders('')">
       <div class="c-icon">
-        <fa class="c-icon__facebook" :icon="['fab', 'facebook-f']" />
+        <fa class="c-icon__facebook" :icon="['fab', 'facebook-f']"/>
       </div>
-      <span class="u-text-color">Sign up with Facebook</span>
-    </button> -->
-    <!-- <button class="c-login__method" @click="continueWithApple">
+      <span class="u-text-color">Continue with Facebook</span>
+    </button>
+    <button class="c-login__method" disabled @click="continueWithProviders('')">
       <div class="c-icon">
-        <fa class="c-icon__apple" :icon="['fab', 'apple']" />
+        <fa class="c-icon__apple" :icon="['fab', 'apple']"/>
       </div>
-      <span class="u-text-color">Sign up with Apple</span>
-    </button> -->
+      <span class="u-text-color">Continue with Apple</span>
+    </button>
   </div>
 
   <div v-else-if="show.changePassword" class="c-login">
     <h1 class="c-login__title">Change Password</h1>
     <form @submit.prevent="challengePassword">
+      <div class="c-login__hint mb-1">Please enter your new password below.</div>
       <VInput
         v-model="payload.password"
         @validation="validate('password')"
@@ -109,7 +109,7 @@ import VInput from "@/components/auth/VInput";
 export default {
   name: "AuthIndex",
 
-  components: { VInput },
+  components: {VInput},
 
   layout: "auth",
 
@@ -137,7 +137,7 @@ export default {
     signIn() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, { abortEarly: false })
+        .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
           await this.$auth
@@ -182,8 +182,8 @@ export default {
     tokenWithCode() {
       let code = this.$route.query.code;
       if (code) {
-        this.validation({ code: Yup.string().uuid() })
-          .validate({ code: code }, { abortEarly: false })
+        this.validation({code: Yup.string().uuid()})
+          .validate({code: code}, {abortEarly: false})
           .then(() => {
             this.resetError();
             this.startLoading();
@@ -213,17 +213,15 @@ export default {
       }
     },
 
-    continueWithGoogle() {
+    continueWithProviders(provider) {
       this.startLoading();
-      let url =
-        "https://realtyna.auth.us-east-1.amazoncognito.com/oauth2/authorize?identity_provider=Google&redirect_uri=http://localhost:3000/&response_type=CODE&client_id=1397vrlg8fap3him44fsafk5pd&scope=aws.cognito.signin.user.admin email openid phone profile";
-      window.location.replace(url);
+      window.location.replace(this.socialProviderUrl(provider));
     },
 
     challengePassword() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, { abortEarly: false })
+        .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("me/authPassChallenge", this.payload);
@@ -246,7 +244,7 @@ export default {
     verificationCode() {
       this.startLoading();
       this.validation()
-        .validate(this.payload, { abortEarly: false })
+        .validate(this.payload, {abortEarly: false})
         .then(async () => {
           this.resetError();
           await this.$store.dispatch("me/confirmSingUp", {
@@ -328,6 +326,10 @@ export default {
     resetResponse() {
       this.$store.commit("me/RESET_RESPONSE");
     },
+    socialProviderUrl(provider) {
+      let c = this.$config.cognito
+      return `${c.domain}/oauth2/authorize?identity_provider=${provider}&redirect_uri=${c.redirectUri}&response_type=CODE&client_id=${c.clientId}&scope=aws.cognito.signin.user.admin email openid phone profile`;
+    }
   },
 
   created() {
