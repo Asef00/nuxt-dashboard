@@ -76,6 +76,14 @@
               label="Summary"
               placeholder="Please enter summary"
             />
+
+            <FileUpload
+              :error="errorMessage('file')"
+              v-model="payload.file"
+              placeholder="Select a local file"
+            >
+              Uplaod File
+            </FileUpload>
           </div>
           <!-- switch samples -->
           <div class="col-md-1">
@@ -475,25 +483,34 @@ export default {
 
       table: {
         columns: [
-          {key: "id", label: "#", filterType: "number", sortable: true},
-          {key: "full_name", label: "Full Name"},
-          {key: "username", label: "Username"},
+          { key: "id", label: "#", filterType: "number", sortable: true },
+          { key: "full_name", label: "Full Name" },
+          { key: "username", label: "Username" },
           {
-            key: "status", label: "Status", filterKey: "enabled", filterType: "select",
+            key: "status",
+            label: "Status",
+            filterKey: "enabled",
+            filterType: "select",
             filterItems: [
-              {label: "All", value: "", selected: true},
-              {label: "Enable", value: "1"},
-              {label: "Disable", value: "0"},
+              { label: "All", value: "", selected: true },
+              { label: "Enable", value: "1" },
+              { label: "Disable", value: "0" },
             ],
           },
-          {key: "roles", label: "Roles", filterType: "multiselect",filterKey: "roles,with,id", filterItems: []},
+          {
+            key: "roles",
+            label: "Roles",
+            filterType: "multiselect",
+            filterKey: "roles,with,id",
+            filterItems: [],
+          },
           {
             key: "created_at",
             label: "Created At",
             filterType: "date",
-            sortable: true
+            sortable: true,
           },
-          {key: "updated_at", label: "Updated At"},
+          { key: "updated_at", label: "Updated At" },
           {
             key: "action",
             label: '<img src="/img/gear.svg" alt="" />',
@@ -531,8 +548,7 @@ export default {
             return data;
           },
           //REQUIRED
-          rowClass() {
-          },
+          rowClass() {},
         },
         searchKeys: ["name", "family_name", "username"],
       },

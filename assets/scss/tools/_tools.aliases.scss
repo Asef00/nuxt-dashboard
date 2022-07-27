@@ -84,6 +84,10 @@ $global-line-height: 24px;
   border-radius: 3px;
   border: solid 1px #e1e0ea;
 }
+@mixin input-outline {
+  border-radius: 3px;
+  outline: solid 1px #e1e0ea;
+}
 @mixin input-transition {
   transition: $input-transition;
 }
