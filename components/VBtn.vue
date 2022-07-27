@@ -5,7 +5,7 @@
     :class="['c-btn', btnClass, sizeClass, { 'is-disabled': isDisabled }]"
     :to="to"
   >
-    <LoaderDots :color="colorLoader" v-if="loader"></LoaderDots>
+    <LoaderDots :color="colorLoader" v-if="loader" />
     <slot v-else />
   </NuxtLink>
 
@@ -17,7 +17,7 @@
     :type="type"
     :class="['c-btn', btnClass, sizeClass]"
   >
-    <LoaderDots :color="colorLoader" v-if="loader"></LoaderDots>
+    <LoaderDots :color="colorLoader" v-if="loader" />
     <slot v-else />
   </button>
 </template>

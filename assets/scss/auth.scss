@@ -1,128 +1,126 @@
-body {
-  background-color: #4f299a !important;
+.o-page--login {
+  height: 100vh;
+  @include flex-center;
+  background-color: #f9f7fd;
 }
 
-.wrapper {
+.c-login {
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+  padding: 1.87em;
   background-color: #fff;
-  border-radius: 4px;
-  box-shadow: 4px 4px 20px #cbced1, -4px -4px 20px #cbced1;
+  border-radius: 5px;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
 }
 
-.wrapper .form-field input {
+.c-login__title {
+  @include font-size(24px);
+  text-align: center;
+  margin-bottom: 1.25em;
+}
+
+.c-login__input {
   height: 45px;
   width: 100%;
-  display: block;
-  border: none;
-  outline: none;
-  background: none;
-  font-size: 16px;
-  color: #000;
-  padding: 10px 15px 10px 10px;
-}
-
-.wrapper .form-field input::placeholder {
-  color: $placeholder-color;
-  font-size: 14px;
-}
-
-.wrapper .form-field {
-  padding-left: 12px;
-  margin-bottom: 10px;
-  border-radius: 3px;
-  background: #f7f6f9;
-}
-
-.wrapper .btn {
-  box-shadow: none;
-  width: 100%;
-  height: 40px;
-  color: #fff;
-  letter-spacing: 1.3px;
+  display: flex;
   position: relative;
-}
-
-.wrapper .btn-login {
-  background-color: #564ec1;
-  border: 1px solid #564ec1;
+  margin-bottom: 10px;
+  transition-property: box-shadow, border, outline;
+  transition-duration: 0.2s;
+  background-color: #f7f6f9;
   border-radius: 3px;
-  font-size: 14px;
+
+  &:focus-within {
+    outline: 1px solid $primary-color;
+    box-shadow: 0 0 0 0.25rem rgb(86 78 193 / 25%);
+  }
+
+  &.is-invalid {
+    outline: 1px solid $danger-color;
+    @include input-invalid;
+
+    &:focus-within {
+      @include input-focus--invalid;
+    }
+  }
+
+  input {
+    flex: 1;
+    border: 0;
+    background-color: transparent;
+
+    &:focus {
+      outline: 0;
+    }
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:focus {
+      box-shadow: 0 0 0 50px #f7f6f9 inset; /*your box-shadow*/
+      -webkit-text-fill-color: #333;
+    }
+  }
 }
 
-.wrapper .btn-social {
-  background-color: #fff;
-  @include border;
+.c-login__input-icon {
+  @include flex-inline-center;
+  height: 45px;
+  width: 45px;
+  background-color: #f7f6f9;
+  border-radius: 3px 0 0 3px;
+}
+
+.c-login__forget {
+  display: block;
+  margin: 12px 0 30px;
+  text-align: right;
+  color: $primary-color;
+  @include font-size(14px);
+  text-transform: capitalize;
+}
+
+.c-login__method {
+  @include flex-start;
   height: 40px;
+  padding: 0;
+  margin-bottom: 10px;
+  background-color: transparent;
   border-radius: 3px;
+  border: solid 1px #e5e5e5;
+  text-align: left;
+  @include font-size(14px);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
+.c-icon {
+  $spacing: 0.5em;
+  @include flex-center;
+  height: 100%;
+  padding: 0 $spacing;
+  margin-right: $spacing;
+  @include font-size(18px);
+  border-right: 1px solid #e5e5e5;
 
-.wrapper .btn-social:hover {
+  &__google {
+    color: #f34a38;
+  }
+  &__facebook {
+    color: #3b5998;
+  }
+
+  svg {
+    width: 18px !important;
+  }
+}
+
+.c-login__hint {
+  @include font-size(14px);
+}
+
+.c-login__link {
+  color: $primary-color;
   cursor: pointer;
-}
-
-.wrapper .btn-social i {
-  float: left;
-  border-right: 1px solid #e3e3e3;
-}
-
-.btn-social span {
-  font-size: 15px;
-  color: #5a5959;
-  margin: 9px 15px;
-  display: inline-block;
-}
-
-.wrapper .btn-social .g-plus {
-  color: #f34a38;
-  padding: 5px 5px;
-  font-size: 20px;
-}
-
-.wrapper .btn-social .facebook {
-  color: #3b5998;
-  padding: 5px 11px;
-  font-size: 20px;
-}
-
-.wrapper .btn-login:hover {
-  background-color: #4f299a;
-}
-
-.wrapper a {
-  text-decoration: none;
-  font-size: 0.8rem;
-  color: #564ec1;
-}
-
-.wrapper a:hover {
-  color: #4f299a;
-}
-
-.member-login {
-  font-size: 24px;
-  font-weight: 600;
-  color: #2e2e33;
-  padding-top: 34px;
-  text-align: center !important;
-}
-
-.invalid-input {
-  border: 1px solid $danger-color;
-}
-
-.invalid-message {
-  color: $danger-color;
-  font-size: 13px;
-  margin-bottom: 7px;
-  margin-top: -4px;
-}
-
-.alert {
-  font-size: 13px !important;
-}
-.text-normal{
-  font-size: 13px;
-}
-.text-center{
-  text-align: center !important;
 }

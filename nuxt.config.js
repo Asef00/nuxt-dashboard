@@ -4,15 +4,15 @@ export default {
   head: {
     title: "Dashboard",
     meta: [
-      { charset: "utf-8" },
+      {charset: "utf-8"},
       {
         name: "viewport",
         content: "width=device-width, initial-scale=1, maximum-scale=1",
       },
-      { hid: "description", name: "description", content: "" },
-      { name: "format-detection", content: "telephone=no" },
+      {hid: "description", name: "description", content: ""},
+      {name: "format-detection", content: "telephone=no"},
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    link: [{rel: "icon", type: "image/x-icon", href: "/favicon.ico"}],
   },
 
   //scss variables & mixins
@@ -32,7 +32,7 @@ export default {
   plugins: [
     "~/plugins/mixin",
     "~/plugins/directives",
-    { src: "~/plugins/jsonEditor", mode: "client" },
+    {src: "~/plugins/jsonEditor", mode: "client"},
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -84,7 +84,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    extend(config, { isDev, isClient }) {
+    extend(config, {isDev, isClient}) {
       config.resolve.alias["vue"] = "vue/dist/vue.common";
     },
   },
@@ -109,10 +109,10 @@ export default {
           maxAge: 60 * 60 * 24 * 30,
         },
         endpoints: {
-          login: { url: "/auth/token", method: "post" },
-          refresh: { url: "/auth/token", method: "post" },
-          user: { url: "/auth/person?with=products", method: "get" },
-          logout: { url: "/auth/token/revoke", method: "post" },
+          login: {url: "/auth/token", method: "post"},
+          refresh: {url: "/auth/token", method: "post"},
+          user: {url: "/auth/person?with=products", method: "get"},
+          logout: {url: "/auth/token/revoke", method: "post"},
         },
       },
     },
@@ -152,4 +152,11 @@ export default {
     rtl: false,
     transition: "Vue-Toastification__fade",
   },
+  publicRuntimeConfig: {
+    cognito: {
+      domain: 'https://realtyna.auth.us-east-1.amazoncognito.com',
+      clientId: '1397vrlg8fap3him44fsafk5pd',
+      redirectUri: 'https://dashboard.alanb.realtyna.info/'
+    }
+  }
 };

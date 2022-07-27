@@ -1,41 +1,38 @@
 <template>
   <div>
-    <div
-      :class="[
-        $parent.hasError(keyValidation) ? 'invalid-input' : '',
-        'form-field',
-        'd-flex ',
-        'align-items-center',
-      ]"
-    >
-      <span class="icon"><fa :icon="icon" /></span>
+    <div :class="['c-login__input', { 'is-invalid': hasError() }]">
+      <span class="c-login__input-icon">
+        <fa :icon="icon" />
+      </span>
       <input
-        @keyup="$parent.validate(keyValidation)"
-        @blur="$parent.validate(keyValidation)"
-        @keydown="$parent.validate(keyValidation)"
+        @keyup="$emit('validation')"
+        @blur="$emit('validation')"
+        @keydown="$emit('validation')"
         @input="$emit('input', $event.target.value)"
         :value="value"
         :type="type"
-        :name="keyValidation"
+        :name="name"
         :placeholder="label"
       />
     </div>
-    <div class="invalid-message" v-if="$parent.hasError(keyValidation)">
-      {{ $parent.errorMessage(keyValidation) }}
-    </div>
+    <div v-if="hasError()" class="c-form__error">{{ error }}</div>
   </div>
 </template>
 
 <script>
 export default {
   name: "VInput",
+
   props: {
     value: [String, Number],
+    name: {
+      type: String,
+      default: "",
+    },
     type: {
       type: String,
       default: "text",
     },
-    keyValidation: String,
     icon: {
       type: [Object, Array],
       required: true,
@@ -44,14 +41,16 @@ export default {
       type: String,
       required: true,
     },
+    error: {
+      type: String,
+      default: "",
+    },
   },
-  data() {
-    return {};
+
+  methods: {
+    hasError() {
+      return this.error !== "";
+    },
   },
-  methods: {},
 };
 </script>
-
-<style scoped lang="scss">
-@import "assets/scss/auth.scss";
-</style>

@@ -1,113 +1,118 @@
 <template>
-  <div class="container pt-5">
-    <div class="row justify-content-center">
-      <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-        <div v-if="show.singIn" class="wrapper pb-3 pr-2 pl-2">
-          <div class="member-login">Member Login</div>
-          <form class="p-4" @submit.prevent="signIn">
-            <VInput
-              v-model="payload.email"
-              key-validation="email"
-              label="Email"
-              type="email"
-              :icon="['far', 'envelope']"
-            />
-            <VInput
-              v-model="payload.password"
-              key-validation="password"
-              type="password"
-              label="Password"
-              :icon="['fas', 'unlock-keyhole']"
-            />
-            <div class="text-right fs-6">
-              <NuxtLink to="/auth/forget-password">Forget password?</NuxtLink>
-            </div>
-            <VButton label="LOGIN"/>
-          </form>
-          <div class="p-3">
-            <div v-if="false" class="text-center fs-6 mb-3">
-              Not a member?<a href="#"> Sign UP now</a>
-            </div>
-            <div class="mt-4 btn-social" @click="continueWithGoogle">
-              <a class="mb-3" href="#!" role="button">
-                <i class="g-plus">
-                  <fa :icon="['fab', 'google-plus-g']"/>
-                </i>
-                <span class="text-center"> Continue with Google </span>
-              </a>
-            </div>
-            <div class="mt-2 btn-social">
-              <a class="mb-3" href="#!" role="button">
-                <i class="facebook">
-                  <fa :icon="['fab', 'facebook-f']"/>
-                </i>
-                <span class="text-center"> Continue with Facebook </span>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div v-if="show.changePassword" class="wrapper pb-3 pr-2 pl-2">
-          <div class="member-login">Change Password</div>
-          <form class="p-4" @submit.prevent="challengePassword">
-            <VInput
-              v-model="payload.password"
-              key-validation="password"
-              label="Password"
-              type="password"
-              :icon="['fas', 'unlock-keyhole']"
-            ></VInput>
-            <VInput
-              v-model="payload.password_confirmation"
-              key-validation="password_confirmation"
-              label="Password Confirmation"
-              type="password"
-              :icon="['fas', 'unlock-keyhole']"
-            ></VInput>
-            <VButton label="SEND"/>
-          </form>
-        </div>
-        <div v-if="show.verificationCode" class="wrapper pb-3 pr-2 pl-2">
-          <div class="member-login">Verify Code</div>
+  <div v-if="show.singIn" class="c-login">
+    <h1 class="c-login__title">Member Login</h1>
 
-          <form class="p-4" @submit.prevent="verificationCode">
-            <div class="text-normal mb-2">
-              We have sent a code by email to
-              <strong>{{ payload.email }}</strong
-              >. Enter it below to confirm your account.
-            </div>
-            <VInput
-              v-model="payload.code"
-              key-validation="code"
-              label="Code"
-              :icon="['fas', 'lock']"
-            ></VInput>
-            <VButton label="CONFIRM ACCOUNT"/>
-            <div class="text-center pt-4 fs-6">
-              <span class="text-normal">Didn't receive a code?</span>
-              <a
-                href="!#"
-                role="button"
-                @click.prevent="resendVerificationCode"
-              >
-                Resend it</a
-              >
-            </div>
-          </form>
-        </div>
+    <form @submit.prevent="signIn">
+      <VInput
+        v-model="payload.email"
+        @validation="validate('email')"
+        :error="errorMessage('email')"
+        :icon="['far', 'envelope']"
+        name="email"
+        label="Email"
+        type="email"
+      />
+      <VInput
+        v-model="payload.password"
+        @validation="validate('password')"
+        :error="errorMessage('password')"
+        :icon="['fas', 'unlock-keyhole']"
+        name="password"
+        type="password"
+        label="Password"
+      />
+
+      <NuxtLink class="c-login__forget" to="/auth/forget-password">
+        Forget password?
+      </NuxtLink>
+
+      <VBtn class="c-btn--block" :loader="loaderRequest">LOGIN</VBtn>
+    </form>
+
+    <button class="c-login__method" @click="continueWithProviders('Google')">
+      <div class="c-icon">
+        <fa class="c-icon__google" :icon="['fab', 'google']"/>
       </div>
-    </div>
+      <span class="u-text-color">Continue with Google</span>
+    </button>
+    <button class="c-login__method" disabled @click="continueWithProviders('')">
+      <div class="c-icon">
+        <fa class="c-icon__facebook" :icon="['fab', 'facebook-f']"/>
+      </div>
+      <span class="u-text-color">Continue with Facebook</span>
+    </button>
+    <button class="c-login__method" disabled @click="continueWithProviders('')">
+      <div class="c-icon">
+        <fa class="c-icon__apple" :icon="['fab', 'apple']"/>
+      </div>
+      <span class="u-text-color">Continue with Apple</span>
+    </button>
+  </div>
+
+  <div v-else-if="show.changePassword" class="c-login">
+    <h1 class="c-login__title">Change Password</h1>
+    <form @submit.prevent="challengePassword">
+      <div class="c-login__hint mb-1">Please enter your new password below.</div>
+      <VInput
+        v-model="payload.password"
+        @validation="validate('password')"
+        :error="errorMessage('password')"
+        :icon="['fas', 'unlock-keyhole']"
+        name="password"
+        label="Password"
+        type="password"
+      />
+      <VInput
+        v-model="payload.password_confirmation"
+        @validation="validate('password_confirmation')"
+        :error="errorMessage('password_confirmation')"
+        :icon="['fas', 'unlock-keyhole']"
+        name="password_confirmation"
+        label="Password Confirmation"
+        type="password"
+      />
+      <VBtn class="c-btn--block mb-0" :loader="loaderRequest">SEND</VBtn>
+    </form>
+  </div>
+
+  <div v-else-if="show.verificationCode" class="c-login">
+    <h1 class="c-login__title">Verify Code</h1>
+    <form @submit.prevent="verificationCode">
+      <div class="c-login__hint mb-1">
+        We have sent a code by email to
+        <strong>{{ payload.email }}</strong
+        >. Enter it below to confirm your account.
+      </div>
+      <VInput
+        v-model="payload.code"
+        @validation="validate('code')"
+        :error="errorMessage('code')"
+        :icon="['fas', 'lock']"
+        name="code"
+        label="Code"
+      />
+      <VBtn class="c-btn--block" :loader="loaderRequest">CONFIRM ACCOUNT</VBtn>
+      <div class="c-login__hint">
+        Didn't receive a code?
+        <span class="c-login__link" @click="resendVerificationCode">
+          Resend it
+        </span>
+      </div>
+    </form>
   </div>
 </template>
 
 <script>
 import * as Yup from "yup";
 import VInput from "@/components/auth/VInput";
-import VButton from "@/components/auth/VButton";
 
 export default {
   name: "AuthIndex",
-  components: {VInput, VButton},
+
+  components: {VInput},
+
   layout: "auth",
+
   data() {
     return {
       show: {
@@ -127,6 +132,7 @@ export default {
       },
     };
   },
+
   methods: {
     signIn() {
       this.startLoading();
@@ -164,7 +170,7 @@ export default {
                 this.show.singIn = false;
                 this.show.verificationCode = true;
               }
-              this.handleError(err)
+              this.handleError(err);
             });
         })
         .catch((err) => {
@@ -172,6 +178,7 @@ export default {
           this.stopLoading();
         });
     },
+
     tokenWithCode() {
       let code = this.$route.query.code;
       if (code) {
@@ -205,12 +212,12 @@ export default {
           });
       }
     },
-    continueWithGoogle() {
+
+    continueWithProviders(provider) {
       this.startLoading();
-      let url =
-        "https://realtyna.auth.us-east-1.amazoncognito.com/oauth2/authorize?identity_provider=Google&redirect_uri=http://localhost:3000/&response_type=CODE&client_id=1397vrlg8fap3him44fsafk5pd&scope=aws.cognito.signin.user.admin email openid phone profile";
-      window.location.replace(url);
+      window.location.replace(this.socialProviderUrl(provider));
     },
+
     challengePassword() {
       this.startLoading();
       this.validation()
@@ -233,6 +240,7 @@ export default {
           this.stopLoading();
         });
     },
+
     verificationCode() {
       this.startLoading();
       this.validation()
@@ -258,6 +266,7 @@ export default {
           this.stopLoading();
         });
     },
+
     async resendVerificationCode() {
       this.startLoading();
       this.resetError();
@@ -276,6 +285,7 @@ export default {
         this.resetResponse();
       }
     },
+
     validation(roles = {}) {
       let changePasswordRoles = {
         password: Yup.string().required(),
@@ -302,6 +312,7 @@ export default {
         return Yup.object(roles);
       }
     },
+
     resetError() {
       this.$store.commit("me/RESET_ERROR");
       this.errors = {
@@ -311,18 +322,22 @@ export default {
         password_confirmation: "",
       };
     },
+
     resetResponse() {
       this.$store.commit("me/RESET_RESPONSE");
     },
+    socialProviderUrl(provider) {
+      let c = this.$config.cognito
+      return `${c.domain}/oauth2/authorize?identity_provider=${provider}&redirect_uri=${c.redirectUri}&response_type=CODE&client_id=${c.clientId}&scope=aws.cognito.signin.user.admin email openid phone profile`;
+    }
   },
+
   created() {
     this.resetError();
   },
+
   mounted() {
     this.tokenWithCode();
   },
 };
 </script>
-
-<style scoped lang="scss" src="~/assets/scss/auth.scss">
-</style>
