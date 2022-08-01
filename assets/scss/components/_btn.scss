@@ -46,6 +46,10 @@ $btn-bg: #f4f4f5;
     user-select: none;
   }
 
+  &.has-loader {
+    color: transparent;
+  }
+
   &--primary {
     @include color-modifier($primary-color, #fff);
   }

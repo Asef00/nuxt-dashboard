@@ -2,11 +2,16 @@
   <!-- if "to" provided -->
   <NuxtLink
     v-if="to"
-    :class="['c-btn', btnClass, sizeClass, { 'is-disabled': isDisabled }]"
+    :class="[
+      'c-btn',
+      btnClass,
+      sizeClass,
+      { 'is-disabled': isDisabled, 'has-loader': loader },
+    ]"
     :to="to"
   >
     <LoaderDots :color="colorLoader" v-if="loader" />
-    <slot v-else />
+    <slot />
   </NuxtLink>
 
   <!-- else -->
@@ -15,10 +20,10 @@
     @click="$emit('action')"
     :disabled="isDisabled"
     :type="type"
-    :class="['c-btn', btnClass, sizeClass]"
+    :class="['c-btn', btnClass, sizeClass, { 'has-loader': loader }]"
   >
     <LoaderDots :color="colorLoader" v-if="loader" />
-    <slot v-else />
+    <slot />
   </button>
 </template>
 
@@ -69,12 +74,7 @@ export default {
       default: "md",
       validator(value) {
         // must match one of these strings
-        return [
-          "xs",
-          "sm",
-          "md",
-          "lg",
-        ].includes(value);
+        return ["xs", "sm", "md", "lg"].includes(value);
       },
     },
   },
